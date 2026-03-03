@@ -353,7 +353,10 @@
 
     .footer-right a:hover { color: var(--text-mid); }
 
-    /* ─── ANIMATIONS ─── */
+    .section-label--coming-soon {
+      margin-top: 40px;
+    }
+
     .fade-up {
       opacity: 0;
       transform: translateY(18px);
@@ -412,11 +415,11 @@
 
   <!-- TOOLS -->
   <main class="tools-section">
-    <p class="section-label fade-up delay-3">Available tools</p>
+    <p class="section-label fade-up delay-3">Available now</p>
     <div class="card-grid">
 
-      <!-- Customer Explorer — coming soon -->
-      <div class="card card--coming-soon fade-up delay-4" aria-disabled="true">
+      <!-- Customer Explorer — LIVE -->
+      <a href="/customer-explorer/explorer.html" class="card fade-up delay-4">
         <div class="card-icon">🧭</div>
         <div class="card-header">
           <span class="card-title">Customer Explorer</span>
@@ -427,23 +430,8 @@
           </span>
         </div>
         <p class="card-description">What does Solace mean for someone in your role, in your industry? Find out how people like you are using it.</p>
-        <span class="card-badge coming-soon"><span class="badge-dot"></span>Coming soon</span>
-      </div>
-
-      <!-- Middleware Explorer — coming soon -->
-      <div class="card card--coming-soon fade-up delay-4" aria-disabled="true">
-        <div class="card-icon">🔌</div>
-        <div class="card-header">
-          <span class="card-title">Middleware Explorer</span>
-          <span class="card-arrow">
-            <svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M2 12L12 2M12 2H5M12 2V9" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </span>
-        </div>
-        <p class="card-description">What is middleware, and why should you care? A plain-language guide to the layer that keeps modern systems talking to each other.</p>
-        <span class="card-badge coming-soon"><span class="badge-dot"></span>Coming soon</span>
-      </div>
+        <span class="card-badge live"><span class="badge-dot"></span>Live</span>
+      </a>
 
       <!-- Solace in Action — live -->
       <a href="https://solacese.github.io/demos/" target="_blank" rel="noopener" class="card fade-up delay-4">
@@ -459,6 +447,26 @@
         <p class="card-description">Skip the slides. Watch Solace doing real things — live demos across industries and use cases, ready when you are.</p>
         <span class="card-badge live"><span class="badge-dot"></span>Live</span>
       </a>
+
+    </div>
+
+    <p class="section-label section-label--coming-soon fade-up delay-4">Coming soon</p>
+    <div class="card-grid">
+
+      <!-- Middleware Explorer — coming soon -->
+      <div class="card card--coming-soon fade-up delay-4" aria-disabled="true">
+        <div class="card-icon">🔌</div>
+        <div class="card-header">
+          <span class="card-title">Middleware Explorer</span>
+          <span class="card-arrow">
+            <svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M2 12L12 2M12 2H5M12 2V9" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+        </div>
+        <p class="card-description">What is middleware, and why should you care? A plain-language guide to the layer that keeps modern systems talking to each other.</p>
+        <span class="card-badge coming-soon"><span class="badge-dot"></span>Coming soon</span>
+      </div>
 
     </div>
   </main>
