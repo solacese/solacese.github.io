@@ -1,9 +1,486 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Hello World Page</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Solace SE — Resources</title>
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="dd8957d7-d9d6-460d-83d8-5f1d7320d0ab"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green: #00C895;
+      --lime: #B7FE86;
+      --navy: #093B5E;
+      --navy-deep: #061f35;
+      --navy-mid: #0d4d78;
+      --white: #FFFFFF;
+      --grey-bg: #F5F7FA;
+      --text-dark: #1A1A2E;
+      --text-mid: #6B7280;
+      --text-light: #9CA3AF;
+      --card-border: #E5E7EB;
+      --font: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font);
+      background: var(--grey-bg);
+      color: var(--text-dark);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── HEADER ─── */
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--card-border);
+      padding: 0 2rem;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .header-logo img {
+      height: 26px;
+    }
+
+    .header-nav-link {
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--text-light);
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      transition: color 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav-link:hover { color: var(--text-mid); }
+
+    .header-nav-link svg {
+      width: 11px; height: 11px;
+      opacity: 0.6;
+    }
+
+    /* ─── HERO ─── */
+    .hero {
+      background: var(--white);
+      padding: 130px 2rem 80px;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 40px; right: -60px;
+      width: 480px; height: 480px;
+      background: radial-gradient(circle, rgba(0, 200, 149, 0.07) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -60px; left: 10%;
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, rgba(183, 254, 134, 0.1) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      max-width: 860px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #00a37a;
+      margin-bottom: 20px;
+      padding: 5px 12px;
+      border: 1px solid rgba(0, 200, 149, 0.3);
+      border-radius: 100px;
+      background: rgba(0, 200, 149, 0.07);
+    }
+
+    .hero-eyebrow span.dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--green);
+      display: inline-block;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.8); }
+    }
+
+    .hero h1 {
+      font-size: clamp(2.2rem, 5vw, 3.4rem);
+      font-weight: 800;
+      color: var(--navy);
+      line-height: 1.12;
+      letter-spacing: -0.03em;
+      margin-bottom: 18px;
+    }
+
+    .hero h1 em {
+      font-style: normal;
+      color: var(--green);
+    }
+
+    .hero-sub {
+      font-size: 1.05rem;
+      font-weight: 400;
+      color: var(--text-mid);
+      line-height: 1.6;
+      max-width: 520px;
+    }
+
+    /* ─── TOOLS SECTION ─── */
+    .tools-section {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 64px 2rem 80px;
+    }
+
+    .section-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-light);
+      margin-bottom: 24px;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    /* ─── CARD ─── */
+    .card {
+      background: var(--white);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      text-decoration: none;
+      color: inherit;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+
+    .card:not(.card--coming-soon):hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 32px rgba(9, 59, 94, 0.1);
+      border-color: var(--green);
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--green), var(--lime));
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+
+    .card:not(.card--coming-soon):hover::before {
+      opacity: 1;
+    }
+
+    .card--coming-soon {
+      opacity: 0.65;
+      cursor: default;
+    }
+
+    .card-icon {
+      font-size: 1.6rem;
+      line-height: 1;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .card-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      letter-spacing: -0.01em;
+    }
+
+    .card-arrow {
+      flex-shrink: 0;
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: var(--grey-bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .card:not(.card--coming-soon):hover .card-arrow {
+      background: var(--green);
+      transform: translate(2px, -2px);
+    }
+
+    .card:not(.card--coming-soon):hover .card-arrow svg path {
+      stroke: white;
+    }
+
+    .card-arrow svg {
+      width: 12px; height: 12px;
+    }
+
+    .card-arrow svg path {
+      stroke: var(--text-mid);
+      transition: stroke 0.2s;
+    }
+
+    .card-description {
+      font-size: 0.875rem;
+      color: var(--text-mid);
+      line-height: 1.55;
+      flex-grow: 1;
+    }
+
+    .card-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border-radius: 100px;
+      padding: 3px 10px;
+      width: fit-content;
+    }
+
+    .card-badge.live {
+      background: rgba(0, 200, 149, 0.1);
+      color: #00a37a;
+      border: 1px solid rgba(0, 200, 149, 0.25);
+    }
+
+    .card-badge.coming-soon {
+      background: rgba(107, 114, 128, 0.08);
+      color: var(--text-mid);
+      border: 1px solid rgba(107, 114, 128, 0.2);
+    }
+
+    .badge-dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      border-top: 1px solid var(--card-border);
+      padding: 28px 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      max-width: 100%;
+    }
+
+    .footer-left {
+      font-size: 0.8rem;
+      color: var(--text-light);
+    }
+
+    .footer-left a {
+      color: var(--text-mid);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .footer-left a:hover { color: var(--text-dark); }
+
+    .footer-right a {
+      font-size: 0.78rem;
+      color: var(--text-light);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      transition: color 0.2s;
+    }
+
+    .footer-right a:hover { color: var(--text-mid); }
+
+    /* ─── ANIMATIONS ─── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(18px);
+      animation: fadeUp 0.55s ease forwards;
+    }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.2s; }
+    .delay-3 { animation-delay: 0.32s; }
+    .delay-4 { animation-delay: 0.44s; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 600px) {
+      .hero { padding: 110px 1.25rem 64px; }
+      .tools-section { padding: 48px 1.25rem 64px; }
+      header { padding: 0 1.25rem; }
+      footer { padding: 24px 1.25rem; flex-direction: column; align-items: flex-start; }
+      .card-grid { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
-    <h1>Hello, World!</h1>
+
+  <!-- HEADER -->
+  <header>
+    <a href="https://solace.com" target="_blank" rel="noopener" class="header-logo">
+      <img src="https://solace.com/wp-content/uploads/2025/07/solace-logo.svg" alt="Solace" />
+    </a>
+    <a href="/pitch-hub/" class="header-nav-link">
+      Solace Tools
+      <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M2.5 9.5L9.5 2.5M9.5 2.5H4.5M9.5 2.5V7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-eyebrow fade-up">
+        <span class="dot"></span>
+        Solace SE Team
+      </div>
+      <h1 class="fade-up delay-1">
+        Some things are easier<br />to <em>explore than explain</em>
+      </h1>
+      <p class="hero-sub fade-up delay-2">
+        A set of interactive tools to help you make sense of modern integration — what it is, why it matters, and what it looks like in practice.
+      </p>
+    </div>
+  </section>
+
+  <!-- TOOLS -->
+  <main class="tools-section">
+    <p class="section-label fade-up delay-3">Available tools</p>
+    <div class="card-grid">
+
+      <!-- Customer Explorer — coming soon -->
+      <div class="card card--coming-soon fade-up delay-4" aria-disabled="true">
+        <div class="card-icon">🧭</div>
+        <div class="card-header">
+          <span class="card-title">Customer Explorer</span>
+          <span class="card-arrow">
+            <svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M2 12L12 2M12 2H5M12 2V9" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+        </div>
+        <p class="card-description">What does Solace mean for someone in your role, in your industry? Find out how people like you are using it.</p>
+        <span class="card-badge coming-soon"><span class="badge-dot"></span>Coming soon</span>
+      </div>
+
+      <!-- Middleware Explorer — coming soon -->
+      <div class="card card--coming-soon fade-up delay-4" aria-disabled="true">
+        <div class="card-icon">🔌</div>
+        <div class="card-header">
+          <span class="card-title">Middleware Explorer</span>
+          <span class="card-arrow">
+            <svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M2 12L12 2M12 2H5M12 2V9" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+        </div>
+        <p class="card-description">What is middleware, and why should you care? A plain-language guide to the layer that keeps modern systems talking to each other.</p>
+        <span class="card-badge coming-soon"><span class="badge-dot"></span>Coming soon</span>
+      </div>
+
+      <!-- Solace in Action — live -->
+      <a href="https://solacese.github.io/demos/" target="_blank" rel="noopener" class="card fade-up delay-4">
+        <div class="card-icon">▶️</div>
+        <div class="card-header">
+          <span class="card-title">See Solace in Action</span>
+          <span class="card-arrow">
+            <svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M2 12L12 2M12 2H5M12 2V9" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+        </div>
+        <p class="card-description">Skip the slides. Watch Solace doing real things — live demos across industries and use cases, ready when you are.</p>
+        <span class="card-badge live"><span class="badge-dot"></span>Live</span>
+      </a>
+
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <p class="footer-left">
+      Built by the <a href="https://solace.com" target="_blank" rel="noopener">Solace</a> SE team &nbsp;·&nbsp; &copy; <span id="year"></span>
+    </p>
+    <div class="footer-right">
+      <a href="/pitch-hub/">
+        Solace team? Access internal tools
+        <svg width="11" height="11" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M2.5 9.5L9.5 2.5M9.5 2.5H4.5M9.5 2.5V7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+
 </body>
 </html>
