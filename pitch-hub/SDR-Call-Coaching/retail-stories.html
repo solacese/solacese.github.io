@@ -1,0 +1,1485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Industry Stories: Retail — Solace SDR Playbook</title>
+<script defer src="https://cloud.umami.is/script.js" data-website-id="dd8957d7-d9d6-460d-83d8-5f1d7320d0ab"></script>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --accent: #00AD7C;
+    --accent-bright: #00C895;
+    --accent-soft: rgba(0, 173, 124, 0.07);
+    --accent-border: rgba(0, 173, 124, 0.2);
+    --blue: #2F81F7;
+    --blue-soft: rgba(47, 129, 247, 0.07);
+    --blue-border: rgba(47, 129, 247, 0.2);
+    --amber: #D29922;
+    --amber-soft: rgba(210, 153, 34, 0.07);
+    --amber-border: rgba(210, 153, 34, 0.2);
+    --purple: #8957E5;
+    --purple-soft: rgba(137, 87, 229, 0.07);
+    --purple-border: rgba(137, 87, 229, 0.2);
+    --red: #CF222E;
+    --red-soft: rgba(207, 34, 46, 0.07);
+    --red-border: rgba(207, 34, 46, 0.2);
+    --bg: #F6F8FA;
+    --bg-card: #FFFFFF;
+    --text: #1F2328;
+    --text-mid: #57606A;
+    --text-dim: #8B949E;
+    --border: #D0D7DE;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); }
+
+  .back-link {
+    display: inline-block;
+    padding: 1.25rem 2rem 0;
+    font-size: 0.85rem;
+    color: var(--text-mid);
+    text-decoration: none;
+  }
+  .back-link:hover { color: var(--accent); }
+
+  .hero {
+    background: var(--bg-card);
+    border-bottom: 1px solid var(--border);
+    padding: 1.5rem 2rem 2rem;
+  }
+  .hero .header-label {
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.5rem;
+  }
+  .hero h1 {
+    font-family: 'Fraunces', serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  .hero h1 .industry-icon { margin-right: 0.35rem; }
+  .hero p {
+    color: var(--text-mid);
+    font-size: 0.9rem;
+    max-width: 640px;
+    line-height: 1.5;
+  }
+
+  /* Stats bar */
+  .stats-bar {
+    display: flex;
+    gap: 2rem;
+    margin-top: 1.25rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+  }
+  .stat { text-align: center; }
+  .stat-number { font-family: 'Fraunces', serif; font-size: 1.3rem; font-weight: 700; color: var(--accent); }
+  .stat-label { font-size: 0.72rem; color: var(--text-dim); }
+
+  /* Filters */
+  .filters {
+    padding: 1rem 2rem;
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg-card);
+  }
+  .filter-group-label {
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    margin-right: 0.25rem;
+    font-weight: 500;
+  }
+  .filter-pill {
+    padding: 0.35rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.78rem;
+    font-family: 'DM Sans', sans-serif;
+    border: 1px solid var(--border);
+    background: var(--bg);
+    color: var(--text-mid);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .filter-pill:hover { border-color: var(--accent); color: var(--accent); }
+  .filter-pill.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+  .filter-break {
+    width: 100%;
+    height: 0;
+    border-top: 1px solid var(--border);
+    margin: 0.25rem 0;
+  }
+
+  .main { padding: 2rem; max-width: 900px; }
+
+  /* Sub-industry sections */
+  .sub-industry-section { margin-bottom: 2.5rem; }
+  .sub-industry-header {
+    font-family: 'Fraunces', serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin-bottom: 0.35rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .sub-industry-count {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.72rem;
+    color: var(--text-dim);
+    font-weight: 400;
+    background: var(--bg);
+    padding: 0.15rem 0.5rem;
+    border-radius: 10px;
+  }
+  .sub-industry-desc {
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    margin-bottom: 1rem;
+    line-height: 1.4;
+  }
+
+  /* Story cards */
+  .story-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 0.75rem;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  .story-card:hover { border-color: var(--accent-border); }
+
+  .story-card-header {
+    padding: 1rem 1.25rem;
+    cursor: pointer;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+  .story-card-header:hover { background: #FAFBFC; }
+
+  .story-badges {
+    display: flex;
+    gap: 0.35rem;
+    flex-shrink: 0;
+    flex-wrap: wrap;
+    width: 140px;
+  }
+  .story-badge {
+    font-size: 0.68rem;
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+  /* Persona badges */
+  .badge-cto { background: var(--blue-soft); color: var(--blue); border: 1px solid var(--blue-border); }
+  .badge-integration { background: var(--accent-soft); color: var(--accent); border: 1px solid var(--accent-border); }
+  .badge-lob { background: var(--amber-soft); color: var(--amber); border: 1px solid var(--amber-border); }
+  .badge-architect { background: var(--purple-soft); color: var(--purple); border: 1px solid var(--purple-border); }
+  /* Tag badges */
+  .badge-sap { background: rgba(0,0,0,0.04); color: #57606A; border: 1px solid rgba(0,0,0,0.1); font-size: 0.65rem; }
+  .badge-migration { background: var(--red-soft); color: var(--red); border: 1px solid var(--red-border); font-size: 0.65rem; }
+
+  .story-card-main { flex: 1; min-width: 0; }
+  .story-hook {
+    font-weight: 600;
+    font-size: 0.9rem;
+    line-height: 1.35;
+    margin-bottom: 0.25rem;
+  }
+  .story-outcome {
+    font-size: 0.82rem;
+    color: var(--text-mid);
+    line-height: 1.35;
+  }
+
+  .story-toggle {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-dim);
+    transition: transform 0.2s;
+    font-size: 0.8rem;
+  }
+  .story-card.open .story-toggle { transform: rotate(180deg); }
+
+  .story-card-body {
+    display: none;
+    padding: 0 1.25rem 1.25rem;
+    border-top: 1px solid var(--border);
+    margin: 0 1.25rem;
+    padding-top: 1rem;
+  }
+  .story-card.open .story-card-body { display: block; }
+
+  /* Persona tabs inside expanded card */
+  .persona-tabs {
+    display: flex;
+    gap: 0.35rem;
+    margin-bottom: 1rem;
+  }
+  .persona-tab {
+    padding: 0.3rem 0.65rem;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-family: 'DM Sans', sans-serif;
+    border: 1px solid var(--border);
+    background: var(--bg);
+    color: var(--text-mid);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .persona-tab:hover { border-color: var(--accent); }
+  .persona-tab.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+  .persona-content { display: none; }
+  .persona-content.active { display: block; }
+
+  .section-label {
+    display: inline-block;
+    font-size: 0.68rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    padding: 0.15rem 0.45rem;
+    border-radius: 3px;
+    margin-bottom: 0.5rem;
+  }
+  .section-label.hook { background: var(--accent-soft); color: var(--accent); border: 1px solid var(--accent-border); }
+  .section-label.outcome { background: var(--blue-soft); color: var(--blue); border: 1px solid var(--blue-border); }
+  .section-label.bridge { background: var(--amber-soft); color: var(--amber); border: 1px solid var(--amber-border); }
+  .section-label.context { background: var(--purple-soft); color: var(--purple); border: 1px solid var(--purple-border); }
+
+  .script-block {
+    margin-bottom: 1rem;
+  }
+  .script-text {
+    font-size: 0.85rem;
+    line-height: 1.55;
+    color: var(--text);
+    padding: 0.75rem;
+    background: var(--bg);
+    border-radius: 6px;
+    border-left: 3px solid var(--accent);
+  }
+  .script-text .highlight {
+    background: rgba(0, 173, 124, 0.1);
+    padding: 0.1rem 0.25rem;
+    border-radius: 3px;
+    font-weight: 500;
+  }
+
+  .context-block {
+    font-size: 0.8rem;
+    color: var(--text-mid);
+    line-height: 1.5;
+    padding: 0.75rem;
+    background: var(--bg);
+    border-radius: 6px;
+  }
+  .context-block strong { color: var(--text); }
+
+  .footer {
+    text-align: center;
+    padding: 2rem;
+    color: var(--text-dim);
+    font-size: 0.78rem;
+  }
+
+  @media (max-width: 640px) {
+    .hero { padding: 1.25rem; }
+    .main { padding: 1.25rem; }
+    .story-badges { width: auto; }
+    .story-card-header { flex-direction: column; gap: 0.5rem; }
+    .stats-bar { gap: 1rem; }
+    .filters { padding: 0.75rem 1.25rem; }
+  }
+
+  .filters {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+  }
+  .no-results {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: var(--text-dim);
+    font-size: 0.9rem;
+    display: none;
+  }
+
+  .industry-context {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 2rem;
+    overflow: hidden;
+  }
+  .industry-context-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.25rem;
+    cursor: pointer;
+    user-select: none;
+  }
+  .industry-context-header:hover { background: #FAFBFC; }
+  .industry-context-title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text);
+  }
+  .industry-context-toggle {
+    font-size: 1rem;
+    color: var(--text-dim);
+    transition: transform 0.2s;
+  }
+  .industry-context.open .industry-context-toggle { transform: rotate(180deg); }
+  .industry-context-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+  .industry-context.open .industry-context-body { max-height: 600px; }
+  .vp-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+    padding: 0 1.25rem 1.25rem;
+  }
+  @media (max-width: 640px) { .vp-grid { grid-template-columns: 1fr; } }
+  .vp-card {
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--bg);
+  }
+  .vp-label {
+    font-size: 0.6rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.25rem;
+  }
+  .vp-label.challenge { color: var(--amber); }
+  .vp-label.outcome { color: var(--accent); }
+  .vp-title {
+    font-weight: 600;
+    font-size: 0.85rem;
+    margin-bottom: 0.3rem;
+  }
+  .vp-text {
+    font-size: 0.78rem;
+    color: var(--text-mid);
+    line-height: 1.55;
+  }
+</style>
+</head>
+<body>
+
+<a href="index.html" class="back-link">&larr; Back to Playbook Hub</a>
+
+<div class="hero">
+  <div class="header-label">Solace SDR Playbook &mdash; Industry Stories</div>
+  <h1><span class="industry-icon">&#x1F6D2;</span> Retail</h1>
+  <p>Customer stories from retail accounts &mdash; organised by sub-industry, tagged for each persona. Pick the story closest to your prospect&rsquo;s world, then use the persona tabs to frame it for whoever you&rsquo;re talking to.</p>
+
+  <div class="stats-bar">
+    <div class="stat"><div class="stat-number">32</div><div class="stat-label">Stories</div></div>
+    <div class="stat"><div class="stat-number">6</div><div class="stat-label">Sub-industries</div></div>
+    <div class="stat"><div class="stat-number">4</div><div class="stat-label">Personas covered</div></div>
+  </div>
+</div>
+
+<div class="filters">
+  <span class="filter-group-label">Sub-industry:</span>
+  <button class="filter-pill active" onclick="filterStories('all', 'sub', this)">All</button>
+  <button class="filter-pill" onclick="filterStories('fashion', 'sub', this)">Fashion &amp; Apparel</button>
+  <button class="filter-pill" onclick="filterStories('general', 'sub', this)">General / Mass Market</button>
+  <button class="filter-pill" onclick="filterStories('grocery', 'sub', this)">Grocery</button>
+  <button class="filter-pill" onclick="filterStories('home', 'sub', this)">Home Improvement</button>
+  <button class="filter-pill" onclick="filterStories('luxury', 'sub', this)">Luxury &amp; Specialty</button>
+  <button class="filter-pill" onclick="filterStories('fnb', 'sub', this)">Restaurants &amp; F&amp;B</button>
+
+  <div class="filter-break"></div>
+
+  <span class="filter-group-label">Persona:</span>
+  <button class="filter-pill active" onclick="filterStories('all', 'persona', this)">All</button>
+  <button class="filter-pill" onclick="filterStories('cto', 'persona', this)">CTO / CIO</button>
+  <button class="filter-pill" onclick="filterStories('integration', 'persona', this)">Integration</button>
+  <button class="filter-pill" onclick="filterStories('lob', 'persona', this)">LOB / Business</button>
+  <button class="filter-pill" onclick="filterStories('architect', 'persona', this)">Architect</button>
+</div>
+
+<div class="main">
+
+<div class="industry-context">
+  <div class="industry-context-header" onclick="this.parentElement.classList.toggle('open')">
+    <span class="industry-context-title">&#x1F4A1; Why real-time data matters in Retail</span>
+    <span class="industry-context-toggle">&#x25BE;</span>
+  </div>
+  <div class="industry-context-body">
+    <div class="vp-grid">
+      <div class="vp-card">
+        <div class="vp-label challenge">Challenge</div>
+        <div class="vp-title">Omnichannel complexity</div>
+        <div class="vp-text">Customers expect consistent experiences across stores, web, mobile, and marketplaces &mdash; but inventory, pricing, and order data sits in disconnected systems with different update cycles.</div>
+      </div>
+      <div class="vp-card">
+        <div class="vp-label challenge">Challenge</div>
+        <div class="vp-title">Supply chain fragility</div>
+        <div class="vp-text">Demand signals arrive too late. Promotions, seasonal spikes, and stockouts cascade through the chain because ERP and warehouse systems run on batch cycles rather than real-time events.</div>
+      </div>
+      <div class="vp-card">
+        <div class="vp-label challenge">Challenge</div>
+        <div class="vp-title">Integration sprawl</div>
+        <div class="vp-text">Retail IT stacks accumulate middleware over time &mdash; different tools for POS, e-commerce, loyalty, WMS, and ERP. Each integration is bespoke, brittle, and expensive to change.</div>
+      </div>
+      <div class="vp-card">
+        <div class="vp-label outcome">How real-time helps</div>
+        <div class="vp-title">Events as the connective tissue</div>
+        <div class="vp-text">An event-driven backbone lets every system publish and subscribe to changes as they happen &mdash; an order placed, a shelf restocked, a price change applied &mdash; without waiting for batch windows or building point-to-point integrations. Inventory accuracy improves, customer experiences synchronise across channels, and new services connect in days instead of months.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="sub-industry-section" data-sub="fashion">
+<div class="sub-industry-header">Fashion & Apparel<span class="sub-industry-count">5 stories</span></div>
+<div class="sub-industry-desc">Omnichannel, loyalty, RFID/inventory, product launch events, platform consolidation</div>
+<div class="story-card" data-sub="fashion" data-personas="integration,cto,architect" id="r01">
+<div class="story-card-header" onclick="toggleStory('r01')">
+<div class="story-badges"><span class="story-badge badge-integration">Integration Leader</span>
+<span class="story-badge badge-cto">CTO / CIO</span>
+<span class="story-badge badge-architect">Architect</span>
+</div>
+<div class="story-card-main">
+<div class="story-hook">Europe's largest shoe retailer consolidated fragmented integration into a unified event mesh</div>
+<div class="story-outcome">4,700 stores across 30+ countries — from Lobster, Azure Service Bus, and Confluent Kafka to a single event-driven platform</div>
+</div>
+<div class="story-toggle">&#x25BE;</div>
+</div>
+<div class="story-card-body">
+<div class="persona-tabs"><button class="persona-tab active" onclick="switchPersona('r01', 'integration', this)">Integration Leader</button>
+<button class="persona-tab" onclick="switchPersona('r01', 'cto', this)">CTO / CIO</button>
+<button class="persona-tab" onclick="switchPersona('r01', 'architect', this)">Architect</button>
+</div>
+<div class="persona-content active" data-persona="integration" data-story="r01">
+<div class="script-block"><div class="section-label hook">Hook</div><div class="script-text">"One of our customers is Europe's largest shoe retailer — 4,700 stores, 30+ countries. Their integration landscape had three different platforms — an on-prem iPaaS, Azure Service Bus, and Kafka — and <span class="highlight">every new digital initiative was waiting in line for the integration team</span>."</div></div>
+<div class="script-block"><div class="section-label outcome">Outcome</div><div class="script-text">"They consolidated onto a single event mesh with reusable Event APIs. Now development teams <span class="highlight">self-serve through Event Portal</span> — the integration team governs, they don't bottleneck."</div></div>
+<div class="script-block"><div class="section-label bridge">Bridge</div><div class="script-text">"You're running a similar scale of stores. Is your integration team the enabler or the queue right now?"</div></div>
+</div>
+<div class="persona-content" data-persona="cto" data-story="r01">
+<div class="script-block"><div class="section-label hook">Hook</div><div class="script-text">"A €8.7B European footwear retailer was running three separate integration platforms. Their CTO realised they were <span class="highlight">spending more maintaining integrations than building new capabilities</span> — click & collect, D2C, real-time promotions were all stuck."</div></div>
+<div class="script-block"><div class="section-label outcome">Outcome</div><div class="script-text">"They unified onto one event-driven platform. Digital initiatives went from <span class="highlight">a 6-month queue to weeks</span> because integration was no longer the constraint."</div></div>
+<div class="script-block"><div class="section-label bridge">Bridge</div><div class="script-text">"When your leadership looks at the pace of digital change, is integration keeping up or holding things back?"</div></div>
+</div>
+<div class="persona-content" data-persona="architect" data-story="r01">
+<div class="script-block"><div class="section-label hook">Hook</div><div class="script-text">"A 4,700-store retailer was running Lobster iPaaS, Azure Service Bus, and Confluent Kafka — <span class="highlight">three different patterns with no unified governance</span>. Kafka was limited to the online shop domain with no routing or filtering."</div></div>
+<div class="script-block"><div class="section-label outcome">Outcome</div><div class="script-text">"They adopted an event mesh — single broker layer, dynamic topic routing, Event Portal for governance. <span class="highlight">Reusable Event APIs</span> replaced the point-to-point spaghetti across all three environments."</div></div>
+<div class="script-block"><div class="section-label bridge">Bridge</div><div class="script-text">"How many integration patterns are in play across your environment right now? Is there a consolidation conversation happening?"</div></div>
+</div>
+
+<div class="context-block" style="margin-top:0.75rem"><div class="section-label context">Context</div><strong>FACT:</strong> European footwear retailer, €8.7B revenue, 4,700+ stores, 30+ countries. Previous stack: Lobster iPaaS, Azure Service Bus, Confluent Kafka.<br><strong>FACT:</strong> Adopted EDA with Solace for omnichannel, supply chain, and digitalisation. Uses Event Portal for governance.<br><strong>FACT:</strong> Key use cases include eInvoicing, eBon, click & collect, D2C channels, real-time promotions.</div>
+</div>
+</div><div class="story-card" data-sub="fashion" data-personas="lob,integration,cto" id="r02">
+<div class="story-card-header" onclick="toggleStory('r02')">
+<div class="story-badges"><span class="story-badge badge-lob">LOB / Business</span>
+<span class="story-badge badge-integration">Integration Leader</span>
+<span class="story-badge badge-cto">CTO / CIO</span>
+<span class="story-badge badge-sap">SAP</span>
+</div>
+<div class="story-card-main">
+<div class="story-hook">An Italian luxury fashion group had multi-hour latency between POS sales and business systems</div>
+<div class="story-outcome">Real-time event streaming from POS to analytics, SAP ERP, Salesforce, and supply chain — across multiple premium brands</div>
+</div>
+<div class="story-toggle">&#x25BE;</div>
+</div>
+<div class="story-card-body">
+<div class="persona-tabs"><button class="persona-tab active" onclick="switchPersona('r02', 'lob', this)">LOB / Business</button>
+<button class="persona-tab" onclick="switchPersona('r02', 'integration', this)">Integration Leader</button>
+<button class="persona-tab" onclick="switchPersona('r02', 'cto', this)">CTO / CIO</button>
+</div>
+<div class="persona-content active" data-persona="lob" data-story="r02">
+<div class="script-block"><div class="section-label hook">Hook</div><div class="script-text">"A premium fashion group with multiple luxury brands had a <span class="highlight">multi-hour delay between a sale at POS and that data being visible</span> to merchandising, marketing, and finance."</div></div>
+<div class="script-block"><div class="section-label outcome">Outcome</div><div class="script-text">"Now every POS event streams in real-time. The merchandising team went from <span class="highlight">reacting to yesterday to responding to right now</span> — and they're ready for AI and analytics use cases on SAP Datasphere."</div></div>
+<div class="script-block"><div class="section-label bridge">Bridge</div><div class="script-text">"How quickly does your team see what's selling across your stores? Is it real-time or are you working off yesterday's data?"</div></div>
+</div>
+<div class="persona-content" data-persona="integration" data-story="r02">
+<div class="script-block"><div class="section-label hook">Hook</div><div class="script-text">"A luxury fashion group's integration was all batch — <span class="highlight">POS data moved via scheduled jobs to ERP, analytics, and Salesforce</span>. Error-prone, difficult to rollback, and inconsistent views of the business."</div></div>
+<div class="script-block"><div class="section-label outcome">Outcome</div><div class="script-text">"They event-enabled SAP ECC and S/4HANA. POS publishes once, every downstream system subscribes. <span class="highlight">Adding a new consumer takes hours, not weeks</span>."</div></div>
+<div class="script-block"><div class="section-label bridge">Bridge</div><div class="script-text">"When your team needs to connect a new system to POS data, how long does that take today?"</div></div>
+</div>
+<div class="persona-content" data-persona="cto" data-story="r02">
+<div class="script-block"><div class="section-label hook">Hook</div><div class="script-text">"An Italian fashion group was preparing for an IPO and realised their <span class="highlight">lack of real-time data jeopardised their readiness</span>. They couldn't compete with digitally native brands on speed."</div></div>
+<div class="script-block"><div class="section-label outcome">Outcome</div><div class="script-text">"They implemented event-driven integration across their ERP landscape. Real-time visibility gave the business <span class="highlight">faster trend detection and market reactivity</span> — critical for IPO credibility."</div></div>
+<div class="script-block"><div class="section-label bridge">Bridge</div><div class="script-text">"Are there strategic milestones where your data infrastructure could become a blocker?"</div></div>
+</div>
+
+<div class="context-block" style="margin-top:0.75rem"><div class="section-label context">Context</div><strong>FACT:</strong> Italian fashion group operating multiple premium brands. SAP ECC and S/4HANA environment.<br><strong>FACT:</strong> Legacy batch integration caused multi-hour latency. Error-prone rollbacks.<br><strong>FACT:</strong> IPO preparation was a driver. Adopted event-driven architecture for real-time POS streaming.<br><strong>ASSUMPTION:</strong> Downstream consumers include SAP Datasphere for AI/analytics.</div>
+</div>
+</div><div class="story-card" data-sub="fashion" data-personas="integration,lob" id="r03">
+<div class="story-card-header" onclick="toggleStory('r03')">
+<div class="story-badges"><span class="story-badge badge-integration">Integration Leader</span>
+<span class="story-badge badge-lob">LOB / Business</span>
+<span class="story-badge badge-sap">SAP</span>
+</div>
+<div class="story-card-main">
+<div class="story-hook">A Mexican shoe retail group had stale inventory across stores due to siloed SAP, Oracle, and SQL systems</div>
+<div class="story-outcome">Real-time supply chain visibility — stores can now fulfil customer requests from nearby locations instantly</div>
+</div>
+<div class="story-toggle">&#x25BE;</div>
+</div>
+<div class="story-card-body">
+<div class="persona-tabs"><button class="persona-tab active" onclick="switchPersona('r03', 'integration', this)">Integration Leader</button>
+<button class="persona-tab" onclick="switchPersona('r03', 'lob', this)">LOB / Business</button>
+</div>
+<div class="persona-content active" data-persona="integration" data-story="r03">
+<div class="script-block"><div class="section-label hook">Hook</div><div class="script-text">"A retail group running SAP, Oracle, and Microsoft SQL had <span class="highlight">all three operating in silos</span>. Inventory updates were overnight batch — so when a customer asked for a product, the store couldn't check nearby warehouses in real-time."</div></div>
+<div class="script-block"><div class="section-label outcome">Outcome</div><div class="script-text">"They implemented event-driven micro-integrations across all three platforms. <span class="highlight">Events propagate over the mesh instantly</span> — no more overnight batch dependency."</div></div>
+<div class="script-block"><div class="section-label bridge">Bridge</div><div class="script-text">"How many different database or ERP platforms are you integrating across? Are they talking to each other in real-time?"</div></div>
+</div>
+<div class="persona-content" data-persona="lob" data-story="r03">
+<div class="script-block"><div class="section-label hook">Hook</div><div class="script-text">"A shoe retailer with hundreds of stores had a common problem — a customer asks for a product, and the store <span class="highlight">can't see if a nearby location has it in stock</span> because inventory data is stale."</div></div>
+<div class="script-block"><div class="section-label outcome">Outcome</div><div class="script-text">"Now every inventory change publishes in real-time. Stores can <span class="highlight">fulfil from the nearest source</span> — their customer satisfaction improved because they stopped saying no when the answer was actually yes."</div></div>
+<div class="script-block"><div class="section-label bridge">Bridge</div><div class="script-text">"Can your store staff see real-time inventory across your network right now, or are they working off batch updates?"</div></div>
+</div>
+
+<div class="context-block" style="margin-top:0.75rem"><div class="section-label context">Context</div><strong>FACT:</strong> Mexican footwear retail group. SAP, Oracle, Microsoft SQL environments.<br><strong>FACT:</strong> Overnight batch integration caused stale inventory. Adopted Solace event mesh.<br><strong>FACT:</strong> Uses topic routing for filtered event delivery. SaaS deployment model.<br><strong>FACT:</strong> Planning SAP S/4HANA migration — SAP AEM native integration is a factor.</div>
+</div>
+</div><div class="story-card" data-sub="fashion" data-personas="architect,integration" id="r04">
+<div class="story-card-header" onclick="toggleStory('r04')">
+<div class="story-badges"><span class="story-badge badge-architect">Architect</span>
+<span class="story-badge badge-integration">Integration Leader</span>
+<span class="story-badge badge-sap">Kafka</span>
+</div>
+<div class="story-card-main">
+<div class="story-hook">H&M built an enterprise-wide event mesh alongside their existing Kafka analytics layer</div>
+<div class="story-outcome">The "HMesh" enables cross-domain event reuse — Kafka handles analytics, Solace handles operational integration</div>
+</div>
+<div class="story-toggle">&#x25BE;</div>
+</div>
+<div class="story-card-body">
+<div class="persona-tabs"><button class="persona-tab active" onclick="switchPersona('r04', 'architect', this)">Architect</button>
+<button class="persona-tab" onclick="switchPersona('r04', 'integration', this)">Integration Leader</button>
+</div>
+<div class="persona-content active" data-persona="architect" data-story="r04">
+<div class="script-block"><div class="section-label hook">Hook</div><div class="script-text">"H&M had Kafka deployed for analytics, but <span class="highlight">operational integration between app domains was still point-to-point</span>. Every new application had to build its own connections from scratch."</div></div>
+<div class="script-block"><div class="section-label outcome">Outcome</div><div class="script-text">"They built what they call the HMesh — a centralised event layer that <span class="highlight">sits alongside Kafka, not replacing it</span>. Kafka does analytics, HMesh does operational event distribution with governance and discoverability."</div></div>
+<div class="script-block"><div class="section-label bridge">Bridge</div><div class="script-text">"Are you running Kafka today? Is it handling both analytics and operational integration, or is there a gap?"</div></div>
+</div>
+<div class="persona-content" data-persona="integration" data-story="r04">
+<div class="script-block"><div class="section-label hook">Hook</div><div class="script-text">"H&M's application teams were building redundant integrations because <span class="highlight">there was no way to discover or reuse existing events</span> across domains."</div></div>
+<div class="script-block"><div class="section-label outcome">Outcome</div><div class="script-text">"The HMesh gives them a governed, discoverable event layer. New apps <span class="highlight">leverage existing events instead of building from scratch</span> — dramatically reducing time to market."</div></div>
+<div class="script-block"><div class="section-label bridge">Bridge</div><div class="script-text">"When a new project needs data from another team's system, do they reuse what exists or build a new integration?"</div></div>
+</div>
+
+<div class="context-block" style="margin-top:0.75rem"><div class="section-label context">Context</div><strong>FACT:</strong> H&M uses Solace for enterprise-wide integration called "HMesh".<br><strong>FACT:</strong> Kafka is used for the analytics domain. Solace handles operational cross-domain integration.<br><strong>FACT:</strong> Key benefit is reduced time to market by reusing existing events.</div>
+</div>
+</div><div class="story-card" data-sub="fashion" data-personas="cto,lob" id="r05">
+<div class="story-card-header" onclick="toggleStory('r05')">
+<div class="story-badges"><span class="story-badge badge-cto">CTO / CIO</span>
+<span class="story-badge badge-lob">LOB / Business</span>
+<span class="story-badge badge-sap">SAP</span>
+<span class="story-badge badge-migration">Migration</span>
+</div>
+<div class="story-card-main">
+<div class="story-hook">A major US sportswear brand was losing revenue to loyalty fraud across disconnected channels</div>
+<div class="story-outcome">Consolidated four integration platforms into one — real-time loyalty fraud prevention and true omnichannel</div>
+</div>
+<div class="story-toggle">&#x25BE;</div>
+</div>
+<div class="story-card-body">
+<div class="persona-tabs"><button class="persona-tab active" onclick="switchPersona('r05', 'cto', this)">CTO / CIO</button>
+<button class="persona-tab" onclick="switchPersona('r05', 'lob', this)">LOB / Business</button>
+</div>
+<div class="persona-content active" data-persona="cto" data-story="r05">
+<div class="script-block"><div class="section-label hook">Hook</div><div class="script-text">"A global sportswear brand was running Boomi, MuleSoft, SAP CPI Neo, and PI — <span class="highlight">four integration platforms with fragmented governance</span>. The cost of maintaining all four was enormous."</div></div>
+<div class="script-block"><div class="section-label outcome">Outcome</div><div class="script-text">"They consolidated onto SAP CI plus AEM. Single unified platform, <span class="highlight">real-time loyalty fraud prevention</span>, and they can handle Black Friday peaks across hundreds of stores."</div></div>
+<div class="script-block"><div class="section-label bridge">Bridge</div><div class="script-text">"How many integration platforms are you running right now? Is the cost of maintaining them all a conversation?"</div></div>
+</div>
+<div class="persona-content" data-persona="lob" data-story="r05">
+<div class="script-block"><div class="section-label hook">Hook</div><div class="script-text">"A sportswear retailer discovered customers were <span class="highlight">redeeming loyalty points multiple times across channels</span> — online, in-store, and mobile weren't synchronised."</div></div>
+<div class="script-block"><div class="section-label outcome">Outcome</div><div class="script-text">"Real-time event-driven architecture means every redemption is <span class="highlight">instantly visible across all channels</span>. Revenue leakage from duplicate redemptions stopped immediately."</div></div>
+<div class="script-block"><div class="section-label bridge">Bridge</div><div class="script-text">"Do you have full real-time visibility across your loyalty programme, or could there be gaps between channels?"</div></div>
+</div>
+
+<div class="context-block" style="margin-top:0.75rem"><div class="section-label context">Context</div><strong>FACT:</strong> US sportswear brand. Previous platforms: Boomi, MuleSoft, CPI Neo, PI.<br><strong>FACT:</strong> Loyalty fraud from duplicate redemptions across channels.<br><strong>FACT:</strong> Consolidated to SAP CI + AEM. Handles peak transaction volumes (Black Friday).</div>
+</div>
+</div>
+</div>
+<div class="sub-industry-section" data-sub="general">
+<div class="sub-industry-header">General / Mass Market<span class="sub-industry-count">12 stories</span></div>
+<div class="sub-industry-desc">E-commerce event streaming, loyalty programmes, multi-channel integration, store operations</div>
+<div class="story-card" data-sub="general" data-personas="integration,architect,lob" id="r06">
+<div class="story-card-header" onclick="toggleStory('r06')">
+<div class="story-badges"><span class="story-badge badge-integration">Integration Leader</span>
+<span class="story-badge badge-architect">Architect</span>
+<span class="story-badge badge-lob">LOB / Business</span>
+</div>
+<div class="story-card-main">
+<div class="story-hook">An Australian furniture retailer needed real-time customer data sync across 70 stores — MuleSoft couldn't do it</div>
+<div class="story-outcome">Bi-directional Salesforce-to-store sync in real-time, replacing point-to-point APIs that left data out of sync</div>
+</div>
+<div class="story-toggle">&#x25BE;</div>
+</div>
+<div class="story-card-body">
+<div class="persona-tabs"><button class="persona-tab active" onclick="switchPersona('r06', 'integration', this)">Integration Leader</button>
+<button class="persona-tab" onclick="switchPersona('r06', 'architect', this)">Architect</button>
+<button class="persona-tab" onclick="switchPersona('r06', 'lob', this)">LOB / Business</button>
+</div>
+<div class="persona-content active" data-persona="integration" data-story="r06">
+<div class="script-block"><div class="section-label hook">Hook</div><div class="script-text">"A 70-store furniture retailer needed to broadcast customer updates from Salesforce to every store in real-time — and back. They evaluated MuleSoft Anypoint MQ, but it would have required <span class="highlight">one exchange queue plus 70 individual store queues, all receiving every event</span>."</div></div>
+<div class="script-block"><div class="section-label outcome">Outcome</div><div class="script-text">"Solace's topic-based routing solved it cleanly — <span class="highlight">each store subscribes only to relevant events</span>. Bi-directional sync, no duplicates, and the architecture scales as they add stores."</div></div>
+<div class="script-block"><div class="section-label bridge">Bridge</div><div class="script-text">"How are you syncing customer data between your CRM and stores today? Is it real-time or batch?"</div></div>
+</div>
+<div class="persona-content" data-persona="architect" data-story="r06">
+<div class="script-block"><div class="section-label hook">Hook</div><div class="script-text">"A retailer running Salesforce as their customer master had <span class="highlight">point-to-point synchronous APIs connecting CRM to 70 store systems</span>. Tightly coupled, hard to scale, and data was constantly out of sync."</div></div>
+<div class="script-block"><div class="section-label outcome">Outcome</div><div class="script-text">"They moved to a pub/sub model — Salesforce publishes once, stores subscribe via topics. <span class="highlight">Adding a new store is configuration, not code</span>. MuleSoft Anypoint MQ was rejected because it couldn't handle targeted delivery without duplicate messages."</div></div>
+<div class="script-block"><div class="section-label bridge">Bridge</div><div class="script-text">"If you needed to add 20 new locations to your integration tomorrow, how much work would that be?"</div></div>
+</div>
+<div class="persona-content" data-persona="lob" data-story="r06">
+<div class="script-block"><div class="section-label hook">Hook</div><div class="script-text">"A furniture retailer's loyalty programme — Amart Club — was creating poor customer experiences because <span class="highlight">customer data was out of sync between online and in-store</span>."</div></div>
+<div class="script-block"><div class="section-label outcome">Outcome</div><div class="script-text">"Now when a customer updates their preferences online, <span class="highlight">every store sees it in seconds</span>. The loyalty team has a single source of truth across all touchpoints."</div></div>
+<div class="script-block"><div class="section-label bridge">Bridge</div><div class="script-text">"Can your store staff see the latest customer preferences and loyalty status right now, or does it take time to propagate?"</div></div>
+</div>
+
+<div class="context-block" style="margin-top:0.75rem"><div class="section-label context">Context</div><strong>FACT:</strong> Australian furniture retailer, 70 stores, Salesforce CRM as customer master, Amart Club loyalty programme.<br><strong>FACT:</strong> Evaluated MuleSoft Anypoint MQ — rejected due to queue-per-store model and duplicate message risk.<br><strong>FACT:</strong> Logo approved for corporate decks.<br><strong>ASSUMPTION:</strong> Previous integration was point-to-point synchronous APIs.</div>
+</div>
+</div><div class="story-card" data-sub="general" data-personas="architect,cto" id="r07">
+<div class="story-card-header" onclick="toggleStory('r07')">
+<div class="story-badges"><span class="story-badge badge-architect">Architect</span>
+<span class="story-badge badge-cto">CTO / CIO</span>
+<span class="story-badge badge-migration">Migration</span>
+</div>
+<div class="story-card-main">
+<div class="story-hook">A French retail group needed a digital backbone to compete with Amazon and Shopify — Azure Event Hubs was dropping messages</div>
+<div class="story-outcome">Hybrid event mesh connecting physical stores, e-commerce, and marketplaces — replaced Azure Event Hubs for large-message reliability</div>
+</div>
+<div class="story-toggle">&#x25BE;</div>
+</div>
+<div class="story-card-body">
+<div class="persona-tabs"><button class="persona-tab active" onclick="switchPersona('r07', 'architect', this)">Architect</button>
+<button class="persona-tab" onclick="switchPersona('r07', 'cto', this)">CTO / CIO</button>
+</div>
+<div class="persona-content active" data-persona="architect" data-story="r07">
+<div class="script-block"><div class="section-label hook">Hook</div><div class="script-text">"A major French retail group was using Azure Event Hubs for store-to-cloud data, but <span class="highlight">receipts with coupons exceeded the 1MB message limit and were being dropped</span>. That meant store income calculations were wrong."</div></div>
+<div class="script-block"><div class="section-label outcome">Outcome</div><div class="script-text">"They replaced Event Hubs with a hybrid event mesh — on-prem Solace brokers linked to Azure-hosted brokers via VPN. <span class="highlight">No message size limits, no data loss</span>, and it became the backbone for their entire phygital strategy."</div></div>
+<div class="script-block"><div class="section-label bridge">Bridge</div><div class="script-text">"Have you hit any message size or throughput limits with your current cloud messaging? That's a common trigger for architecture conversations."</div></div>
+</div>
+<div class="persona-content" data-persona="cto" data-story="r07">
+<div class="script-block"><div class="section-label hook">Hook</div><div class="script-text">"A group of independent retailers wanted to digitise without denying their physical network — click & collect, AI commerce, real-time promotions. But their <span class="highlight">cloud messaging was literally losing data</span>."</div></div>
+<div class="script-block"><div class="section-label outcome">Outcome</div><div class="script-text">"They built what they call the Next Gen Digital Backbone — a hybrid event mesh that bridges physical stores, e-commerce, and marketplaces. <span class="highlight">Real-time income calculation per store</span> now works reliably."</div></div>
+<div class="script-block"><div class="section-label bridge">Bridge</div><div class="script-text">"When you think about competing with digital-native players, what's the infrastructure gap that worries you most?"</div></div>
+</div>
+
+<div class="context-block" style="margin-top:0.75rem"><div class="section-label context">Context</div><strong>FACT:</strong> French retail group of independent store owners. NOT PUBLIC.<br><strong>FACT:</strong> Azure Event Hubs dropped messages >1MB (receipts with coupons). Caused data discrepancies in income reports.<br><strong>FACT:</strong> Deployed hybrid event mesh — on-prem + Azure brokers over VPN. Competed against Tibco & Kafka.</div>
+</div>
+</div><div class="story-card" data-sub="general" data-personas="lob,architect,integration" id="r08">
+<div class="story-card-header" onclick="toggleStory('r08')">
+<div class="story-badges"><span class="story-badge badge-lob">LOB / Business</span>
+<span class="story-badge badge-architect">Architect</span>
+<span class="story-badge badge-integration">Integration Leader</span>
+<span class="story-badge badge-sap">SAP</span>
+<span class="story-badge badge-sap">Kafka</span>
+</div>
+<div class="story-card-main">
+<div class="story-hook">A German premium grocer replaced daily batch updates with real-time streaming to 7,000 stores</div>
+<div class="story-outcome">Dynamic pricing, digital shelf labels, and personalised app offers — all updated in real-time across 700,000 products</div>
+</div>
+<div class="story-toggle">&#x25BE;</div>
+</div>
+<div class="story-card-body">
+<div class="persona-tabs"><button class="persona-tab active" onclick="switchPersona('r08', 'lob', this)">LOB / Business</button>
+<button class="persona-tab" onclick="switchPersona('r08', 'architect', this)">Architect</button>
+<button class="persona-tab" onclick="switchPersona('r08', 'integration', this)">Integration Leader</button>
+</div>
+<div class="persona-content active" data-persona="lob" data-story="r08">
+<div class="script-block"><div class="section-label hook">Hook</div><div class="script-text">"A premium grocer with 7,000 stores was <span class="highlight">updating product pricing once a day via batch</span>. If toilet paper was selling fast, they couldn't adjust pricing or restock signals until the next morning."</div></div>
+<div class="script-block"><div class="section-label outcome">Outcome</div><div class="script-text">"Now pricing updates stream in real-time to digital shelf labels, their mobile app, and store systems. They can <span class="highlight">dynamically reprice products as best-by dates approach</span> — reducing waste and running targeted campaigns instantly."</div></div>
+<div class="script-block"><div class="section-label bridge">Bridge</div><div class="script-text">"How quickly can your merchandising team push a pricing change to all stores? Is it real-time or next-day?"</div></div>
+</div>
+<div class="persona-content" data-persona="architect" data-story="r08">
+<div class="script-block"><div class="section-label hook">Hook</div><div class="script-text">"A 7,000-store grocer was distributing data for 700,000 products via <span class="highlight">daily batch across 8 data centres</span>. They needed real-time for digital labels, dynamic pricing, and their mobile app — and a previous vendor (Confluent) had failed to deliver."</div></div>
+<div class="script-block"><div class="section-label outcome">Outcome</div><div class="script-text">"They built Project Nemo — a future-proof event-driven architecture streaming master data from SAP to store devices via AMQP, with <span class="highlight">PubSub+ Cache for fast lookups</span>. Real-time distribution from HQ to every store."</div></div>
+<div class="script-block"><div class="section-label bridge">Bridge</div><div class="script-text">"Are you running batch distribution to stores today? What would change if you could push updates in seconds instead of hours?"</div></div>
+</div>
+<div class="persona-content" data-persona="integration" data-story="r08">
+<div class="script-block"><div class="section-label hook">Hook</div><div class="script-text">"A grocer with 8 data centres and 7,000 stores had their <span class="highlight">entire product information flow running on once-a-day batch</span>. Every new use case — digital labels, app coupons, dynamic pricing — was waiting for the same batch window."</div></div>
+<div class="script-block"><div class="section-label outcome">Outcome</div><div class="script-text">"They deployed an event-driven architecture that streams master data changes in real-time. <span class="highlight">New consumers like their mobile app just subscribe</span> — no new batch job needed."</div></div>
+<div class="script-block"><div class="section-label bridge">Bridge</div><div class="script-text">"When you add a new system that needs product data, does it get its own batch feed or can it tap into a shared stream?"</div></div>
+</div>
+
+<div class="context-block" style="margin-top:0.75rem"><div class="section-label context">Context</div><strong>FACT:</strong> German premium grocer, 7,000 stores, 700,000 products, 8 data centres. NOT PUBLIC.<br><strong>FACT:</strong> Previously batch-only, once per day. Evaluated Confluent — did not proceed.<br><strong>FACT:</strong> Project Nemo: real-time master data streaming via SAP + AMQP to digital labels and devices. PubSub+ Cache for lookups.<br><strong>FACT:</strong> Logo approved for corporate decks.</div>
+</div>
+</div><div class="story-card" data-sub="general" data-personas="cto,architect" id="r09">
+<div class="story-card-header" onclick="toggleStory('r09')">
+<div class="story-badges"><span class="story-badge badge-cto">CTO / CIO</span>
+<span class="story-badge badge-architect">Architect</span>
+</div>
+<div class="story-card-main">
+<div class="story-hook">A global furniture retailer connected their China e-commerce to worldwide fulfilment in real-time</div>
+<div class="story-outcome">Event mesh spanning Alibaba Cloud, on-prem data centres, and global operations — handling 3.6 billion annual web visits</div>
+</div>
+<div class="story-toggle">&#x25BE;</div>
+</div>
+<div class="story-card-body">
+<div class="persona-tabs"><button class="persona-tab active" onclick="switchPersona('r09', 'cto', this)">CTO / CIO</button>
+<button class="persona-tab" onclick="switchPersona('r09', 'architect', this)">Architect</button>
+</div>
+<div class="persona-content active" data-persona="cto" data-story="r09">
+<div class="script-block"><div class="section-label hook">Hook</div><div class="script-text">"A global furniture retailer saw 60% growth in online sales and 3.6 billion web visits in one year. Their CEO said they needed to <span class="highlight">accelerate digital transformation</span> — but their SOA-era architecture couldn't keep up."</div></div>
+<div class="script-block"><div class="section-label outcome">Outcome</div><div class="script-text">"They deployed a global event mesh. First use case: <span class="highlight">real-time event flow between T-Mall on Alibaba Cloud and their Shanghai data centre</span>. Now they're extending it across all regions."</div></div>
+<div class="script-block"><div class="section-label bridge">Bridge</div><div class="script-text">"When your online demand spikes, does your integration architecture scale with it or does it become the constraint?"</div></div>
+</div>
+<div class="persona-content" data-persona="architect" data-story="r09">
+<div class="script-block"><div class="section-label hook">Hook</div><div class="script-text">"A global retailer had diverse POS, warehouse, and logistics systems — <span class="highlight">most hosted in one country, creating high latency for other regions</span>. Legacy SOA with SOAP and WSDL was slow and brittle."</div></div>
+<div class="script-block"><div class="section-label outcome">Outcome</div><div class="script-text">"They deployed an event mesh with Dynamic Message Routing to <span class="highlight">optimise cross-region traffic and reduce egress costs</span>. Batch integrations became event-driven. Each region connects locally."</div></div>
+<div class="script-block"><div class="section-label bridge">Bridge</div><div class="script-text">"Are your systems centralised in one region? How's the latency for your international operations?"</div></div>
+</div>
+
+<div class="context-block" style="margin-top:0.75rem"><div class="section-label context">Context</div><strong>FACT:</strong> Global furniture retailer. 3.6B web visits, 60% online sales growth (2020). NOT PUBLIC.<br><strong>FACT:</strong> Legacy SOA (SOAP/WSDL), centralised hosting creating latency.<br><strong>FACT:</strong> First use case: T-Mall (Alibaba Cloud China) to Shanghai data centre. Uses DMR for cross-region routing.</div>
+</div>
+</div><div class="story-card" data-sub="general" data-personas="architect,integration" id="r10">
+<div class="story-card-header" onclick="toggleStory('r10')">
+<div class="story-badges"><span class="story-badge badge-architect">Architect</span>
+<span class="story-badge badge-integration">Integration Leader</span>
+</div>
+<div class="story-card-main">
+<div class="story-hook">A major US office supplies retailer built an event-driven digital enterprise across the full order-to-cash lifecycle</div>
+<div class="story-outcome">Event mesh enabling marketing, commerce, order management, fulfilment, delivery, and analytics — all decoupled from legacy</div>
+</div>
+<div class="story-toggle">&#x25BE;</div>
+</div>
+<div class="story-card-body">
+<div class="persona-tabs"><button class="persona-tab active" onclick="switchPersona('r10', 'architect', this)">Architect</button>
+<button class="persona-tab" onclick="switchPersona('r10', 'integration', this)">Integration Leader</button>
+</div>
+<div class="persona-content active" data-persona="architect" data-story="r10">
+<div class="script-block"><div class="section-label hook">Hook</div><div class="script-text">"A large US retailer needed to modernise their entire order-to-cash pipeline — marketing through to invoicing. Their legacy systems were <span class="highlight">tightly coupled and couldn't scale across regions or channels</span>."</div></div>
+<div class="script-block"><div class="section-label outcome">Outcome</div><div class="script-text">"They built what they call the Staples Digital Enterprise — an event mesh that <span class="highlight">decouples business capabilities from the systems that support them</span>. Standardised topics describe business events. Adding a region or channel is configuration, not code."</div></div>
+<div class="script-block"><div class="section-label bridge">Bridge</div><div class="script-text">"When you onboard a new region or channel today, how much integration work does that create?"</div></div>
+</div>
+<div class="persona-content" data-persona="integration" data-story="r10">
+<div class="script-block"><div class="section-label hook">Hook</div><div class="script-text">"A retailer with both legacy on-prem and cloud workloads needed to <span class="highlight">synchronise data between disparate applications running anywhere</span> — on-prem, containers, cloud. Their existing approach couldn't keep up."</div></div>
+<div class="script-block"><div class="section-label outcome">Outcome</div><div class="script-text">"The event mesh became the backbone. Legacy systems publish state changes, <span class="highlight">multiple parallel processes react independently</span> with minimal legacy impact. New business capabilities just inject new event sources."</div></div>
+<div class="script-block"><div class="section-label bridge">Bridge</div><div class="script-text">"Can your downstream systems react independently to upstream changes, or are they still chained together?"</div></div>
+</div>
+
+<div class="context-block" style="margin-top:0.75rem"><div class="section-label context">Context</div><strong>FACT:</strong> Major US office supplies retailer. NOT PUBLIC.<br><strong>FACT:</strong> Use cases span marketing, commerce, order management, fulfilment, delivery, invoicing, analytics.<br><strong>FACT:</strong> Cloud-first, API-first, DevOps approach. Event mesh enables the EDA.</div>
+</div>
+</div><div class="story-card" data-sub="general" data-personas="architect,cto" id="r11">
+<div class="story-card-header" onclick="toggleStory('r11')">
+<div class="story-badges"><span class="story-badge badge-architect">Architect</span>
+<span class="story-badge badge-cto">CTO / CIO</span>
+<span class="story-badge badge-sap">SAP</span>
+<span class="story-badge badge-migration">Migration</span>
+</div>
+<div class="story-card-main">
+<div class="story-hook">Europe's largest discount retailer replaced 22 Software AG clusters to support US expansion</div>
+<div class="story-outcome">Unified event mesh across stores, SAP, IoT, and hybrid cloud — replacing fragmented legacy messaging</div>
+</div>
+<div class="story-toggle">&#x25BE;</div>
+</div>
+<div class="story-card-body">
+<div class="persona-tabs"><button class="persona-tab active" onclick="switchPersona('r11', 'architect', this)">Architect</button>
+<button class="persona-tab" onclick="switchPersona('r11', 'cto', this)">CTO / CIO</button>
+</div>
+<div class="persona-content active" data-persona="architect" data-story="r11">
+<div class="script-block"><div class="section-label hook">Hook</div><div class="script-text">"A major European retailer expanding into the US market was running <span class="highlight">22 separate Software AG Universal Messaging clusters — non-meshed, non-scalable</span>. They needed IoT, hybrid cloud, and real-time SAP streaming."</div></div>
+<div class="script-block"><div class="section-label outcome">Outcome</div><div class="script-text">"They replaced all 22 clusters with a unified event mesh. <span class="highlight">JMS connectivity for stores, Kafka integration for streaming, SAP events flowing in real-time</span> — and their private cloud StackIT now offers messaging-as-a-service internally."</div></div>
+<div class="script-block"><div class="section-label bridge">Bridge</div><div class="script-text">"Are you running multiple messaging clusters that aren't connected to each other? That's usually a sign the architecture needs to consolidate."</div></div>
+</div>
+<div class="persona-content" data-persona="cto" data-story="r11">
+<div class="script-block"><div class="section-label hook">Hook</div><div class="script-text">"Europe's largest discount retailer was expanding into the US and wanted to launch online marketplace and digital customer experiences. But their <span class="highlight">22 legacy messaging clusters couldn't support the growth</span>."</div></div>
+<div class="script-block"><div class="section-label outcome">Outcome</div><div class="script-text">"They deployed a unified event mesh that connects stores, SAP master data, IoT sensors (even parking space monitoring), and their hybrid cloud. <span class="highlight">360-degree real-time view of customers, inventory, and supply chain</span>."</div></div>
+<div class="script-block"><div class="section-label bridge">Bridge</div><div class="script-text">"When you think about your next phase of growth, is your messaging infrastructure ready to scale with it?"</div></div>
+</div>
+
+<div class="context-block" style="margin-top:0.75rem"><div class="section-label context">Context</div><strong>FACT:</strong> European discount retailer, expanding to US. 22 Software AG Universal Messaging clusters. NOT PUBLIC.<br><strong>FACT:</strong> Use cases: SAP master data streaming, store connectivity via JMS, IoT parking monitoring, messaging-as-a-service via StackIT.<br><strong>FACT:</strong> Logo approved for corporate decks.</div>
+</div>
+</div><div class="story-card" data-sub="general" data-personas="integration,lob" id="r12">
+<div class="story-card-header" onclick="toggleStory('r12')">
+<div class="story-badges"><span class="story-badge badge-integration">Integration Leader</span>
+<span class="story-badge badge-lob">LOB / Business</span>
+<span class="story-badge badge-sap">SAP</span>
+</div>
+<div class="story-card-main">
+<div class="story-hook">An Australian multi-brand retailer's MuleSoft-based integration couldn't handle COVID-era order spikes</div>
+<div class="story-outcome">Event-driven loyalty platform sync across Salesforce, Commerce Cloud, and SAP — replacing brittle synchronous APIs</div>
+</div>
+<div class="story-toggle">&#x25BE;</div>
+</div>
+<div class="story-card-body">
+<div class="persona-tabs"><button class="persona-tab active" onclick="switchPersona('r12', 'integration', this)">Integration Leader</button>
+<button class="persona-tab" onclick="switchPersona('r12', 'lob', this)">LOB / Business</button>
+</div>
+<div class="persona-content active" data-persona="integration" data-story="r12">
+<div class="script-block"><div class="section-label hook">Hook</div><div class="script-text">"A multi-brand retailer was using MuleSoft's synchronous API approach for everything. When COVID hit and <span class="highlight">order volumes spiked, the system buckled</span> — data across Salesforce CRM, Commerce Cloud, and SAP ECC fell out of sync."</div></div>
+<div class="script-block"><div class="section-label outcome">Outcome</div><div class="script-text">"They launched Project Magnet — event-driven architecture using Solace integrated via the <span class="highlight">MuleSoft Solace connector</span>. The loyalty platform became the customer master, syncing to all systems in real-time."</div></div>
+<div class="script-block"><div class="section-label bridge">Bridge</div><div class="script-text">"How did your integration perform during your last big demand spike? Did everything hold, or were there gaps?"</div></div>
+</div>
+<div class="persona-content" data-persona="lob" data-story="r12">
+<div class="script-block"><div class="section-label hook">Hook</div><div class="script-text">"A retailer wanted to let customers sign up for loyalty and <span class="highlight">get an immediate discount on their purchase — online and in-store</span>. But their systems couldn't sync fast enough to make it work."</div></div>
+<div class="script-block"><div class="section-label outcome">Outcome</div><div class="script-text">"Project Magnet synchronised customer data in real-time. Now <span class="highlight">loyalty sign-up triggers instant benefits</span> across every touchpoint — the customer experience drives retention."</div></div>
+<div class="script-block"><div class="section-label bridge">Bridge</div><div class="script-text">"Can your loyalty programme deliver instant benefits at every touchpoint, or are there delays between sign-up and activation?"</div></div>
+</div>
+
+<div class="context-block" style="margin-top:0.75rem"><div class="section-label context">Context</div><strong>FACT:</strong> Australian multi-brand retailer. MuleSoft Anypoint Platform for synchronous API integration. NOT PUBLIC.<br><strong>FACT:</strong> COVID spikes exposed scalability issues. Data sync failures across Salesforce CRM, Commerce Cloud, SAP ECC.<br><strong>FACT:</strong> Project Magnet: event-driven via Solace + MuleSoft connector. K8S-based, IaC pipeline.</div>
+</div>
+</div><div class="story-card" data-sub="general" data-personas="integration,architect" id="r13">
+<div class="story-card-header" onclick="toggleStory('r13')">
+<div class="story-badges"><span class="story-badge badge-integration">Integration Leader</span>
+<span class="story-badge badge-architect">Architect</span>
+<span class="story-badge badge-sap">SAP</span>
+<span class="story-badge badge-migration">Migration</span>
+</div>
+<div class="story-card-main">
+<div class="story-hook">A US rapid oil change chain with 1,800+ stores replaced WebMethods for store-to-HQ integration</div>
+<div class="story-outcome">Solace AEM handles master data, pricing, employee records, and customer history — replacing fragile WebLogic + JMS + WebMethods stack</div>
+</div>
+<div class="story-toggle">&#x25BE;</div>
+</div>
+<div class="story-card-body">
+<div class="persona-tabs"><button class="persona-tab active" onclick="switchPersona('r13', 'integration', this)">Integration Leader</button>
+<button class="persona-tab" onclick="switchPersona('r13', 'architect', this)">Architect</button>
+</div>
+<div class="persona-content active" data-persona="integration" data-story="r13">
+<div class="script-block"><div class="section-label hook">Hook</div><div class="script-text">"After a corporate divestment, a 1,800-store service chain needed to <span class="highlight">eliminate their WebMethods dependency</span> — broker, integration server, everything. Their stack was WebLogic + JMS + WebMethods, and it was fragile."</div></div>
+<div class="script-block"><div class="section-label outcome">Outcome</div><div class="script-text">"Solace AEM replaced the messaging backbone. Stores run as remote Java clients connecting to the central broker. <span class="highlight">Master data, pricing, discounts, customer history — all flowing in real-time</span> both directions."</div></div>
+<div class="script-block"><div class="section-label bridge">Bridge</div><div class="script-text">"Are you running any middleware that's on an end-of-life or end-of-support timeline? That's often what triggers these conversations."</div></div>
+</div>
+<div class="persona-content" data-persona="architect" data-story="r13">
+<div class="script-block"><div class="section-label hook">Hook</div><div class="script-text">"A service chain was using WebMethods for store integration and had partially moved to AWS with SNS/SQS. But <span class="highlight">SNS/SQS lacked fine-grained topic routing and targeted delivery</span> — broadcasting to all 1,800 stores when only 10 needed an update."</div></div>
+<div class="script-block"><div class="section-label outcome">Outcome</div><div class="script-text">"Solace's topic hierarchy lets them <span class="highlight">target specific stores or groups</span>. Command-and-control messages, pricing updates, feature flags — all routed precisely. And the Java store apps migrated cleanly from WebMethods APIs."</div></div>
+<div class="script-block"><div class="section-label bridge">Bridge</div><div class="script-text">"If you're on AWS, are you using SNS/SQS for store or edge communication? Have you hit routing limitations?"</div></div>
+</div>
+
+<div class="context-block" style="margin-top:0.75rem"><div class="section-label context">Context</div><strong>FACT:</strong> US rapid oil change chain, ~1,800-2,000 stores. Corporate divestment triggered migration.<br><strong>FACT:</strong> Previous stack: WebLogic + JMS + WebMethods. Partial AWS with SNS/SQS.<br><strong>FACT:</strong> Solace AEM + SAP Integration Suite. Stores are remote Java clients.<br><strong>FACT:</strong> Data flows: outbound (master data, pricing, discounts, employee records, feature flags) and inbound (sales, time punches, customer history).</div>
+</div>
+</div><div class="story-card" data-sub="general" data-personas="integration,cto" id="r14">
+<div class="story-card-header" onclick="toggleStory('r14')">
+<div class="story-badges"><span class="story-badge badge-integration">Integration Leader</span>
+<span class="story-badge badge-cto">CTO / CIO</span>
+<span class="story-badge badge-migration">Migration</span>
+</div>
+<div class="story-card-main">
+<div class="story-hook">A German drugstore chain replaced TIBCO EMS to cut costs and enable 24/7 automation</div>
+<div class="story-outcome">Reduced TCO, eliminated weekend manual ops, and created a self-service messaging platform for internal teams</div>
+</div>
+<div class="story-toggle">&#x25BE;</div>
+</div>
+<div class="story-card-body">
+<div class="persona-tabs"><button class="persona-tab active" onclick="switchPersona('r14', 'integration', this)">Integration Leader</button>
+<button class="persona-tab" onclick="switchPersona('r14', 'cto', this)">CTO / CIO</button>
+</div>
+<div class="persona-content active" data-persona="integration" data-story="r14">
+<div class="script-block"><div class="section-label hook">Hook</div><div class="script-text">"A drugstore chain running TIBCO EMS for almost all critical business processes was <span class="highlight">spending on manual overnight and weekend operations</span> just to keep messaging running."</div></div>
+<div class="script-block"><div class="section-label outcome">Outcome</div><div class="script-text">"They replaced TIBCO with Solace — <span class="highlight">self-service platform for internal teams</span>, automated operations, and a foundation for multi-cloud innovation. TCO dropped significantly."</div></div>
+<div class="script-block"><div class="section-label bridge">Bridge</div><div class="script-text">"Are you running TIBCO or another legacy messaging platform? What's the operational overhead like?"</div></div>
+</div>
+<div class="persona-content" data-persona="cto" data-story="r14">
+<div class="script-block"><div class="section-label hook">Hook</div><div class="script-text">"A retailer's messaging platform was mission-critical but <span class="highlight">the TCO of TIBCO EMS was unsustainable</span> and it couldn't support their multi-cloud ambitions."</div></div>
+<div class="script-block"><div class="section-label outcome">Outcome</div><div class="script-text">"They migrated to Solace — inspired by the CITI migration case study. <span class="highlight">Higher innovation potential, lower TCO, and a platform approach</span> where internal teams self-serve."</div></div>
+<div class="script-block"><div class="section-label bridge">Bridge</div><div class="script-text">"Is your current messaging platform enabling your cloud strategy or holding it back?"</div></div>
+</div>
+
+<div class="context-block" style="margin-top:0.75rem"><div class="section-label context">Context</div><strong>FACT:</strong> German drugstore technology company. TIBCO EMS replacement.<br><strong>FACT:</strong> Messaging used by almost all critical business processes. Stability and security non-negotiable.<br><strong>FACT:</strong> CITI migration case study was a decision factor. Multi-protocol support, ease of ops.<br><strong>FACT:</strong> Logo approved for corporate decks.</div>
+</div>
+</div><div class="story-card" data-sub="general" data-personas="architect" id="r15">
+<div class="story-card-header" onclick="toggleStory('r15')">
+<div class="story-badges"><span class="story-badge badge-architect">Architect</span>
+</div>
+<div class="story-card-main">
+<div class="story-hook">An Australian equipment hire company replaced a custom-built queuing system that was creating security risks</div>
+<div class="story-outcome">PubSub+ Cloud replaced both the bespoke system and a rejected Azure messaging evaluation — lower cost, larger payloads, more features</div>
+</div>
+<div class="story-toggle">&#x25BE;</div>
+</div>
+<div class="story-card-body">
+<div class="persona-tabs"><button class="persona-tab active" onclick="switchPersona('r15', 'architect', this)">Architect</button>
+</div>
+<div class="persona-content active" data-persona="architect" data-story="r15">
+<div class="script-block"><div class="section-label hook">Hook</div><div class="script-text">"An equipment hire company had built a bespoke queuing system that <span class="highlight">introduced security vulnerabilities and couldn't handle their payload sizes</span>. They evaluated Azure messaging services but it was more expensive and less capable."</div></div>
+<div class="script-block"><div class="section-label outcome">Outcome</div><div class="script-text">"PubSub+ Cloud gave them <span class="highlight">managed infrastructure, larger payloads, and lower total cost than Azure native</span>. Their quote: they want to get reliable, smart equipment data to customers when and where they need it."</div></div>
+<div class="script-block"><div class="section-label bridge">Bridge</div><div class="script-text">"Have you built any custom messaging or queuing? How's the maintenance burden?"</div></div>
+</div>
+
+<div class="context-block" style="margin-top:0.75rem"><div class="section-label context">Context</div><strong>FACT:</strong> Australian equipment hire company. Replaced bespoke queuing system.<br><strong>FACT:</strong> Evaluated Azure messaging — more expensive, feature-limited, payload constraints.<br><strong>FACT:</strong> Logo approved. Available for reference calls.</div>
+</div>
+</div><div class="story-card" data-sub="general" data-personas="architect,lob" id="r16">
+<div class="story-card-header" onclick="toggleStory('r16')">
+<div class="story-badges"><span class="story-badge badge-architect">Architect</span>
+<span class="story-badge badge-lob">LOB / Business</span>
+<span class="story-badge badge-migration">Migration</span>
+</div>
+<div class="story-card-main">
+<div class="story-hook">An Italian digital photo printing company replaced RabbitMQ to stop customers abandoning carts during peak demand</div>
+<div class="story-outcome">Real-time delivery time calculation that dynamically adjusts production speed based on live demand</div>
+</div>
+<div class="story-toggle">&#x25BE;</div>
+</div>
+<div class="story-card-body">
+<div class="persona-tabs"><button class="persona-tab active" onclick="switchPersona('r16', 'architect', this)">Architect</button>
+<button class="persona-tab" onclick="switchPersona('r16', 'lob', this)">LOB / Business</button>
+</div>
+<div class="persona-content active" data-persona="architect" data-story="r16">
+<div class="script-block"><div class="section-label hook">Hook</div><div class="script-text">"A digital photo printing company was losing customers at checkout because <span class="highlight">RabbitMQ couldn't scale reliably during peak demand</span>. When orders surged, delivery time estimates became unpredictable and customers walked away."</div></div>
+<div class="script-block"><div class="section-label outcome">Outcome</div><div class="script-text">"They replaced RabbitMQ with Solace on Kubernetes. The system now <span class="highlight">dynamically adjusts production line speeds based on real-time demand signals</span> — delivery estimates at checkout are accurate even during holiday rushes."</div></div>
+<div class="script-block"><div class="section-label bridge">Bridge</div><div class="script-text">"Is your current messaging holding up during peak periods, or do you see degradation when volumes spike?"</div></div>
+</div>
+<div class="persona-content" data-persona="lob" data-story="r16">
+<div class="script-block"><div class="section-label hook">Hook</div><div class="script-text">"A photo printing company was <span class="highlight">losing cart conversions during their busiest periods</span> — the exact time they should be capturing the most revenue."</div></div>
+<div class="script-block"><div class="section-label outcome">Outcome</div><div class="script-text">"Real-time demand signalling now feeds directly into production scheduling. <span class="highlight">Customers see accurate delivery times at checkout</span>, even during holidays. Cart abandonment dropped."</div></div>
+<div class="script-block"><div class="section-label bridge">Bridge</div><div class="script-text">"Do your peak demand periods create system bottlenecks, or does everything scale smoothly?"</div></div>
+</div>
+
+<div class="context-block" style="margin-top:0.75rem"><div class="section-label context">Context</div><strong>FACT:</strong> Italian digital photo printing company. RabbitMQ replacement.<br><strong>FACT:</strong> Cart abandonment during peak demand due to unreliable delivery estimates.<br><strong>FACT:</strong> K8S-native deployment. HA and guaranteed delivery requirements.<br><strong>FACT:</strong> Available for reference calls.</div>
+</div>
+</div><div class="story-card" data-sub="general" data-personas="integration,architect" id="r17">
+<div class="story-card-header" onclick="toggleStory('r17')">
+<div class="story-badges"><span class="story-badge badge-integration">Integration Leader</span>
+<span class="story-badge badge-architect">Architect</span>
+<span class="story-badge badge-migration">Migration</span>
+</div>
+<div class="story-card-main">
+<div class="story-hook">A major Australian retailer replaced Microsoft BizTalk before end-of-support hit</div>
+<div class="story-outcome">Gift card updates to all stores in seconds, master data propagation in real-time, support issues resolved in 15 minutes via RMMS</div>
+</div>
+<div class="story-toggle">&#x25BE;</div>
+</div>
+<div class="story-card-body">
+<div class="persona-tabs"><button class="persona-tab active" onclick="switchPersona('r17', 'integration', this)">Integration Leader</button>
+<button class="persona-tab" onclick="switchPersona('r17', 'architect', this)">Architect</button>
+</div>
+<div class="persona-content active" data-persona="integration" data-story="r17">
+<div class="script-block"><div class="section-label hook">Hook</div><div class="script-text">"A major Australian retailer's integration was running on Microsoft BizTalk. It <span class="highlight">couldn't scale to their volume growth, couldn't do real-time HQ-to-store exchange</span>, and Microsoft end-of-support was looming."</div></div>
+<div class="script-block"><div class="section-label outcome">Outcome</div><div class="script-text">"They deployed Solace with smart topics for efficient distribution. <span class="highlight">Gift card purchases propagate to all stores in seconds</span>. New products and price changes hit relevant stores in seconds. Support issues resolved in 15 minutes via RMMS."</div></div>
+<div class="script-block"><div class="section-label bridge">Bridge</div><div class="script-text">"Are you running any middleware with an end-of-support deadline? That's often the catalyst for a bigger architecture conversation."</div></div>
+</div>
+<div class="persona-content" data-persona="architect" data-story="r17">
+<div class="script-block"><div class="section-label hook">Hook</div><div class="script-text">"A retailer was running BizTalk for store integration but needed <span class="highlight">scalable cloud brokers, .NET API support, distributed tracing, and event mesh capabilities</span> — none of which BizTalk could deliver."</div></div>
+<div class="script-block"><div class="section-label outcome">Outcome</div><div class="script-text">"Solace's topic taxonomy lets them <span class="highlight">route data efficiently to relevant stores</span> — not broadcast everything everywhere. HA, DR, and RMMS monitoring built in from day one."</div></div>
+<div class="script-block"><div class="section-label bridge">Bridge</div><div class="script-text">"How do you handle targeted distribution to specific stores versus broadcasting to all? Is that efficient today?"</div></div>
+</div>
+
+<div class="context-block" style="margin-top:0.75rem"><div class="section-label context">Context</div><strong>FACT:</strong> Major Australian retailer. Microsoft BizTalk replacement — end of support driver.<br><strong>FACT:</strong> Couldn't scale, couldn't do real-time HQ-store exchange.<br><strong>FACT:</strong> Metrics: gift cards in seconds, master data in seconds, support in 15 mins via RMMS.<br><strong>FACT:</strong> Required: .NET API, scalable cloud brokers, event mesh, HA/DR, distributed tracing.</div>
+</div>
+</div>
+</div>
+<div class="sub-industry-section" data-sub="grocery">
+<div class="sub-industry-header">Grocery & Food Retail<span class="sub-industry-count">4 stories</span></div>
+<div class="sub-industry-desc">Inventory event streaming, demand sensing, omni-channel fulfilment, perishables management</div>
+<div class="story-card" data-sub="grocery" data-personas="lob" id="r18">
+<div class="story-card-header" onclick="toggleStory('r18')">
+<div class="story-badges"><span class="story-badge badge-lob">LOB / Business</span>
+</div>
+<div class="story-card-main">
+<div class="story-hook">A major US grocer needed to improve store associate experience and leverage gig economy workers</div>
+<div class="story-outcome">Event-driven store operations supporting real-time task management, inventory, and workforce flexibility</div>
+</div>
+<div class="story-toggle">&#x25BE;</div>
+</div>
+<div class="story-card-body">
+<div class="persona-tabs"><button class="persona-tab active" onclick="switchPersona('r18', 'lob', this)">LOB / Business</button>
+</div>
+<div class="persona-content active" data-persona="lob" data-story="r18">
+<div class="script-block"><div class="section-label hook">Hook</div><div class="script-text">"A major US grocer wanted to <span class="highlight">improve both customer and store associate experience</span> — including the ability to bring in gig economy workers to handle demand surges."</div></div>
+<div class="script-block"><div class="section-label outcome">Outcome</div><div class="script-text">"Event-driven integration gives them <span class="highlight">real-time task orchestration in-store</span> — associates and gig workers get the right information at the right time."</div></div>
+<div class="script-block"><div class="section-label bridge">Bridge</div><div class="script-text">"Are you exploring flexible workforce models in your stores? How does your integration support that?"</div></div>
+</div>
+
+<div class="context-block" style="margin-top:0.75rem"><div class="section-label context">Context</div><strong>FACT:</strong> Major US grocery retailer. NOT PUBLIC.<br><strong>FACT:</strong> Use cases: customer experience, store associate experience, gig economy worker integration.</div>
+</div>
+</div><div class="story-card" data-sub="grocery" data-personas="integration,architect" id="r19">
+<div class="story-card-header" onclick="toggleStory('r19')">
+<div class="story-badges"><span class="story-badge badge-integration">Integration Leader</span>
+<span class="story-badge badge-architect">Architect</span>
+<span class="story-badge badge-sap">SAP</span>
+</div>
+<div class="story-card-main">
+<div class="story-hook">A German discount grocer broke SAP data silos to build an event mesh connecting HQ, stores, and cloud</div>
+<div class="story-outcome">SAP IDOCs flowing via JMS to Azure cloud, Datavard Glue sharing SAP events with non-SAP systems, SFTP distribution automated</div>
+</div>
+<div class="story-toggle">&#x25BE;</div>
+</div>
+<div class="story-card-body">
+<div class="persona-tabs"><button class="persona-tab active" onclick="switchPersona('r19', 'integration', this)">Integration Leader</button>
+<button class="persona-tab" onclick="switchPersona('r19', 'architect', this)">Architect</button>
+</div>
+<div class="persona-content active" data-persona="integration" data-story="r19">
+<div class="script-block"><div class="section-label hook">Hook</div><div class="script-text">"A major discount grocer was locked into <span class="highlight">point-to-point connectivity between SAP and non-SAP applications</span>. Every new integration was custom-built, expensive, and slow."</div></div>
+<div class="script-block"><div class="section-label outcome">Outcome</div><div class="script-text">"They deployed an event mesh that connects SAP PI/PO via JMS, shares events via Datavard Glue, and <span class="highlight">distributes data from HQ to stores and up to Azure</span> — all through one platform."</div></div>
+<div class="script-block"><div class="section-label bridge">Bridge</div><div class="script-text">"How are you connecting SAP to your non-SAP landscape today? Is it point-to-point or is there a shared integration layer?"</div></div>
+</div>
+<div class="persona-content" data-persona="architect" data-story="r19">
+<div class="script-block"><div class="section-label hook">Hook</div><div class="script-text">"A grocer with SAP at the core needed to <span class="highlight">break data silos without ripping out their existing SAP PI/PO</span>. They wanted an event mesh that could span HQ, stores, cloud, microservices, and mobile apps."</div></div>
+<div class="script-block"><div class="section-label outcome">Outcome</div><div class="script-text">"Solace sits alongside SAP PI/PO — <span class="highlight">JMS adapter connects IDOCs to Azure Cloud Storage</span>. Datavard Glue pushes SAP events to non-SAP systems. No vendor lock-in, deployable everywhere."</div></div>
+<div class="script-block"><div class="section-label bridge">Bridge</div><div class="script-text">"Are you looking to modernise around SAP without a full rip-and-replace? That's a common starting point."</div></div>
+</div>
+
+<div class="context-block" style="margin-top:0.75rem"><div class="section-label context">Context</div><strong>FACT:</strong> Major German discount grocer. NOT PUBLIC.<br><strong>FACT:</strong> SAP PI/PO connected via JMS adapter. IDOCs shared with Azure Cloud Storage for RELEX integration.<br><strong>FACT:</strong> Datavard Glue for SAP-to-non-SAP event sharing. Open ecosystem, no vendor lock-in.</div>
+</div>
+</div><div class="story-card" data-sub="grocery" data-personas="integration,architect" id="r20">
+<div class="story-card-header" onclick="toggleStory('r20')">
+<div class="story-badges"><span class="story-badge badge-integration">Integration Leader</span>
+<span class="story-badge badge-architect">Architect</span>
+<span class="story-badge badge-sap">SAP</span>
+</div>
+<div class="story-card-main">
+<div class="story-hook">A Polish convenience chain running 50,000 stores hit scalability walls with SAP Cloud Integration</div>
+<div class="story-outcome">SAP AEM broker handles real-time master data distribution and receipt collection — REST and MQTT from lightweight stores</div>
+</div>
+<div class="story-toggle">&#x25BE;</div>
+</div>
+<div class="story-card-body">
+<div class="persona-tabs"><button class="persona-tab active" onclick="switchPersona('r20', 'integration', this)">Integration Leader</button>
+<button class="persona-tab" onclick="switchPersona('r20', 'architect', this)">Architect</button>
+</div>
+<div class="persona-content active" data-persona="integration" data-story="r20">
+<div class="script-block"><div class="section-label hook">Hook</div><div class="script-text">"A convenience chain with 50,000 stores was running SAP Cloud Integration heavily. Their iFlows had become <span class="highlight">complex, slow, error-prone, and expensive</span> — SAP CI charges per message."</div></div>
+<div class="script-block"><div class="section-label outcome">Outcome</div><div class="script-text">"They offloaded messaging to SAP AEM. Master data pushes down to stores, receipts stream up — <span class="highlight">stores connect via REST and MQTT</span> because there's no infrastructure at the edge. Simple, scalable, cost-effective."</div></div>
+<div class="script-block"><div class="section-label bridge">Bridge</div><div class="script-text">"Are you running SAP CI? What happens to your costs and complexity as your message volumes grow?"</div></div>
+</div>
+<div class="persona-content" data-persona="architect" data-story="r20">
+<div class="script-block"><div class="section-label hook">Hook</div><div class="script-text">"A retailer with thousands of lightweight, infrastructure-free stores needed <span class="highlight">central cloud-native messaging that could scale to 50,000 endpoints</span> using lightweight protocols."</div></div>
+<div class="script-block"><div class="section-label outcome">Outcome</div><div class="script-text">"SAP AEM as a central 50K-tier broker. Stores connect via REST and MQTT — <span class="highlight">no edge infrastructure required</span>. Master data flows down, receipts flow up, error handling is built into the platform."</div></div>
+<div class="script-block"><div class="section-label bridge">Bridge</div><div class="script-text">"How do your stores connect back to central systems? Do they have local infrastructure or are they purely cloud-dependent?"</div></div>
+</div>
+
+<div class="context-block" style="margin-top:0.75rem"><div class="section-label context">Context</div><strong>FACT:</strong> Polish convenience chain, ~50,000 stores. SAP AEM 50K broker.<br><strong>FACT:</strong> Previous SAP CI approach was complex, error-prone, and expensive per-message.<br><strong>FACT:</strong> Stores are small — no local infrastructure. REST and MQTT protocols.<br><strong>FACT:</strong> Central cloud approach chosen over edge-enabled retail.</div>
+</div>
+</div><div class="story-card" data-sub="grocery" data-personas="integration,lob" id="r21">
+<div class="story-card-header" onclick="toggleStory('r21')">
+<div class="story-badges"><span class="story-badge badge-integration">Integration Leader</span>
+<span class="story-badge badge-lob">LOB / Business</span>
+</div>
+<div class="story-card-main">
+<div class="story-hook">An Italian discount grocer with no dedicated integration team gained agility to launch real-time promotions</div>
+<div class="story-outcome">Event-driven decoupling replaced manual coding — launched a real-time lottery and new loyalty app</div>
+</div>
+<div class="story-toggle">&#x25BE;</div>
+</div>
+<div class="story-card-body">
+<div class="persona-tabs"><button class="persona-tab active" onclick="switchPersona('r21', 'integration', this)">Integration Leader</button>
+<button class="persona-tab" onclick="switchPersona('r21', 'lob', this)">LOB / Business</button>
+</div>
+<div class="persona-content active" data-persona="integration" data-story="r21">
+<div class="script-block"><div class="section-label hook">Hook</div><div class="script-text">"A discount grocer had a small IT department with <span class="highlight">no dedicated integration team</span>. Integration was a mix of Boomi and manual Microsoft coding — ungoverned and fragile."</div></div>
+<div class="script-block"><div class="section-label outcome">Outcome</div><div class="script-text">"Solace gave them easy-to-maintain, real-time decoupling of applications. They <span class="highlight">launched a real-time in-store lottery and a new loyalty app</span> — things they couldn't deliver before because integration was the bottleneck."</div></div>
+<div class="script-block"><div class="section-label bridge">Bridge</div><div class="script-text">"Do you have a dedicated integration team, or is integration something that falls to whoever's available?"</div></div>
+</div>
+<div class="persona-content" data-persona="lob" data-story="r21">
+<div class="script-block"><div class="section-label hook">Hook</div><div class="script-text">"A grocer was <span class="highlight">missing business windows for campaigns and product launches</span> because their IT couldn't deliver integrations fast enough."</div></div>
+<div class="script-block"><div class="section-label outcome">Outcome</div><div class="script-text">"Event-driven architecture gave the business agility. They launched <span class="highlight">spot initiatives like a real-time lottery</span> without waiting months for IT to build custom integrations."</div></div>
+<div class="script-block"><div class="section-label bridge">Bridge</div><div class="script-text">"Has your team ever missed a promotional window because the integration wasn't ready in time?"</div></div>
+</div>
+
+<div class="context-block" style="margin-top:0.75rem"><div class="section-label context">Context</div><strong>FACT:</strong> Italian discount grocer. Small IT department, no integration team.<br><strong>FACT:</strong> Previous: Boomi + manual Microsoft coding. Non-governed integration landscape.<br><strong>FACT:</strong> Launched real-time lottery and loyalty app after Solace adoption.<br><strong>FACT:</strong> Logo approved for corporate decks.</div>
+</div>
+</div>
+</div>
+<div class="sub-industry-section" data-sub="home">
+<div class="sub-industry-header">Home Improvement & Hardware<span class="sub-industry-count">5 stories</span></div>
+<div class="sub-industry-desc">Supply chain event streaming, B2B trade ordering, store operations, inventory management</div>
+<div class="story-card" data-sub="home" data-personas="integration,lob" id="r22">
+<div class="story-card-header" onclick="toggleStory('r22')">
+<div class="story-badges"><span class="story-badge badge-integration">Integration Leader</span>
+<span class="story-badge badge-lob">LOB / Business</span>
+<span class="story-badge badge-migration">Migration</span>
+</div>
+<div class="story-card-main">
+<div class="story-hook">A US building supplies distributor replaced RabbitMQ and automated credit decisions with real-time event streaming</div>
+<div class="story-outcome">Solace Cloud + MuleSoft integration — automated credit approvals that previously slowed the entire sales cycle</div>
+</div>
+<div class="story-toggle">&#x25BE;</div>
+</div>
+<div class="story-card-body">
+<div class="persona-tabs"><button class="persona-tab active" onclick="switchPersona('r22', 'integration', this)">Integration Leader</button>
+<button class="persona-tab" onclick="switchPersona('r22', 'lob', this)">LOB / Business</button>
+</div>
+<div class="persona-content active" data-persona="integration" data-story="r22">
+<div class="script-block"><div class="section-label hook">Hook</div><div class="script-text">"A building supplies distributor was using RabbitMQ for internal integration and MuleSoft for vendor APIs. <span class="highlight">Credit approvals with their external partner were manual and multi-step</span> — slowing every sale."</div></div>
+<div class="script-block"><div class="section-label outcome">Outcome</div><div class="script-text">"They replaced RabbitMQ with Solace Cloud and built event-driven credit decisioning. <span class="highlight">Credit checks that took hours now happen in real-time</span> — and they can onboard new downstream systems without rebuilding integrations."</div></div>
+<div class="script-block"><div class="section-label bridge">Bridge</div><div class="script-text">"Are there manual approval steps in your sales process that could be event-driven?"</div></div>
+</div>
+<div class="persona-content" data-persona="lob" data-story="r22">
+<div class="script-block"><div class="section-label hook">Hook</div><div class="script-text">"A distributor's sales team was losing deals because <span class="highlight">credit decisions took too long</span>. The back-office process was manual, disconnected, and couldn't scale."</div></div>
+<div class="script-block"><div class="section-label outcome">Outcome</div><div class="script-text">"Real-time event-driven credit decisioning means <span class="highlight">customers get approved faster and sales reps close sooner</span>. The process scales without adding headcount."</div></div>
+<div class="script-block"><div class="section-label bridge">Bridge</div><div class="script-text">"How long does a credit decision take for your customers today? Is that impacting close rates?"</div></div>
+</div>
+
+<div class="context-block" style="margin-top:0.75rem"><div class="section-label context">Context</div><strong>FACT:</strong> US building supplies distributor. RabbitMQ replacement.<br><strong>FACT:</strong> Solace Cloud brokers. Azure workloads. MuleSoft for vendor APIs and internal services.<br><strong>FACT:</strong> Key use case: automated credit decisioning with external partner (Bectran).</div>
+</div>
+</div><div class="story-card" data-sub="home" data-personas="architect,integration" id="r23">
+<div class="story-card-header" onclick="toggleStory('r23')">
+<div class="story-badges"><span class="story-badge badge-architect">Architect</span>
+<span class="story-badge badge-integration">Integration Leader</span>
+<span class="story-badge badge-sap">SAP</span>
+<span class="story-badge badge-sap">Kafka</span>
+</div>
+<div class="story-card-main">
+<div class="story-hook">A German DIY retailer is building reusable Event APIs across multi-cloud and on-prem with AsyncAPI and Kafka integration</div>
+<div class="story-outcome">Unified event mesh connecting Kafka, SAP, store edge, and Axway API management — with OpenTelemetry distributed tracing</div>
+</div>
+<div class="story-toggle">&#x25BE;</div>
+</div>
+<div class="story-card-body">
+<div class="persona-tabs"><button class="persona-tab active" onclick="switchPersona('r23', 'architect', this)">Architect</button>
+<button class="persona-tab" onclick="switchPersona('r23', 'integration', this)">Integration Leader</button>
+</div>
+<div class="persona-content active" data-persona="architect" data-story="r23">
+<div class="script-block"><div class="section-label hook">Hook</div><div class="script-text">"A DIY retailer running events across multi-cloud and on-prem realised they had <span class="highlight">different event and messaging services everywhere with zero reusability</span>. Building a reusable event in that landscape was nearly impossible."</div></div>
+<div class="script-block"><div class="section-label outcome">Outcome</div><div class="script-text">"Solace's event mesh connects all environments. They're building <span class="highlight">reusable Event APIs based on AsyncAPI, Kafka integration via native connectors</span>, and unified observability with OpenTelemetry feeding into Dynatrace."</div></div>
+<div class="script-block"><div class="section-label bridge">Bridge</div><div class="script-text">"Are you trying to build reusable event APIs across different messaging platforms? That's exactly what the event mesh pattern solves."</div></div>
+</div>
+<div class="persona-content" data-persona="integration" data-story="r23">
+<div class="script-block"><div class="section-label hook">Hook</div><div class="script-text">"A retailer using Kafka, SAP, and multiple cloud messaging services had <span class="highlight">no standard way to create reusable events</span>. Every integration was a one-off, and batch processes were limiting store-level agility."</div></div>
+<div class="script-block"><div class="section-label outcome">Outcome</div><div class="script-text">"They're moving from batch to real-time eventing, with <span class="highlight">Event Portal governing both Solace and Kafka landscapes</span>. Dynamic Solace topics give their store integration fine-grained routing."</div></div>
+<div class="script-block"><div class="section-label bridge">Bridge</div><div class="script-text">"If you're running Kafka today, can your teams discover and reuse events across the organisation, or is it tribal knowledge?"</div></div>
+</div>
+
+<div class="context-block" style="margin-top:0.75rem"><div class="section-label context">Context</div><strong>FACT:</strong> German DIY retailer. Multi-cloud + on-prem.<br><strong>FACT:</strong> Use cases: real-time eventing, master data core-to-edge, AsyncAPI-based Event APIs.<br><strong>FACT:</strong> Native Kafka integration. Event Portal for governance. OpenTelemetry + Dynatrace for observability.<br><strong>FACT:</strong> Axway Amplify for unified API management. Similar pattern to Bosch.<br><strong>FACT:</strong> Logo approved for corporate decks.</div>
+</div>
+</div><div class="story-card" data-sub="home" data-personas="architect" id="r24">
+<div class="story-card-header" onclick="toggleStory('r24')">
+<div class="story-badges"><span class="story-badge badge-architect">Architect</span>
+</div>
+<div class="story-card-main">
+<div class="story-hook">A US home improvement chain solved reliability problems that other messaging solutions couldn't handle</div>
+<div class="story-outcome">Solace appliances in the data centre handle all store messaging — ActiveMQ at the edge for POS STOMP protocol compatibility</div>
+</div>
+<div class="story-toggle">&#x25BE;</div>
+</div>
+<div class="story-card-body">
+<div class="persona-tabs"><button class="persona-tab active" onclick="switchPersona('r24', 'architect', this)">Architect</button>
+</div>
+<div class="persona-content active" data-persona="architect" data-story="r24">
+<div class="script-block"><div class="section-label hook">Hook</div><div class="script-text">"A home improvement chain with stores across the US had tried multiple messaging solutions and <span class="highlight">none could deliver the reliability they needed</span> for store-to-HQ communication."</div></div>
+<div class="script-block"><div class="section-label outcome">Outcome</div><div class="script-text">"Solace appliances in the data centre became the core hub. ActiveMQ stays at the store edge for STOMP-based POS devices, <span class="highlight">lifting messages up to Solace for reliable central routing</span>. Reliability issues solved."</div></div>
+<div class="script-block"><div class="section-label bridge">Bridge</div><div class="script-text">"Have you had reliability issues with your current messaging between stores and HQ?"</div></div>
+</div>
+
+<div class="context-block" style="margin-top:0.75rem"><div class="section-label context">Context</div><strong>FACT:</strong> US home improvement chain. Solace appliances in data centre.<br><strong>FACT:</strong> ActiveMQ at store edge for STOMP protocol from POS devices.<br><strong>FACT:</strong> Previous messaging solutions failed on reliability. Logo approved. No reference calls.</div>
+</div>
+</div><div class="story-card" data-sub="home" data-personas="integration" id="r25">
+<div class="story-card-header" onclick="toggleStory('r25')">
+<div class="story-badges"><span class="story-badge badge-integration">Integration Leader</span>
+<span class="story-badge badge-migration">Migration</span>
+</div>
+<div class="story-card-main">
+<div class="story-hook">Australia's largest hardware chain replaced BizTalk to deliver a unified shopping experience</div>
+<div class="story-outcome">Smart topics for efficient store-level distribution, event mesh for real-time data flow between HQ and stores</div>
+</div>
+<div class="story-toggle">&#x25BE;</div>
+</div>
+<div class="story-card-body">
+<div class="persona-tabs"><button class="persona-tab active" onclick="switchPersona('r25', 'integration', this)">Integration Leader</button>
+</div>
+<div class="persona-content active" data-persona="integration" data-story="r25">
+<div class="script-block"><div class="section-label hook">Hook</div><div class="script-text">"Australia's largest hardware chain was running BizTalk for store integration. It <span class="highlight">couldn't scale to their volume growth and couldn't support real-time HQ-to-store data exchange</span>."</div></div>
+<div class="script-block"><div class="section-label outcome">Outcome</div><div class="script-text">"Smart topics enabled efficient routing — <span class="highlight">master data and pricing updates hit relevant stores in seconds</span>. The event mesh handles SaaS vendor integration easily, and monitoring plus governance are built in."</div></div>
+<div class="script-block"><div class="section-label bridge">Bridge</div><div class="script-text">"How are you handling the growing volume of data between HQ and stores? Is your current middleware scaling?"</div></div>
+</div>
+
+<div class="context-block" style="margin-top:0.75rem"><div class="section-label context">Context</div><strong>FACT:</strong> Australian hardware retailer. BizTalk replacement — scaling and real-time limitations.<br><strong>FACT:</strong> Metrics: gift card updates in seconds, master data in seconds, support via RMMS in 15 mins.<br><strong>FACT:</strong> Required: .NET API, scalable cloud brokers, HA/DR, distributed tracing.</div>
+</div>
+</div><div class="story-card" data-sub="home" data-personas="lob" id="r26">
+<div class="story-card-header" onclick="toggleStory('r26')">
+<div class="story-badges"><span class="story-badge badge-lob">LOB / Business</span>
+<span class="story-badge badge-sap">SAP</span>
+</div>
+<div class="story-card-main">
+<div class="story-hook">A New Zealand building products company uses Solace as the backbone of their digital e-commerce platform</div>
+<div class="story-outcome">Solace integrates SAP Hybris, Salesforce, and MuleSoft — enabling their "Skip the Counter" business initiative</div>
+</div>
+<div class="story-toggle">&#x25BE;</div>
+</div>
+<div class="story-card-body">
+<div class="persona-tabs"><button class="persona-tab active" onclick="switchPersona('r26', 'lob', this)">LOB / Business</button>
+</div>
+<div class="persona-content active" data-persona="lob" data-story="r26">
+<div class="script-block"><div class="section-label hook">Hook</div><div class="script-text">"A building products retailer wanted to let trade customers <span class="highlight">skip the counter — order digitally and pick up without waiting in line</span>."</div></div>
+<div class="script-block"><div class="section-label outcome">Outcome</div><div class="script-text">"Solace underpins the entire e-commerce platform, <span class="highlight">integrating SAP Hybris, Salesforce, and MuleSoft</span> in real-time. The Skip the Counter experience is live and working."</div></div>
+<div class="script-block"><div class="section-label bridge">Bridge</div><div class="script-text">"Are your trade customers still dependent on counter service, or have you digitised that experience?"</div></div>
+</div>
+
+<div class="context-block" style="margin-top:0.75rem"><div class="section-label context">Context</div><strong>FACT:</strong> Division of Fletcher Building (being set up for divestment). New Zealand/Australia.<br><strong>FACT:</strong> Solace underpins e-commerce platform. Integrates SAP Hybris, Salesforce, MuleSoft.<br><strong>FACT:</strong> Business initiative: "Skip the Counter" for trade customers.</div>
+</div>
+</div>
+</div>
+<div class="sub-industry-section" data-sub="luxury">
+<div class="sub-industry-header">Luxury & Specialty<span class="sub-industry-count">4 stories</span></div>
+<div class="sub-industry-desc">Clienteling event streams, personalisation, boutique POS integration, global inventory</div>
+<div class="story-card" data-sub="luxury" data-personas="cto,architect,lob" id="r27">
+<div class="story-card-header" onclick="toggleStory('r27')">
+<div class="story-badges"><span class="story-badge badge-cto">CTO / CIO</span>
+<span class="story-badge badge-architect">Architect</span>
+<span class="story-badge badge-lob">LOB / Business</span>
+<span class="story-badge badge-sap">SAP</span>
+</div>
+<div class="story-card-main">
+<div class="story-hook">The world's third-largest luxury goods company deployed a global event mesh for precision manufacturing and personalised clienteling</div>
+<div class="story-outcome">Real-time data flow across 1,000+ stores, factories, and multiple clouds — enabling NFTs, metaverse, and omnichannel personalisation</div>
+</div>
+<div class="story-toggle">&#x25BE;</div>
+</div>
+<div class="story-card-body">
+<div class="persona-tabs"><button class="persona-tab active" onclick="switchPersona('r27', 'cto', this)">CTO / CIO</button>
+<button class="persona-tab" onclick="switchPersona('r27', 'architect', this)">Architect</button>
+<button class="persona-tab" onclick="switchPersona('r27', 'lob', this)">LOB / Business</button>
+</div>
+<div class="persona-content active" data-persona="cto" data-story="r27">
+<div class="script-block"><div class="section-label hook">Hook</div><div class="script-text">"The world's third-largest luxury goods company was <span class="highlight">locked in silos — SAP, legacy middleware, on-prem apps</span>. ETL and batch jobs couldn't support real-time personalisation across 1,000+ stores."</div></div>
+<div class="script-block"><div class="section-label outcome">Outcome</div><div class="script-text">"They deployed a global event mesh across AWS, GCP, and Alibaba Cloud. <span class="highlight">Manufacturing precision, real-time inventory, personalised clienteling, even NFT and metaverse experiments</span> — all on one platform."</div></div>
+<div class="script-block"><div class="section-label bridge">Bridge</div><div class="script-text">"In luxury, the customer experience is the brand. How real-time is the data your staff use to personalise interactions?"</div></div>
+</div>
+<div class="persona-content" data-persona="architect" data-story="r27">
+<div class="script-block"><div class="section-label hook">Hook</div><div class="script-text">"A luxury conglomerate with 1,000+ stores and factories needed to <span class="highlight">stream data across AWS (SAP), GCP (analytics), and Alibaba Cloud (China)</span>. Legacy messaging couldn't scale globally or support pub/sub, replay, or multi-tenancy."</div></div>
+<div class="script-block"><div class="section-label outcome">Outcome</div><div class="script-text">"Solace's event mesh bridges all three clouds and on-prem. <span class="highlight">Event replay, multi-tenant access, and topic-based routing</span> across the entire global footprint."</div></div>
+<div class="script-block"><div class="section-label bridge">Bridge</div><div class="script-text">"How many clouds are you operating across? Can events flow between them, or are they separate islands?"</div></div>
+</div>
+<div class="persona-content" data-persona="lob" data-story="r27">
+<div class="script-block"><div class="section-label hook">Hook</div><div class="script-text">"In luxury, staff need to <span class="highlight">tailor every interaction based on a customer's history across geographies</span>. But this company's customer data was trapped in regional silos."</div></div>
+<div class="script-block"><div class="section-label outcome">Outcome</div><div class="script-text">"Real-time event mesh means <span class="highlight">a purchase in Paris is visible in Tokyo within seconds</span>. Staff have the context they need for every interaction."</div></div>
+<div class="script-block"><div class="section-label bridge">Bridge</div><div class="script-text">"Can your store staff see a customer's full global history, or is it limited to their region?"</div></div>
+</div>
+
+<div class="context-block" style="margin-top:0.75rem"><div class="section-label context">Context</div><strong>FACT:</strong> World's 3rd largest luxury goods company. 1,000+ stores and factories. NOT PUBLIC.<br><strong>FACT:</strong> Multi-cloud: AWS (SAP), GCP (data/analytics), Alibaba Cloud (China).<br><strong>FACT:</strong> Use cases: precision manufacturing, inventory, clienteling, NFTs, metaverse.<br><strong>FACT:</strong> Legacy: silos, ETL, batch, point-to-point. Replaced with global event mesh.</div>
+</div>
+</div><div class="story-card" data-sub="luxury" data-personas="lob,integration" id="r28">
+<div class="story-card-header" onclick="toggleStory('r28')">
+<div class="story-badges"><span class="story-badge badge-lob">LOB / Business</span>
+<span class="story-badge badge-integration">Integration Leader</span>
+<span class="story-badge badge-sap">SAP</span>
+</div>
+<div class="story-card-main">
+<div class="story-hook">A legendary UK department store was holding £25M in excess inventory due to data latency</div>
+<div class="story-outcome">Real-time SAP integration for pricing, orders, master data, and electronic shelf labels across store and e-commerce</div>
+</div>
+<div class="story-toggle">&#x25BE;</div>
+</div>
+<div class="story-card-body">
+<div class="persona-tabs"><button class="persona-tab active" onclick="switchPersona('r28', 'lob', this)">LOB / Business</button>
+<button class="persona-tab" onclick="switchPersona('r28', 'integration', this)">Integration Leader</button>
+</div>
+<div class="persona-content active" data-persona="lob" data-story="r28">
+<div class="script-block"><div class="section-label hook">Hook</div><div class="script-text">"A prestigious department store estimated <span class="highlight">£25 million in excess inventory</span> caused by delays in product, pricing, and order data. With 15 million annual visitors, any experience impact was Priority 1."</div></div>
+<div class="script-block"><div class="section-label outcome">Outcome</div><div class="script-text">"Real-time event-driven integration means <span class="highlight">price updates hit e-commerce and electronic shelf labels simultaneously</span>. Purchase orders, invoices, and master data all flow in real-time."</div></div>
+<div class="script-block"><div class="section-label bridge">Bridge</div><div class="script-text">"How much excess inventory do you attribute to data latency? It's often bigger than people think."</div></div>
+</div>
+<div class="persona-content" data-persona="integration" data-story="r28">
+<div class="script-block"><div class="section-label hook">Hook</div><div class="script-text">"A department store's integration gaps meant <span class="highlight">pricing, orders, and product data were inconsistent across SAP, e-commerce, and in-store systems</span>. Supplier onboarding complexity was even putting premium brand relationships at risk."</div></div>
+<div class="script-block"><div class="section-label outcome">Outcome</div><div class="script-text">"Event-driven integration now handles invoice validation, sales order sync, price distribution to SCAYLE e-commerce and VUSION shelf labels, and <span class="highlight">master data replication from SAP to all third-party systems</span>."</div></div>
+<div class="script-block"><div class="section-label bridge">Bridge</div><div class="script-text">"How consistent is your pricing data across your physical and digital channels right now?"</div></div>
+</div>
+
+<div class="context-block" style="margin-top:0.75rem"><div class="section-label context">Context</div><strong>FACT:</strong> Prestigious UK department store. 15M+ annual visitors. Estimated £25M excess inventory from data latency.<br><strong>FACT:</strong> Use cases: invoice validation, sales order sync, price distribution to SCAYLE and VUSION, master data from SAP, purchase orders to 3rd party systems.</div>
+</div>
+</div><div class="story-card" data-sub="luxury" data-personas="architect,integration" id="r29">
+<div class="story-card-header" onclick="toggleStory('r29')">
+<div class="story-badges"><span class="story-badge badge-architect">Architect</span>
+<span class="story-badge badge-integration">Integration Leader</span>
+<span class="story-badge badge-sap">SAP</span>
+<span class="story-badge badge-sap">Kafka</span>
+</div>
+<div class="story-card-main">
+<div class="story-hook">A global jewellery brand uses SAP AEM to stream master data changes from SAP ERP to their Kafka estate</div>
+<div class="story-outcome">Event notification from SAP, enriched via Cloud Integration, delivered to Kafka via source/sink connectors — evolving toward direct data events</div>
+</div>
+<div class="story-toggle">&#x25BE;</div>
+</div>
+<div class="story-card-body">
+<div class="persona-tabs"><button class="persona-tab active" onclick="switchPersona('r29', 'architect', this)">Architect</button>
+<button class="persona-tab" onclick="switchPersona('r29', 'integration', this)">Integration Leader</button>
+</div>
+<div class="persona-content active" data-persona="architect" data-story="r29">
+<div class="script-block"><div class="section-label hook">Hook</div><div class="script-text">"A global jewellery brand had a <span class="highlight">strong internal Kafka footprint but needed to propagate SAP master data changes</span> enterprise-wide. ODATA API callbacks added complexity and latency."</div></div>
+<div class="script-block"><div class="section-label outcome">Outcome</div><div class="script-text">"SAP AEM captures notification events, Cloud Integration enriches them, and <span class="highlight">Solace's Kafka source and sink connectors bridge to their Kafka platform</span>. Next step: move to direct data events without callbacks."</div></div>
+<div class="script-block"><div class="section-label bridge">Bridge</div><div class="script-text">"If you're running Kafka and SAP, how are you getting SAP events into Kafka today? Is it clean or are there workarounds?"</div></div>
+</div>
+<div class="persona-content" data-persona="integration" data-story="r29">
+<div class="script-block"><div class="section-label hook">Hook</div><div class="script-text">"A retailer needed SAP ERP changes to flow to multiple consumers — <span class="highlight">including a Kafka platform that required schema-aware deserialization</span>. The existing approach was complex and hard to scale."</div></div>
+<div class="script-block"><div class="section-label outcome">Outcome</div><div class="script-text">"SAP AEM standardises the event flow. <span class="highlight">Multiple consumers subscribe — including Kafka via native connectors</span>. No duplicating data pipelines or business logic."</div></div>
+<div class="script-block"><div class="section-label bridge">Bridge</div><div class="script-text">"How many systems need to consume your SAP master data changes? Are they each getting their own feed?"</div></div>
+</div>
+
+<div class="context-block" style="margin-top:0.75rem"><div class="section-label context">Context</div><strong>FACT:</strong> Global jewellery brand. SAP AEM for master data distribution from SAP ERP.<br><strong>FACT:</strong> Strong internal Kafka estate with deserialization requirements.<br><strong>FACT:</strong> Uses Solace Kafka source and sink connectors. ODATA API callbacks via Cloud Integration.<br><strong>FACT:</strong> Evolving toward direct data events via AEM.</div>
+</div>
+</div><div class="story-card" data-sub="luxury" data-personas="architect" id="r30">
+<div class="story-card-header" onclick="toggleStory('r30')">
+<div class="story-badges"><span class="story-badge badge-architect">Architect</span>
+<span class="story-badge badge-sap">SAP</span>
+</div>
+<div class="story-card-main">
+<div class="story-hook">A global duty-free retailer is building a domain-oriented checkout platform on SAP AEM</div>
+<div class="story-outcome">Decoupled checkout services — sales receipts, master data, and domain integrations replacing SAP PI/PO</div>
+</div>
+<div class="story-toggle">&#x25BE;</div>
+</div>
+<div class="story-card-body">
+<div class="persona-tabs"><button class="persona-tab active" onclick="switchPersona('r30', 'architect', this)">Architect</button>
+</div>
+<div class="persona-content active" data-persona="architect" data-story="r30">
+<div class="script-block"><div class="section-label hook">Hook</div><div class="script-text">"A global duty-free retailer needed a <span class="highlight">scalable, domain-oriented checkout system</span> — but their monolithic SAP PI/PO integrations limited agility and independent deployments."</div></div>
+<div class="script-block"><div class="section-label outcome">Outcome</div><div class="script-text">"They're building on SAP AEM — <span class="highlight">decoupled domain services for sales, receipts, and master data</span>. Events flow between domains instead of point-to-point calls. PI/PO is being phased out."</div></div>
+<div class="script-block"><div class="section-label bridge">Bridge</div><div class="script-text">"Are you still running SAP PI/PO? Is there a modernisation plan in place?"</div></div>
+</div>
+
+<div class="context-block" style="margin-top:0.75rem"><div class="section-label context">Context</div><strong>FACT:</strong> Global duty-free retailer. SAP AEM for new checkout platform.<br><strong>FACT:</strong> Domain-oriented architecture — decoupled services for sales receipts, master data.<br><strong>FACT:</strong> Modernising from SAP PI/PO.</div>
+</div>
+</div>
+</div>
+<div class="sub-industry-section" data-sub="fnb">
+<div class="sub-industry-header">Restaurants, Food & Beverage Retail<span class="sub-industry-count">2 stories</span></div>
+<div class="sub-industry-desc">Order management events, supply chain, franchise operations integration</div>
+<div class="story-card" data-sub="fnb" data-personas="integration,architect" id="r31">
+<div class="story-card-header" onclick="toggleStory('r31')">
+<div class="story-badges"><span class="story-badge badge-integration">Integration Leader</span>
+<span class="story-badge badge-architect">Architect</span>
+<span class="story-badge badge-sap">SAP</span>
+</div>
+<div class="story-card-main">
+<div class="story-hook">A Latin American restaurant group couldn't propagate SAP pricing changes to stores or manufacturing — everything was tightly coupled REST</div>
+<div class="story-outcome">Real-time SAP MDM and price updates flowing to stores and factories via Solace + MuleSoft — time to market dramatically reduced</div>
+</div>
+<div class="story-toggle">&#x25BE;</div>
+</div>
+<div class="story-card-body">
+<div class="persona-tabs"><button class="persona-tab active" onclick="switchPersona('r31', 'integration', this)">Integration Leader</button>
+<button class="persona-tab" onclick="switchPersona('r31', 'architect', this)">Architect</button>
+</div>
+<div class="persona-content active" data-persona="integration" data-story="r31">
+<div class="script-block"><div class="section-label hook">Hook</div><div class="script-text">"A restaurant group's entire platform was built on REST and API Gateways — <span class="highlight">tightly coupled, no standard integration technology, and no way to propagate SAP changes</span> to manufacturing or stores in real-time."</div></div>
+<div class="script-block"><div class="section-label outcome">Outcome</div><div class="script-text">"Solace plus MuleSoft gave them no-code integrations deployable on-prem and in AWS. <span class="highlight">SAP MDM and price propagation became simple and real-time</span>. Time to market for new features dropped dramatically."</div></div>
+<div class="script-block"><div class="section-label bridge">Bridge</div><div class="script-text">"How are SAP master data changes reaching your stores and manufacturing today? Is it real-time or are there delays?"</div></div>
+</div>
+<div class="persona-content" data-persona="architect" data-story="r31">
+<div class="script-block"><div class="section-label hook">Hook</div><div class="script-text">"A food services group needed <span class="highlight">guaranteed delivery of SAP events to cloud consumers, topic-based filtering, and hybrid deployment</span> — but their REST-only architecture couldn't deliver any of it."</div></div>
+<div class="script-block"><div class="section-label outcome">Outcome</div><div class="script-text">"Solace provides pub/sub, REST bridging, and guaranteed messaging across on-prem and AWS. <span class="highlight">Consumers filter by topic — only receiving relevant events</span>. Eventual consistency: SAP events available in cloud within seconds."</div></div>
+<div class="script-block"><div class="section-label bridge">Bridge</div><div class="script-text">"Are your events guaranteed to reach cloud consumers even during outages? Or is there a risk of data loss?"</div></div>
+</div>
+
+<div class="context-block" style="margin-top:0.75rem"><div class="section-label context">Context</div><strong>FACT:</strong> Latin American restaurant/food services group. REST + API Gateway platform.<br><strong>FACT:</strong> Could not propagate SAP MDM or price changes to manufacturing or stores.<br><strong>FACT:</strong> Adopted Solace + MuleSoft. SaaS deployment on-prem + AWS.<br><strong>FACT:</strong> Requirements: guaranteed delivery, eventual consistency, topic routing.</div>
+</div>
+</div><div class="story-card" data-sub="fnb" data-personas="cto,integration" id="r32">
+<div class="story-card-header" onclick="toggleStory('r32')">
+<div class="story-badges"><span class="story-badge badge-cto">CTO / CIO</span>
+<span class="story-badge badge-integration">Integration Leader</span>
+<span class="story-badge badge-sap">SAP</span>
+</div>
+<div class="story-card-main">
+<div class="story-hook">A global fast food chain is using event-driven architecture to modernise HR across European markets</div>
+<div class="story-outcome">SAP SuccessFactors and McHire integrated with market-specific hiring systems — designed to scale as new countries onboard</div>
+</div>
+<div class="story-toggle">&#x25BE;</div>
+</div>
+<div class="story-card-body">
+<div class="persona-tabs"><button class="persona-tab active" onclick="switchPersona('r32', 'cto', this)">CTO / CIO</button>
+<button class="persona-tab" onclick="switchPersona('r32', 'integration', this)">Integration Leader</button>
+</div>
+<div class="persona-content active" data-persona="cto" data-story="r32">
+<div class="script-block"><div class="section-label hook">Hook</div><div class="script-text">"A global fast food chain needed to integrate cloud-native HR platforms — SAP SuccessFactors and their AI hiring tool — <span class="highlight">into market-specific systems across dozens of countries</span>. Point-to-point integrations wouldn't scale."</div></div>
+<div class="script-block"><div class="section-label outcome">Outcome</div><div class="script-text">"Event-driven architecture means <span class="highlight">each new market onboards without rework</span>. HR events flow in real-time between SuccessFactors, McHire, and local hiring systems. Wave 2 is rolling out across Europe."</div></div>
+<div class="script-block"><div class="section-label bridge">Bridge</div><div class="script-text">"When you expand to new markets, how much integration rework does that typically require?"</div></div>
+</div>
+<div class="persona-content" data-persona="integration" data-story="r32">
+<div class="script-block"><div class="section-label hook">Hook</div><div class="script-text">"A restaurant chain rolling out HR modernisation across Europe needed to <span class="highlight">avoid brittle point-to-point integrations between SuccessFactors, a hiring AI platform, and local market systems</span>."</div></div>
+<div class="script-block"><div class="section-label outcome">Outcome</div><div class="script-text">"Solace provides scalable pub/sub messaging with loose coupling. <span class="highlight">New markets connect to the same event backbone</span> — no custom integration per country."</div></div>
+<div class="script-block"><div class="section-label bridge">Bridge</div><div class="script-text">"Are you integrating the same platform into multiple markets? How are you handling the per-market variation?"</div></div>
+</div>
+
+<div class="context-block" style="margin-top:0.75rem"><div class="section-label context">Context</div><strong>FACT:</strong> Global fast food chain. HR modernisation use case.<br><strong>FACT:</strong> SAP SuccessFactors + McHire (Paradox.ai) integration with internal and market-specific hiring systems.<br><strong>FACT:</strong> Wave 2 rollout to European markets. Resilient architecture that scales with new markets.</div>
+</div>
+</div>
+</div>
+<div class="no-results" id="noResults">No stories match the current filters. Try a different combination.</div>
+</div>
+
+<div class="footer">
+  Solace SDR Playbook &mdash; Industry Stories: Retail &middot; <a href="index.html">Back to Hub</a>
+</div>
+
+<script>
+
+function toggleStory(id) {
+  document.getElementById(id).classList.toggle('open');
+}
+
+function switchPersona(storyId, persona, btn) {
+  var card = document.getElementById(storyId);
+  card.querySelectorAll('.persona-tab').forEach(function(t) { t.classList.remove('active'); });
+  btn.classList.add('active');
+  card.querySelectorAll('.persona-content').forEach(function(c) {
+    var isMatch = c.dataset.persona === persona && c.dataset.story === storyId;
+    if (isMatch) { c.classList.add('active'); } else { c.classList.remove('active'); }
+  });
+}
+
+var currentSub = 'all';
+var currentPersona = 'all';
+
+function filterStories(value, dimension, btn) {
+  if (dimension === 'sub') currentSub = value;
+  if (dimension === 'persona') currentPersona = value;
+
+  var filtersEl = document.querySelector('.filters');
+  var children = filtersEl.children;
+  var foundDivider = false;
+  var subPills = [];
+  var personaPills = [];
+  for (var i = 0; i < children.length; i++) {
+    var node = children[i];
+    if (node.classList && node.classList.contains('filter-break')) { foundDivider = true; continue; }
+    if (node.classList && node.classList.contains('filter-pill')) {
+      if (!foundDivider) subPills.push(node);
+      else personaPills.push(node);
+    }
+  }
+  
+  if (dimension === 'sub') {
+    subPills.forEach(function(p) { p.classList.remove('active'); });
+  } else {
+    personaPills.forEach(function(p) { p.classList.remove('active'); });
+  }
+  btn.classList.add('active');
+
+  var visibleCount = 0;
+  document.querySelectorAll('.sub-industry-section').forEach(function(section) {
+    var sub = section.dataset.sub;
+    var matchesSub = currentSub === 'all' || sub === currentSub;
+    
+    if (!matchesSub) { section.style.display = 'none'; return; }
+    
+    var sectionHasVisible = false;
+    section.querySelectorAll('.story-card').forEach(function(card) {
+      var personas = card.dataset.personas || '';
+      var matchesPersona = currentPersona === 'all' || personas.indexOf(currentPersona) !== -1;
+      card.style.display = matchesPersona ? 'block' : 'none';
+      if (matchesPersona) { sectionHasVisible = true; visibleCount++; }
+    });
+    
+    section.style.display = sectionHasVisible ? 'block' : 'none';
+  });
+  
+  document.getElementById('noResults').style.display = visibleCount === 0 ? 'block' : 'none';
+}
+
+</script>
+
+</body>
+</html>

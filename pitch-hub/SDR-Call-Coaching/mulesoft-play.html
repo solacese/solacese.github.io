@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>"We use MuleSoft" — Solace SDR Playbook</title>
+<script defer src="https://cloud.umami.is/script.js" data-website-id="dd8957d7-d9d6-460d-83d8-5f1d7320d0ab"></script>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F6F8FA;
+    --bg-card: #FFFFFF;
+    --bg-card-hover: #FAFBFC;
+    --border: #D0D7DE;
+    --text: #1F2328;
+    --text-mid: #57606A;
+    --text-dim: #8B949E;
+    --accent: #00AD7C;
+    --accent-soft: rgba(0, 173, 124, 0.07);
+    --accent-border: rgba(0, 173, 124, 0.2);
+    --warning: #D29922;
+    --warning-soft: rgba(210, 153, 34, 0.07);
+    --warning-border: rgba(210, 153, 34, 0.2);
+    --blue: #2F81F7;
+    --blue-soft: rgba(47, 129, 247, 0.07);
+    --blue-border: rgba(47, 129, 247, 0.2);
+    --red-soft: rgba(207, 34, 46, 0.07);
+    --red-border: rgba(207, 34, 46, 0.2);
+    --red: #CF222E;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; padding: 2rem 1.5rem; max-width: 860px; margin: 0 auto; }
+
+  .back-link { display: inline-block; margin-bottom: 1.5rem; font-size: 0.85rem; color: var(--text-mid); text-decoration: none; }
+  .back-link:hover { color: var(--accent); }
+
+  .header { margin-bottom: 3rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+  .header-label { font-size: 0.75rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.12em; color: var(--accent); margin-bottom: 0.75rem; }
+  .header h1 { font-family: 'Fraunces', serif; font-size: 2.2rem; font-weight: 700; line-height: 1.2; margin-bottom: 0.75rem; color: var(--text); }
+  .header h1 span { color: var(--accent); }
+  .header-sub { font-size: 0.95rem; color: var(--text-mid); max-width: 600px; }
+
+  .principle { background: var(--accent-soft); border: 1px solid var(--accent-border); border-radius: 8px; padding: 1.25rem 1.5rem; margin-bottom: 3rem; display: flex; gap: 1rem; align-items: flex-start; }
+  .principle-icon { font-size: 1.4rem; flex-shrink: 0; margin-top: 2px; }
+  .principle p { font-size: 0.95rem; color: var(--text); }
+  .principle strong { color: var(--accent); }
+
+  .flow { display: flex; flex-direction: column; }
+  .step { position: relative; }
+  .step-connector { position: absolute; left: 20px; top: 56px; bottom: -1px; width: 2px; background: var(--border); }
+  .step:last-child .step-connector { display: none; }
+  .step-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; cursor: pointer; user-select: none; }
+  .step-number { width: 42px; height: 42px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Fraunces', serif; font-weight: 700; font-size: 1.1rem; flex-shrink: 0; position: relative; z-index: 2; }
+  .step-number.green { background: var(--accent); color: #FFFFFF; }
+  .step-number.amber { background: var(--warning); color: #FFFFFF; }
+  .step-number.blue { background: var(--blue); color: #FFFFFF; }
+  .step-title-block { flex: 1; }
+  .step-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-dim); margin-bottom: 2px; }
+  .step-title { font-family: 'Fraunces', serif; font-size: 1.25rem; font-weight: 600; color: var(--text); }
+  .step-toggle { color: var(--text-dim); font-size: 1.2rem; transition: transform 0.2s; }
+  .step.open .step-toggle { transform: rotate(180deg); }
+  .step-body { margin-left: 62px; padding-bottom: 2.5rem; display: none; }
+  .step.open .step-body { display: block; }
+  .step-context { font-size: 0.9rem; color: var(--text-mid); margin-bottom: 1.25rem; font-style: italic; }
+
+  .script-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; padding: 1.25rem 1.5rem; margin-bottom: 0.75rem; transition: border-color 0.2s; }
+  .script-card:hover { border-color: var(--accent-border); }
+  .script-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; margin-bottom: 0.6rem; display: inline-block; padding: 2px 8px; border-radius: 4px; }
+  .script-label.say { background: var(--accent-soft); color: var(--accent); }
+  .script-label.if { background: var(--warning-soft); color: var(--warning); }
+  .script-label.note { background: var(--blue-soft); color: var(--blue); }
+  .script-label.dont { background: var(--red-soft); color: var(--red); }
+  .script-text { font-size: 0.95rem; color: var(--text); line-height: 1.7; }
+  .script-text em { color: var(--text-mid); font-style: italic; }
+  .highlight { color: var(--accent); font-weight: 500; }
+
+  .branch-label { font-size: 0.8rem; font-weight: 600; color: var(--text-mid); margin-bottom: 0.5rem; margin-top: 1rem; display: flex; align-items: center; gap: 0.5rem; }
+  .branch-label::before { content: ''; display: block; width: 16px; height: 2px; background: var(--border); }
+
+  .cheatsheet { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border); }
+  .cheatsheet h2 { font-family: 'Fraunces', serif; font-size: 1.3rem; font-weight: 600; margin-bottom: 1.25rem; }
+  .rules-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+  @media (max-width: 600px) { .rules-grid { grid-template-columns: 1fr; } body { padding: 1.25rem 1rem; } .header h1 { font-size: 1.6rem; } .step-body { margin-left: 0; } }
+  .rule-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; padding: 1rem 1.25rem; }
+  .rule-card .rule-do { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; margin-bottom: 0.4rem; }
+  .rule-card .rule-do.green { color: var(--accent); }
+  .rule-card .rule-do.red { color: var(--red); }
+  .rule-card p { font-size: 0.88rem; color: var(--text-mid); line-height: 1.5; }
+
+  .footer { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--border); text-align: center; color: var(--text-dim); font-size: 0.8rem; }
+  .footer a { color: var(--accent); text-decoration: none; }
+</style>
+</head>
+<body>
+
+<a href="index.html" class="back-link">&larr; Back to Playbook Hub</a>
+
+<div class="header">
+  <div class="header-label">Solace SDR Playbook &mdash; Competitive & Objections</div>
+  <h1>&ldquo;We already use <span>MuleSoft</span>&rdquo;</h1>
+  <p class="header-sub">They have an iPaaS and think integration is solved. Your job isn&rsquo;t to argue &mdash; it&rsquo;s to open a door they didn&rsquo;t know existed. Sell the meeting.</p>
+</div>
+
+<div class="principle">
+  <div class="principle-icon">&#x26A1;</div>
+  <p><strong>Core principle:</strong> MuleSoft is not the enemy. It&rsquo;s the thing that makes Solace work better. Every customer story in this space is &ldquo;MuleSoft + Solace&rdquo; not &ldquo;MuleSoft replaced by Solace.&rdquo; Solace is the layer MuleSoft doesn&rsquo;t have &mdash; real-time event streaming and guaranteed delivery at volume.</p>
+</div>
+
+<div class="flow">
+
+  <!-- STEP 1 -->
+  <div class="step open" id="step1">
+    <div class="step-connector"></div>
+    <div class="step-header" onclick="toggleStep('step1')">
+      <div class="step-number green">1</div>
+      <div class="step-title-block">
+        <div class="step-label">&ldquo;We already have MuleSoft&rdquo;</div>
+        <div class="step-title">The Agree-and-Expand</div>
+      </div>
+      <div class="step-toggle">&#x25BE;</div>
+    </div>
+    <div class="step-body">
+      <div class="step-context">They&rsquo;re telling you they&rsquo;ve already invested in integration. They expect you to pitch a replacement. Don&rsquo;t.</div>
+
+      <div class="script-card">
+        <div class="script-label say">Say this</div>
+        <p class="script-text">&ldquo;That&rsquo;s great &mdash; MuleSoft is solid for API integration. A lot of our customers run MuleSoft too. What they found is that when traffic volume scales up, or they need <span class="highlight">guaranteed delivery under load</span>, there&rsquo;s a layer that makes MuleSoft even more effective. That&rsquo;s usually what&rsquo;s worth a quick conversation.&rdquo;</p>
+      </div>
+
+      <div class="script-card">
+        <div class="script-label note">Why it works</div>
+        <p class="script-text">Validates their investment &mdash; no threat. <em>&ldquo;A lot of our customers run MuleSoft too&rdquo;</em> normalises the coexistence. <em>&ldquo;Makes MuleSoft more effective&rdquo;</em> reframes Solace as additive, not competitive. The curiosity gap is &ldquo;what layer?&rdquo; without naming it.</p>
+      </div>
+
+      <div class="script-card">
+        <div class="script-label dont">Don&rsquo;t do this</div>
+        <p class="script-text">Don&rsquo;t position Solace as an iPaaS alternative. Don&rsquo;t mention specific MuleSoft limitations. Don&rsquo;t use the word &ldquo;replace.&rdquo; If they think you&rsquo;re trying to rip out their investment, the call is over.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 2 -->
+  <div class="step" id="step2">
+    <div class="step-connector"></div>
+    <div class="step-header" onclick="toggleStep('step2')">
+      <div class="step-number amber">2</div>
+      <div class="step-title-block">
+        <div class="step-label">They push &mdash; &ldquo;MuleSoft handles our events too&rdquo;</div>
+        <div class="step-title">Reframe Without Arguing</div>
+      </div>
+      <div class="step-toggle">&#x25BE;</div>
+    </div>
+    <div class="step-body">
+      <div class="step-context">They think their iPaaS handles everything, including event streaming. They might be right for now. Don&rsquo;t tell them they&rsquo;re wrong &mdash; make them curious about what &ldquo;at scale&rdquo; looks like.</div>
+
+      <div class="branch-label">Option A &mdash; The volume angle</div>
+      <div class="script-card">
+        <div class="script-label say">Say this</div>
+        <p class="script-text">&ldquo;Absolutely, MuleSoft can handle events. What our customers found is that at volume &mdash; <span class="highlight">seasonal peaks, order surges, real-time factory data</span> &mdash; there&rsquo;s a point where an event layer in front of the iPaaS makes everything more stable. One customer went from platform instability to <span class="highlight">3.5x more traffic at 30% iPaaS load</span>. That&rsquo;s the kind of thing worth 20 minutes.&rdquo;</p>
+      </div>
+
+      <div class="branch-label">Option B &mdash; The &ldquo;both&rdquo; angle</div>
+      <div class="script-card">
+        <div class="script-label say">Say this</div>
+        <p class="script-text">&ldquo;MuleSoft is great at transformation and orchestration. What Solace adds is the <span class="highlight">real-time delivery and guaranteed messaging layer</span> underneath. Think of it as MuleSoft processes the data, Solace makes sure it gets there &mdash; even during a spike. Most of our joint customers didn&rsquo;t plan it that way, but once they saw it, they didn&rsquo;t go back.&rdquo;</p>
+      </div>
+
+      <div class="script-card">
+        <div class="script-label note">Why it works</div>
+        <p class="script-text">Option A uses a real metric (from the customer base) without naming the account. Option B draws a clean complementary line &mdash; transformation vs delivery &mdash; that&rsquo;s easy to grasp. Both position Solace as something that <em>enhances</em> what they already have.</p>
+      </div>
+
+      <div class="script-card">
+        <div class="script-label dont">Don&rsquo;t do this</div>
+        <p class="script-text">Don&rsquo;t say &ldquo;MuleSoft isn&rsquo;t designed for event streaming.&rdquo; Don&rsquo;t bring up Anypoint MQ specifically. Don&rsquo;t get into a feature comparison. You&rsquo;re selling a meeting, not winning an architecture debate.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 3 -->
+  <div class="step" id="step3">
+    <div class="step-header" onclick="toggleStep('step3')">
+      <div class="step-number blue">3</div>
+      <div class="step-title-block">
+        <div class="step-label">Close or release</div>
+        <div class="step-title">Book It or Respect the No</div>
+      </div>
+      <div class="step-toggle">&#x25BE;</div>
+    </div>
+    <div class="step-body">
+      <div class="step-context">They&rsquo;re either curious about the complementary angle or they&rsquo;re done. Read the signal.</div>
+
+      <div class="branch-label">If warm &mdash; &ldquo;that&rsquo;s interesting&hellip;&rdquo;</div>
+      <div class="script-card">
+        <div class="script-label say">Say this</div>
+        <p class="script-text">&ldquo;Let me get you 20 minutes with someone who can show you what this looks like alongside MuleSoft &mdash; specifically for <span class="highlight">[their industry]</span>. They can walk through how other companies structured it. What does your calendar look like?&rdquo;</p>
+      </div>
+
+      <div class="branch-label">If cold &mdash; &ldquo;we&rsquo;re happy with MuleSoft&rdquo;</div>
+      <div class="script-card">
+        <div class="script-label say">Say this</div>
+        <p class="script-text">&ldquo;That&rsquo;s fair &mdash; if it&rsquo;s working, it&rsquo;s working. If you ever hit a point where volume or real-time becomes a challenge, we&rsquo;re an easy conversation. Appreciate your time.&rdquo;</p>
+      </div>
+
+      <div class="script-card">
+        <div class="script-label note">Why it works</div>
+        <p class="script-text">The warm close specifically mentions <em>&ldquo;alongside MuleSoft&rdquo;</em> &mdash; reinforcing that this isn&rsquo;t a rip-and-replace conversation. The cold exit plants a seed (&ldquo;volume or real-time&rdquo;) without being pushy. They&rsquo;ll remember when the pain arrives.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- CHEATSHEET -->
+<div class="cheatsheet">
+  <h2>Quick Rules for the MuleSoft Conversation</h2>
+  <div class="rules-grid">
+    <div class="rule-card">
+      <div class="rule-do green">&#x2713; Always</div>
+      <p>Position Solace as complementary. &ldquo;MuleSoft + Solace&rdquo; is the frame, always.</p>
+    </div>
+    <div class="rule-card">
+      <div class="rule-do green">&#x2713; Always</div>
+      <p>Validate their investment first. They chose MuleSoft for good reasons. Acknowledge that.</p>
+    </div>
+    <div class="rule-card">
+      <div class="rule-do green">&#x2713; Always</div>
+      <p>Use volume and reliability as the wedge. &ldquo;At scale&rdquo; and &ldquo;under load&rdquo; are your key phrases.</p>
+    </div>
+    <div class="rule-card">
+      <div class="rule-do green">&#x2713; Always</div>
+      <p>Sell the meeting, not the product. Your SE will handle the architecture conversation.</p>
+    </div>
+    <div class="rule-card">
+      <div class="rule-do red">&#x2717; Never</div>
+      <p>Position Solace as an iPaaS. It&rsquo;s not. Different layer, different job.</p>
+    </div>
+    <div class="rule-card">
+      <div class="rule-do red">&#x2717; Never</div>
+      <p>Mention Anypoint MQ by name. Let the SE handle the technical comparison if needed.</p>
+    </div>
+    <div class="rule-card">
+      <div class="rule-do red">&#x2717; Never</div>
+      <p>Say &ldquo;replace.&rdquo; Even if the customer eventually does. That&rsquo;s not your conversation.</p>
+    </div>
+    <div class="rule-card">
+      <div class="rule-do red">&#x2717; Never</div>
+      <p>Criticise MuleSoft. The person you&rsquo;re talking to might have championed the purchase.</p>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  Solace SDR Playbook &mdash; MuleSoft Objection Framework &middot; <a href="index.html">Back to Hub</a>
+</div>
+
+<script>
+function toggleStep(id) { document.getElementById(id).classList.toggle('open'); }
+</script>
+
+</body>
+</html>

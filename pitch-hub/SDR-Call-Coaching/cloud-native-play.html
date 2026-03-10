@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>"We just use our cloud provider's messaging" — Solace SDR Playbook</title>
+<script defer src="https://cloud.umami.is/script.js" data-website-id="dd8957d7-d9d6-460d-83d8-5f1d7320d0ab"></script>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F6F8FA;
+    --bg-card: #FFFFFF;
+    --bg-card-hover: #FAFBFC;
+    --border: #D0D7DE;
+    --text: #1F2328;
+    --text-mid: #57606A;
+    --text-dim: #8B949E;
+    --accent: #00AD7C;
+    --accent-soft: rgba(0, 173, 124, 0.07);
+    --accent-border: rgba(0, 173, 124, 0.2);
+    --warning: #D29922;
+    --warning-soft: rgba(210, 153, 34, 0.07);
+    --warning-border: rgba(210, 153, 34, 0.2);
+    --blue: #2F81F7;
+    --blue-soft: rgba(47, 129, 247, 0.07);
+    --blue-border: rgba(47, 129, 247, 0.2);
+    --red-soft: rgba(207, 34, 46, 0.07);
+    --red-border: rgba(207, 34, 46, 0.2);
+    --red: #CF222E;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; padding: 2rem 1.5rem; max-width: 860px; margin: 0 auto; }
+
+  .back-link { display: inline-block; margin-bottom: 1.5rem; font-size: 0.85rem; color: var(--text-mid); text-decoration: none; }
+  .back-link:hover { color: var(--accent); }
+
+  .header { margin-bottom: 3rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+  .header-label { font-size: 0.75rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.12em; color: var(--accent); margin-bottom: 0.75rem; }
+  .header h1 { font-family: 'Fraunces', serif; font-size: 2.2rem; font-weight: 700; line-height: 1.2; margin-bottom: 0.75rem; color: var(--text); }
+  .header h1 span { color: var(--accent); }
+  .header-sub { font-size: 0.95rem; color: var(--text-mid); max-width: 620px; }
+
+  .principle { background: var(--accent-soft); border: 1px solid var(--accent-border); border-radius: 8px; padding: 1.25rem 1.5rem; margin-bottom: 3rem; display: flex; gap: 1rem; align-items: flex-start; }
+  .principle-icon { font-size: 1.4rem; flex-shrink: 0; margin-top: 2px; }
+  .principle p { font-size: 0.95rem; color: var(--text); }
+  .principle strong { color: var(--accent); }
+
+  .flow { display: flex; flex-direction: column; }
+  .step { position: relative; }
+  .step-connector { position: absolute; left: 20px; top: 56px; bottom: -1px; width: 2px; background: var(--border); }
+  .step:last-child .step-connector { display: none; }
+  .step-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; cursor: pointer; user-select: none; }
+  .step-number { width: 42px; height: 42px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Fraunces', serif; font-weight: 700; font-size: 1.1rem; flex-shrink: 0; position: relative; z-index: 2; }
+  .step-number.green { background: var(--accent); color: #FFFFFF; }
+  .step-number.amber { background: var(--warning); color: #FFFFFF; }
+  .step-number.blue { background: var(--blue); color: #FFFFFF; }
+  .step-title-block { flex: 1; }
+  .step-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-dim); margin-bottom: 2px; }
+  .step-title { font-family: 'Fraunces', serif; font-size: 1.25rem; font-weight: 600; color: var(--text); }
+  .step-toggle { color: var(--text-dim); font-size: 1.2rem; transition: transform 0.2s; }
+  .step.open .step-toggle { transform: rotate(180deg); }
+  .step-body { margin-left: 62px; padding-bottom: 2.5rem; display: none; }
+  .step.open .step-body { display: block; }
+  .step-context { font-size: 0.9rem; color: var(--text-mid); margin-bottom: 1.25rem; font-style: italic; }
+
+  .script-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; padding: 1.25rem 1.5rem; margin-bottom: 0.75rem; transition: border-color 0.2s; }
+  .script-card:hover { border-color: var(--accent-border); }
+  .script-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; margin-bottom: 0.6rem; display: inline-block; padding: 2px 8px; border-radius: 4px; }
+  .script-label.say { background: var(--accent-soft); color: var(--accent); }
+  .script-label.if { background: var(--warning-soft); color: var(--warning); }
+  .script-label.note { background: var(--blue-soft); color: var(--blue); }
+  .script-label.dont { background: var(--red-soft); color: var(--red); }
+  .script-text { font-size: 0.95rem; color: var(--text); line-height: 1.7; }
+  .script-text em { color: var(--text-mid); font-style: italic; }
+  .highlight { color: var(--accent); font-weight: 500; }
+
+  .branch-label { font-size: 0.8rem; font-weight: 600; color: var(--text-mid); margin-bottom: 0.5rem; margin-top: 1rem; display: flex; align-items: center; gap: 0.5rem; }
+  .branch-label::before { content: ''; display: block; width: 16px; height: 2px; background: var(--border); }
+
+  .cheatsheet { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border); }
+  .cheatsheet h2 { font-family: 'Fraunces', serif; font-size: 1.3rem; font-weight: 600; margin-bottom: 1.25rem; }
+  .rules-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+  @media (max-width: 600px) { .rules-grid { grid-template-columns: 1fr; } body { padding: 1.25rem 1rem; } .header h1 { font-size: 1.6rem; } .step-body { margin-left: 0; } }
+  .rule-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; padding: 1rem 1.25rem; }
+  .rule-card .rule-do { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; margin-bottom: 0.4rem; }
+  .rule-card .rule-do.green { color: var(--accent); }
+  .rule-card .rule-do.red { color: var(--red); }
+  .rule-card p { font-size: 0.88rem; color: var(--text-mid); line-height: 1.5; }
+
+  .footer { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--border); text-align: center; color: var(--text-dim); font-size: 0.8rem; }
+  .footer a { color: var(--accent); text-decoration: none; }
+</style>
+</head>
+<body>
+
+<a href="index.html" class="back-link">&larr; Back to Playbook Hub</a>
+
+<div class="header">
+  <div class="header-label">Solace SDR Playbook &mdash; Competitive & Objections</div>
+  <h1>&ldquo;We just use our <span>cloud provider&rsquo;s</span> messaging&rdquo;</h1>
+  <p class="header-sub">AWS SQS/SNS, Azure Service Bus, Google Pub/Sub &mdash; they think native is enough. It probably is, for now. Your job is to make them curious about what happens when &ldquo;for now&rdquo; runs out.</p>
+</div>
+
+<div class="principle">
+  <div class="principle-icon">&#x26A1;</div>
+  <p><strong>Core principle:</strong> Cloud-native messaging services are good at what they do. Don&rsquo;t trash them. The opening is that they&rsquo;re designed for <em>one cloud</em> &mdash; and the moment a company needs to connect across clouds, regions, on-prem, or edge, the native service becomes a wall, not a bridge. You&rsquo;re selling the question, not the answer.</p>
+</div>
+
+<div class="flow">
+
+  <!-- STEP 1 -->
+  <div class="step open" id="step1">
+    <div class="step-connector"></div>
+    <div class="step-header" onclick="toggleStep('step1')">
+      <div class="step-number green">1</div>
+      <div class="step-title-block">
+        <div class="step-label">&ldquo;We use SQS / Service Bus / Pub/Sub&rdquo;</div>
+        <div class="step-title">Validate, Then Open the Door</div>
+      </div>
+      <div class="step-toggle">&#x25BE;</div>
+    </div>
+    <div class="step-body">
+      <div class="step-context">They&rsquo;re telling you they already have messaging. They probably chose it because it was there &mdash; zero procurement, already in their cloud console. That&rsquo;s a rational decision. Don&rsquo;t fight it.</div>
+
+      <div class="script-card">
+        <div class="script-label say">Say this</div>
+        <p class="script-text">&ldquo;Makes sense &mdash; those services are solid for what they do. A lot of our customers started the same way. Where it usually gets interesting is when they need to <span class="highlight">connect beyond a single cloud</span> &mdash; another region, on-prem systems, a partner, or a second cloud provider. That&rsquo;s when native messaging starts to feel limiting. Is that something you&rsquo;re running into, or likely to?&rdquo;</p>
+      </div>
+
+      <div class="script-card">
+        <div class="script-label note">Why it works</div>
+        <p class="script-text">Validates their choice. <em>&ldquo;A lot of our customers started the same way&rdquo;</em> normalises the journey without implying they&rsquo;re behind. The question at the end is genuine &mdash; if the answer is &ldquo;no, we&rsquo;re single cloud forever&rdquo; then there may not be a fit, and that&rsquo;s fine. But most enterprises aren&rsquo;t single cloud forever.</p>
+      </div>
+
+      <div class="script-card">
+        <div class="script-label dont">Don&rsquo;t do this</div>
+        <p class="script-text">Don&rsquo;t say &ldquo;SQS isn&rsquo;t enterprise-grade&rdquo; or &ldquo;Service Bus loses messages.&rdquo; Even if there are real limitations, the person you&rsquo;re talking to chose it or approved it. Don&rsquo;t make them defend that decision.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 2 -->
+  <div class="step" id="step2">
+    <div class="step-connector"></div>
+    <div class="step-header" onclick="toggleStep('step2')">
+      <div class="step-number amber">2</div>
+      <div class="step-title-block">
+        <div class="step-label">They push &mdash; &ldquo;We&rsquo;re all-in on Azure / AWS / GCP&rdquo;</div>
+        <div class="step-title">The Multi-Cloud Reality Check</div>
+      </div>
+      <div class="step-toggle">&#x25BE;</div>
+    </div>
+    <div class="step-body">
+      <div class="step-context">They believe they&rsquo;re single-cloud. They might be right today. But very few large enterprises stay that way. And even &ldquo;single cloud&rdquo; often means multiple regions, on-prem SAP, factory systems, or partner connections.</div>
+
+      <div class="branch-label">Option A &mdash; The hidden complexity angle</div>
+      <div class="script-card">
+        <div class="script-label say">Say this</div>
+        <p class="script-text">&ldquo;That makes sense. Quick question though &mdash; is everything in one cloud? Or do you have <span class="highlight">on-prem systems, SAP, factories, or partners</span> that also need real-time data? Because what we see is that even &lsquo;all-in&rsquo; companies end up with hybrid connections they didn&rsquo;t plan for. That&rsquo;s where a layer above the cloud-native service starts to pay for itself.&rdquo;</p>
+      </div>
+
+      <div class="branch-label">Option B &mdash; The lock-in angle (use carefully)</div>
+      <div class="script-card">
+        <div class="script-label say">Say this</div>
+        <p class="script-text">&ldquo;We hear that a lot. The question our customers usually wrestle with is: <span class="highlight">what happens if the cloud strategy changes?</span> An acquisition, a new regulation, a partnership that runs on a different cloud. If your messaging is native to one provider, migrating that layer is a massive project. Solace sits above the cloud &mdash; so if the strategy shifts, the messaging doesn&rsquo;t have to.&rdquo;</p>
+      </div>
+
+      <div class="branch-label">Option C &mdash; The real proof point</div>
+      <div class="script-card">
+        <div class="script-label say">Say this</div>
+        <p class="script-text">&ldquo;One of our customers &mdash; a global beauty brand &mdash; started on Google Pub/Sub. It worked fine until they hit <span class="highlight">production volumes and started losing messages</span>. They moved to Solace and the problem disappeared. I&rsquo;m not saying that&rsquo;s your situation, but it&rsquo;s worth knowing before it happens to you.&rdquo;</p>
+      </div>
+
+      <div class="script-card">
+        <div class="script-label note">Why it works</div>
+        <p class="script-text">Option A gently exposes the hybrid reality most enterprises face. Option B plants a strategic seed about future flexibility without being alarmist. Option C uses a real customer proof point (Groupe Rocher / Google Pub/Sub) &mdash; concrete and memorable. All three avoid positioning cloud-native as bad &mdash; they position Solace as the layer above.</p>
+      </div>
+
+      <div class="script-card">
+        <div class="script-label dont">Don&rsquo;t do this</div>
+        <p class="script-text">Don&rsquo;t get into a feature comparison between SQS and Solace. Don&rsquo;t use the phrase &ldquo;vendor lock-in&rdquo; &mdash; it sounds like a sales pitch. Say &ldquo;flexibility&rdquo; instead. Don&rsquo;t assume they have multi-cloud problems &mdash; ask.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 3 -->
+  <div class="step" id="step3">
+    <div class="step-header" onclick="toggleStep('step3')">
+      <div class="step-number blue">3</div>
+      <div class="step-title-block">
+        <div class="step-label">Close or release</div>
+        <div class="step-title">Book It or Respect the No</div>
+      </div>
+      <div class="step-toggle">&#x25BE;</div>
+    </div>
+    <div class="step-body">
+      <div class="step-context">If you&rsquo;ve opened the multi-cloud or hybrid question, they&rsquo;re either seeing the relevance or they&rsquo;re genuinely single-cloud-and-happy. Both are fine.</div>
+
+      <div class="branch-label">If warm &mdash; &ldquo;hmm, we are looking at multi-cloud / hybrid&rdquo;</div>
+      <div class="script-card">
+        <div class="script-label say">Say this</div>
+        <p class="script-text">&ldquo;That&rsquo;s exactly when this conversation pays off. Let me get you 20 minutes with someone who can show you how other companies in <span class="highlight">[their industry]</span> handled that transition &mdash; and what they wish they&rsquo;d known earlier. What does your calendar look like?&rdquo;</p>
+      </div>
+
+      <div class="branch-label">If they acknowledge SAP or on-prem connections</div>
+      <div class="script-card">
+        <div class="script-label say">Say this</div>
+        <p class="script-text">&ldquo;So you&rsquo;ve already got a hybrid situation &mdash; cloud plus on-prem SAP. That&rsquo;s exactly where Solace fits. <span class="highlight">SAP actually embeds our technology</span> for their event-driven architecture. It might be worth seeing how that connects to your Azure / AWS setup. 20 minutes?&rdquo;</p>
+      </div>
+
+      <div class="branch-label">If firm &mdash; &ldquo;we&rsquo;re good with what we have&rdquo;</div>
+      <div class="script-card">
+        <div class="script-label say">Say this</div>
+        <p class="script-text">&ldquo;Totally fair. If the cloud strategy evolves or you start connecting beyond a single provider, we&rsquo;re an easy conversation. Appreciate your time.&rdquo;</p>
+      </div>
+
+      <div class="script-card">
+        <div class="script-label note">Why it works</div>
+        <p class="script-text">The SAP angle is particularly powerful here &mdash; almost every enterprise has SAP, and the fact that SAP embeds Solace (as SAP AEM) is a credibility proof point that changes the conversation from &ldquo;why would I add another tool&rdquo; to &ldquo;oh, this is already in my SAP world.&rdquo; The firm exit plants a seed tied to a real future event (strategy change), not a vague &ldquo;maybe someday.&rdquo;</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- CHEATSHEET -->
+<div class="cheatsheet">
+  <h2>Quick Rules for the Cloud-Native Conversation</h2>
+  <div class="rules-grid">
+    <div class="rule-card">
+      <div class="rule-do green">&#x2713; Always</div>
+      <p>Validate their cloud choice. They picked it for good reasons &mdash; zero friction, familiar console, no procurement.</p>
+    </div>
+    <div class="rule-card">
+      <div class="rule-do green">&#x2713; Always</div>
+      <p>Position Solace as &ldquo;the layer above.&rdquo; Not a replacement for SQS/Service Bus &mdash; the thing that connects them to everything else.</p>
+    </div>
+    <div class="rule-card">
+      <div class="rule-do green">&#x2713; Always</div>
+      <p>Ask about hybrid realities: SAP, on-prem, factories, partners, second cloud. Most enterprises have them even if they say &ldquo;all-in.&rdquo;</p>
+    </div>
+    <div class="rule-card">
+      <div class="rule-do green">&#x2713; Always</div>
+      <p>Use the SAP angle when relevant. SAP embeds Solace as AEM &mdash; it&rsquo;s a powerful credibility play.</p>
+    </div>
+    <div class="rule-card">
+      <div class="rule-do red">&#x2717; Never</div>
+      <p>Say &ldquo;vendor lock-in.&rdquo; It sounds like FUD. Say &ldquo;flexibility&rdquo; or &ldquo;portability&rdquo; instead.</p>
+    </div>
+    <div class="rule-card">
+      <div class="rule-do red">&#x2717; Never</div>
+      <p>Compare features with SQS, SNS, Service Bus, or Pub/Sub. Your SE can do that in the meeting.</p>
+    </div>
+    <div class="rule-card">
+      <div class="rule-do red">&#x2717; Never</div>
+      <p>Assume they have a multi-cloud problem. Ask first. If they&rsquo;re genuinely single-cloud and happy, respect it.</p>
+    </div>
+    <div class="rule-card">
+      <div class="rule-do red">&#x2717; Never</div>
+      <p>Trash cloud-native services. The person on the call might be the one who architected the current solution.</p>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  Solace SDR Playbook &mdash; Cloud-Native Messaging Objection Framework &middot; <a href="index.html">Back to Hub</a>
+</div>
+
+<script>
+function toggleStep(id) { document.getElementById(id).classList.toggle('open'); }
+</script>
+
+</body>
+</html>

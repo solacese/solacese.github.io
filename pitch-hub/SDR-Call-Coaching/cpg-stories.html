@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Industry Stories: Consumer Product Goods &mdash; Solace SDR Playbook</title>
+<script defer src="https://cloud.umami.is/script.js" data-website-id="dd8957d7-d9d6-460d-83d8-5f1d7320d0ab"></script>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --accent: #00AD7C;
+    --accent-bright: #00C895;
+    --accent-soft: rgba(0, 173, 124, 0.07);
+    --accent-border: rgba(0, 173, 124, 0.2);
+    --blue: #2F81F7;
+    --blue-soft: rgba(47, 129, 247, 0.07);
+    --blue-border: rgba(47, 129, 247, 0.2);
+    --amber: #D29922;
+    --amber-soft: rgba(210, 153, 34, 0.07);
+    --amber-border: rgba(210, 153, 34, 0.2);
+    --purple: #8957E5;
+    --purple-soft: rgba(137, 87, 229, 0.07);
+    --purple-border: rgba(137, 87, 229, 0.2);
+    --red: #CF222E;
+    --red-soft: rgba(207, 34, 46, 0.07);
+    --red-border: rgba(207, 34, 46, 0.2);
+    --bg: #F6F8FA;
+    --bg-card: #FFFFFF;
+    --text: #1F2328;
+    --text-mid: #57606A;
+    --text-dim: #8B949E;
+    --border: #D0D7DE;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); }
+
+  .back-link {
+    display: inline-block;
+    padding: 1.25rem 2rem 0;
+    font-size: 0.85rem;
+    color: var(--text-mid);
+    text-decoration: none;
+  }
+  .back-link:hover { color: var(--accent); }
+
+  .hero {
+    background: var(--bg-card);
+    border-bottom: 1px solid var(--border);
+    padding: 1.5rem 2rem 2rem;
+  }
+  .hero .header-label {
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.5rem;
+  }
+  .hero h1 {
+    font-family: 'Fraunces', serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  .hero h1 .industry-icon { margin-right: 0.35rem; }
+  .hero p {
+    color: var(--text-mid);
+    font-size: 0.9rem;
+    max-width: 640px;
+    line-height: 1.5;
+  }
+
+  /* Stats bar */
+  .stats-bar {
+    display: flex;
+    gap: 2rem;
+    margin-top: 1.25rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+  }
+  .stat { text-align: center; }
+  .stat-number { font-family: 'Fraunces', serif; font-size: 1.3rem; font-weight: 700; color: var(--accent); }
+  .stat-label { font-size: 0.72rem; color: var(--text-dim); }
+
+  /* Filters */
+  .filters {
+    padding: 1rem 2rem;
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg-card);
+  }
+  .filter-group-label {
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    margin-right: 0.25rem;
+    font-weight: 500;
+  }
+  .filter-pill {
+    padding: 0.35rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.78rem;
+    font-family: 'DM Sans', sans-serif;
+    border: 1px solid var(--border);
+    background: var(--bg);
+    color: var(--text-mid);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .filter-pill:hover { border-color: var(--accent); color: var(--accent); }
+  .filter-pill.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+  .filter-break {
+    width: 100%;
+    height: 0;
+    border-top: 1px solid var(--border);
+    margin: 0.25rem 0;
+  }
+
+  .main { padding: 2rem; max-width: 900px; }
+
+  /* Sub-industry sections */
+  .sub-industry-section { margin-bottom: 2.5rem; }
+  .sub-industry-header {
+    font-family: 'Fraunces', serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin-bottom: 0.35rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .sub-industry-count {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.72rem;
+    color: var(--text-dim);
+    font-weight: 400;
+    background: var(--bg);
+    padding: 0.15rem 0.5rem;
+    border-radius: 10px;
+  }
+  .sub-industry-desc {
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    margin-bottom: 1rem;
+    line-height: 1.4;
+  }
+
+  /* Story cards */
+  .story-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 0.75rem;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  .story-card:hover { border-color: var(--accent-border); }
+
+  .story-card-header {
+    padding: 1rem 1.25rem;
+    cursor: pointer;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+  .story-card-header:hover { background: #FAFBFC; }
+
+  .story-badges {
+    display: flex;
+    gap: 0.35rem;
+    flex-shrink: 0;
+    flex-wrap: wrap;
+    width: 140px;
+  }
+  .story-badge {
+    font-size: 0.68rem;
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+  /* Persona badges */
+  .badge-cto { background: var(--blue-soft); color: var(--blue); border: 1px solid var(--blue-border); }
+  .badge-integration { background: var(--accent-soft); color: var(--accent); border: 1px solid var(--accent-border); }
+  .badge-lob { background: var(--amber-soft); color: var(--amber); border: 1px solid var(--amber-border); }
+  .badge-architect { background: var(--purple-soft); color: var(--purple); border: 1px solid var(--purple-border); }
+  /* Tag badges */
+  .badge-sap { background: rgba(0,0,0,0.04); color: #57606A; border: 1px solid rgba(0,0,0,0.1); font-size: 0.65rem; }
+  .badge-migration { background: var(--red-soft); color: var(--red); border: 1px solid var(--red-border); font-size: 0.65rem; }
+
+  .story-card-main { flex: 1; min-width: 0; }
+  .story-hook {
+    font-weight: 600;
+    font-size: 0.9rem;
+    line-height: 1.35;
+    margin-bottom: 0.25rem;
+  }
+  .story-outcome {
+    font-size: 0.82rem;
+    color: var(--text-mid);
+    line-height: 1.35;
+  }
+
+  .story-toggle {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-dim);
+    transition: transform 0.2s;
+    font-size: 0.8rem;
+  }
+  .story-card.open .story-toggle { transform: rotate(180deg); }
+
+  .story-card-body {
+    display: none;
+    padding: 0 1.25rem 1.25rem;
+    border-top: 1px solid var(--border);
+    margin: 0 1.25rem;
+    padding-top: 1rem;
+  }
+  .story-card.open .story-card-body { display: block; }
+
+  /* Persona tabs inside expanded card */
+  .persona-tabs {
+    display: flex;
+    gap: 0.35rem;
+    margin-bottom: 1rem;
+  }
+  .persona-tab {
+    padding: 0.3rem 0.65rem;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-family: 'DM Sans', sans-serif;
+    border: 1px solid var(--border);
+    background: var(--bg);
+    color: var(--text-mid);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .persona-tab:hover { border-color: var(--accent); }
+  .persona-tab.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+  .persona-content { display: none; }
+  .persona-content.active { display: block; }
+
+  .section-label {
+    display: inline-block;
+    font-size: 0.68rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    padding: 0.15rem 0.45rem;
+    border-radius: 3px;
+    margin-bottom: 0.5rem;
+  }
+  .section-label.hook { background: var(--accent-soft); color: var(--accent); border: 1px solid var(--accent-border); }
+  .section-label.outcome { background: var(--blue-soft); color: var(--blue); border: 1px solid var(--blue-border); }
+  .section-label.bridge { background: var(--amber-soft); color: var(--amber); border: 1px solid var(--amber-border); }
+  .section-label.context { background: var(--purple-soft); color: var(--purple); border: 1px solid var(--purple-border); }
+
+  .script-block {
+    margin-bottom: 1rem;
+  }
+  .script-text {
+    font-size: 0.85rem;
+    line-height: 1.55;
+    color: var(--text);
+    padding: 0.75rem;
+    background: var(--bg);
+    border-radius: 6px;
+    border-left: 3px solid var(--accent);
+  }
+  .script-text .highlight {
+    background: rgba(0, 173, 124, 0.1);
+    padding: 0.1rem 0.25rem;
+    border-radius: 3px;
+    font-weight: 500;
+  }
+
+  .context-block {
+    font-size: 0.8rem;
+    color: var(--text-mid);
+    line-height: 1.5;
+    padding: 0.75rem;
+    background: var(--bg);
+    border-radius: 6px;
+  }
+  .context-block strong { color: var(--text); }
+
+  .footer {
+    text-align: center;
+    padding: 2rem;
+    color: var(--text-dim);
+    font-size: 0.78rem;
+  }
+
+  @media (max-width: 640px) {
+    .hero { padding: 1.25rem; }
+    .main { padding: 1.25rem; }
+    .story-badges { width: auto; }
+    .story-card-header { flex-direction: column; gap: 0.5rem; }
+    .stats-bar { gap: 1rem; }
+    .filters { padding: 0.75rem 1.25rem; }
+  }
+
+  .filters {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+  }
+  .no-results {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: var(--text-dim);
+    font-size: 0.9rem;
+    display: none;
+  }
+
+  .industry-context {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 2rem;
+    overflow: hidden;
+  }
+  .industry-context-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.25rem;
+    cursor: pointer;
+    user-select: none;
+  }
+  .industry-context-header:hover { background: #FAFBFC; }
+  .industry-context-title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text);
+  }
+  .industry-context-toggle {
+    font-size: 1rem;
+    color: var(--text-dim);
+    transition: transform 0.2s;
+  }
+  .industry-context.open .industry-context-toggle { transform: rotate(180deg); }
+  .industry-context-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+  .industry-context.open .industry-context-body { max-height: 600px; }
+  .vp-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+    padding: 0 1.25rem 1.25rem;
+  }
+  @media (max-width: 640px) { .vp-grid { grid-template-columns: 1fr; } }
+  .vp-card {
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--bg);
+  }
+  .vp-label {
+    font-size: 0.6rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.25rem;
+  }
+  .vp-label.challenge { color: var(--amber); }
+  .vp-label.outcome { color: var(--accent); }
+  .vp-title {
+    font-weight: 600;
+    font-size: 0.85rem;
+    margin-bottom: 0.3rem;
+  }
+  .vp-text {
+    font-size: 0.78rem;
+    color: var(--text-mid);
+    line-height: 1.55;
+  }
+</style>
+</head>
+<body>
+
+<a href="index.html" class="back-link">&larr; Back to Playbook Hub</a>
+
+<div class="hero">
+  <div class="header-label">Solace SDR Playbook &mdash; Industry Stories</div>
+  <h1><span class="industry-icon">&#x1F4E6;</span> Consumer Product Goods</h1>
+  <p>Customer stories from CPG accounts &mdash; covering supply chain, demand sensing, connected manufacturing, and distributor integration across food & beverage, FMCG, and consumer electronics.</p>
+
+  <div class="stats-bar">
+    <div class="stat"><div class="stat-number">16</div><div class="stat-label">Stories</div></div>
+    <div class="stat"><div class="stat-number">4</div><div class="stat-label">Sub-industries</div></div>
+    <div class="stat"><div class="stat-number">4</div><div class="stat-label">Personas covered</div></div>
+  </div>
+</div>
+
+<div class="filters">
+  <span class="filter-group-label">Sub-industry:</span>
+  <button class="filter-pill active" onclick="filterStories('all', 'sub', this)">All</button>
+  <button class="filter-pill" onclick="filterStories('electronics', 'sub', this)">Electronics</button>
+  <button class="filter-pill" onclick="filterStories('fmcg', 'sub', this)">FMCG</button>
+  <button class="filter-pill" onclick="filterStories('fnb_cpg', 'sub', this)">Food & Beverage</button>
+  <button class="filter-pill" onclick="filterStories('other_cpg', 'sub', this)">Other CPG</button>
+
+  <div class="filter-break"></div>
+
+  <span class="filter-group-label">Persona:</span>
+  <button class="filter-pill active" onclick="filterStories('all', 'persona', this)">All</button>
+  <button class="filter-pill" onclick="filterStories('cto', 'persona', this)">CTO / CIO</button>
+  <button class="filter-pill" onclick="filterStories('integration', 'persona', this)">Integration</button>
+  <button class="filter-pill" onclick="filterStories('lob', 'persona', this)">LOB / Business</button>
+  <button class="filter-pill" onclick="filterStories('architect', 'persona', this)">Architect</button>
+</div>
+
+<div class="main">
+
+<div class="industry-context">
+  <div class="industry-context-header" onclick="this.parentElement.classList.toggle('open')">
+    <span class="industry-context-title">&#x1F4A1; Why real-time data matters in CPG</span>
+    <span class="industry-context-toggle">&#x25BE;</span>
+  </div>
+  <div class="industry-context-body">
+    <div class="vp-grid">
+      <div class="vp-card">
+        <div class="vp-label challenge">Challenge</div>
+        <div class="vp-title">Supply chain blind spots</div>
+        <div class="vp-text">CPG companies move goods through complex chains &mdash; raw materials, factories, distributors, retailers &mdash; but visibility is fragmented. Demand signals from the shelf don't reach the factory in time to adjust production.</div>
+      </div>
+      <div class="vp-card">
+        <div class="vp-label challenge">Challenge</div>
+        <div class="vp-title">iPaaS and ERP bottlenecks</div>
+        <div class="vp-text">Integration platforms like Boomi and MuleSoft handle transformation well but buckle under high-volume event traffic. Order surges, seasonal peaks, and logistics bursts overwhelm polling-based architectures.</div>
+      </div>
+      <div class="vp-card">
+        <div class="vp-label challenge">Challenge</div>
+        <div class="vp-title">Master data inconsistency</div>
+        <div class="vp-text">Product, vendor, and pricing data lives in SAP but downstream systems &mdash; e-commerce, CRM, analytics, distributor portals &mdash; are often working with stale copies. Request/reply sync can't keep up.</div>
+      </div>
+      <div class="vp-card">
+        <div class="vp-label outcome">How real-time helps</div>
+        <div class="vp-title">Event-driven integration that scales with the business</div>
+        <div class="vp-text">An event mesh acts as a shock absorber in front of iPaaS platforms and as a distribution backbone for SAP data. Master data publishes once and flows everywhere it's needed. Logistics events stream in real-time for supply chain visibility. Seasonal surges are absorbed without lost orders. New systems and partners subscribe without rewiring existing integrations.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="sub-industry-section" data-sub="electronics">
+<div class="sub-industry-header">Electronics / Consumer Tech<span class="sub-industry-count">1 stories</span></div>
+<div class="sub-industry-desc">IoT device data pipelines, product lifecycle event streaming, after-sales service integration</div>
+<div class="story-card" data-sub="electronics" data-personas="integration" id="c01">
+<div class="story-card-header" onclick="toggleStory('c01')">
+<div class="story-badges"><span class="story-badge badge-integration">Integration Leader</span>
+</div>
+<div class="story-card-main">
+<div class="story-hook">A connected audio company moved from 5-minute polling to real-time event distribution for subscriptions and supply chain</div>
+<div class="story-outcome">Solace micro-gateway routes subscription events from Zuora to Boomi, ERP, and fulfilment — plus real-time shipping notifications</div>
+</div>
+<div class="story-toggle">&#x25BE;</div>
+</div>
+<div class="story-card-body">
+<div class="persona-tabs"><button class="persona-tab active" onclick="switchPersona('c01', 'integration', this)">Integration Leader</button>
+</div>
+<div class="persona-content active" data-persona="integration" data-story="c01">
+<div class="script-block"><div class="section-label hook">Hook</div><div class="script-text">"A connected audio company was <span class="highlight">polling their ERP every 5 minutes for shipping notifications</span> — and subscription requests from Zuora were manually routed through a complex fulfilment chain."</div></div>
+<div class="script-block"><div class="section-label outcome">Outcome</div><div class="script-text">"A Solace micro-gateway routes subscription events from Zuora to Boomi, their fulfilment engine, ERP, and Salesforce. <span class="highlight">Shipping notifications are now real-time, not 5-minute polls</span>."</div></div>
+<div class="script-block"><div class="section-label bridge">Bridge</div><div class="script-text">"Are any of your critical data flows still polling-based? That's usually a quick win to move to event-driven."</div></div>
+</div>
+<div class="context-block" style="margin-top:0.75rem"><div class="section-label context">Context</div><strong>FACT:</strong> US connected audio company. Subscription service via Zuora (order-to-cash).<br><strong>FACT:</strong> Solace micro-gateway routes to Boomi, Product Master, ERP, Salesforce.<br><strong>FACT:</strong> Supply chain: sales orders, fulfilment, warehouse dispatch, shipping notifications.<br><strong>FACT:</strong> Logo approved. No reference calls.</div>
+</div>
+</div>
+</div>
+<div class="sub-industry-section" data-sub="fmcg">
+<div class="sub-industry-header">Fast Moving Consumer Goods (FMCG)<span class="sub-industry-count">6 stories</span></div>
+<div class="sub-industry-desc">Real-time demand signals, omni-channel fulfilment, global ERP/supply chain integration</div>
+<div class="story-card" data-sub="fmcg" data-personas="architect,cto" id="c02">
+<div class="story-card-header" onclick="toggleStory('c02')">
+<div class="story-badges"><span class="story-badge badge-architect">Architect</span>
+<span class="story-badge badge-cto">CTO / CIO</span>
+<span class="story-badge badge-migration">Migration</span>
+</div>
+<div class="story-card-main">
+<div class="story-hook">A French beauty group replaced Google Pub/Sub after experiencing message loss in production</div>
+<div class="story-outcome">Solace + Boomi powers integration across manufacturing, logistics, sales, finance, and HR — reliable even during Black Friday peaks</div>
+</div>
+<div class="story-toggle">&#x25BE;</div>
+</div>
+<div class="story-card-body">
+<div class="persona-tabs"><button class="persona-tab active" onclick="switchPersona('c02', 'architect', this)">Architect</button>
+<button class="persona-tab" onclick="switchPersona('c02', 'cto', this)">CTO / CIO</button>
+</div>
+<div class="persona-content active" data-persona="architect" data-story="c02">
+<div class="script-block"><div class="section-label hook">Hook</div><div class="script-text">"A beauty and cosmetics group moved to Google Cloud and chose Google Pub/Sub for streaming. After a year in production, they <span class="highlight">started experiencing message loss and unreliable streaming</span> — especially under peak loads."</div></div>
+<div class="script-block"><div class="section-label outcome">Outcome</div><div class="script-text">"They replaced Google Pub/Sub with Solace as the event broker across all business domains. <span class="highlight">Reliable during Black Friday and seasonal peaks</span> — manufacturing, logistics, sales, finance, and HR all flow through one platform."</div></div>
+<div class="script-block"><div class="section-label bridge">Bridge</div><div class="script-text">"Have you stress-tested your messaging under peak load? Message loss during high demand is more common than people think."</div></div>
+</div>
+<div class="persona-content" data-persona="cto" data-story="c02">
+<div class="script-block"><div class="section-label hook">Hook</div><div class="script-text">"A cosmetics group chose a cloud-native stack for their digital transformation — but their <span class="highlight">cloud messaging was losing messages in production</span>. During seasonal peaks, that meant lost orders and broken processes."</div></div>
+<div class="script-block"><div class="section-label outcome">Outcome</div><div class="script-text">"Solace replaced the unreliable cloud messaging. <span class="highlight">Integration across manufacturing, logistics, sales, finance, and HR</span> — all reliable, even during their busiest trading periods."</div></div>
+<div class="script-block"><div class="section-label bridge">Bridge</div><div class="script-text">"How confident are you that your messaging platform won't lose data during your biggest trading day?"</div></div>
+</div>
+<div class="context-block" style="margin-top:0.75rem"><div class="section-label context">Context</div><strong>FACT:</strong> French beauty/cosmetics group. Google Cloud platform. NOT PUBLIC.<br><strong>FACT:</strong> Google Pub/Sub experienced message loss. Replaced with Solace PubSub+.<br><strong>FACT:</strong> Boomi iPaaS integration. Covers manufacturing, logistics, sales, finance/legal, HR.<br><strong>FACT:</strong> Logo approved. Available for reference calls.</div>
+</div>
+</div>
+<div class="story-card" data-sub="fmcg" data-personas="architect,lob" id="c03">
+<div class="story-card-header" onclick="toggleStory('c03')">
+<div class="story-badges"><span class="story-badge badge-architect">Architect</span>
+<span class="story-badge badge-lob">LOB / Business</span>
+</div>
+<div class="story-card-main">
+<div class="story-hook">A battery manufacturer needed real-time MES communications across globally expanding factories</div>
+<div class="story-outcome">Solace connects MES with material control, formation control, SPC, and dispatching — scaling to new US facilities</div>
+</div>
+<div class="story-toggle">&#x25BE;</div>
+</div>
+<div class="story-card-body">
+<div class="persona-tabs"><button class="persona-tab active" onclick="switchPersona('c03', 'architect', this)">Architect</button>
+<button class="persona-tab" onclick="switchPersona('c03', 'lob', this)">LOB / Business</button>
+</div>
+<div class="persona-content active" data-persona="architect" data-story="c03">
+<div class="script-block"><div class="section-label hook">Hook</div><div class="script-text">"A battery manufacturer spinning off from a larger group was <span class="highlight">expanding globally with $4.5B in new US facilities</span>. Their MES relied on point-to-point connections that couldn't scale across geographies."</div></div>
+<div class="script-block"><div class="section-label outcome">Outcome</div><div class="script-text">"Solace provides real-time event-driven comms between MES, material control, formation control, SPC, and dispatching systems. <span class="highlight">New factories connect to the same backbone</span> — no per-site integration rework."</div></div>
+<div class="script-block"><div class="section-label bridge">Bridge</div><div class="script-text">"When you bring a new factory online, how much integration work is involved? Is it repeatable or a new project each time?"</div></div>
+</div>
+<div class="persona-content" data-persona="lob" data-story="c03">
+<div class="script-block"><div class="section-label hook">Hook</div><div class="script-text">"A battery manufacturer building new facilities worldwide needed <span class="highlight">real-time production communications from day one</span> — not months of integration work before a factory could go live."</div></div>
+<div class="script-block"><div class="section-label outcome">Outcome</div><div class="script-text">"Factory-to-factory communication is now real-time. <span class="highlight">Productivity improved because production data flows instantly</span> — not waiting for batch cycles or manual handoffs."</div></div>
+<div class="script-block"><div class="section-label bridge">Bridge</div><div class="script-text">"How long does it take to get a new facility fully integrated with your production systems?"</div></div>
+</div>
+<div class="context-block" style="margin-top:0.75rem"><div class="section-label context">Context</div><strong>FACT:</strong> Battery manufacturer (spun off 2020). Rapid global expansion including $4.5B US facilities.<br><strong>FACT:</strong> MES connected via Solace to material control, formation control, SPC, real-time dispatching.<br><strong>FACT:</strong> Point-to-point connections couldn't scale across geographies.</div>
+</div>
+</div>
+<div class="story-card" data-sub="fmcg" data-personas="lob,integration" id="c04">
+<div class="story-card-header" onclick="toggleStory('c04')">
+<div class="story-badges"><span class="story-badge badge-lob">LOB / Business</span>
+<span class="story-badge badge-integration">Integration Leader</span>
+<span class="story-badge badge-sap">SAP</span>
+</div>
+<div class="story-card-main">
+<div class="story-hook">A German adhesives/consumer goods giant's CRM had no link to actual sales data — missing revenue opportunities</div>
+<div class="story-outcome">SAP AEM ingests CRM and sales data into Azure data lake — enabling 360-degree customer view and sales analytics</div>
+</div>
+<div class="story-toggle">&#x25BE;</div>
+</div>
+<div class="story-card-body">
+<div class="persona-tabs"><button class="persona-tab active" onclick="switchPersona('c04', 'lob', this)">LOB / Business</button>
+<button class="persona-tab" onclick="switchPersona('c04', 'integration', this)">Integration Leader</button>
+</div>
+<div class="persona-content active" data-persona="lob" data-story="c04">
+<div class="script-block"><div class="section-label hook">Hook</div><div class="script-text">"A consumer goods company's CRM tracked accounts, contacts, and opportunities — but <span class="highlight">the link to actual sales data across other SAP systems was completely broken</span>. No 360-degree view, no sales process insights."</div></div>
+<div class="script-block"><div class="section-label outcome">Outcome</div><div class="script-text">"SAP AEM now ingests CRM and sales data into their Azure data lake. <span class="highlight">Sales teams can finally see the full picture</span> — accounts, pipeline, and actual revenue in one place."</div></div>
+<div class="script-block"><div class="section-label bridge">Bridge</div><div class="script-text">"Can your sales team see actual revenue data alongside their CRM pipeline, or are those two different worlds?"</div></div>
+</div>
+<div class="persona-content" data-persona="integration" data-story="c04">
+<div class="script-block"><div class="section-label hook">Hook</div><div class="script-text">"A company using SAP ACE for CRM had <span class="highlight">sales data distributed across multiple other SAP systems with no integration</span>. Analytics was impossible because the datasets were disconnected."</div></div>
+<div class="script-block"><div class="section-label outcome">Outcome</div><div class="script-text">"SAP AEM streams CRM and sales data into a Microsoft Azure data lake. <span class="highlight">HDP curates the unified dataset for reporting and analytical processing</span>."</div></div>
+<div class="script-block"><div class="section-label bridge">Bridge</div><div class="script-text">"Is your CRM data connected to your transactional sales data, or are they in separate silos?"</div></div>
+</div>
+<div class="context-block" style="margin-top:0.75rem"><div class="section-label context">Context</div><strong>FACT:</strong> German consumer goods/adhesives company. SAP ACE for CRM.<br><strong>FACT:</strong> Sales data across multiple SAP systems — no linkage to CRM.<br><strong>FACT:</strong> SAP AEM ingests CRM + sales data to Azure data lake. HDP for curation and reporting.</div>
+</div>
+</div>
+<div class="story-card" data-sub="fmcg" data-personas="cto" id="c05">
+<div class="story-card-header" onclick="toggleStory('c05')">
+<div class="story-badges"><span class="story-badge badge-cto">CTO / CIO</span>
+<span class="story-badge badge-sap">SAP</span>
+</div>
+<div class="story-card-main">
+<div class="story-hook">A US industrial coatings company built "Connect PPG" to transform from batch to real-time enterprise integration</div>
+<div class="story-outcome">Event-driven master data replication between SAP ERP and supplier network — foundation for a connected enterprise</div>
+</div>
+<div class="story-toggle">&#x25BE;</div>
+</div>
+<div class="story-card-body">
+<div class="persona-tabs"><button class="persona-tab active" onclick="switchPersona('c05', 'cto', this)">CTO / CIO</button>
+</div>
+<div class="persona-content active" data-persona="cto" data-story="c05">
+<div class="script-block"><div class="section-label hook">Hook</div><div class="script-text">"A US coatings company relied on <span class="highlight">point-to-point batch integrations between SAP and their supplier network</span>. It was increasingly difficult to provide real-time visibility or roll out new digital services."</div></div>
+<div class="script-block"><div class="section-label outcome">Outcome</div><div class="script-text">"They launched Connect PPG — a strategic initiative built on Solace. <span class="highlight">Real-time event-driven master data replication</span> between SAP and external partners. Foundation for enterprise-wide digital transformation."</div></div>
+<div class="script-block"><div class="section-label bridge">Bridge</div><div class="script-text">"Do you have a strategic integration initiative, or is integration something that happens project by project?"</div></div>
+</div>
+<div class="context-block" style="margin-top:0.75rem"><div class="section-label context">Context</div><strong>FACT:</strong> US industrial coatings company. P2P batch integrations with SAP and suppliers.<br><strong>FACT:</strong> "Connect PPG" strategic initiative — Solace as foundation.<br><strong>FACT:</strong> Master data replication between ERP and supplier/vendor network.</div>
+</div>
+</div>
+<div class="story-card" data-sub="fmcg" data-personas="cto,architect" id="c06">
+<div class="story-card-header" onclick="toggleStory('c06')">
+<div class="story-badges"><span class="story-badge badge-cto">CTO / CIO</span>
+<span class="story-badge badge-architect">Architect</span>
+<span class="story-badge badge-sap">SAP</span>
+</div>
+<div class="story-card-main">
+<div class="story-hook">A global FMCG giant saved $10M+ per year in port fees by building a Virtual Ocean Control Tower</div>
+<div class="story-outcome">Real-time event mesh tracking 2,000 vessels across 100 carriers and 800 ports — now the largest SAP AEM deployment</div>
+</div>
+<div class="story-toggle">&#x25BE;</div>
+</div>
+<div class="story-card-body">
+<div class="persona-tabs"><button class="persona-tab active" onclick="switchPersona('c06', 'cto', this)">CTO / CIO</button>
+<button class="persona-tab" onclick="switchPersona('c06', 'architect', this)">Architect</button>
+</div>
+<div class="persona-content active" data-persona="cto" data-story="c06">
+<div class="script-block"><div class="section-label hook">Hook</div><div class="script-text">"One of the world's largest FMCG companies was <span class="highlight">losing tens of millions in detention and demurrage charges</span> because they couldn't see where their goods were across sea and land."</div></div>
+<div class="script-block"><div class="section-label outcome">Outcome</div><div class="script-text">"They built a Virtual Ocean Control Tower on a real-time event mesh — <span class="highlight">tracking 2,000 vessels from 100 carriers across 800 ports</span>. They're saving more than $10M per year in port fees alone."</div></div>
+<div class="script-block"><div class="section-label bridge">Bridge</div><div class="script-text">"Do you have real-time visibility across your supply chain, or are there blind spots — especially in logistics and shipping?"</div></div>
+</div>
+<div class="persona-content" data-persona="architect" data-story="c06">
+<div class="script-block"><div class="section-label hook">Hook</div><div class="script-text">"A FMCG company needed to <span class="highlight">connect logistical and transport management apps with satellite tracking</span> in real-time. Their enterprise-wide event backbone now connects many iPaaS products."</div></div>
+<div class="script-block"><div class="section-label outcome">Outcome</div><div class="script-text">"What started as a direct deal is now the <span class="highlight">largest SAP AEM deployment globally</span>. The event mesh powers apps, dashboards, and analytics for supply chain visibility across the entire enterprise."</div></div>
+<div class="script-block"><div class="section-label bridge">Bridge</div><div class="script-text">"How are you connecting your logistics systems today? Is there a unified real-time layer, or separate integrations per carrier?"</div></div>
+</div>
+<div class="context-block" style="margin-top:0.75rem"><div class="section-label context">Context</div><strong>FACT:</strong> Global FMCG company. Largest SAP AEM deployment (as of 2024).<br><strong>FACT:</strong> Virtual Ocean Control Tower: 2,000 vessels, 100 carriers, 800 ports, 1,700 terminals.<br><strong>FACT:</strong> $10M+ annual savings in demurrage costs. Public case study available.</div>
+</div>
+</div>
+<div class="story-card" data-sub="fmcg" data-personas="integration" id="c07">
+<div class="story-card-header" onclick="toggleStory('c07')">
+<div class="story-badges"><span class="story-badge badge-integration">Integration Leader</span>
+</div>
+<div class="story-card-main">
+<div class="story-hook">A top-3 FMCG company's MDM "single source of truth" wasn't staying in sync across the enterprise</div>
+<div class="story-outcome">MDM data publishes once and disseminates everywhere — vendor and price lists always current, enabling faster innovation</div>
+</div>
+<div class="story-toggle">&#x25BE;</div>
+</div>
+<div class="story-card-body">
+<div class="persona-tabs"><button class="persona-tab active" onclick="switchPersona('c07', 'integration', this)">Integration Leader</button>
+</div>
+<div class="persona-content active" data-persona="integration" data-story="c07">
+<div class="script-block"><div class="section-label hook">Hook</div><div class="script-text">"A major FMCG company's master data management system was supposed to be the single source of truth — but <span class="highlight">request/reply interactions meant it couldn't stay in sync</span> across their ecosystem."</div></div>
+<div class="script-block"><div class="section-label outcome">Outcome</div><div class="script-text">"Event brokers in data centres and Azure create an event mesh. <span class="highlight">MDM data publishes once and automatically disseminates wherever needed</span> — vendor and price lists are always current everywhere."</div></div>
+<div class="script-block"><div class="section-label bridge">Bridge</div><div class="script-text">"Is your MDM actually in sync across all consuming systems, or are there delays and gaps?"</div></div>
+</div>
+<div class="context-block" style="margin-top:0.75rem"><div class="section-label context">Context</div><strong>FACT:</strong> Top-3 global FMCG company. NOT PUBLIC. No reference calls.<br><strong>FACT:</strong> MDM syncing via request/reply was failing. Deployed Solace in DCs + Azure cloud.<br><strong>FACT:</strong> Event mesh enhanced Hybrid Integration Platform with real-time streaming.</div>
+</div>
+</div>
+</div>
+<div class="sub-industry-section" data-sub="fnb_cpg">
+<div class="sub-industry-header">Food & Beverage<span class="sub-industry-count">7 stories</span></div>
+<div class="sub-industry-desc">Supply chain traceability, demand sensing, cold chain event streaming, distributor integration</div>
+<div class="story-card" data-sub="fnb_cpg" data-personas="integration,lob" id="c08">
+<div class="story-card-header" onclick="toggleStory('c08')">
+<div class="story-badges"><span class="story-badge badge-integration">Integration Leader</span>
+<span class="story-badge badge-lob">LOB / Business</span>
+<span class="story-badge badge-sap">SAP</span>
+</div>
+<div class="story-card-main">
+<div class="story-hook">A global confectionery company's supply chain modernisation — SAP orders flowing to logistics in real-time via event mesh</div>
+<div class="story-outcome">Project Polaris: Solace connects SAP, MuleSoft, Kinaxis, and Azure Data Lake for PetCare supply chain — dynamic routing replaces static recipient lists</div>
+</div>
+<div class="story-toggle">&#x25BE;</div>
+</div>
+<div class="story-card-body">
+<div class="persona-tabs"><button class="persona-tab active" onclick="switchPersona('c08', 'integration', this)">Integration Leader</button>
+<button class="persona-tab" onclick="switchPersona('c08', 'lob', this)">LOB / Business</button>
+</div>
+<div class="persona-content active" data-persona="integration" data-story="c08">
+<div class="script-block"><div class="section-label hook">Hook</div><div class="script-text">"A global confectionery company's supply chain routing was <span class="highlight">fixed and static — modifying recipient lists in MuleSoft was slow and expensive</span>. Kinaxis and other SaaS apps needed real-time SAP data but weren't getting it."</div></div>
+<div class="script-block"><div class="section-label outcome">Outcome</div><div class="script-text">"Project Polaris put Solace at the centre. <span class="highlight">SAP orders publish to topics, consumers subscribe dynamically</span> — Kinaxis, MuleSoft, Azure Data Lake all get what they need without static routing."</div></div>
+<div class="script-block"><div class="section-label bridge">Bridge</div><div class="script-text">"Are your supply chain integrations using static routing, or can new consumers subscribe dynamically?"</div></div>
+</div>
+<div class="persona-content" data-persona="lob" data-story="c08">
+<div class="script-block"><div class="section-label hook">Hook</div><div class="script-text">"A confectionery company was <span class="highlight">sending the wrong size trucks to customers</span> because routing information was fixed and disconnected. Supply chain systems couldn't see orders in real-time."</div></div>
+<div class="script-block"><div class="section-label outcome">Outcome</div><div class="script-text">"Real-time order events from SAP now flow to transportation and warehousing systems. <span class="highlight">The right vehicle goes to the right customer</span> — reducing delivery delays and logistics costs."</div></div>
+<div class="script-block"><div class="section-label bridge">Bridge</div><div class="script-text">"How connected are your supply chain systems? Can your logistics see orders the moment they're placed?"</div></div>
+</div>
+<div class="context-block" style="margin-top:0.75rem"><div class="section-label context">Context</div><strong>FACT:</strong> Global confectionery/pet care company. NOT PUBLIC.<br><strong>FACT:</strong> Project Polaris: supply chain modernisation. SAP + MuleSoft + Kinaxis + Azure Data Lake.<br><strong>FACT:</strong> Static MuleSoft routing replaced with dynamic pub/sub. PetCare business initial use case.</div>
+</div>
+</div>
+<div class="story-card" data-sub="fnb_cpg" data-personas="cto,architect" id="c09">
+<div class="story-card-header" onclick="toggleStory('c09')">
+<div class="story-badges"><span class="story-badge badge-cto">CTO / CIO</span>
+<span class="story-badge badge-architect">Architect</span>
+<span class="story-badge badge-sap">SAP</span>
+</div>
+<div class="story-card-main">
+<div class="story-hook">A global food producer is connecting 100+ factories via "Cortex" — a real-time event-driven digital ecosystem</div>
+<div class="story-outcome">Industry 5.0: AI-driven insights, real-time IT/OT convergence across 180 factories and 300 distribution centres — 15 factories per quarter rollout</div>
+</div>
+<div class="story-toggle">&#x25BE;</div>
+</div>
+<div class="story-card-body">
+<div class="persona-tabs"><button class="persona-tab active" onclick="switchPersona('c09', 'cto', this)">CTO / CIO</button>
+<button class="persona-tab" onclick="switchPersona('c09', 'architect', this)">Architect</button>
+</div>
+<div class="persona-content active" data-persona="cto" data-story="c09">
+<div class="script-block"><div class="section-label hook">Hook</div><div class="script-text">"One of the world's largest food producers had <span class="highlight">data silos across IT and OT systems that blocked visibility and slowed decision-making</span>. Digital initiatives couldn't scale beyond individual factory pilots."</div></div>
+<div class="script-block"><div class="section-label outcome">Outcome</div><div class="script-text">"They launched Cortex — a global event mesh connecting 180 factories and 300 distribution centres. <span class="highlight">Rolling out 15 factories per quarter</span>. Real-time AI, predictive maintenance, and analytics at enterprise scale."</div></div>
+<div class="script-block"><div class="section-label bridge">Bridge</div><div class="script-text">"Can your digital manufacturing initiatives scale beyond a single site, or are they stuck as local pilots?"</div></div>
+</div>
+<div class="persona-content" data-persona="architect" data-story="c09">
+<div class="script-block"><div class="section-label hook">Hook</div><div class="script-text">"A food producer needed <span class="highlight">real-time integration across MES, WMS, SAP, and IoT devices</span> in 180 factories and 300 DCs. Point-to-point integration created latency and couldn't scale."</div></div>
+<div class="script-block"><div class="section-label outcome">Outcome</div><div class="script-text">"The Cortex event mesh enables IT/OT convergence — <span class="highlight">standardised event-driven data exchange supporting AI, predictive maintenance, and real-time analytics</span>. 15 factories onboarded per quarter."</div></div>
+<div class="script-block"><div class="section-label bridge">Bridge</div><div class="script-text">"How are you connecting your MES and WMS to SAP and analytics today? Is it scalable across all your sites?"</div></div>
+</div>
+<div class="context-block" style="margin-top:0.75rem"><div class="section-label context">Context</div><strong>FACT:</strong> Global food producer. 180 factories, 300 distribution centres. Public case study.<br><strong>FACT:</strong> "Cortex" — Digital Manufacturing Acceleration Program. Event mesh with Solace.<br><strong>FACT:</strong> 15 factories deployed, rolling out 15/quarter. IT/OT convergence.<br><strong>FACT:</strong> Logo approved. Available for reference calls.</div>
+</div>
+</div>
+<div class="story-card" data-sub="fnb_cpg" data-personas="integration,architect" id="c10">
+<div class="story-card-header" onclick="toggleStory('c10')">
+<div class="story-badges"><span class="story-badge badge-integration">Integration Leader</span>
+<span class="story-badge badge-architect">Architect</span>
+</div>
+<div class="story-card-main">
+<div class="story-hook">A coffee company's iPaaS couldn't handle logistics volume — delivery trucks left without manifest data</div>
+<div class="story-outcome">3.5x more traffic at 30% iPaaS load — event mesh buffers Boomi, enabling connected coffee machines as a bonus</div>
+</div>
+<div class="story-toggle">&#x25BE;</div>
+</div>
+<div class="story-card-body">
+<div class="persona-tabs"><button class="persona-tab active" onclick="switchPersona('c10', 'integration', this)">Integration Leader</button>
+<button class="persona-tab" onclick="switchPersona('c10', 'architect', this)">Architect</button>
+</div>
+<div class="persona-content active" data-persona="integration" data-story="c10">
+<div class="script-block"><div class="section-label hook">Hook</div><div class="script-text">"A global coffee company's Boomi iPaaS <span class="highlight">couldn't handle the traffic volume — logistics manifest data wasn't available in time for delivery truck pickup</span>."</div></div>
+<div class="script-block"><div class="section-label outcome">Outcome</div><div class="script-text">"An event mesh buffers orders and logistics events before they hit Boomi. <span class="highlight">3.5x more traffic at just 30% iPaaS load</span>. Bonus: they unlocked connected coffee machine use cases on the same platform."</div></div>
+<div class="script-block"><div class="section-label bridge">Bridge</div><div class="script-text">"Is your iPaaS handling your current volume comfortably, or are you seeing strain during peak periods?"</div></div>
+</div>
+<div class="persona-content" data-persona="architect" data-story="c10">
+<div class="script-block"><div class="section-label hook">Hook</div><div class="script-text">"A beverage company was <span class="highlight">overloading their Boomi platform during peak logistics flows</span>. They considered alternatives but needed something that could buffer and complement their existing iPaaS, not replace it."</div></div>
+<div class="script-block"><div class="section-label outcome">Outcome</div><div class="script-text">"Solace acts as the event layer in front of Boomi — <span class="highlight">buffering, sequencing, and delivering events at a pace Boomi can handle</span>. Platform stability went from critical to comfortable."</div></div>
+<div class="script-block"><div class="section-label bridge">Bridge</div><div class="script-text">"Have you considered putting an event layer in front of your iPaaS to handle burst traffic?"</div></div>
+</div>
+<div class="context-block" style="margin-top:0.75rem"><div class="section-label context">Context</div><strong>FACT:</strong> Global coffee company. Boomi iPaaS overloaded — manifest data delayed. NOT PUBLIC.<br><strong>FACT:</strong> Result: 3.5x more traffic at 30% iPaaS load.<br><strong>FACT:</strong> Uses Solace-branded Boomi connector. Connected coffee machines as additional use case.<br><strong>FACT:</strong> Logo approved. Available for reference calls.</div>
+</div>
+</div>
+<div class="story-card" data-sub="fnb_cpg" data-personas="cto,integration" id="c11">
+<div class="story-card-header" onclick="toggleStory('c11')">
+<div class="story-badges"><span class="story-badge badge-cto">CTO / CIO</span>
+<span class="story-badge badge-integration">Integration Leader</span>
+<span class="story-badge badge-migration">Migration</span>
+</div>
+<div class="story-card-main">
+<div class="story-hook">A global brewer experienced a 700% order surge from Mexico — Azure Service Bus and Boomi lost and duplicated orders</div>
+<div class="story-outcome">Event broker as a shock absorber for iPaaS — eliminated lost/duplicate orders, saving tens of thousands per day</div>
+</div>
+<div class="story-toggle">&#x25BE;</div>
+</div>
+<div class="story-card-body">
+<div class="persona-tabs"><button class="persona-tab active" onclick="switchPersona('c11', 'cto', this)">CTO / CIO</button>
+<button class="persona-tab" onclick="switchPersona('c11', 'integration', this)">Integration Leader</button>
+</div>
+<div class="persona-content active" data-persona="cto" data-story="c11">
+<div class="script-block"><div class="section-label hook">Hook</div><div class="script-text">"A global brewer saw a <span class="highlight">700% order surge from one market. Azure Service Bus and their Boomi platform lost and duplicated orders</span> — costing hundreds of thousands per hour."</div></div>
+<div class="script-block"><div class="section-label outcome">Outcome</div><div class="script-text">"A Solace event broker acts as a buffer for their iPaaS — <span class="highlight">orders flow at a pace the platform can handle</span>. Lost and duplicate orders eliminated. Saving tens of thousands per day."</div></div>
+<div class="script-block"><div class="section-label bridge">Bridge</div><div class="script-text">"Have you stress-tested what happens when order volumes spike 5-10x? Would your platform hold?"</div></div>
+</div>
+<div class="persona-content" data-persona="integration" data-story="c11">
+<div class="script-block"><div class="section-label hook">Hook</div><div class="script-text">"A brewer's Boomi integration platform with Azure Service Bus <span class="highlight">buckled under a 700% order surge</span>. Orders were lost, duplicated, and the supply chain was frustrated."</div></div>
+<div class="script-block"><div class="section-label outcome">Outcome</div><div class="script-text">"Solace deployed as a persistent buffer — <span class="highlight">events enter the broker, get delivered to Boomi at a manageable rate</span>. They evaluated Boomi's native messaging and Azure Service Bus — neither was reliable enough."</div></div>
+<div class="script-block"><div class="section-label bridge">Bridge</div><div class="script-text">"How does your iPaaS handle unexpected traffic surges? Is there a buffer, or does it take the full load?"</div></div>
+</div>
+<div class="context-block" style="margin-top:0.75rem"><div class="section-label context">Context</div><strong>FACT:</strong> Global brewer. 700% order surge from Mexico. NOT PUBLIC.<br><strong>FACT:</strong> Azure Service Bus + Boomi caused lost and duplicate orders.<br><strong>FACT:</strong> Bain Consulting recommended Solace. Deployed as buffer/shock absorber for iPaaS.<br><strong>FACT:</strong> Result: eliminated lost/duplicate orders, tens of thousands saved daily.<br><strong>FACT:</strong> Logo approved. Available for reference calls.</div>
+</div>
+</div>
+<div class="story-card" data-sub="fnb_cpg" data-personas="integration" id="c12">
+<div class="story-card-header" onclick="toggleStory('c12')">
+<div class="story-badges"><span class="story-badge badge-integration">Integration Leader</span>
+<span class="story-badge badge-sap">SAP</span>
+<span class="story-badge badge-migration">Migration</span>
+</div>
+<div class="story-card-main">
+<div class="story-hook">A beverage company spun off from a CPG giant and needed its own technology stack — modernising away from TIBCO EMS</div>
+<div class="story-outcome">Solace in Azure for WMS, TMS, SAP S/4, and homegrown apps — with Boomi iPaaS and broker sizing for growth</div>
+</div>
+<div class="story-toggle">&#x25BE;</div>
+</div>
+<div class="story-card-body">
+<div class="persona-tabs"><button class="persona-tab active" onclick="switchPersona('c12', 'integration', this)">Integration Leader</button>
+</div>
+<div class="persona-content active" data-persona="integration" data-story="c12">
+<div class="script-block"><div class="section-label hook">Hook</div><div class="script-text">"After spinning off from a major CPG company, a beverage brand needed to <span class="highlight">build its own technology stack from factory floor to order management</span>. The parent's TIBCO EMS wasn't coming with them."</div></div>
+<div class="script-block"><div class="section-label outcome">Outcome</div><div class="script-text">"Solace deployed in Azure connects WMS, TMS, their homegrown app, and SAP S/4. <span class="highlight">Enterprise-grade event management that their Boomi iPaaS couldn't provide alone</span>."</div></div>
+<div class="script-block"><div class="section-label bridge">Bridge</div><div class="script-text">"Have you gone through or are you facing a spinoff or divestment? That's often when the integration architecture gets a fresh start."</div></div>
+</div>
+<div class="context-block" style="margin-top:0.75rem"><div class="section-label context">Context</div><strong>FACT:</strong> US beverage company, spun off from major CPG parent in 2021.<br><strong>FACT:</strong> Parent used TIBCO EMS — needed own stack. Chose Boomi as iPaaS, Solace for event management.<br><strong>FACT:</strong> Azure deployment. Systems: WMS, TMS, ADC (homegrown), SAP S/4.</div>
+</div>
+</div>
+<div class="story-card" data-sub="fnb_cpg" data-personas="integration" id="c13">
+<div class="story-card-header" onclick="toggleStory('c13')">
+<div class="story-badges"><span class="story-badge badge-integration">Integration Leader</span>
+</div>
+<div class="story-card-main">
+<div class="story-hook">A tobacco/IQOS company uses event mesh for employee data accuracy and PLM-to-MES synchronisation</div>
+<div class="story-outcome">SIGA employee events reduce travel approval errors — CLIPP distributes PLM data from ARAS to manufacturing execution systems</div>
+</div>
+<div class="story-toggle">&#x25BE;</div>
+</div>
+<div class="story-card-body">
+<div class="persona-tabs"><button class="persona-tab active" onclick="switchPersona('c13', 'integration', this)">Integration Leader</button>
+</div>
+<div class="persona-content active" data-persona="integration" data-story="c13">
+<div class="script-block"><div class="section-label hook">Hook</div><div class="script-text">"A global company had <span class="highlight">travel approval errors caused by delayed and incorrect employee data</span>. Separately, their PLM migration to ARAS needed real-time data flow to manufacturing execution systems."</div></div>
+<div class="script-block"><div class="section-label outcome">Outcome</div><div class="script-text">"Two use cases on one event mesh: <span class="highlight">Employee record changes stream to travel agencies instantly</span>. PLM data from ARAS flows to MES in real-time — smoother migration, fewer quality errors."</div></div>
+<div class="script-block"><div class="section-label bridge">Bridge</div><div class="script-text">"Are there business processes breaking because of stale HR or product data? Those are often quick event-driven wins."</div></div>
+</div>
+<div class="context-block" style="margin-top:0.75rem"><div class="section-label context">Context</div><strong>FACT:</strong> Global tobacco/consumer company. Two use cases: SIGA (employee data) and CLIPP (PLM).<br><strong>FACT:</strong> SIGA: employee record changes to downstream consumers (travel agencies).<br><strong>FACT:</strong> CLIPP: PLM data from ARAS to MES. Smooth migration from legacy PLM.</div>
+</div>
+</div>
+<div class="story-card" data-sub="fnb_cpg" data-personas="integration" id="c14">
+<div class="story-card-header" onclick="toggleStory('c14')">
+<div class="story-badges"><span class="story-badge badge-integration">Integration Leader</span>
+</div>
+<div class="story-card-main">
+<div class="story-hook">A US food company replaced complex P2P integrations with event-driven master data and EDI flows</div>
+<div class="story-outcome">Centralised event platform connecting ERP, PLM (Reltio), and EDI partners — faster onboarding, better discoverability</div>
+</div>
+<div class="story-toggle">&#x25BE;</div>
+</div>
+<div class="story-card-body">
+<div class="persona-tabs"><button class="persona-tab active" onclick="switchPersona('c14', 'integration', this)">Integration Leader</button>
+</div>
+<div class="persona-content active" data-persona="integration" data-story="c14">
+<div class="script-block"><div class="section-label hook">Hook</div><div class="script-text">"A US food company had <span class="highlight">complex point-to-point integrations between ERP, PLM, and EDI partners with no central catalogue</span>. Reuse was limited, discoverability was poor, and partner onboarding took too long."</div></div>
+<div class="script-block"><div class="section-label outcome">Outcome</div><div class="script-text">"A centralised event platform now handles master data and PLM replication plus EDI transactions. <span class="highlight">Faster partner onboarding, better discoverability, and reusable integration patterns</span>."</div></div>
+<div class="script-block"><div class="section-label bridge">Bridge</div><div class="script-text">"How long does it take to onboard a new partner or supplier into your integration landscape?"</div></div>
+</div>
+<div class="context-block" style="margin-top:0.75rem"><div class="section-label context">Context</div><strong>FACT:</strong> US food company. P2P integrations between ERP, Reltio (PLM), and EDI partners.<br><strong>FACT:</strong> No central catalogue — limited reuse, poor discoverability, slow onboarding.<br><strong>FACT:</strong> Solace as centralised event platform for master data, PLM, and EDI.</div>
+</div>
+</div>
+</div>
+<div class="sub-industry-section" data-sub="other_cpg">
+<div class="sub-industry-header">Other CPG<span class="sub-industry-count">2 stories</span></div>
+<div class="sub-industry-desc">Enterprise messaging, factory diagnostics, omnichannel platform integration</div>
+<div class="story-card" data-sub="other_cpg" data-personas="architect" id="c15">
+<div class="story-card-header" onclick="toggleStory('c15')">
+<div class="story-badges"><span class="story-badge badge-architect">Architect</span>
+</div>
+<div class="story-card-main">
+<div class="story-hook">A Hong Kong paper manufacturer deployed Solace as an enterprise messaging bus across three sites with digital twin diagnostics</div>
+<div class="story-outcome">Event-driven machine diagnostics and message lifecycle tracking across Hong Kong, DongGuang, and GuangXi factories</div>
+</div>
+<div class="story-toggle">&#x25BE;</div>
+</div>
+<div class="story-card-body">
+<div class="persona-tabs"><button class="persona-tab active" onclick="switchPersona('c15', 'architect', this)">Architect</button>
+</div>
+<div class="persona-content active" data-persona="architect" data-story="c15">
+<div class="script-block"><div class="section-label hook">Hook</div><div class="script-text">"A paper manufacturer running factories in Hong Kong, DongGuang, and GuangXi needed <span class="highlight">centralised machine diagnostics across paper machines in multiple locations</span>. Systems lacked real-time visibility."</div></div>
+<div class="script-block"><div class="section-label outcome">Outcome</div><div class="script-text">"Solace is the enterprise messaging bus. <span class="highlight">Digital twin implementations enable message lifecycle tracking and proactive machine diagnostics</span>. Expanding to additional Chinese factories."</div></div>
+<div class="script-block"><div class="section-label bridge">Bridge</div><div class="script-text">"Do you have real-time diagnostics across your factories, or is monitoring still fragmented by site?"</div></div>
+</div>
+<div class="context-block" style="margin-top:0.75rem"><div class="section-label context">Context</div><strong>FACT:</strong> Hong Kong paper manufacturer. Three sites: HK, DongGuang, GuangXi.<br><strong>FACT:</strong> Digital twin (DT) for message lifecycle diagnostics. Expanding to more China factories.<br><strong>FACT:</strong> Solace PSG resource helping plan EDA journey. Logo approved.</div>
+</div>
+</div>
+<div class="story-card" data-sub="other_cpg" data-personas="integration" id="c16">
+<div class="story-card-header" onclick="toggleStory('c16')">
+<div class="story-badges"><span class="story-badge badge-integration">Integration Leader</span>
+<span class="story-badge badge-sap">SAP</span>
+</div>
+<div class="story-card-main">
+<div class="story-hook">A Brazilian cosmetics company unlocked real-time SAP data for their entire omnichannel platform using SAP AEM</div>
+<div class="story-outcome">SAP data streaming to iPaaS, e-commerce, and CRM — procured through existing SAP BTP credits with zero new vendor overhead</div>
+</div>
+<div class="story-toggle">&#x25BE;</div>
+</div>
+<div class="story-card-body">
+<div class="persona-tabs"><button class="persona-tab active" onclick="switchPersona('c16', 'integration', this)">Integration Leader</button>
+</div>
+<div class="persona-content active" data-persona="integration" data-story="c16">
+<div class="script-block"><div class="section-label hook">Hook</div><div class="script-text">"A Brazilian cosmetics company had <span class="highlight">SAP data locked in silos — their iPaaS, e-commerce platform, and CRM had no real-time information</span> for business or customer decisions."</div></div>
+<div class="script-block"><div class="section-label outcome">Outcome</div><div class="script-text">"SAP AEM streams SAP data to all downstream systems. <span class="highlight">Procured through existing SAP BTP credits</span> — no new vendor process, no extra procurement effort. Fully connected omnichannel platform."</div></div>
+<div class="script-block"><div class="section-label bridge">Bridge</div><div class="script-text">"Are you already paying for SAP BTP credits? SAP AEM might be available to you with zero additional procurement."</div></div>
+</div>
+<div class="context-block" style="margin-top:0.75rem"><div class="section-label context">Context</div><strong>FACT:</strong> Brazilian cosmetics company. SAP environment.<br><strong>FACT:</strong> SAP AEM procured via BTP credits — no new vendor process.<br><strong>FACT:</strong> Streams SAP data to iPaaS, e-commerce, CRM. Guaranteed messaging, topic routing.</div>
+</div>
+</div>
+</div>
+<div class="no-results" id="noResults">No stories match the current filters. Try a different combination.</div>
+</div>
+
+<div class="footer">
+  Solace SDR Playbook &mdash; Industry Stories: Consumer Product Goods &middot; <a href="index.html">Back to Hub</a>
+</div>
+
+<script>
+
+function toggleStory(id) {
+  document.getElementById(id).classList.toggle('open');
+}
+
+function switchPersona(storyId, persona, btn) {
+  var card = document.getElementById(storyId);
+  card.querySelectorAll('.persona-tab').forEach(function(t) { t.classList.remove('active'); });
+  btn.classList.add('active');
+  card.querySelectorAll('.persona-content').forEach(function(c) {
+    var isMatch = c.dataset.persona === persona && c.dataset.story === storyId;
+    if (isMatch) { c.classList.add('active'); } else { c.classList.remove('active'); }
+  });
+}
+
+var currentSub = 'all';
+var currentPersona = 'all';
+
+function filterStories(value, dimension, btn) {
+  if (dimension === 'sub') currentSub = value;
+  if (dimension === 'persona') currentPersona = value;
+
+  var filtersEl = document.querySelector('.filters');
+  var children = filtersEl.children;
+  var foundDivider = false;
+  var subPills = [];
+  var personaPills = [];
+  for (var i = 0; i < children.length; i++) {
+    var node = children[i];
+    if (node.classList && node.classList.contains('filter-break')) { foundDivider = true; continue; }
+    if (node.classList && node.classList.contains('filter-pill')) {
+      if (!foundDivider) subPills.push(node);
+      else personaPills.push(node);
+    }
+  }
+  
+  if (dimension === 'sub') {
+    subPills.forEach(function(p) { p.classList.remove('active'); });
+  } else {
+    personaPills.forEach(function(p) { p.classList.remove('active'); });
+  }
+  btn.classList.add('active');
+
+  var visibleCount = 0;
+  document.querySelectorAll('.sub-industry-section').forEach(function(section) {
+    var sub = section.dataset.sub;
+    var matchesSub = currentSub === 'all' || sub === currentSub;
+    
+    if (!matchesSub) { section.style.display = 'none'; return; }
+    
+    var sectionHasVisible = false;
+    section.querySelectorAll('.story-card').forEach(function(card) {
+      var personas = card.dataset.personas || '';
+      var matchesPersona = currentPersona === 'all' || personas.indexOf(currentPersona) !== -1;
+      card.style.display = matchesPersona ? 'block' : 'none';
+      if (matchesPersona) { sectionHasVisible = true; visibleCount++; }
+    });
+    
+    section.style.display = sectionHasVisible ? 'block' : 'none';
+  });
+  
+  document.getElementById('noResults').style.display = visibleCount === 0 ? 'block' : 'none';
+}
+
+</script>
+
+</body>
+</html>

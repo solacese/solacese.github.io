@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>"We're not looking at anything right now" — Solace SDR Playbook</title>
+<script defer src="https://cloud.umami.is/script.js" data-website-id="dd8957d7-d9d6-460d-83d8-5f1d7320d0ab"></script>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F6F8FA;
+    --bg-card: #FFFFFF;
+    --bg-card-hover: #FAFBFC;
+    --border: #D0D7DE;
+    --text: #1F2328;
+    --text-mid: #57606A;
+    --text-dim: #8B949E;
+    --accent: #00AD7C;
+    --accent-soft: rgba(0, 173, 124, 0.07);
+    --accent-border: rgba(0, 173, 124, 0.2);
+    --warning: #D29922;
+    --warning-soft: rgba(210, 153, 34, 0.07);
+    --warning-border: rgba(210, 153, 34, 0.2);
+    --blue: #2F81F7;
+    --blue-soft: rgba(47, 129, 247, 0.07);
+    --blue-border: rgba(47, 129, 247, 0.2);
+    --red-soft: rgba(207, 34, 46, 0.07);
+    --red-border: rgba(207, 34, 46, 0.2);
+    --red: #CF222E;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; padding: 2rem 1.5rem; max-width: 860px; margin: 0 auto; }
+
+  .back-link { display: inline-block; margin-bottom: 1.5rem; font-size: 0.85rem; color: var(--text-mid); text-decoration: none; }
+  .back-link:hover { color: var(--accent); }
+
+  .header { margin-bottom: 3rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+  .header-label { font-size: 0.75rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.12em; color: var(--accent); margin-bottom: 0.75rem; }
+  .header h1 { font-family: 'Fraunces', serif; font-size: 2.2rem; font-weight: 700; line-height: 1.2; margin-bottom: 0.75rem; color: var(--text); }
+  .header h1 span { color: var(--accent); }
+  .header-sub { font-size: 0.95rem; color: var(--text-mid); max-width: 620px; }
+
+  .principle { background: var(--accent-soft); border: 1px solid var(--accent-border); border-radius: 8px; padding: 1.25rem 1.5rem; margin-bottom: 3rem; display: flex; gap: 1rem; align-items: flex-start; }
+  .principle-icon { font-size: 1.4rem; flex-shrink: 0; margin-top: 2px; }
+  .principle p { font-size: 0.95rem; color: var(--text); }
+  .principle strong { color: var(--accent); }
+
+  .flow { display: flex; flex-direction: column; }
+  .step { position: relative; }
+  .step-connector { position: absolute; left: 20px; top: 56px; bottom: -1px; width: 2px; background: var(--border); }
+  .step:last-child .step-connector { display: none; }
+  .step-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; cursor: pointer; user-select: none; }
+  .step-number { width: 42px; height: 42px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Fraunces', serif; font-weight: 700; font-size: 1.1rem; flex-shrink: 0; position: relative; z-index: 2; }
+  .step-number.green { background: var(--accent); color: #FFFFFF; }
+  .step-number.amber { background: var(--warning); color: #FFFFFF; }
+  .step-number.blue { background: var(--blue); color: #FFFFFF; }
+  .step-title-block { flex: 1; }
+  .step-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-dim); margin-bottom: 2px; }
+  .step-title { font-family: 'Fraunces', serif; font-size: 1.25rem; font-weight: 600; color: var(--text); }
+  .step-toggle { color: var(--text-dim); font-size: 1.2rem; transition: transform 0.2s; }
+  .step.open .step-toggle { transform: rotate(180deg); }
+  .step-body { margin-left: 62px; padding-bottom: 2.5rem; display: none; }
+  .step.open .step-body { display: block; }
+  .step-context { font-size: 0.9rem; color: var(--text-mid); margin-bottom: 1.25rem; font-style: italic; }
+
+  .script-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; padding: 1.25rem 1.5rem; margin-bottom: 0.75rem; transition: border-color 0.2s; }
+  .script-card:hover { border-color: var(--accent-border); }
+  .script-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; margin-bottom: 0.6rem; display: inline-block; padding: 2px 8px; border-radius: 4px; }
+  .script-label.say { background: var(--accent-soft); color: var(--accent); }
+  .script-label.if { background: var(--warning-soft); color: var(--warning); }
+  .script-label.note { background: var(--blue-soft); color: var(--blue); }
+  .script-label.dont { background: var(--red-soft); color: var(--red); }
+  .script-text { font-size: 0.95rem; color: var(--text); line-height: 1.7; }
+  .script-text em { color: var(--text-mid); font-style: italic; }
+  .highlight { color: var(--accent); font-weight: 500; }
+
+  .branch-label { font-size: 0.8rem; font-weight: 600; color: var(--text-mid); margin-bottom: 0.5rem; margin-top: 1rem; display: flex; align-items: center; gap: 0.5rem; }
+  .branch-label::before { content: ''; display: block; width: 16px; height: 2px; background: var(--border); }
+
+  .cheatsheet { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border); }
+  .cheatsheet h2 { font-family: 'Fraunces', serif; font-size: 1.3rem; font-weight: 600; margin-bottom: 1.25rem; }
+  .rules-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+  @media (max-width: 600px) { .rules-grid { grid-template-columns: 1fr; } body { padding: 1.25rem 1rem; } .header h1 { font-size: 1.6rem; } .step-body { margin-left: 0; } }
+  .rule-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; padding: 1rem 1.25rem; }
+  .rule-card .rule-do { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; margin-bottom: 0.4rem; }
+  .rule-card .rule-do.green { color: var(--accent); }
+  .rule-card .rule-do.red { color: var(--red); }
+  .rule-card p { font-size: 0.88rem; color: var(--text-mid); line-height: 1.5; }
+
+  .footer { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--border); text-align: center; color: var(--text-dim); font-size: 0.8rem; }
+  .footer a { color: var(--accent); text-decoration: none; }
+</style>
+</head>
+<body>
+
+<a href="index.html" class="back-link">&larr; Back to Playbook Hub</a>
+
+<div class="header">
+  <div class="header-label">Solace SDR Playbook &mdash; Competitive & Objections</div>
+  <h1>&ldquo;We&rsquo;re <span>not looking</span> at anything right now&rdquo;</h1>
+  <p class="header-sub">The hardest objection isn&rsquo;t a competitor &mdash; it&rsquo;s inertia. They&rsquo;re not saying no to Solace. They&rsquo;re saying no to change. Your job is to make the cost of staying still feel worth a conversation.</p>
+</div>
+
+<div class="principle">
+  <div class="principle-icon">&#x26A1;</div>
+  <p><strong>Core principle:</strong> You can&rsquo;t create urgency they don&rsquo;t feel. But you <em>can</em> plant a question they can&rsquo;t un-hear. The best &ldquo;do nothing&rdquo; plays don&rsquo;t push &mdash; they leave the prospect wondering what they might be missing. Curiosity is stronger than pressure.</p>
+</div>
+
+<div class="flow">
+
+  <!-- STEP 1 -->
+  <div class="step open" id="step1">
+    <div class="step-connector"></div>
+    <div class="step-header" onclick="toggleStep('step1')">
+      <div class="step-number green">1</div>
+      <div class="step-title-block">
+        <div class="step-label">&ldquo;We&rsquo;re not looking right now&rdquo;</div>
+        <div class="step-title">Acknowledge, Then Shift the Frame</div>
+      </div>
+      <div class="step-toggle">&#x25BE;</div>
+    </div>
+    <div class="step-body">
+      <div class="step-context">This isn&rsquo;t a rejection of Solace &mdash; it&rsquo;s a rejection of disruption. They&rsquo;re busy. Respect that, then make staying still feel like an active choice rather than a default.</div>
+
+      <div class="branch-label">Option A &mdash; The peer angle</div>
+      <div class="script-card">
+        <div class="script-label say">Say this</div>
+        <p class="script-text">&ldquo;That&rsquo;s completely fair. Most of the companies we work with weren&rsquo;t looking either &mdash; until they saw what their <span class="highlight">competitors or peers were doing with real-time data</span>. We&rsquo;re not asking you to change anything today. But the companies that take 20 minutes to understand what&rsquo;s possible tend to move faster when the time comes.&rdquo;</p>
+      </div>
+
+      <div class="branch-label">Option B &mdash; The strategic timing angle</div>
+      <div class="script-card">
+        <div class="script-label say">Say this</div>
+        <p class="script-text">&ldquo;Understood. Quick question though &mdash; are you running any <span class="highlight">SAP modernisation, cloud migration, or integration consolidation</span> projects in the next 12 months? Because the companies that get the most from what we do tend to build it in at the start of those projects, not bolt it on after.&rdquo;</p>
+      </div>
+
+      <div class="script-card">
+        <div class="script-label note">Why it works</div>
+        <p class="script-text">Option A uses peer pressure gently &mdash; <em>&ldquo;competitors or peers&rdquo;</em> triggers loss aversion without being aggressive. Option B connects to projects they likely <em>do</em> have in motion, reframing Solace as relevant to something already on their roadmap. Both avoid pushing against inertia directly.</p>
+      </div>
+
+      <div class="script-card">
+        <div class="script-label dont">Don&rsquo;t do this</div>
+        <p class="script-text">Don&rsquo;t challenge their assessment. Don&rsquo;t say &ldquo;but you should be looking.&rdquo; Don&rsquo;t imply they&rsquo;re behind. They&rsquo;ll dig in harder. Inertia responds to curiosity, not pressure.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 2 -->
+  <div class="step" id="step2">
+    <div class="step-connector"></div>
+    <div class="step-header" onclick="toggleStep('step2')">
+      <div class="step-number amber">2</div>
+      <div class="step-title-block">
+        <div class="step-label">They&rsquo;re still lukewarm</div>
+        <div class="step-title">Drop a Proof Point, Not a Pitch</div>
+      </div>
+      <div class="step-toggle">&#x25BE;</div>
+    </div>
+    <div class="step-body">
+      <div class="step-context">They haven&rsquo;t hung up, but they&rsquo;re not leaning in either. One concrete proof point &mdash; matched to their world &mdash; is worth more than ten minutes of positioning.</div>
+
+      <div class="branch-label">If they&rsquo;re in retail / CPG / manufacturing</div>
+      <div class="script-card">
+        <div class="script-label say">Say this</div>
+        <p class="script-text">&ldquo;Just to give you a sense &mdash; one of the world&rsquo;s largest <span class="highlight">[food producers / brewers / retailers]</span> was in a similar spot. They weren&rsquo;t looking either. Then they hit a peak period and their integration platform couldn&rsquo;t keep up &mdash; lost orders, duplicate data. They added Solace as a layer and the problem disappeared. I&rsquo;m not saying that&rsquo;s you, but it&rsquo;s the kind of thing that&rsquo;s worth knowing about before it happens.&rdquo;</p>
+      </div>
+
+      <div class="branch-label">If they&rsquo;re in financial services / capital markets</div>
+      <div class="script-card">
+        <div class="script-label say">Say this</div>
+        <p class="script-text">&ldquo;For context &mdash; some of the <span class="highlight">largest exchanges and banks in the world</span> run on Solace for their most latency-sensitive operations. Not because they were looking to replace something, but because they hit a ceiling with what they had. That&rsquo;s usually how the conversation starts.&rdquo;</p>
+      </div>
+
+      <div class="branch-label">If the industry is unclear</div>
+      <div class="script-card">
+        <div class="script-label say">Say this</div>
+        <p class="script-text">&ldquo;The pattern we see is pretty consistent &mdash; companies aren&rsquo;t looking until they are. An SAP migration starts, or traffic doubles, or they need to connect a new cloud service, and suddenly <span class="highlight">the integration layer becomes the bottleneck</span>. We help people get ahead of that moment rather than react to it.&rdquo;</p>
+      </div>
+
+      <div class="script-card">
+        <div class="script-label note">Why it works</div>
+        <p class="script-text">A single, specific proof point anchors the conversation in reality. <em>&ldquo;I&rsquo;m not saying that&rsquo;s you&rdquo;</em> removes pressure while letting the story land. Industry-matched examples feel relevant, not generic. The general fallback uses a pattern (&ldquo;companies aren&rsquo;t looking until they are&rdquo;) that most leaders have experienced firsthand.</p>
+      </div>
+
+      <div class="script-card">
+        <div class="script-label dont">Don&rsquo;t do this</div>
+        <p class="script-text">Don&rsquo;t stack multiple proof points. One is powerful, three is a pitch. Don&rsquo;t name the customer unless it&rsquo;s a public case study. Don&rsquo;t try to diagnose their environment. You&rsquo;re planting a seed, not running a discovery.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 3 -->
+  <div class="step" id="step3">
+    <div class="step-header" onclick="toggleStep('step3')">
+      <div class="step-number blue">3</div>
+      <div class="step-title-block">
+        <div class="step-label">Close or plant the seed</div>
+        <div class="step-title">Book It, Defer It, or Leave Gracefully</div>
+      </div>
+      <div class="step-toggle">&#x25BE;</div>
+    </div>
+    <div class="step-body">
+      <div class="step-context">&ldquo;Do nothing&rdquo; objections have three outcomes: they agree to a meeting now, they agree to one later, or they pass. All three are acceptable. The worst outcome is burning the relationship.</div>
+
+      <div class="branch-label">If warm &mdash; &ldquo;okay, maybe worth a look&rdquo;</div>
+      <div class="script-card">
+        <div class="script-label say">Say this</div>
+        <p class="script-text">&ldquo;Great. Let me set up 20 minutes with someone from our team who can show you what this looks like for <span class="highlight">[their industry]</span> &mdash; no commitment, just context. What does next week look like?&rdquo;</p>
+      </div>
+
+      <div class="branch-label">If &ldquo;not now but maybe later&rdquo;</div>
+      <div class="script-card">
+        <div class="script-label say">Say this</div>
+        <p class="script-text">&ldquo;Totally fair. How about this &mdash; can I check back in <span class="highlight">[3 months / next quarter / after your SAP go-live]</span>? That way if the timing&rsquo;s better, we&rsquo;re not starting from scratch.&rdquo;</p>
+      </div>
+
+      <div class="branch-label">If firm no</div>
+      <div class="script-card">
+        <div class="script-label say">Say this</div>
+        <p class="script-text">&ldquo;No problem at all. If anything changes, we&rsquo;re easy to find. Appreciate you giving me the time.&rdquo;</p>
+      </div>
+
+      <div class="script-card">
+        <div class="script-label note">Why it works</div>
+        <p class="script-text">The warm close is standard. The deferred close is the secret weapon for &ldquo;do nothing&rdquo; &mdash; it gets a specific callback date on the books, which is far more valuable than a vague &ldquo;maybe someday.&rdquo; Tying the callback to <em>their</em> timeline (a project, a quarter boundary) makes it feel like their idea. The firm no is graceful and preserves the relationship for future outreach.</p>
+      </div>
+
+      <div class="script-card">
+        <div class="script-label dont">Don&rsquo;t do this</div>
+        <p class="script-text">Don&rsquo;t push past a clear no. Don&rsquo;t leave the deferred option open-ended (&ldquo;I&rsquo;ll follow up sometime&rdquo;). Get a specific date or event to tie the callback to. Don&rsquo;t send a 10-page follow-up email. If they said no, a brief &ldquo;good to meet you&rdquo; note is enough.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- CHEATSHEET -->
+<div class="cheatsheet">
+  <h2>Quick Rules for the &ldquo;Do Nothing&rdquo; Conversation</h2>
+  <div class="rules-grid">
+    <div class="rule-card">
+      <div class="rule-do green">&#x2713; Always</div>
+      <p>Respect the &ldquo;no.&rdquo; Inertia is rational. They have priorities and you&rsquo;re not one of them yet.</p>
+    </div>
+    <div class="rule-card">
+      <div class="rule-do green">&#x2713; Always</div>
+      <p>Connect to something on their roadmap. SAP, cloud, integration, digital transformation &mdash; find their existing motion.</p>
+    </div>
+    <div class="rule-card">
+      <div class="rule-do green">&#x2713; Always</div>
+      <p>Use one proof point, not a pitch. A single relevant story beats ten minutes of features.</p>
+    </div>
+    <div class="rule-card">
+      <div class="rule-do green">&#x2713; Always</div>
+      <p>Aim for a deferred meeting if you can&rsquo;t get a meeting now. A specific callback date is a win.</p>
+    </div>
+    <div class="rule-card">
+      <div class="rule-do red">&#x2717; Never</div>
+      <p>Create fake urgency. They&rsquo;ll see through it and trust you less.</p>
+    </div>
+    <div class="rule-card">
+      <div class="rule-do red">&#x2717; Never</div>
+      <p>Imply they&rsquo;re behind their peers. Shame doesn&rsquo;t sell meetings. Curiosity does.</p>
+    </div>
+    <div class="rule-card">
+      <div class="rule-do red">&#x2717; Never</div>
+      <p>Push past a clear no. The relationship is worth more than one meeting.</p>
+    </div>
+    <div class="rule-card">
+      <div class="rule-do red">&#x2717; Never</div>
+      <p>Leave a deferred follow-up open-ended. &ldquo;Let me check back in Q3&rdquo; beats &ldquo;I&rsquo;ll circle back sometime.&rdquo;</p>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  Solace SDR Playbook &mdash; &ldquo;Do Nothing&rdquo; Objection Framework &middot; <a href="index.html">Back to Hub</a>
+</div>
+
+<script>
+function toggleStep(id) { document.getElementById(id).classList.toggle('open'); }
+</script>
+
+</body>
+</html>
