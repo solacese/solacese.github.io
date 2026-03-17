@@ -495,6 +495,143 @@ links: {
 
   },
 
+
+
+  "manufacturing-cpg": {
+
+stories: [
+  {
+    id: 'mc1',
+    // Source: Danone (Cortex, 100+ factories, 300 DCs, Industry 5.0, named/public)
+    // + Unilever (Virtual Ocean Control Tower, 2000 vessels, SAP AEM)
+    technology: {
+      headline: 'A global food producer connected 100+ factories and 300 distribution centres through a real-time event mesh \u2014 powering Industry 5.0 operations',
+      outcome: 'Danone built \u201cCortex\u201d \u2014 a real-time, event-driven digital ecosystem that connects factories, warehouses, and enterprise systems. Real-time insights enable faster, data-driven decision-making across global operations.',
+      detail: 'Before Cortex, data from on-premises factory applications was siloed and difficult to integrate with cloud services. The event mesh now streams data in real time to AI and analytics platforms, enabling predictive quality, demand sensing, and supply chain optimisation. The platform has eliminated inefficient batch integrations, achieving significant cost savings while building the foundation for autonomous manufacturing.'
+    },
+    integration: {
+      headline: 'Danone\u2019s integration team built a real-time digital backbone connecting 100+ factories to cloud analytics \u2014 replacing batch integrations with event streaming',
+      outcome: 'The integration challenge was connecting on-premises factory systems (MES, SCADA, quality) with cloud-based analytics and AI platforms. The event mesh bridges on-prem and cloud, streaming operational data in real time without requiring factory systems to be rewritten.',
+      detail: 'The architecture uses SAP AEM as the event transport layer, connecting SAP and non-SAP systems across 100+ production sites. Factory events flow to Azure-hosted analytics and ML models. The team can now deploy new integrations to additional factories rapidly \u2014 what used to take months of custom work is now configuration.'
+    },
+    business: {
+      headline: 'Danone is driving Industry 5.0 transformation \u2014 with real-time visibility across 100+ factories and 300 distribution centres enabling AI-driven decisions',
+      outcome: 'Real-time data from factories and distribution centres feeds AI models that optimise production scheduling, predict quality issues, and sense demand shifts. The business can respond to disruptions in hours rather than days.',
+      detail: 'The cost savings from eliminating inefficient batch integrations were significant on their own. But the strategic value is the foundation for autonomous operations \u2014 factories that can self-optimise based on real-time signals from across the supply chain. Danone sees this as core to their Industry 5.0 vision.'
+    },
+    architect: {
+      headline: 'Danone\u2019s Cortex: SAP AEM event mesh connecting 100+ factory MES/SCADA systems to Azure AI, with hybrid on-prem/cloud deployment',
+      outcome: 'On-premise event brokers in factories collect MES, SCADA, and quality data. SAP AEM routes events to Azure-hosted analytics, ML models, and enterprise systems. The hybrid architecture keeps latency-sensitive factory operations local while streaming data to cloud for intelligence.',
+      detail: 'The architecture is designed for scale: each new factory onboards by deploying a local broker and configuring topic subscriptions. No custom integration code per site. Events flow bidirectionally \u2014 factory data up to cloud analytics, and optimisation signals back down to production systems. The platform supports both real-time streaming and event-driven CDC from SAP systems.'
+    }
+  },
+  {
+    id: 'mc2',
+    // Source: P&G (MDM event-enabling, hybrid Azure/on-prem)
+    // + Heineken (700% order spike, Azure Service Bus failure, supply chain)
+    // + Campbell's (MDM + PLM replication, EDI)
+    technology: {
+      headline: 'Global CPG companies event-enabled their master data \u2014 eliminating synchronisation failures that were costing hundreds of thousands per hour',
+      outcome: 'Multiple CPG manufacturers replaced fragile request/reply MDM synchronisation with event-driven streaming. At one company, a 700% spike in orders caused the existing Azure Service Bus and iPaaS platform to duplicate and lose orders \u2014 costing hundreds of thousands of dollars per hour. Event-driven messaging eliminated these failures.',
+      detail: 'At another CPG giant, the MDM system was the single source of truth but relied on request/reply interactions that created synchronisation gaps across the ecosystem. Implementing event brokers on-premises and in Azure created a hybrid event mesh where MDM data publishes once and reaches every consumer in real time \u2014 complementing the existing API-led approach with streaming capabilities.'
+    },
+    integration: {
+      headline: 'CPG integration teams replaced batch MDM synchronisation with event streaming \u2014 one publish, every system updated in real time',
+      outcome: 'The pattern is consistent: MDM data that was previously synchronised via batch or request/reply now publishes as events. Product data, customer data, and pricing flow to ERP, eCommerce, CRM, and partner systems simultaneously without point-to-point connections.',
+      detail: 'At one company, the integration team deployed Solace event brokers both in their data centres and Azure cloud, creating a hybrid event mesh that enhanced their integration platform with real-time streaming. At another, complex point-to-point integrations between ERP and Product Lifecycle Management were replaced with a centralised event backbone. EDI transactions with partners also flow through the same platform.'
+    },
+    business: {
+      headline: 'A beverage company stopped losing hundreds of thousands of dollars per hour from duplicate and lost orders \u2014 by replacing fragile messaging with guaranteed delivery',
+      outcome: 'When a 700% surge in orders from a key market hit the existing messaging platform, orders were duplicated and lost. The supply chain impact cascaded for days. After deploying event-driven messaging with guaranteed delivery, order spikes are handled reliably \u2014 no lost revenue, no supply chain disruption.',
+      detail: 'The business framed it simply: they are a beverage company, not an IT company. They needed a messaging platform that handles bursts reliably without requiring constant operational attention. The event mesh delivers that \u2014 absorbing demand spikes, guaranteeing delivery, and letting the business focus on making and selling products.'
+    },
+    architect: {
+      headline: 'Hybrid event mesh for CPG: on-prem + Azure event brokers for MDM streaming, with guaranteed delivery handling 700% order spikes',
+      outcome: 'Event brokers deployed on-premises and in Azure, connected via event mesh. MDM publishes once \u2014 consumed by ERP, eCommerce, CRM, PLM, and partner EDI systems. Guaranteed persistence handles demand spikes without message loss or duplication.',
+      detail: 'The architecture complements existing API-led integration (Boomi, MuleSoft) with event streaming for use cases where real-time and guaranteed delivery matter. The event mesh pattern allows the MDM to remain the source of truth while ensuring every downstream system has current data without polling or batch synchronisation.'
+    }
+  },
+  {
+    id: 'mc3',
+    // Source: LG Chemical (MES modernisation, factory data ingestion)
+    // + Schaeffler (shopfloor-to-SAP via NATS bridge)
+    // + Dow Chemical (SAP ECC event-enabling, Azure, fragmented integration)
+    // + Bosch (Software AG UIM replacement, OT/IT, IoT Cloud)
+    technology: {
+      headline: 'Manufacturers modernised legacy factory systems \u2014 connecting shopfloors to SAP and cloud analytics in real time for the first time',
+      outcome: 'Multiple manufacturers replaced legacy MES platforms, batch-driven integrations, and proprietary middleware with event-driven architectures. The common outcome: real-time data flowing from factory floors to enterprise systems and cloud analytics, enabling predictive maintenance and production optimisation.',
+      detail: 'At one chemical manufacturer, the legacy MES created bottlenecks that prevented real-time data ingestion from production lines. The new event-driven MES handles real-time data collection, rapid integration with new applications, and uninterrupted production operations. At an automotive parts maker, shopfloor systems now connect to SAP AEM via a NATS bridge for bidirectional exchange of production data, master data, and work order events.'
+    },
+    integration: {
+      headline: 'Factory integration teams bridged shopfloor OT systems to SAP and cloud \u2014 replacing batch processes with bidirectional event flows',
+      outcome: 'The integration pattern bridges operational technology (MES, SCADA, PLCs) with enterprise IT (SAP, Azure, Databricks) through the event mesh. Production data flows up, master data and work orders flow down. No more batch files or manual data entry between factory and enterprise.',
+      detail: 'At one global manufacturer, 11+ legacy ERP systems across regions are being event-enabled through SAP AEM, with SAP Integration Suite handling transformation. At another, Software AG UIM was replaced with Solace across data centres and cloud, connecting different business units. The file-to-event capability is particularly valuable for edge environments where legacy systems only produce file outputs.'
+    },
+    business: {
+      headline: 'Manufacturers are turning factory data into a strategic asset \u2014 with real-time production visibility replacing manual reporting and batch processes',
+      outcome: 'Factory data that was previously trapped in on-premises MES systems now flows in real time to analytics platforms. Production managers see live dashboards instead of yesterday\u2019s spreadsheets. Quality issues are caught during production, not after.',
+      detail: 'The business case compounds: predictive maintenance reduces unplanned downtime, real-time quality monitoring catches defects earlier in the process, and production scheduling optimises based on actual demand signals rather than forecasts. One manufacturer is using the platform to enable autonomous factory transport \u2014 a capability that was impossible without real-time event flows.'
+    },
+    architect: {
+      headline: 'Factory-to-cloud architecture: MES/SCADA via MQTT and NATS bridge to SAP AEM, with Kafka bridge to Azure data lake for analytics',
+      outcome: 'Shopfloor systems connect via MQTT, native REST, or NATS bridge to the event broker. SAP AEM handles enterprise integration (master data distribution, work orders, procurement). Kafka bridge feeds Azure Data Lake and Databricks for manufacturing analytics. The architecture spans on-prem factory, corporate data centre, and cloud.',
+      detail: 'Key patterns: file-to-event conversion for legacy edge systems, NATS bridge for shopfloor protocols, SAP event-enabling add-on for ECC/S4HANA, and CDC from multiple regional ERP instances. The three-tier deployment (factory edge, corporate DC, cloud) is connected via dynamic message routing. Each tier handles the workloads appropriate to its environment \u2014 low-latency OT at the edge, enterprise integration in the DC, elastic analytics in the cloud.'
+    }
+  }
+],
+
+values: {
+  technology: [
+    { title: 'Industry 5.0 foundation', text: 'Connect factories, warehouses, and enterprise systems with a real-time event mesh. The infrastructure for AI-driven manufacturing, predictive quality, and autonomous operations.' },
+    { title: 'SAP integration without the complexity', text: 'SAP AEM event-enables S/4HANA and ECC without custom ABAP development. Master data, production events, and procurement flow as events to any consumer.' },
+    { title: 'Handle demand spikes reliably', text: 'Guaranteed delivery absorbs 700% order surges without message loss or duplication. Your messaging platform should not be the bottleneck when demand peaks.' },
+    { title: 'Modernise without stopping production', text: 'Bridge legacy MES, Software AG, Oracle SOA, and batch systems into event-driven flows incrementally. No big-bang migration, no production downtime.' }
+  ],
+  integration: [
+    { title: 'Bridge OT and IT', text: 'Factory shopfloor systems (MES, SCADA, PLCs) speak MQTT and proprietary protocols. Enterprise systems speak JMS and REST. One event broker connects both worlds natively.' },
+    { title: 'Event-enable SAP', text: 'SAP event-enabling add-on, SAP AEM, and SAP Integration Suite work together. Master data publishes once \u2014 consumed by production, eCommerce, CRM, and partner systems simultaneously.' },
+    { title: 'iPaaS + event broker pattern', text: 'Boomi or MuleSoft for API orchestration, Solace for guaranteed async messaging. The combination handles both enterprise integration and real-time factory data.' },
+    { title: 'Multi-regional ERP consolidation', text: 'Event mesh connects 11+ regional ERP instances, normalising data flows during SAP consolidation. Migrate regions incrementally while maintaining integration.' }
+  ],
+  business: [
+    { title: 'Real-time supply chain visibility', text: 'Track materials, production, and distribution in real time across 100+ sites. Demand sensing and AI-driven optimisation replace manual forecasting.' },
+    { title: 'Eliminate costly integration failures', text: 'Lost orders, duplicate transactions, and batch synchronisation gaps cost real money. Guaranteed event delivery eliminates these failures.' },
+    { title: 'Faster time to new capabilities', text: 'New factory integrations, partner onboarding, and digital services deploy in days rather than months. The event mesh is the accelerator.' },
+    { title: 'Predictive manufacturing', text: 'Real-time production data feeds ML models for quality prediction, maintenance scheduling, and yield optimisation. Move from reactive to predictive operations.' }
+  ],
+  architect: [
+    { title: 'Three-tier deployment', text: 'Factory edge for low-latency OT, corporate DC for enterprise integration, cloud for elastic analytics. Connected via dynamic message routing across all tiers.' },
+    { title: 'SAP AEM as the enterprise bus', text: 'SAP Advanced Event Mesh for event-driven integration within SAP BTP. Bridges SAP and non-SAP systems with guaranteed delivery and topic-based routing.' },
+    { title: 'Multi-protocol for manufacturing', text: 'MQTT from factory sensors, NATS from shopfloor systems, JMS from legacy ERP, REST from cloud services. All native on one broker, no protocol translation.' },
+    { title: 'Kafka bridge for analytics', text: 'Operational events flow through PubSub+ for real-time use cases, then bridge to Kafka, Databricks, and Snowflake for manufacturing analytics and data lake.' }
+  ]
+},
+
+links: {
+  technology: [
+    { text: 'How Danone powers Industry 5.0 with Solace', url: 'https://solace.com/company/customers/danone/', icon: 'doc' },
+    { text: 'Solace for manufacturing', url: 'https://solace.com/solutions/industries/manufacturing/', icon: 'globe' },
+    { text: 'Manufacturing resources on solace.com', url: 'https://solace.com/resources/', icon: 'doc' }
+  ],
+  integration: [
+    { text: 'How Danone built Cortex with event-driven architecture', url: 'https://solace.com/company/customers/danone/', icon: 'doc' },
+    { text: 'SAP integration with Solace', url: 'https://solace.com/solutions/technology/sap/', icon: 'globe' },
+    { text: 'iPaaS + event broker architecture patterns', url: 'https://solace.com/resources/', icon: 'doc' }
+  ],
+  business: [
+    { text: 'Danone case study: Industry 5.0 transformation', url: 'https://solace.com/company/customers/danone/', icon: 'doc' },
+    { text: 'How manufacturers use real-time data', url: 'https://solace.com/solutions/industries/manufacturing/', icon: 'globe' },
+    { text: 'Manufacturing customer stories', url: 'https://solace.com/resources/', icon: 'doc' }
+  ],
+  architect: [
+    { text: 'Architecture guide: Event mesh for manufacturing', url: 'https://solace.com/resources/', icon: 'doc' },
+    { text: 'SAP AEM technical deep dive', url: 'https://solace.com/solutions/technology/sap/', icon: 'globe' },
+    { text: 'PubSub+ Event Broker specifications', url: 'https://solace.com/products/event-broker/', icon: 'globe' }
+  ]
+}
+
+
+  },
 };
 
 function getContent(role, industry) {
