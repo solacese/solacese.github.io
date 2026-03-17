@@ -1,6 +1,6 @@
 <!DOCTYPE html><html><head><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1"><title>Solace Explorer</title><link rel=stylesheet href=styles.css></head><body><!-- ============ NAV BAR ============ -->
 <nav class="nav" id="navbar">
-  <a class="nav-logo" href="#" onclick="goToScreen('welcome'); return false;">solace<span>.</span></a>
+  <a class="nav-logo" href="#" onclick="goToScreen('welcome'); return false;"><img src="https://solace.com/wp-content/uploads/2025/07/solace-logo.svg" alt="Solace" class="nav-logo-img"></a>
   <div class="nav-breadcrumb" id="breadcrumb"></div>
   <button class="nav-back" id="backBtn" onclick="goBack()">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
@@ -126,10 +126,11 @@
       <p>Coming soon</p>
     </div>
 
-    <div class="card" style="opacity:0.4; pointer-events:none;">
+    <div class="card" onclick="selectIndustry('manufacturing-cpg')">
       <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 20h20"/><rect x="4" y="8" width="16" height="12"/><path d="M12 2l8 6H4l8-6z"/></svg></div>
-      <h3>Manufacturing</h3>
-      <p>Coming soon</p>
+      <h3>Manufacturing & CPG</h3>
+      <p>Factory automation, supply chain, SAP integration</p>
+      <div class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></div>
     </div>
 
     <div class="card" style="opacity:0.4; pointer-events:none;">
@@ -185,13 +186,47 @@
       <div class="values-grid" id="valuesGrid"></div>
     </div>
 
-    <!-- C. Explore further -->
+    <!-- C. Logo Bar -->
+    <div class="logo-section" id="logoSection" style="display:none;">
+      <div class="section-label" id="logoLabel">Trusted by leaders in this space</div>
+      <div class="section-title">Solace customers in this space</div>
+      <div class="logo-band" id="logoBand"></div>
+      <div class="logo-count" id="logoCount"></div>
+    </div>
+
+
+    <!-- D. Reference Architecture -->
+    <div class="arch-section" id="archSection" style="display:none;">
+      <div class="section-label">Reference architecture</div>
+      <div class="section-title" id="archTitle">Event mesh pattern</div>
+      <p class="arch-desc" id="archDesc"></p>
+      <div class="arch-container">
+        <div class="arch-mesh-label">Solace event mesh</div>
+        <div class="arch-grid">
+          <div class="col-box left-col" id="archLeft"></div>
+          <div class="mesh-gutter"></div>
+          <div class="col-box right-col" id="archRight"></div>
+        </div>
+        <div class="detail-panel" id="detailPanel">
+          <div class="dp-title" id="dpTitle"></div>
+          <div class="dp-flow" id="dpFlow"></div>
+          <div class="dp-desc" id="dpDesc"></div>
+        </div>
+        <div class="deploy-section">
+          <div class="deploy-row" id="archDeploy"></div>
+          <div class="deploy-footnote">All managed through <span>Solace Cloud</span> — single pane of glass across every deployment</div>
+        </div>
+      </div>
+    </div>
+
+        <!-- E. Explore further -->
     <div class="explore-section">
       <div class="section-label">Go deeper</div>
       <div class="section-title">Explore further</div>
 
       <div class="explore-links" id="exploreLinks"></div>
-    <!-- D. CTA -->
+
+    <!-- F. CTA -->
     <div class="cta-section">
       <h3>Talk to someone who knows <em id="ctaIndustry">aviation</em></h3>
       <p>No pitch, no pressure. Just a conversation with someone who understands your world.</p>
@@ -205,4 +240,4 @@
   </div>
 </div>
 
-<!-- ============ JAVASCRIPT ============ --><script src=content.js></script><script src=app.js></script></body></html>
+<!-- ============ JAVASCRIPT ============ --><script src=content.js></script><script src=features.js></script><script src=app.js></script></body></html>

@@ -23,6 +23,7 @@
     financial: 'Financial Services',
     retail: 'Retail & eCommerce',
     manufacturing: 'Manufacturing',
+    "manufacturing-cpg": 'Manufacturing & CPG',
     energy: 'Energy & Utilities',
     telecom: 'Telecommunications',
     cpg: 'Consumer Goods',
@@ -39,6 +40,7 @@
     financial: 'financial services',
     retail: 'retail',
     manufacturing: 'manufacturing',
+    "manufacturing-cpg": 'manufacturing & CPG',
     energy: 'energy',
     telecom: 'telecom',
     cpg: 'consumer goods',
@@ -241,12 +243,157 @@
         globe: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>'
       };
       var arrow = '<svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>';
-      el.innerHTML = content.links.map(function(l) {
-        return '<a class="explore-link" href="' + l.url + '" target="_blank" rel="noopener">' +
-          (icons[l.icon] || icons.doc) + ' ' + l.text + ' ' + arrow + '</a>';
+      // Generic placeholder URLs get greyed out with "coming soon"
+      var genericUrls = ['https://solace.com/resources/', 'https://solace.com/company/customers/'];
+      var hasLiveLinks = false;
+      var linksHtml = content.links.map(function(l) {
+        var isGeneric = false;
+        for (var g = 0; g < genericUrls.length; g++) {
+          if (l.url === genericUrls[g]) { isGeneric = true; break; }
+        }
+        if (isGeneric) {
+          return '<div class="explore-link explore-link-soon">' +
+            (icons[l.icon] || icons.doc) + ' ' + l.text +
+            '<span class="soon-badge">Coming soon</span></div>';
+        } else {
+          hasLiveLinks = true;
+          return '<a class="explore-link" href="' + l.url + '" target="_blank" rel="noopener">' +
+            (icons[l.icon] || icons.doc) + ' ' + l.text + ' ' + arrow + '</a>';
+        }
       }).join('');
+      el.innerHTML = linksHtml;
+    }
+
+    // Render architecture diagram
+    renderArchitecture(industry);
+
+    // Render logo bar
+    renderLogos(industry);
+  }
+
+  // ---- Architecture diagram rendering ----
+  var archActiveKey = null;
+
+  function renderArchitecture(industry) {
+    var arch = (typeof ARCHITECTURE !== 'undefined') ? ARCHITECTURE[industry] : null;
+    var section = document.getElementById('archSection');
+    if (!section) return;
+    if (!arch) { section.style.display = 'none'; return; }
+    section.style.display = '';
+
+    document.getElementById('archTitle').textContent = arch.title;
+    document.getElementById('archDesc').textContent = arch.description;
+
+    // Close any open panel
+    archActiveKey = null;
+    var panel = document.getElementById('detailPanel');
+    if (panel) panel.classList.remove('open');
+
+    // Left column with label
+    var leftEl = document.getElementById('archLeft');
+    leftEl.innerHTML = '<div class="col-label">Operational technology</div><div class="col-nodes">' +
+      arch.left.map(function(n) {
+        return '<div class="sys-node" onclick="showArchDetail(\'' + n.id + '\')">' +
+          '<div class="sn-name">' + n.name + '</div>' +
+          '<div class="sn-proto">' + n.proto + '</div>' +
+          '<div class="sn-flows">' + n.flows + '</div></div>';
+      }).join('') + '</div>';
+
+    // Right column with label
+    var rightEl = document.getElementById('archRight');
+    rightEl.innerHTML = '<div class="col-label">Enterprise & consumer</div><div class="col-nodes">' +
+      arch.right.map(function(n) {
+        return '<div class="sys-node" onclick="showArchDetail(\'' + n.id + '\')">' +
+          '<div class="sn-name">' + n.name + '</div>' +
+          '<div class="sn-proto">' + n.proto + '</div>' +
+          '<div class="sn-flows">' + n.flows + '</div></div>';
+      }).join('') + '</div>';
+
+    // Deploy bar
+    var deployEl = document.getElementById('archDeploy');
+    deployEl.innerHTML = arch.deploy.map(function(d) {
+      return '<div class="deploy-tag" onclick="showArchDetail(\'' + d.id + '\')">' +
+        '<div class="dt-label">' + d.label + '</div><div class="dt-sub">' + d.sub + '</div></div>';
+    }).join('');
+  }
+
+  function showArchDetail(key) {
+    var industry = selectedIndustry;
+    var arch = (typeof ARCHITECTURE !== 'undefined') ? ARCHITECTURE[industry] : null;
+    if (!arch) return;
+
+    var panel = document.getElementById('detailPanel');
+
+    // Deselect all
+    document.querySelectorAll('.sys-node.on, .deploy-tag.on').forEach(function(el) { el.classList.remove('on'); });
+
+    // Toggle off if same key
+    if (archActiveKey === key) {
+      panel.classList.remove('open');
+      archActiveKey = null;
+      return;
+    }
+
+    // Find tip data
+    var tipData = null;
+    var allNodes = arch.left.concat(arch.right);
+    for (var i = 0; i < allNodes.length; i++) {
+      if (allNodes[i].id === key) { tipData = allNodes[i].tip; break; }
+    }
+    if (!tipData) {
+      for (var j = 0; j < arch.deploy.length; j++) {
+        if (arch.deploy[j].id === key) { tipData = { t: arch.deploy[j].label, d: arch.deploy[j].tip, f: '' }; break; }
+      }
+    }
+    if (!tipData) return;
+
+    // Highlight clicked node
+    var allClickables = document.querySelectorAll('.sys-node, .deploy-tag');
+    allClickables.forEach(function(el) {
+      var handler = el.getAttribute('onclick') || '';
+      if (handler.indexOf("'" + key + "'") > -1) el.classList.add('on');
+    });
+
+    archActiveKey = key;
+    document.getElementById('dpTitle').textContent = tipData.t;
+    var flowEl = document.getElementById('dpFlow');
+    flowEl.textContent = tipData.f;
+    flowEl.style.display = tipData.f ? '' : 'none';
+    document.getElementById('dpDesc').textContent = tipData.d;
+    panel.classList.add('open');
+  }
+
+  window.showArchDetail = showArchDetail;
+
+  // ---- Logo bar rendering ----
+  function renderLogos(industry) {
+    var logos = (typeof LOGOS !== 'undefined') ? LOGOS[industry] : null;
+    var section = document.getElementById('logoSection');
+    if (!section) return;
+    if (!logos || logos.length === 0) { section.style.display = 'none'; return; }
+    section.style.display = '';
+
+    var iShort = industryShortLabels[industry] || industry;
+    document.getElementById('logoLabel').textContent = 'Trusted by leaders in ' + iShort;
+
+    var band = document.getElementById('logoBand');
+    band.innerHTML = logos.map(function(l) {
+      return '<a class="logo-item" href="' + l.url + '" target="_blank" rel="noopener">' +
+        '<div class="logo-mark" style="' + (l.style || '') + '">' + l.name + '</div>' +
+        '<span class="logo-link">Read story \u2197</span></a>';
+    }).join('');
+
+    var extra = (typeof LOGO_EXTRA_COUNT !== 'undefined') ? LOGO_EXTRA_COUNT[industry] : 0;
+    var countEl = document.getElementById('logoCount');
+    if (extra > 0) {
+      countEl.textContent = '+ ' + extra + ' more transportation & logistics customers worldwide';
+      countEl.style.display = '';
+    } else {
+      countEl.style.display = 'none';
     }
   }
+
+
 
   // ---- Story expand/collapse ----
   function toggleStory(btn) {
