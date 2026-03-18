@@ -1,0 +1,230 @@
+<!DOCTYPE html><html lang="ja"><head><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1"><title>Solace Explorer</title><link rel=stylesheet href=styles.css><script defer src="https://cloud.umami.is/script.js" data-website-id="dd8957d7-d9d6-460d-83d8-5f1d7320d0ab"></script></head><body><!-- ============ NAV BAR ============ -->
+<nav class="nav" id="navbar">
+  <a class="nav-logo" href="#" onclick="goToScreen('welcome'); return false;"><img src="https://solace.com/wp-content/uploads/2025/07/solace-logo.svg" alt="Solace" class="nav-logo-img"></a>
+  <div class="nav-breadcrumb" id="breadcrumb"></div>
+  <button class="nav-back" id="backBtn" onclick="goBack()">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+    戻る
+  </button>
+</nav>
+
+<!-- ============ SCREEN 1: WELCOME ============ -->
+<div class="screen active" id="screen-welcome">
+  <div class="welcome-content">
+    <div class="welcome-eyebrow">Solace Explorer</div>
+    <h1 class="welcome-title">あなたの世界で<em>リアルタイム</em>がどう見えるかを発見する</h1>
+    <p class="welcome-subtitle">あなたと同じような組織が、イベント駆動型アーキテクチャを活用して、より速く動き、よりスマートに統合し、次のステージを切り開く方法をご覧ください。</p>
+    <button class="welcome-cta" onclick="goToScreen('role')">
+      探索を始める
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+    </button>
+  </div>
+</div>
+
+<!-- ============ SCREEN 2: ROLE SELECTION ============ -->
+<div class="screen selection-screen" id="screen-role">
+  <div class="selection-header">
+    <h2>あなたの役割は何ですか？</h2>
+    <p>あなたにとって最も重要なことに合わせて、すべてをカスタマイズします。</p>
+  </div>
+  <div class="card-grid cols-2" id="roleGrid">
+
+    <div class="card" onclick="selectRole('technology')">
+      <div class="card-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/><path d="M7 8h2"/><path d="M7 11h4"/></svg>
+      </div>
+      <h3>テクノロジーリーダー</h3>
+      <p>CTO、CIO、VP Engineering — テクノロジー戦略を推進し、自社開発か外部調達かの意思決定を行う立場です。</p>
+      <div class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></div>
+    </div>
+
+    <div class="card" onclick="selectRole('integration')">
+      <div class="card-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v4"/><path d="M12 18v4"/><path d="M4.93 4.93l2.83 2.83"/><path d="M16.24 16.24l2.83 2.83"/><path d="M2 12h4"/><path d="M18 12h4"/><path d="M4.93 19.07l2.83-2.83"/><path d="M16.24 7.76l2.83-2.83"/></svg>
+      </div>
+      <h3>統合・ミドルウェア</h3>
+      <p>統合担当責任者、ミドルウェアリード — システム間の連携と統合レイヤーのモダナイゼーションを担っています。</p>
+      <div class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></div>
+    </div>
+
+    <div class="card" onclick="selectRole('business')">
+      <div class="card-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/><path d="M2 20h20"/></svg>
+      </div>
+      <h3>ビジネス・オペレーション</h3>
+      <p>VP Operations、デジタル責任者 — スピード、顧客体験、そして業務成果を重視する立場です。</p>
+      <div class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></div>
+    </div>
+
+    <div class="card" onclick="selectRole('architect')">
+      <div class="card-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20h20"/><path d="M5 20V8l7-5 7 5v12"/><path d="M9 20v-6h6v6"/><path d="M9 12h6"/></svg>
+      </div>
+      <h3>アーキテクチャ・エンジニアリング</h3>
+      <p>エンタープライズアーキテクト、ソリューションアーキテクト、プリンシパルエンジニア — システムを設計し、パターンを選定する立場です。</p>
+      <div class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ============ SCREEN 3: INDUSTRY SELECTION ============ -->
+<div class="screen selection-screen" id="screen-industry">
+  <div class="selection-header">
+    <h2>あなたの業界はどちらですか？</h2>
+    <p>あなたの業界のストーリーと可能性をご紹介します。</p>
+  </div>
+  <div class="card-grid industry-grid" id="industryGrid">
+
+    <div class="card" onclick="selectIndustry('aviation')">
+      <div class="card-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2L16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.1z"/></svg>
+      </div>
+      <h3>航空・空港</h3>
+      <p>航空会社、航空管制、空港運営</p>
+      <div class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></div>
+    </div>
+
+    <div class="card" onclick="selectIndustry('logistics')">
+      <div class="card-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="6" width="15" height="10" rx="1"/><path d="M16 8h4l3 4v4h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+      </div>
+      <h3>物流・海運</h3>
+      <p>港湾、貨物、郵便、サプライチェーン</p>
+      <div class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></div>
+    </div>
+
+    <div class="card" onclick="selectIndustry('rail')">
+      <div class="card-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="16" rx="2"/><path d="M4 11h16"/><path d="M12 3v8"/><circle cx="8" cy="15" r="1"/><circle cx="16" cy="15" r="1"/><path d="M8 19l-2 3"/><path d="M16 19l2 3"/></svg>
+      </div>
+      <h3>鉄道・交通</h3>
+      <p>鉄道事業者、交通機関、旅客システム</p>
+      <div class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></div>
+    </div>
+
+    <div class="card" onclick="selectIndustry('automotive')">
+      <div class="card-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17h14v-5l-2-5H7l-2 5v5z"/><circle cx="7.5" cy="17.5" r="1.5"/><circle cx="16.5" cy="17.5" r="1.5"/><path d="M5 12h14"/><path d="M3 17h2"/><path d="M19 17h2"/></svg>
+      </div>
+      <h3>自動車・モビリティ</h3>
+      <p>コネクテッドカー、製造、フリート管理</p>
+      <div class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></div>
+    </div>
+
+    <div class="card" onclick="selectIndustry('financial')">
+      <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg></div>
+      <h3>金融サービス</h3>
+      <p>資本市場、銀行、決済、保険</p>
+      <div class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></div>
+    </div>
+
+    <div class="card" onclick="selectIndustry('retail')">
+      <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 01-8 0"/></svg></div>
+      <h3>小売・eコマース</h3>
+      <p>オムニチャネル、店舗接続、サプライチェーン</p>
+      <div class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></div>
+    </div>
+
+    <div class="card" onclick="selectIndustry('manufacturing-cpg')">
+      <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 20h20"/><rect x="4" y="8" width="16" height="12"/><path d="M12 2l8 6H4l8-6z"/></svg></div>
+      <h3>製造・CPG</h3>
+      <p>工場自動化、サプライチェーン、SAP 統合</p>
+      <div class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></div>
+    </div>
+
+    <div class="card" style="opacity:0.4; pointer-events:none;">
+      <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+      <h3>その他の業界</h3>
+      <p>近日公開予定</p>
+    </div>
+
+    <div class="grid-divider"><span>または</span></div>
+
+    <div class="card card-explore" style="opacity:0.4; pointer-events:none;">
+      <div class="card-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+      </div>
+      <div class="card-text">
+        <h3>まずは見てみる</h3>
+        <p>特定の業界に属さない方も、Solaceが実現できることの概要をご覧いただけます。</p>
+      </div>
+      <div class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ============ SCREEN 4: PERSONALISED RESULT ============ -->
+<div class="screen result-screen" id="screen-result">
+  <div class="result-container">
+
+    <div class="result-hero">
+      <div class="tag">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        <span id="resultTag">テクノロジーリーダー · 航空</span>
+      </div>
+      <h1 id="resultTitle"><em>航空</em>業界のテクノロジーリーダーが取り組んでいること</h1>
+      <p id="resultSubtitle">あなたと同じような組織が、リアルタイムのイベント駆動型アーキテクチャを活用して航空業界を変革している方法をご覧ください。</p>
+    </div>
+
+    <div class="stories-section">
+      <div class="section-label">同じような組織の事例</div>
+      <div class="section-title" id="storiesTitle">あなたと同じリーダーたちの取り組み</div>
+      <div id="storiesContainer"></div>
+
+    <div class="values-section">
+      <div class="section-label">Solace を選ぶ理由</div>
+      <div class="section-title" id="valuesTitle"><em>航空</em>業界に Solace が選ばれる理由</div>
+      <div class="values-grid" id="valuesGrid"></div>
+    </div>
+
+    <div class="logo-section" id="logoSection" style="display:none;">
+      <div class="section-label" id="logoLabel">業界のリーダー企業に信頼されています</div>
+      <div class="section-title">この分野の Solace 導入企業</div>
+      <div class="logo-band" id="logoBand"></div>
+      <div class="logo-count" id="logoCount"></div>
+    </div>
+
+    <div class="arch-section" id="archSection" style="display:none;">
+      <div class="section-label">リファレンスアーキテクチャ</div>
+      <div class="section-title" id="archTitle">イベントメッシュパターン</div>
+      <p class="arch-desc" id="archDesc"></p>
+      <div class="arch-container">
+        <div class="arch-mesh-label">Solace イベントメッシュ</div>
+        <div class="arch-grid">
+          <div class="col-box left-col" id="archLeft"></div>
+          <div class="mesh-gutter"></div>
+          <div class="col-box right-col" id="archRight"></div>
+        </div>
+        <div class="detail-panel" id="detailPanel">
+          <div class="dp-title" id="dpTitle"></div>
+          <div class="dp-flow" id="dpFlow"></div>
+          <div class="dp-desc" id="dpDesc"></div>
+        </div>
+        <div class="deploy-section">
+          <div class="deploy-row" id="archDeploy"></div>
+          <div class="deploy-footnote">すべて <span>Solace Cloud</span> で管理 — あらゆるデプロイ環境を一元的に可視化</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="explore-section">
+      <div class="section-label">さらに深掘りする</div>
+      <div class="section-title">詳細を探索する</div>
+      <div class="explore-links" id="exploreLinks"></div>
+
+    <div class="cta-section">
+      <h3><em id="ctaIndustry">航空</em>業界を熟知した担当者と話す</h3>
+      <p>セールストークも押し売りもありません。あなたの業界を理解した担当者との率直な会話です。</p>
+      <a class="cta-primary" href="https://solace.com/contact/" target="_blank" rel="noopener">
+        会話を始める
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+      </a>
+      <a class="cta-secondary" href="https://solace.com/resources/" target="_blank" rel="noopener">まだ準備ができていない方はリソースをご覧ください →</a>
+    </div>
+
+  </div>
+</div>
+
+<script src=content.js></script><script src=features.js></script><script src=app.js></script></body></html>
