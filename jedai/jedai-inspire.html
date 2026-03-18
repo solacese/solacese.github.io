@@ -1,0 +1,1480 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>JEDAI — Jumpstart for Event-Driven AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script defer src="https://cloud.umami.is/script.js" data-website-id="dd8957d7-d9d6-460d-83d8-5f1d7320d0ab"></script>
+<style>
+/* =========================================
+   CSS VARIABLES — SOLACE BRAND
+   ========================================= */
+:root {
+  --navy: #093B5F;
+  --navy-deep: #03213B;
+  --navy-mid: #273749;
+  --green: #00C895;
+  --green-light: #ABFF88;
+  --green-tint: rgba(199, 255, 203, 0.15);
+  --green-tint-strong: rgba(199, 255, 203, 0.3);
+  --teal: #14A5A7;
+  --white: #FFFFFF;
+  --off-white: #F7F8F9;
+  --text-secondary: #5A7A8A;
+  --border-light: rgba(9, 59, 95, 0.08);
+  --font-display: 'Instrument Serif', Georgia, serif;
+  --font-body: 'Plus Jakarta Sans', -apple-system, sans-serif;
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+  --radius: 16px;
+  --radius-sm: 10px;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--navy);
+  background: var(--white);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 10%, var(--green-tint) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 50% at 85% 80%, var(--green-tint) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* =========================================
+   NAV BAR
+   ========================================= */
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 2.5rem;
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border-light);
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.nav.visible { opacity: 1; transform: translateY(0); }
+
+.nav-logo { display: flex; align-items: center; text-decoration: none; }
+.nav-logo-img { height: 22px; width: auto; }
+
+.nav-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.3rem 0.75rem;
+  background: var(--green-tint);
+  border: 1px solid rgba(0, 200, 149, 0.2);
+  border-radius: 100px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--navy);
+  margin-left: 1rem;
+}
+
+.nav-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+.nav-breadcrumb.visible { opacity: 1; pointer-events: auto; }
+.nav-breadcrumb .crumb { cursor: pointer; transition: color 0.2s ease; }
+.nav-breadcrumb .crumb:hover { color: var(--navy); }
+.nav-breadcrumb .separator { opacity: 0.3; font-size: 0.7rem; }
+.nav-breadcrumb .crumb.current { color: var(--navy); font-weight: 600; }
+
+.nav-back {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  opacity: 0;
+  pointer-events: none;
+}
+.nav-back.visible { opacity: 1; pointer-events: auto; }
+.nav-back:hover { color: var(--navy); background: var(--green-tint); }
+.nav-back svg { width: 16px; height: 16px; transition: transform 0.2s ease; }
+.nav-back:hover svg { transform: translateX(-2px); }
+
+/* =========================================
+   SCREEN SYSTEM
+   ========================================= */
+.screen {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px);
+  transition: opacity 0.6s var(--ease-out-expo), transform 0.6s var(--ease-out-expo), visibility 0.6s;
+  z-index: 1;
+  overflow-y: auto;
+}
+.screen.active { opacity: 1; visibility: visible; transform: translateY(0); }
+.screen.exiting { opacity: 0; transform: translateY(-20px); }
+
+/* =========================================
+   WELCOME SCREEN
+   ========================================= */
+.welcome-content { text-align: center; max-width: 700px; }
+
+.welcome-eyebrow {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--green);
+  margin-bottom: 0.75rem;
+  opacity: 0;
+  transform: translateY(10px);
+  animation: fadeUp 0.6s var(--ease-out-expo) 0.2s forwards;
+}
+
+.welcome-subbrand {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+  opacity: 0;
+  transform: translateY(10px);
+  animation: fadeUp 0.6s var(--ease-out-expo) 0.3s forwards;
+  letter-spacing: 0.02em;
+}
+
+.welcome-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 5.5vw, 4rem);
+  font-weight: 400;
+  line-height: 1.1;
+  color: var(--navy);
+  margin-bottom: 1.25rem;
+  opacity: 0;
+  transform: translateY(15px);
+  animation: fadeUp 0.7s var(--ease-out-expo) 0.35s forwards;
+}
+
+.welcome-title em {
+  font-style: italic;
+  background: linear-gradient(90deg, var(--green-light), var(--green));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.welcome-subtitle {
+  font-size: 1.1rem;
+  font-weight: 400;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  margin-bottom: 3rem;
+  opacity: 0;
+  transform: translateY(10px);
+  animation: fadeUp 0.7s var(--ease-out-expo) 0.5s forwards;
+}
+
+.welcome-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 2rem;
+  background: linear-gradient(101deg, var(--green-light) 1%, var(--green) 105%);
+  color: var(--navy-deep);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 60px;
+  cursor: pointer;
+  transition: all 0.3s var(--ease-out-expo);
+  box-shadow: 0 4px 20px rgba(0, 200, 149, 0.25);
+  opacity: 0;
+  transform: translateY(10px);
+  animation: fadeUp 0.7s var(--ease-out-expo) 0.65s forwards;
+}
+.welcome-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0, 200, 149, 0.35); }
+.welcome-cta svg { width: 18px; height: 18px; transition: transform 0.3s ease; }
+.welcome-cta:hover svg { transform: translateX(3px); }
+
+/* =========================================
+   SELECTION SCREENS
+   ========================================= */
+.selection-screen { justify-content: flex-start; padding-top: 6rem; }
+
+.selection-header {
+  text-align: center;
+  max-width: 600px;
+  margin-bottom: 2.5rem;
+}
+
+.selection-header h2 {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  font-weight: 400;
+  line-height: 1.15;
+  color: var(--navy);
+  margin-bottom: 0.75rem;
+}
+
+.selection-header p {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.65;
+}
+
+.card-grid {
+  display: grid;
+  gap: 1rem;
+  width: 100%;
+  max-width: 960px;
+  padding-bottom: 3rem;
+}
+.card-grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
+.card-grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+.card-grid.cols-4 { grid-template-columns: repeat(4, 1fr); }
+
+/* Individual card */
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 1.75rem;
+  background: var(--white);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: all 0.35s var(--ease-out-expo);
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(15px);
+}
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--green-light), var(--green));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.card:hover { border-color: rgba(0, 200, 149, 0.3); transform: translateY(-4px); box-shadow: 0 12px 40px rgba(9,59,95,0.08), 0 2px 8px rgba(0,200,149,0.06); }
+.card:hover::before { opacity: 1; }
+.card.animate { animation: cardIn 0.5s var(--ease-out-expo) forwards; }
+
+.card-icon {
+  width: 44px; height: 44px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 12px;
+  background: var(--green-tint);
+  margin-bottom: 1.25rem;
+  transition: background 0.3s ease;
+}
+.card:hover .card-icon { background: var(--green-tint-strong); }
+.card-icon svg { width: 22px; height: 22px; color: var(--green); }
+
+.card h3 {
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 0.5rem;
+  line-height: 1.3;
+}
+
+.card p {
+  font-size: 0.87rem;
+  color: var(--text-secondary);
+  line-height: 1.55;
+  flex-grow: 1;
+}
+
+.card-arrow {
+  position: absolute;
+  bottom: 1.5rem; right: 1.5rem;
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: var(--green-tint);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0;
+  transform: translateX(-5px);
+  transition: all 0.3s var(--ease-out-expo);
+}
+.card:hover .card-arrow { opacity: 1; transform: translateX(0); }
+.card-arrow svg { width: 14px; height: 14px; color: var(--green); }
+
+/* Industry grid — more compact */
+.industry-grid { grid-template-columns: repeat(4, 1fr); max-width: 1080px; }
+.industry-grid .card { padding: 1.5rem; }
+.industry-grid .card-icon { width: 38px; height: 38px; border-radius: 10px; margin-bottom: 1rem; }
+.industry-grid .card-icon svg { width: 20px; height: 20px; }
+.industry-grid .card h3 { font-size: 0.95rem; margin-bottom: 0.35rem; }
+.industry-grid .card p { font-size: 0.8rem; }
+
+/* Opportunity cards — wider, more descriptive */
+.opportunity-grid { grid-template-columns: repeat(2, 1fr); max-width: 900px; }
+.opportunity-card { padding-bottom: 3.5rem; }
+.opportunity-card .card-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.25rem 0.65rem;
+  background: var(--green-tint);
+  border-radius: 100px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--green);
+  margin-bottom: 1rem;
+}
+.opportunity-card h3 { font-size: 1.1rem; margin-bottom: 0.6rem; }
+.opportunity-card p { font-size: 0.9rem; line-height: 1.6; }
+.opportunity-card .example {
+  margin-top: 0.85rem;
+  font-size: 0.82rem;
+  color: var(--green);
+  font-style: italic;
+  font-family: var(--font-display);
+}
+
+/* =========================================
+   RESULT SCREEN
+   ========================================= */
+.result-screen { justify-content: flex-start; padding-top: 5.5rem; align-items: stretch; }
+
+.result-container {
+  max-width: 1000px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 2rem 4rem;
+}
+
+.result-hero {
+  text-align: center;
+  padding: 3rem 0 2.5rem;
+  border-bottom: 1px solid var(--border-light);
+  margin-bottom: 3rem;
+}
+
+.result-hero .tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 1rem;
+  background: var(--green-tint);
+  border-radius: 100px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--navy);
+  margin-bottom: 1.25rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.result-hero .tag svg { width: 14px; height: 14px; color: var(--green); }
+
+.result-hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(1.9rem, 4vw, 2.9rem);
+  font-weight: 400;
+  line-height: 1.15;
+  color: var(--navy);
+  margin-bottom: 0.85rem;
+}
+.result-hero h1 em { font-style: italic; color: var(--green); }
+
+.result-hero p {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  max-width: 620px;
+  margin: 0 auto;
+  line-height: 1.65;
+}
+
+/* Section anatomy */
+.section-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--green);
+  margin-bottom: 0.6rem;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: 1.7rem;
+  font-weight: 400;
+  color: var(--navy);
+  margin-bottom: 1.5rem;
+  line-height: 1.2;
+}
+.section-title em { font-style: italic; }
+
+/* The "what this looks like" section */
+.usecase-section { margin-bottom: 3.5rem; }
+
+.usecase-card {
+  background: var(--white);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius);
+  padding: 2rem;
+  margin-bottom: 1rem;
+}
+
+.usecase-card-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.usecase-icon {
+  width: 46px; height: 46px; flex-shrink: 0;
+  border-radius: 12px;
+  background: var(--green-tint);
+  display: flex; align-items: center; justify-content: center;
+}
+.usecase-icon svg { width: 22px; height: 22px; color: var(--green); }
+
+.usecase-card h3 {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: var(--navy);
+  line-height: 1.3;
+  padding-top: 0.2rem;
+}
+
+.usecase-body { font-size: 0.92rem; color: var(--text-secondary); line-height: 1.7; }
+
+.usecase-signals {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1.25rem;
+}
+
+.signal-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.85rem;
+  background: var(--off-white);
+  border: 1px solid var(--border-light);
+  border-radius: 100px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--navy-mid);
+}
+.signal-pill::before {
+  content: '';
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--green);
+  flex-shrink: 0;
+}
+
+/* SAM differentiator section */
+.sam-section {
+  margin-bottom: 3.5rem;
+  background: linear-gradient(135deg, rgba(9,59,95,0.03) 0%, rgba(0,200,149,0.05) 100%);
+  border: 1px solid rgba(0,200,149,0.15);
+  border-radius: var(--radius);
+  padding: 2.5rem;
+}
+
+.sam-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.sam-item h4 {
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 0.4rem;
+}
+.sam-item p { font-size: 0.84rem; color: var(--text-secondary); line-height: 1.55; }
+
+/* Journey section */
+.journey-section { margin-bottom: 3.5rem; }
+
+.journey-steps {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  position: relative;
+}
+
+.journey-step {
+  flex: 1;
+  padding: 1.5rem 1.25rem;
+  background: var(--white);
+  border: 1px solid var(--border-light);
+  border-radius: 0;
+  position: relative;
+  text-align: center;
+}
+.journey-step:first-child { border-radius: var(--radius) 0 0 var(--radius); }
+.journey-step:last-child { border-radius: 0 var(--radius) var(--radius) 0; }
+
+.journey-step.active-step {
+  background: var(--green-tint);
+  border-color: rgba(0,200,149,0.3);
+  z-index: 1;
+}
+
+.journey-step-num {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: var(--off-white);
+  border: 1px solid var(--border-light);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  margin: 0 auto 0.75rem;
+}
+
+.journey-step.active-step .journey-step-num {
+  background: var(--green);
+  border-color: var(--green);
+  color: var(--navy-deep);
+}
+
+.journey-step h4 {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 0.3rem;
+}
+.journey-step p { font-size: 0.75rem; color: var(--text-secondary); line-height: 1.5; }
+
+.journey-step.active-step h4 { color: var(--navy); }
+
+/* CTA section */
+.cta-section {
+  text-align: center;
+  padding: 3.5rem 2rem;
+  background: linear-gradient(135deg, var(--navy-deep) 0%, var(--navy) 100%);
+  border-radius: 20px;
+  margin-top: 1rem;
+}
+
+.cta-section h3 {
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  font-weight: 400;
+  color: var(--white);
+  margin-bottom: 0.75rem;
+  line-height: 1.2;
+}
+.cta-section h3 em { font-style: italic; color: var(--green); }
+
+.cta-section p {
+  font-size: 0.95rem;
+  color: rgba(255,255,255,0.65);
+  margin-bottom: 2rem;
+  line-height: 1.6;
+  max-width: 480px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.cta-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.9rem 2rem;
+  background: linear-gradient(101deg, var(--green-light) 1%, var(--green) 105%);
+  color: var(--navy-deep);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 60px;
+  transition: all 0.3s var(--ease-out-expo);
+  box-shadow: 0 4px 20px rgba(0,200,149,0.3);
+}
+.cta-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,200,149,0.4); }
+
+.cta-secondary {
+  display: block;
+  margin-top: 1.25rem;
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.45);
+  text-decoration: none;
+  transition: color 0.2s ease;
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-family: var(--font-body);
+}
+.cta-secondary:hover { color: rgba(255,255,255,0.8); }
+
+/* =========================================
+   ANIMATIONS
+   ========================================= */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes cardIn {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* =========================================
+   RESPONSIVE
+   ========================================= */
+@media (max-width: 900px) {
+  .card-grid.cols-4, .industry-grid { grid-template-columns: repeat(2, 1fr); }
+  .sam-grid { grid-template-columns: 1fr; }
+  .opportunity-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 640px) {
+  .card-grid.cols-2, .card-grid.cols-3, .card-grid.cols-4, .industry-grid { grid-template-columns: 1fr; }
+  .nav { padding: 1rem 1.25rem; }
+  .screen { padding: 1.25rem; }
+  .selection-screen { padding-top: 5rem; }
+  .result-container { padding: 0 1rem 3rem; }
+  .journey-steps { flex-direction: column; }
+  .journey-step:first-child { border-radius: var(--radius) var(--radius) 0 0; }
+  .journey-step:last-child { border-radius: 0 0 var(--radius) var(--radius); }
+}
+</style>
+</head>
+<body>
+
+<!-- ============ NAV BAR ============ -->
+<nav class="nav" id="navbar">
+  <a class="nav-logo" href="#" onclick="goToScreen('welcome'); return false;">
+    <img src="https://solace.com/wp-content/uploads/2025/07/solace-logo.svg" alt="Solace" class="nav-logo-img">
+    <span class="nav-badge">JEDAI</span>
+  </a>
+  <div class="nav-breadcrumb" id="breadcrumb"></div>
+  <button class="nav-back" id="backBtn" onclick="goBack()">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+    Back
+  </button>
+</nav>
+
+<!-- ============ SCREEN 1: WELCOME ============ -->
+<div class="screen active" id="screen-welcome">
+  <div class="welcome-content">
+    <div class="welcome-eyebrow">Jumpstart for Event-Driven AI</div>
+    <div class="welcome-subbrand">Powered by Solace Agent Mesh</div>
+    <h1 class="welcome-title">What could your people do<br>if <em>AI took care of the rest?</em></h1>
+    <p class="welcome-subtitle">Intelligent agents can sense events across your enterprise, reason through complex decisions, and act — in real time, at scale. Discover what that looks like in your world.</p>
+    <button class="welcome-cta" onclick="goToScreen('role')">
+      Start exploring
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+    </button>
+  </div>
+</div>
+
+<!-- ============ SCREEN 2: ROLE SELECTION ============ -->
+<div class="screen selection-screen" id="screen-role">
+  <div class="selection-header">
+    <h2>What's your role?</h2>
+    <p>We'll frame the possibilities in a way that's relevant to how you think about change.</p>
+  </div>
+  <div class="card-grid cols-2" id="roleGrid">
+    <div class="card" onclick="selectRole('technology')">
+      <div class="card-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/><path d="M7 8h2"/><path d="M7 11h4"/></svg>
+      </div>
+      <h3>Technology Leader</h3>
+      <p>CTO, CIO, VP Engineering — you're accountable for the AI strategy and the platforms that make it real.</p>
+      <div class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></div>
+    </div>
+    <div class="card" onclick="selectRole('business')">
+      <div class="card-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/><path d="M2 20h20"/></svg>
+      </div>
+      <h3>Business & Operations Leader</h3>
+      <p>VP Operations, Head of Digital, Product Owner — you care about what AI can actually change in how work gets done.</p>
+      <div class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></div>
+    </div>
+    <div class="card" onclick="selectRole('architect')">
+      <div class="card-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20h20"/><path d="M5 20V8l7-5 7 5v12"/><path d="M9 20v-6h6v6"/><path d="M9 12h6"/></svg>
+      </div>
+      <h3>Architect & Engineer</h3>
+      <p>Enterprise Architect, Solutions Architect, Principal Engineer — you design the systems that agents will live inside.</p>
+      <div class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></div>
+    </div>
+    <div class="card" onclick="selectRole('ai-leader')">
+      <div class="card-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v4"/><path d="M12 18v4"/><path d="M4.93 4.93l2.83 2.83"/><path d="M16.24 16.24l2.83 2.83"/><path d="M2 12h4"/><path d="M18 12h4"/><path d="M4.93 19.07l2.83-2.83"/><path d="M16.24 7.76l2.83-2.83"/></svg>
+      </div>
+      <h3>AI & Data Leader</h3>
+      <p>Head of AI, Chief Data Officer, ML Platform Lead — you're building the AI capability and looking for where to deploy it.</p>
+      <div class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ SCREEN 3: INDUSTRY SELECTION ============ -->
+<div class="screen selection-screen" id="screen-industry">
+  <div class="selection-header">
+    <h2>What industry are you in?</h2>
+    <p>We'll show you what intelligent agents are making possible in your world.</p>
+  </div>
+  <div class="card-grid industry-grid" id="industryGrid">
+    <div class="card" onclick="selectIndustry('financial')">
+      <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg></div>
+      <h3>Financial Services</h3>
+      <p>Banking, capital markets, insurance</p>
+      <div class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></div>
+    </div>
+    <div class="card" onclick="selectIndustry('retail')">
+      <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 01-8 0"/></svg></div>
+      <h3>Retail & eCommerce</h3>
+      <p>Omnichannel, supply chain, customer experience</p>
+      <div class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></div>
+    </div>
+    <div class="card" onclick="selectIndustry('manufacturing')">
+      <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 20h20"/><rect x="4" y="8" width="16" height="12"/><path d="M12 2l8 6H4l8-6z"/></svg></div>
+      <h3>Manufacturing & CPG</h3>
+      <p>Factory operations, supply chain, quality</p>
+      <div class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></div>
+    </div>
+    <div class="card" onclick="selectIndustry('aviation')">
+      <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2L16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.1z"/></svg></div>
+      <h3>Aviation & Transport</h3>
+      <p>Airlines, airports, rail, logistics</p>
+      <div class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></div>
+    </div>
+    <div class="card" onclick="selectIndustry('healthcare')">
+      <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+      <h3>Healthcare & Life Sciences</h3>
+      <p>Clinical operations, patient journey, pharma</p>
+      <div class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></div>
+    </div>
+    <div class="card" onclick="selectIndustry('energy')">
+      <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+      <h3>Energy & Utilities</h3>
+      <p>Grid operations, asset management, field service</p>
+      <div class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></div>
+    </div>
+    <div class="card" onclick="selectIndustry('telecom')">
+      <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg></div>
+      <h3>Telecommunications</h3>
+      <p>Network operations, customer care, service assurance</p>
+      <div class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></div>
+    </div>
+    <div class="card" onclick="selectIndustry('other')">
+      <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></div>
+      <h3>Other / Just Exploring</h3>
+      <p>See the art of the possible across industries</p>
+      <div class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ SCREEN 4: OPPORTUNITY SELECTION ============ -->
+<div class="screen selection-screen" id="screen-opportunity">
+  <div class="selection-header">
+    <h2>Where could an intelligent assistant <em style="font-family:var(--font-display);font-style:italic;color:var(--green)">make the biggest difference?</em></h2>
+    <p>Pick the area that resonates most — we'll show you what's becoming possible.</p>
+  </div>
+  <div class="card-grid opportunity-grid" id="opportunityGrid"></div>
+</div>
+
+<!-- ============ SCREEN 5: RESULT ============ -->
+<div class="screen result-screen" id="screen-result">
+  <div class="result-container">
+    <div class="result-hero">
+      <div class="tag" id="resultTag">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        <span id="resultTagText">Technology Leader · Financial Services</span>
+      </div>
+      <h1 id="resultTitle">Imagine an intelligent assistant that <em>never misses a signal</em></h1>
+      <p id="resultSubtitle">Here's what that looks like in your world — and how Solace Agent Mesh makes it real.</p>
+    </div>
+
+    <!-- Use case section -->
+    <div class="usecase-section">
+      <div class="section-label">What this looks like</div>
+      <div class="section-title" id="usecaseTitle">Your intelligent assistant in action</div>
+      <div id="usecaseCards"></div>
+    </div>
+
+    <!-- SAM differentiators -->
+    <div class="sam-section">
+      <div class="section-label">Why Solace Agent Mesh</div>
+      <div class="section-title">What makes this different</div>
+      <div class="sam-grid" id="samGrid"></div>
+    </div>
+
+    <!-- Journey map -->
+    <div class="journey-section">
+      <div class="section-label">Your path forward</div>
+      <div class="section-title">From inspiration to production</div>
+      <div class="journey-steps">
+        <div class="journey-step active-step">
+          <div class="journey-step-num">1</div>
+          <h4>Inspire</h4>
+          <p>Discover the art of the possible</p>
+        </div>
+        <div class="journey-step">
+          <div class="journey-step-num">2</div>
+          <h4>Explore</h4>
+          <p>Map your use cases and prioritise</p>
+        </div>
+        <div class="journey-step">
+          <div class="journey-step-num">3</div>
+          <h4>Design</h4>
+          <p>Workshop your agentic solution</p>
+        </div>
+        <div class="journey-step">
+          <div class="journey-step-num">4</div>
+          <h4>Deliver</h4>
+          <p>Build and prove it with a PoC</p>
+        </div>
+        <div class="journey-step">
+          <div class="journey-step-num">5</div>
+          <h4>Scale</h4>
+          <p>Take it to production and beyond</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta-section">
+      <h3>Ready to explore this with <em>a Solace expert?</em></h3>
+      <p>No pitch, no pressure. A conversation about what agentic AI could look like in your organisation — and what a first use case might be.</p>
+      <a class="cta-primary" href="https://solace.com/contact/" target="_blank" rel="noopener">
+        Talk to an expert
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+      </a>
+      <button class="cta-secondary" onclick="goToScreen('welcome')">Start again →</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function() {
+  'use strict';
+
+  // ---- State ----
+  var selectedRole = null;
+  var selectedIndustry = null;
+  var selectedOpportunity = null;
+  var currentScreen = 'welcome';
+  var history = [];
+
+  // ---- Content Data ----
+  var OPPORTUNITIES = {
+    financial: [
+      {
+        id: 'monitoring',
+        tag: 'Real-time operations',
+        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>',
+        title: 'Monitoring markets and portfolios — and acting the moment something shifts',
+        body: 'Your teams watch dozens of signals across markets, systems, and counterparties. Imagine if intelligent agents did the watching, the correlation, and the first response — so your people focus only on the decisions that need human judgment.',
+        example: '"Flag this position when volatility exceeds threshold and a similar event occurred in the last 48 hours"',
+        signals: ['Market data streams', 'Risk systems', 'Compliance triggers', 'Counterparty signals']
+      },
+      {
+        id: 'customer',
+        tag: 'Customer operations',
+        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>',
+        title: 'Handling complex customer requests across every system — without the handoffs',
+        body: 'A customer query often touches five systems and three teams. Intelligent agents can gather context from all of them, reason through the answer, and respond — escalating to a human only when genuinely needed.',
+        example: '"When a high-value client raises a dispute, pull their full history, check policy, draft a resolution and route for approval"',
+        signals: ['CRM events', 'Transaction history', 'Policy databases', 'Communication channels']
+      },
+      {
+        id: 'operations',
+        tag: 'Back-office automation',
+        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/></svg>',
+        title: 'Automating reconciliation, exceptions, and reporting — at the speed of events',
+        body: 'Back-office processes often run in batches. What if they ran continuously — with agents detecting exceptions the moment they occur, investigating them, and resolving or escalating in real time?',
+        example: '"When a settlement fails, identify the cause, attempt resolution, and notify the right team with full context"',
+        signals: ['Settlement systems', 'Ledger events', 'Exception queues', 'Regulatory feeds']
+      },
+      {
+        id: 'fraud',
+        tag: 'Risk & fraud',
+        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>',
+        title: 'Detecting fraud and risk patterns the moment they emerge — not after the fact',
+        body: 'Fraud doesn\'t wait for batch processing. Intelligent agents connected to your event streams can correlate signals across accounts, geographies, and channels in real time — acting before damage is done.',
+        example: '"If three unusual transactions occur across linked accounts within 10 minutes, freeze and investigate automatically"',
+        signals: ['Transaction streams', 'Behavioural signals', 'Device data', 'Geolocation events']
+      }
+    ],
+    retail: [
+      {
+        id: 'inventory',
+        tag: 'Supply chain',
+        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>',
+        title: 'Sensing stock signals across the supply chain — and acting before shelves go empty',
+        body: 'Replenishment today is reactive. Intelligent agents can monitor inventory levels, supplier signals, demand patterns, and logistics events simultaneously — triggering actions the moment a risk appears.',
+        example: '"When stock at a distribution centre drops below threshold and supplier lead time has increased, auto-raise a priority order"',
+        signals: ['POS events', 'Warehouse systems', 'Supplier feeds', 'Demand signals']
+      },
+      {
+        id: 'customer',
+        tag: 'Customer experience',
+        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>',
+        title: 'Personalising the customer journey in real time — across every channel',
+        body: 'Customers move across web, app, store, and service. Intelligent agents can follow that journey, adapting every interaction based on what just happened — not what was true last week.',
+        example: '"When a loyal customer abandons a basket over £200, offer a personalised incentive within 90 seconds"',
+        signals: ['Browse events', 'Basket data', 'Loyalty signals', 'Channel interactions']
+      },
+      {
+        id: 'operations',
+        tag: 'Store & ops',
+        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>',
+        title: 'Coordinating store operations across locations — without manual escalations',
+        body: 'From staff scheduling to equipment alerts to loss prevention, store operations generate hundreds of signals every hour. Agents can triage, coordinate, and resolve the routine — so managers focus on what matters.',
+        example: '"When a self-checkout fault is detected, dispatch maintenance, reroute customers, and notify the manager automatically"',
+        signals: ['IoT sensors', 'Staff systems', 'Footfall data', 'Equipment feeds']
+      },
+      {
+        id: 'pricing',
+        tag: 'Dynamic pricing',
+        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>',
+        title: 'Reacting to competitor pricing and demand signals — automatically and at scale',
+        body: 'Pricing decisions that used to take hours can now happen in seconds. Agents monitor competitor signals, inventory levels, and demand forecasts — and propose or apply pricing changes within defined guardrails.',
+        example: '"When a competitor drops price on a top-10 SKU and our stock is healthy, match within 15 minutes"',
+        signals: ['Competitor feeds', 'Demand forecasts', 'Margin rules', 'Stock levels']
+      }
+    ],
+    manufacturing: [
+      {
+        id: 'quality',
+        tag: 'Quality & compliance',
+        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>',
+        title: 'Catching quality deviations the moment they occur — not at end-of-line inspection',
+        body: 'Quality issues caught late are expensive. Intelligent agents monitoring sensor data, machine parameters, and process signals can detect anomalies mid-production — and trigger containment before defects compound.',
+        example: '"When torque readings drift outside tolerance on Line 3, pause the cell, alert QA, and log for root cause analysis"',
+        signals: ['Sensor streams', 'Machine telemetry', 'ERP events', 'Quality systems']
+      },
+      {
+        id: 'maintenance',
+        tag: 'Asset operations',
+        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93l-1.41 1.41"/><path d="M5.34 18.66l-1.41 1.41"/><path d="M21 12h-2"/><path d="M5 12H3"/><path d="M19.07 19.07l-1.41-1.41"/><path d="M5.34 5.34L3.93 3.93"/><path d="M12 5V3"/><path d="M12 21v-2"/></svg>',
+        title: 'Predicting equipment failures before they disrupt production',
+        body: 'Unplanned downtime is one of the biggest costs in manufacturing. Agents that continuously correlate equipment telemetry, maintenance history, and operational context can shift you from reactive to predictive — at scale.',
+        example: '"When vibration signature on Press 7 matches the pattern seen 48 hours before previous failures, schedule maintenance proactively"',
+        signals: ['IoT telemetry', 'Maintenance records', 'Production schedules', 'Supplier lead times']
+      },
+      {
+        id: 'supply',
+        tag: 'Supply chain',
+        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>',
+        title: 'Reacting to supply disruptions in real time — before the production line stops',
+        body: 'A late delivery or quality rejection can cascade through production in hours. Agents monitoring supplier signals, inventory levels, and production schedules can identify the impact and trigger mitigation before teams even know there is a problem.',
+        example: '"When a critical component shipment is delayed, model the production impact, identify alternatives, and brief the plant manager"',
+        signals: ['Supplier signals', 'Inventory events', 'Production plans', 'ERP data']
+      },
+      {
+        id: 'sap',
+        tag: 'SAP & enterprise systems',
+        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/><circle cx="12" cy="10" r="3"/></svg>',
+        title: 'Connecting SAP and operational systems — so agents have the full picture',
+        body: 'Most agentic AI stops at the application layer. Solace connects agents to the events flowing through SAP, ERP, MES, and operational systems — giving them the real-time context to make decisions that actually reflect what\'s happening on the floor.',
+        example: '"When SAP posts a goods receipt, trigger quality inspection, update WIP status, and notify downstream production cells"',
+        signals: ['SAP events', 'MES streams', 'ERP transactions', 'Operational data']
+      }
+    ],
+    aviation: [
+      {
+        id: 'disruption',
+        tag: 'Operations & disruption',
+        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17.8 19.2L16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.1z"/></svg>',
+        title: 'Coordinating disruption response across airlines, airports, and handlers — in real time',
+        body: 'When a flight is delayed, dozens of downstream systems need updating and dozens of teams need coordinating. Intelligent agents can do that coordination instantly — so the people focus on the passengers, not the paperwork.',
+        example: '"When a flight delay exceeds 45 minutes, update gates, notify ground handlers, rebook connections, and trigger passenger comms"',
+        signals: ['Flight data', 'Gate systems', 'Ground ops', 'Passenger systems']
+      },
+      {
+        id: 'ground',
+        tag: 'Ground operations',
+        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>',
+        title: 'Orchestrating ground turnarounds — so every minute of the turn counts',
+        body: 'A fast, safe turnaround depends on dozens of teams and systems staying in sync. Agents can monitor every step, flag delays, and coordinate across fuelling, catering, baggage, and maintenance teams without manual chasing.',
+        example: '"When fuelling runs late on a narrow-body turn, alert catering and boarding teams and model revised departure probability"',
+        signals: ['Turnaround events', 'IoT sensors', 'Team check-ins', 'Aircraft systems']
+      },
+      {
+        id: 'passenger',
+        tag: 'Passenger experience',
+        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>',
+        title: 'Personalising every passenger interaction — from booking to baggage claim',
+        body: 'Passengers expect airlines to know their situation and act proactively. Intelligent agents can monitor each journey in real time and intervene — rebooking missed connections, flagging baggage issues, or offering alternatives before a passenger even asks.',
+        example: '"When a connecting passenger\'s inbound flight is late, proactively rebook the best alternative and notify them via their preferred channel"',
+        signals: ['Booking systems', 'Flight events', 'Baggage tracking', 'Passenger profiles']
+      },
+      {
+        id: 'maintenance',
+        tag: 'Predictive maintenance',
+        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>',
+        title: 'Acting on aircraft health data before a technical delay grounds a flight',
+        body: 'Aircraft generate enormous volumes of telemetry. Agents that process that data continuously can identify developing issues early — giving MRO teams time to plan, rather than react to an AOG.',
+        example: '"When engine parameter trends match a pattern associated with early-stage compressor degradation, schedule inspection at next suitable downtime"',
+        signals: ['Aircraft telemetry', 'ACARS data', 'MRO systems', 'Parts availability']
+      }
+    ],
+    healthcare: [
+      {
+        id: 'patient',
+        tag: 'Patient operations',
+        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>',
+        title: 'Monitoring patient journeys in real time — and acting before situations escalate',
+        body: 'Patient deterioration, delayed results, and missed care steps happen when no one is watching continuously. Intelligent agents can monitor every signal in the care pathway and escalate only when a human decision is genuinely needed.',
+        example: '"When vitals trend outside safe range and the care team hasn\'t been notified in 10 minutes, escalate immediately with full context"',
+        signals: ['Clinical systems', 'Monitoring devices', 'Order systems', 'Care pathways']
+      },
+      {
+        id: 'operations',
+        tag: 'Hospital operations',
+        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>',
+        title: 'Coordinating beds, staff, and resources — so the right capacity is always in the right place',
+        body: 'Hospital operations involve constant coordination across departments, shifts, and systems. Agents can manage the routine coordination — bed allocation, equipment logistics, staff notifications — so clinical teams focus on patients.',
+        example: '"When ED wait time exceeds threshold and upstream beds are available, trigger the escalation pathway and coordinate the transfer automatically"',
+        signals: ['Bed management', 'ED systems', 'Theatre schedules', 'Staff rosters']
+      },
+      {
+        id: 'supply',
+        tag: 'Supply & pharmacy',
+        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>',
+        title: 'Ensuring critical supplies and medications are always where they are needed',
+        body: 'Stock-outs of critical supplies or medications can directly affect patient safety. Agents monitoring consumption events, par levels, and delivery signals can manage replenishment continuously — rather than relying on manual checks.',
+        example: '"When a critical medication drops below safety stock in ICU, auto-raise a priority replenishment request and alert pharmacy"',
+        signals: ['Pharmacy systems', 'Consumption events', 'Supply chain', 'Clinical demand']
+      },
+      {
+        id: 'admin',
+        tag: 'Admin & pathways',
+        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>',
+        title: 'Handling referrals, authorisations, and admin pathways — without the delays',
+        body: 'Administrative friction delays care and consumes clinical time. Agents can manage referral processing, insurance authorisation, and scheduling coordination end-to-end — reducing waits and freeing staff for the work that requires human judgment.',
+        example: '"When a referral is received, check eligibility, identify the earliest appropriate slot, send the appointment, and update the GP"',
+        signals: ['Referral systems', 'Scheduling data', 'Insurance APIs', 'Clinical records']
+      }
+    ],
+    energy: [
+      {
+        id: 'grid',
+        tag: 'Grid & network',
+        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>',
+        title: 'Reacting to grid events and demand signals — in real time, at the edge',
+        body: 'The modern grid is a dynamic system. Intelligent agents monitoring generation, demand, and network events can balance loads, respond to faults, and optimise dispatch — faster than any human-driven process.',
+        example: '"When renewable output drops unexpectedly and demand is high, activate flexible response assets within 30 seconds"',
+        signals: ['SCADA events', 'Smart meters', 'Weather feeds', 'Market signals']
+      },
+      {
+        id: 'maintenance',
+        tag: 'Asset management',
+        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>',
+        title: 'Predicting asset failures before they cause outages or safety incidents',
+        body: 'Ageing infrastructure generates signals that precede failures. Agents continuously correlating telemetry from substations, transformers, and field assets can identify risk early — and trigger preventive action.',
+        example: '"When transformer oil temperature trends exceed model predictions, prioritise for inspection before next high-demand period"',
+        signals: ['Asset telemetry', 'Maintenance records', 'Weather data', 'Load forecasts']
+      },
+      {
+        id: 'field',
+        tag: 'Field service',
+        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>',
+        title: 'Coordinating field crews and work orders — without the dispatch bottlenecks',
+        body: 'Field operations involve constant coordination between control rooms, crews, and systems. Agents can manage the routine dispatching, rerouting, and status tracking — so control room staff focus on the complex cases.',
+        example: '"When a fault is detected and crew availability is confirmed, auto-generate the work order, brief the crew, and update the customer"',
+        signals: ['Fault detection', 'Crew systems', 'Work management', 'Customer records']
+      },
+      {
+        id: 'trading',
+        tag: 'Energy trading',
+        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>',
+        title: 'Acting on energy market signals the moment conditions change',
+        body: 'Energy markets move in seconds. Agents monitoring price signals, demand forecasts, and generation capacity can support trading decisions with real-time context — and trigger hedging or dispatch actions within defined parameters.',
+        example: '"When spot price exceeds forward position threshold and storage is available, alert the trading desk with a recommended action"',
+        signals: ['Market prices', 'Generation data', 'Demand forecasts', 'Weather models']
+      }
+    ],
+    telecom: [
+      {
+        id: 'network',
+        tag: 'Network operations',
+        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M12 2v4"/><path d="M12 18v4"/><path d="M4.93 4.93l2.83 2.83"/><path d="M16.24 16.24l2.83 2.83"/><path d="M2 12h4"/><path d="M18 12h4"/><path d="M4.93 19.07l2.83-2.83"/><path d="M16.24 7.76l2.83-2.83"/></svg>',
+        title: 'Detecting and resolving network degradation before customers notice',
+        body: 'Network operations centres deal with enormous volumes of alerts. Intelligent agents can triage, correlate, and resolve the routine — ensuring human attention goes to the issues that genuinely need it.',
+        example: '"When signal degradation is detected across three cells in a cluster, run automated diagnosis, apply known remediation, and log for review"',
+        signals: ['Network telemetry', 'Alarm streams', 'Customer impact data', 'Change events']
+      },
+      {
+        id: 'customer',
+        tag: 'Customer care',
+        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>',
+        title: 'Handling service requests across every channel — with the context to resolve, not just respond',
+        body: 'Customer care agents spend most of their time gathering context from multiple systems. Intelligent assistants can do that gathering and reasoning — so the human agent focuses on the conversation, not the lookup.',
+        example: '"When a customer reports no service, check their account, identify the network issue, estimate resolution, and draft a response with a credit offer"',
+        signals: ['CRM events', 'Network status', 'Billing systems', 'Interaction history']
+      },
+      {
+        id: 'fraud',
+        tag: 'Fraud & revenue assurance',
+        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>',
+        title: 'Detecting revenue leakage and fraud patterns in real time — not in next month\'s audit',
+        body: 'Telco fraud and billing errors compound over time. Agents monitoring call detail records, provisioning events, and usage patterns can flag anomalies the moment they appear — and trigger investigation before revenue is lost.',
+        example: '"When international call volumes on a business account spike 10x overnight, flag for fraud review and optionally suspend pending confirmation"',
+        signals: ['CDR streams', 'Provisioning events', 'Usage patterns', 'Billing systems']
+      },
+      {
+        id: 'field',
+        tag: 'Field operations',
+        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>',
+        title: 'Optimising field dispatch and first-time fix rates — with real-time context',
+        body: 'Field technicians need the right information and parts before they arrive. Agents connected to network systems, inventory, and scheduling can brief technicians automatically — improving first-time fix rates and reducing truck rolls.',
+        example: '"When a fault ticket is raised, diagnose probable cause, check parts availability, identify the nearest qualified technician, and brief them pre-arrival"',
+        signals: ['Fault systems', 'Inventory data', 'Field workforce', 'Network diagnostics']
+      }
+    ],
+    other: [
+      {
+        id: 'coordination',
+        tag: 'Cross-system coordination',
+        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M12 2v4"/><path d="M12 18v4"/><path d="M4.93 4.93l2.83 2.83"/><path d="M16.24 16.24l2.83 2.83"/><path d="M2 12h4"/><path d="M18 12h4"/><path d="M4.93 19.07l2.83-2.83"/><path d="M16.24 7.76l2.83-2.83"/></svg>',
+        title: 'Coordinating actions across enterprise systems — so humans don\'t have to',
+        body: 'Most business processes touch multiple systems, teams, and decisions. Intelligent agents can orchestrate that coordination end-to-end — gathering information, making routine decisions, and escalating only when genuine human judgment is needed.',
+        example: '"When an order is placed, check inventory, confirm with supplier, update ERP, and notify the customer — without a single manual step"',
+        signals: ['ERP events', 'CRM data', 'Supplier signals', 'Customer systems']
+      },
+      {
+        id: 'monitoring',
+        tag: 'Real-time monitoring',
+        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>',
+        title: 'Watching your operations continuously — and acting when it matters',
+        body: 'Your business generates signals constantly. Intelligent agents can watch all of them simultaneously — correlating patterns, detecting anomalies, and triggering actions the moment conditions change. No more missing things between reports.',
+        example: '"When three independent signals suggest a developing problem, alert the right team with context before it becomes a crisis"',
+        signals: ['Operational data', 'System events', 'External feeds', 'IoT signals']
+      },
+      {
+        id: 'customer',
+        tag: 'Customer operations',
+        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>',
+        title: 'Handling customer requests end-to-end — with the full context to resolve them',
+        body: 'Customer-facing teams spend much of their time gathering information and coordinating internally. Intelligent agents can do that work — so customer conversations are about resolution, not administration.',
+        example: '"When a high-value customer raises an issue, pull their full history, identify the cause, draft a resolution, and route for approval"',
+        signals: ['CRM events', 'Transaction data', 'Communication channels', 'Policy systems']
+      },
+      {
+        id: 'risk',
+        tag: 'Risk & compliance',
+        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>',
+        title: 'Monitoring risk and compliance continuously — not just at review time',
+        body: 'Risk events don\'t announce themselves. Agents connected to your operational and external data streams can monitor for developing risks continuously — flagging issues when there\'s still time to act, not after they\'ve materialised.',
+        example: '"When regulatory data changes and we have exposure in that area, alert the risk team with a summary of affected positions"',
+        signals: ['Internal events', 'Regulatory feeds', 'Market signals', 'Operational data']
+      }
+    ]
+  };
+
+  var SAM_DIFFERENTIATORS = {
+    technology: [
+      { title: 'Agents that respond to events, not polls', body: 'SAM connects your agents to the event streams flowing through your enterprise — so they act the moment something happens, not when they next check.' },
+      { title: 'Multi-agent orchestration built in', body: 'Complex use cases need multiple agents collaborating. SAM\'s Agent-to-Agent (A2A) protocol handles that coordination natively — at enterprise scale.' },
+      { title: 'Works with what you already have', body: 'SAM integrates with your existing enterprise systems — SAP, Salesforce, Oracle, and more — so your agents have the full context to make decisions, not just the data you\'ve migrated.' }
+    ],
+    business: [
+      { title: 'AI that acts, not just advises', body: 'Agents built on SAM don\'t just generate recommendations — they can trigger actions across your enterprise systems in real time, with a human in the loop where it matters.' },
+      { title: 'From pilot to production without rebuilding', body: 'SAM is designed to scale. A use case that works in pilot works at enterprise scale — without re-architecting the integration layer.' },
+      { title: 'Your business rules, your guardrails', body: 'Every agent operates within the boundaries you define. SAM gives you the control to determine what agents can do autonomously and what always requires human approval.' }
+    ],
+    architect: [
+      { title: 'Event-driven agent architecture', body: 'SAM extends A2A, Google ADK, and MCP — giving your agents a standards-based event-driven backbone rather than point-to-point API chains that break under load.' },
+      { title: 'Smart Topics for intelligent routing', body: 'SAM\'s Smart Topics let agents subscribe to exactly the events they need — with filtering and routing built into the infrastructure, not the agent logic.' },
+      { title: 'Deploy anywhere, run everywhere', body: 'SAM runs on-premise, in the cloud, or hybrid — and connects to operational technology as easily as enterprise systems.' }
+    ],
+    'ai-leader': [
+      { title: 'The missing layer between AI and enterprise data', body: 'LLMs are only as good as their context. SAM connects your agents to live operational data — not just the data you\'ve moved to a lake or vector store.' },
+      { title: 'Production-grade multi-agent coordination', body: 'Moving from a single agent to a mesh of collaborating agents requires infrastructure. SAM handles the orchestration, routing, and reliability so you can focus on agent intelligence.' },
+      { title: 'Standards-based, not vendor-locked', body: 'SAM supports A2A, MCP, and Google ADK — so your agents work with the AI ecosystem you\'re building, not locked to a single provider.' }
+    ]
+  };
+
+  var RESULT_TITLES = {
+    technology: 'What if your systems could sense, decide, and act — <em>without waiting for a human to notice?</em>',
+    business: 'Imagine your people focused on what only humans can do — <em>while agents handle the rest</em>',
+    architect: 'What if your enterprise architecture could <em>respond to events in real time</em> — at any scale?',
+    'ai-leader': 'What if your AI had the real-time context to <em>act on what\'s happening now</em> — not last night\'s data?'
+  };
+
+  var RESULT_SUBTITLES = {
+    technology: 'Here\'s what intelligent agents built on Solace Agent Mesh (SAM) make possible in your industry — and how other technology leaders are thinking about the first use case.',
+    business: 'Here\'s what intelligent agents can take off your team\'s plate in your industry — and what a first use case typically looks like.',
+    architect: 'Here\'s what event-driven agentic AI looks like architecturally in your industry — and how Solace Agent Mesh provides the backbone.',
+    'ai-leader': 'Here\'s what agentic AI connected to live enterprise events looks like in your industry — and how Solace Agent Mesh gives your agents the context they\'ve been missing.'
+  };
+
+  var INDUSTRY_LABELS = {
+    financial: 'Financial Services',
+    retail: 'Retail & eCommerce',
+    manufacturing: 'Manufacturing & CPG',
+    aviation: 'Aviation & Transport',
+    healthcare: 'Healthcare & Life Sciences',
+    energy: 'Energy & Utilities',
+    telecom: 'Telecommunications',
+    other: 'your industry'
+  };
+
+  var ROLE_LABELS = {
+    technology: 'Technology Leader',
+    business: 'Business & Operations',
+    architect: 'Architect & Engineer',
+    'ai-leader': 'AI & Data Leader'
+  };
+
+  // ---- Screen transitions ----
+  function goToScreen(screen) {
+    var current = document.getElementById('screen-' + currentScreen);
+    var next = document.getElementById('screen-' + screen);
+    if (!next) return;
+
+    if (currentScreen !== 'welcome') {
+      history.push(currentScreen);
+    }
+
+    current.classList.add('exiting');
+    setTimeout(function() {
+      current.classList.remove('active', 'exiting');
+      next.classList.add('active');
+      if (screen !== 'welcome') {
+        document.getElementById('navbar').classList.add('visible');
+      } else {
+        document.getElementById('navbar').classList.remove('visible');
+      }
+      updateNav(screen);
+      if (screen === 'opportunity') { renderOpportunities(); }
+      if (screen === 'result') { renderResult(); }
+      else { animateCards(next); }
+    }, 300);
+
+    currentScreen = screen;
+    next.scrollTop = 0;
+  }
+
+  function goBack() {
+    if (history.length === 0) return;
+    var prev = history.pop();
+    var current = document.getElementById('screen-' + currentScreen);
+    var prevEl = document.getElementById('screen-' + prev);
+
+    current.classList.add('exiting');
+    setTimeout(function() {
+      current.classList.remove('active', 'exiting');
+      prevEl.classList.add('active');
+      if (prev === 'welcome') {
+        document.getElementById('navbar').classList.remove('visible');
+      }
+      updateNav(prev);
+      animateCards(prevEl);
+    }, 300);
+
+    currentScreen = prev;
+  }
+
+  function updateNav(screen) {
+    var backBtn = document.getElementById('backBtn');
+    var breadcrumb = document.getElementById('breadcrumb');
+
+    if (screen === 'welcome') {
+      backBtn.classList.remove('visible');
+      breadcrumb.classList.remove('visible');
+      breadcrumb.innerHTML = '';
+      return;
+    }
+
+    backBtn.classList.add('visible');
+    breadcrumb.classList.add('visible');
+
+    var crumbs = [];
+    if (selectedRole) crumbs.push({ label: ROLE_LABELS[selectedRole], screen: 'role' });
+    if (selectedIndustry) crumbs.push({ label: INDUSTRY_LABELS[selectedIndustry], screen: 'industry' });
+    if (selectedOpportunity && screen === 'result') crumbs.push({ label: 'Your use case', screen: 'opportunity' });
+
+    breadcrumb.innerHTML = crumbs.map(function(c, i) {
+      var isCurrent = (i === crumbs.length - 1);
+      return '<span class="crumb' + (isCurrent ? ' current' : '') + '" onclick="' + (isCurrent ? '' : '_navTo(\'' + c.screen + '\')') + '">' + c.label + '</span>' +
+        (isCurrent ? '' : '<span class="separator">›</span>');
+    }).join('');
+  }
+
+  function animateCards(screenEl) {
+    var cards = screenEl.querySelectorAll('.card');
+    cards.forEach(function(card, i) {
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(15px)';
+      card.style.animation = 'none';
+      setTimeout(function() {
+        card.style.animation = '';
+        card.classList.remove('animate');
+        void card.offsetWidth;
+        card.style.animationDelay = (i * 0.07) + 's';
+        card.classList.add('animate');
+      }, 50);
+    });
+  }
+
+  // ---- Selection handlers ----
+  function selectRole(role) {
+    selectedRole = role;
+    goToScreen('industry');
+  }
+
+  function selectIndustry(industry) {
+    selectedIndustry = industry;
+    goToScreen('opportunity');
+  }
+
+  function selectOpportunity(oppId) {
+    selectedOpportunity = oppId;
+    goToScreen('result');
+  }
+
+  // ---- Render opportunities ----
+  function renderOpportunities() {
+    var grid = document.getElementById('opportunityGrid');
+    var opps = OPPORTUNITIES[selectedIndustry] || OPPORTUNITIES['other'];
+
+    grid.innerHTML = opps.map(function(opp) {
+      return '<div class="card opportunity-card" onclick="selectOpportunity(\'' + opp.id + '\')">' +
+        '<div class="card-tag">' + opp.tag + '</div>' +
+        '<div class="card-icon">' + opp.icon + '</div>' +
+        '<h3>' + opp.title + '</h3>' +
+        '<p>' + opp.body + '</p>' +
+        '<div class="example">' + opp.example + '</div>' +
+        '<div class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></div>' +
+        '</div>';
+    }).join('');
+
+    animateCards(document.getElementById('screen-opportunity'));
+  }
+
+  // ---- Render result ----
+  function renderResult() {
+    var opps = OPPORTUNITIES[selectedIndustry] || OPPORTUNITIES['other'];
+    var opp = opps.find(function(o) { return o.id === selectedOpportunity; }) || opps[0];
+    var industryLabel = INDUSTRY_LABELS[selectedIndustry] || 'your industry';
+    var roleLabel = ROLE_LABELS[selectedRole] || 'You';
+
+    // Tag
+    document.getElementById('resultTagText').textContent = roleLabel + ' · ' + industryLabel;
+
+    // Title / subtitle
+    document.getElementById('resultTitle').innerHTML = RESULT_TITLES[selectedRole] || RESULT_TITLES['technology'];
+    document.getElementById('resultSubtitle').textContent = RESULT_SUBTITLES[selectedRole] || RESULT_SUBTITLES['technology'];
+
+    // Use case cards
+    var usecaseTitle = document.getElementById('usecaseTitle');
+    usecaseTitle.innerHTML = 'An intelligent assistant for <em>' + opp.tag.toLowerCase() + '</em>';
+
+    var usecaseCards = document.getElementById('usecaseCards');
+    var signalPills = opp.signals.map(function(s) {
+      return '<span class="signal-pill">' + s + '</span>';
+    }).join('');
+
+    usecaseCards.innerHTML =
+      '<div class="usecase-card">' +
+        '<div class="usecase-card-header">' +
+          '<div class="usecase-icon">' + opp.icon + '</div>' +
+          '<h3>' + opp.title + '</h3>' +
+        '</div>' +
+        '<div class="usecase-body">' + opp.body + '</div>' +
+        '<div class="usecase-signals">' + signalPills + '</div>' +
+      '</div>' +
+      '<div class="usecase-card" style="background: var(--off-white); border-style: dashed;">' +
+        '<div class="usecase-card-header">' +
+          '<div class="usecase-icon" style="background: rgba(0,200,149,0.08);">' +
+            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>' +
+          '</div>' +
+          '<h3 style="font-family: var(--font-body); font-size: 0.95rem; font-weight: 600; font-style: normal;">For example, imagine saying:</h3>' +
+        '</div>' +
+        '<p style="font-family: var(--font-display); font-style: italic; font-size: 1.05rem; color: var(--navy); line-height: 1.5;">' + opp.example + '</p>' +
+      '</div>';
+
+    // SAM differentiators
+    var diffs = SAM_DIFFERENTIATORS[selectedRole] || SAM_DIFFERENTIATORS['technology'];
+    document.getElementById('samGrid').innerHTML = diffs.map(function(d) {
+      return '<div class="sam-item"><h4>' + d.title + '</h4><p>' + d.body + '</p></div>';
+    }).join('');
+
+    updateNav('result');
+  }
+
+  // ---- Nav helpers ----
+  window._navTo = function(screen) {
+    if (screen === 'role') { selectedRole = null; selectedIndustry = null; selectedOpportunity = null; history = []; }
+    else if (screen === 'industry') { selectedIndustry = null; selectedOpportunity = null; history = ['role']; }
+    else if (screen === 'opportunity') { selectedOpportunity = null; history = ['role', 'industry']; }
+    goToScreen(screen);
+  };
+
+  // ---- Expose to global ----
+  window.goToScreen = goToScreen;
+  window.goBack = goBack;
+  window.selectRole = selectRole;
+  window.selectIndustry = selectIndustry;
+  window.selectOpportunity = selectOpportunity;
+
+})();
+</script>
+</body>
+</html>
