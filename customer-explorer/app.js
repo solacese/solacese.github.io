@@ -1,111 +1,359 @@
 (function() {
   'use strict';
 
-  // ---- State ----
-  let currentScreen = 'welcome';
-  let selectedRole = null;
-  let selectedIndustry = null;
-  const history = [];
+  // ---- Language state ----
+  var LANG = 'en'; // 'en' or 'ja'
+
+  // ---- Bilingual UI strings ----
+  var STRINGS = {
+    en: {
+      back: 'Back',
+      roleHeader: "What's your role?",
+      roleSubtitle: "We'll tailor everything you see to what matters most to you.",
+      industryHeader: 'What industry are you in?',
+      industrySubtitle: "We'll show you stories and possibilities from your world.",
+      welcomeEyebrow: 'Solace Explorer',
+      welcomeTitle: 'Discover what <em>real-time</em> looks like in your world',
+      welcomeSubtitle: "See how organisations like yours use event-driven architecture to move faster, integrate smarter, and unlock what's next.",
+      welcomeCta: 'Start exploring',
+      fromOrgs: 'From organisations like yours',
+      whySolace: 'Why Solace',
+      logoSectionTitle: 'Solace customers in this space',
+      refArch: 'Reference architecture',
+      eventMeshLabel: 'Solace event mesh',
+      opTech: 'Operational technology',
+      enterprise: 'Enterprise & consumer',
+      deployFootnote: 'All managed through <span>Solace Cloud</span> — single pane of glass across every deployment',
+      goDeeper: 'Go deeper',
+      exploreFurther: 'Explore further',
+      ctaSubtitle: 'No pitch, no pressure. Just a conversation with someone who understands your world.',
+      ctaPrimary: 'Start a conversation',
+      ctaSecondary: 'Not ready yet? Browse resources →',
+      readMore: 'Read more',
+      showLess: 'Show less',
+      comingSoon: 'Coming soon',
+      contentSoon: 'Content coming soon',
+      contentSoonSub: 'We are building stories for this combination.',
+      readStory: 'Read story \u2197',
+      or: 'or',
+      moreCustomers: '+ {n} more transportation & logistics customers worldwide',
+      trustedBy: 'Trusted by leaders in {industry}',
+      storyTitles: {
+        technology: 'What leaders like you are doing',
+        integration: 'How teams like yours are delivering',
+        business: 'The results that matter',
+        architect: 'Patterns in production'
+      },
+      resultTitles: {
+        technology: 'What technology leaders in <em>{i}</em> are doing',
+        integration: 'How integration teams in <em>{i}</em> are modernising',
+        business: 'The business impact of real-time in <em>{i}</em>',
+        architect: 'Architecture patterns transforming <em>{i}</em>'
+      },
+      resultSubtitles: {
+        technology: 'See how organisations like yours are using event-driven architecture to reduce risk, consolidate vendors, and accelerate digital transformation in {i}.',
+        integration: 'See how integration and middleware teams in {i} are consolidating platforms, replacing legacy middleware, and delivering faster.',
+        business: 'See how real-time, event-driven operations are driving revenue, improving customer experience, and transforming how {i} organisations compete.',
+        architect: 'See the architectural patterns, deployment models, and protocol strategies that {i} organisations are using with Solace.'
+      },
+      valuesTitlePrefix: 'Why Solace for <em>{i}</em>',
+      ctaTitle: 'Talk to someone who knows <em>{i}</em>'
+    },
+    ja: {
+      back: '戻る',
+      roleHeader: 'あなたの役割は何ですか？',
+      roleSubtitle: 'あなたにとって最も重要なことに合わせて、すべてをカスタマイズします。',
+      industryHeader: 'あなたの業界はどちらですか？',
+      industrySubtitle: 'あなたの業界のストーリーと可能性をご紹介します。',
+      welcomeEyebrow: 'Solace Explorer',
+      welcomeTitle: 'あなたの世界で<em>リアルタイム</em>がどう見えるかを発見する',
+      welcomeSubtitle: 'あなたと同じような組織が、イベント駆動型アーキテクチャを活用して、より速く動き、よりスマートに統合し、次のステージを切り開く方法をご覧ください。',
+      welcomeCta: '探索を始める',
+      fromOrgs: '同じような組織の事例',
+      whySolace: 'Solace を選ぶ理由',
+      logoSectionTitle: 'この分野の Solace 導入企業',
+      refArch: 'リファレンスアーキテクチャ',
+      eventMeshLabel: 'Solace イベントメッシュ',
+      opTech: 'オペレーショナルテクノロジー',
+      enterprise: 'エンタープライズ・コンシューマー',
+      deployFootnote: 'すべて <span>Solace Cloud</span> で管理 — あらゆるデプロイ環境を一元的に可視化',
+      goDeeper: 'さらに深掘りする',
+      exploreFurther: '詳細を探索する',
+      ctaSubtitle: 'セールストークも押し売りもありません。あなたの業界を理解した担当者との率直な会話です。',
+      ctaPrimary: '会話を始める',
+      ctaSecondary: 'まだ準備ができていない方はリソースをご覧ください →',
+      readMore: '続きを読む',
+      showLess: '折りたたむ',
+      comingSoon: '近日公開',
+      contentSoon: 'コンテンツを準備中です',
+      contentSoonSub: 'この組み合わせのストーリーを作成しています。',
+      readStory: '事例を読む \u2197',
+      or: 'または',
+      moreCustomers: '+ {n} 社以上の交通・物流分野のお客様が世界中で導入しています',
+      trustedBy: '{industry}のリーダー企業に信頼されています',
+      storyTitles: {
+        technology: 'あなたと同じリーダーたちの取り組み',
+        integration: 'あなたと同じチームの実績',
+        business: '重要な成果',
+        architect: '本番環境で実証されたパターン'
+      },
+      resultTitles: {
+        technology: '<em>{i}</em>のテクノロジーリーダーが取り組んでいること',
+        integration: '<em>{i}</em>の統合チームがモダナイゼーションを進める方法',
+        business: '<em>{i}</em>におけるリアルタイム活用のビジネスインパクト',
+        architect: '<em>{i}</em>を変革するアーキテクチャパターン'
+      },
+      resultSubtitles: {
+        technology: 'あなたと同じような組織が、イベント駆動型アーキテクチャを活用してリスクを低減し、ベンダーを集約し、{i}のデジタルトランスフォーメーションを加速する方法をご覧ください。',
+        integration: '{i}の統合・ミドルウェアチームが、プラットフォームの集約、レガシーミドルウェアの刷新、そして迅速なデリバリーを実現する方法をご覧ください。',
+        business: 'リアルタイムのイベント駆動型オペレーションが、{i}の組織において収益を向上させ、顧客体験を改善し、競争力を変革している方法をご覧ください。',
+        architect: '{i}の組織が Solace を活用して実践しているアーキテクチャパターン、デプロイモデル、プロトコル戦略をご覧ください。'
+      },
+      valuesTitlePrefix: '<em>{i}</em>に Solace が選ばれる理由',
+      ctaTitle: '<em>{i}</em>業界を熟知した担当者と話す'
+    }
+  };
+
+  function t(key) { return STRINGS[LANG][key] || STRINGS.en[key] || key; }
+  function tpl(key, vars) {
+    var s = t(key);
+    if (vars) Object.keys(vars).forEach(function(k) { s = s.replace(new RegExp('{' + k + '}', 'g'), vars[k]); });
+    return s;
+  }
 
   // ---- Label maps ----
-  const roleLabels = {
-    technology: 'Technology Leader',
-    integration: 'Integration & Middleware',
-    business: 'Business & Operations',
-    architect: 'Architecture & Engineering'
+  var roleLabels = {
+    en: {
+      technology: 'Technology Leader',
+      integration: 'Integration & Middleware',
+      business: 'Business & Operations',
+      architect: 'Architecture & Engineering'
+    },
+    ja: {
+      technology: 'テクノロジーリーダー',
+      integration: '統合・ミドルウェア',
+      business: 'ビジネス・オペレーション',
+      architect: 'アーキテクチャ・エンジニアリング'
+    }
   };
 
-  const industryLabels = {
-    aviation: 'Aviation & Airports',
-    logistics: 'Logistics & Shipping',
-    rail: 'Rail & Transit',
-    automotive: 'Automotive & Mobility',
-    financial: 'Financial Services',
-    retail: 'Retail & eCommerce',
-    manufacturing: 'Manufacturing',
-    "manufacturing-cpg": 'Manufacturing & CPG',
-    energy: 'Energy & Utilities',
-    telecom: 'Telecommunications',
-    cpg: 'Consumer Goods',
-    healthcare: 'Healthcare & Life Sciences',
-    public_sector: 'Public Sector',
-    exploring: 'General'
+  var industryLabels = {
+    en: {
+      aviation: 'Aviation & Airports',
+      logistics: 'Logistics & Shipping',
+      rail: 'Rail & Transit',
+      automotive: 'Automotive & Mobility',
+      financial: 'Financial Services',
+      retail: 'Retail & eCommerce',
+      manufacturing: 'Manufacturing',
+      "manufacturing-cpg": 'Manufacturing & CPG',
+      energy: 'Energy & Utilities',
+      telecom: 'Telecommunications',
+      cpg: 'Consumer Goods',
+      healthcare: 'Healthcare & Life Sciences',
+      public_sector: 'Public Sector',
+      exploring: 'General'
+    },
+    ja: {
+      aviation: '航空・空港',
+      logistics: '物流・海運',
+      rail: '鉄道・交通',
+      automotive: '自動車・モビリティ',
+      financial: '金融サービス',
+      retail: '小売・eコマース',
+      manufacturing: '製造',
+      "manufacturing-cpg": '製造・CPG',
+      energy: 'エネルギー・公共インフラ',
+      telecom: '通信',
+      cpg: '消費財',
+      healthcare: 'ヘルスケア・ライフサイエンス',
+      public_sector: '公共セクター',
+      exploring: '一般'
+    }
   };
 
-  const industryShortLabels = {
-    aviation: 'aviation',
-    logistics: 'logistics & shipping',
-    rail: 'rail & transit',
-    automotive: 'automotive',
-    financial: 'financial services',
-    retail: 'retail',
-    manufacturing: 'manufacturing',
-    "manufacturing-cpg": 'manufacturing & CPG',
-    energy: 'energy',
-    telecom: 'telecom',
-    cpg: 'consumer goods',
-    healthcare: 'healthcare',
-    public_sector: 'public sector',
-    exploring: 'your industry'
+  var industryShortLabels = {
+    en: {
+      aviation: 'aviation',
+      logistics: 'logistics & shipping',
+      rail: 'rail & transit',
+      automotive: 'automotive',
+      financial: 'financial services',
+      retail: 'retail',
+      manufacturing: 'manufacturing',
+      "manufacturing-cpg": 'manufacturing & CPG',
+      energy: 'energy',
+      telecom: 'telecom',
+      cpg: 'consumer goods',
+      healthcare: 'healthcare',
+      public_sector: 'public sector',
+      exploring: 'your industry'
+    },
+    ja: {
+      aviation: '航空',
+      logistics: '物流・海運',
+      rail: '鉄道・交通',
+      automotive: '自動車',
+      financial: '金融サービス',
+      retail: '小売',
+      manufacturing: '製造',
+      "manufacturing-cpg": '製造・CPG',
+      energy: 'エネルギー',
+      telecom: '通信',
+      cpg: '消費財',
+      healthcare: 'ヘルスケア',
+      public_sector: '公共セクター',
+      exploring: 'あなたの業界'
+    }
   };
+
+  function getRoleLabel(role) { return (roleLabels[LANG] || roleLabels.en)[role] || role; }
+  function getIndustryLabel(ind) { return (industryLabels[LANG] || industryLabels.en)[ind] || ind; }
+  function getIndustryShort(ind) { return (industryShortLabels[LANG] || industryShortLabels.en)[ind] || ind; }
+
+  // ---- State ----
+  var currentScreen = 'welcome';
+  var selectedRole = null;
+  var selectedIndustry = null;
+  var history = [];
+
+  // ---- Language toggle ----
+  function setLang(lang) {
+    LANG = lang;
+    // Update toggle button states
+    var btnEn = document.getElementById('langBtnEn');
+    var btnJa = document.getElementById('langBtnJa');
+    if (btnEn) btnEn.classList.toggle('active', lang === 'en');
+    if (btnJa) btnJa.classList.toggle('active', lang === 'ja');
+
+    // Re-render current screen static text
+    renderStaticStrings();
+
+    // If on result screen, re-render the dynamic content too
+    if (currentScreen === 'result' && selectedRole && selectedIndustry) {
+      populateResult();
+    }
+
+    // Update breadcrumb
+    updateNav();
+  }
+
+  function renderStaticStrings() {
+    var s = STRINGS[LANG];
+
+    // Nav back button
+    var backBtn = document.getElementById('backBtn');
+    if (backBtn) {
+      backBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg> ' + s.back;
+    }
+
+    // Welcome screen
+    setHTML('welcome-title-el', s.welcomeTitle);
+    setText('welcome-subtitle-el', s.welcomeSubtitle);
+    setHTML('welcome-cta-el', s.welcomeCta + ' <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>');
+
+    // Role screen
+    setText('role-header-el', s.roleHeader);
+    setText('role-subtitle-el', s.roleSubtitle);
+
+    // Role cards
+    var roleData = {
+      technology: {
+        en: { h: 'Technology Leader', p: "CTO, CIO, VP Engineering — you're driving the technology strategy and making build-vs-buy decisions." },
+        ja: { h: 'テクノロジーリーダー', p: 'CTO、CIO、VP Engineering — テクノロジー戦略を推進し、自社開発か外部調達かの意思決定を行う立場です。' }
+      },
+      integration: {
+        en: { h: 'Integration & Middleware', p: "Head of Integration, Middleware Lead — you're responsible for connecting systems and modernising the integration layer." },
+        ja: { h: '統合・ミドルウェア', p: '統合担当責任者、ミドルウェアリード — システム間の連携と統合レイヤーのモダナイゼーションを担っています。' }
+      },
+      business: {
+        en: { h: 'Business & Operations', p: "VP Operations, Head of Digital — you care about speed, customer experience, and operational results." },
+        ja: { h: 'ビジネス・オペレーション', p: 'VP Operations、デジタル責任者 — スピード、顧客体験、そして業務成果を重視する立場です。' }
+      },
+      architect: {
+        en: { h: 'Architecture & Engineering', p: "Enterprise Architect, Solutions Architect, Principal Engineer — you design the systems and choose the patterns." },
+        ja: { h: 'アーキテクチャ・エンジニアリング', p: 'エンタープライズアーキテクト、ソリューションアーキテクト、プリンシパルエンジニア — システムを設計し、パターンを選定する立場です。' }
+      }
+    };
+    ['technology','integration','business','architect'].forEach(function(r) {
+      var d = roleData[r][LANG];
+      setText('role-card-h-' + r, d.h);
+      setText('role-card-p-' + r, d.p);
+    });
+
+    // Industry screen
+    setText('industry-header-el', s.industryHeader);
+    setText('industry-subtitle-el', s.industrySubtitle);
+
+    // Industry cards
+    var indData = {
+      aviation:           { en: { h: 'Aviation & Airports', p: 'Airlines, air traffic, airport operations' }, ja: { h: '航空・空港', p: '航空会社、航空管制、空港運営' } },
+      logistics:          { en: { h: 'Logistics & Shipping', p: 'Ports, freight, postal, supply chain' }, ja: { h: '物流・海運', p: '港湾、貨物、郵便、サプライチェーン' } },
+      rail:               { en: { h: 'Rail & Transit', p: 'Railways, transit operators, passenger systems' }, ja: { h: '鉄道・交通', p: '鉄道事業者、交通機関、旅客システム' } },
+      automotive:         { en: { h: 'Automotive & Mobility', p: 'Connected vehicles, manufacturing, fleet' }, ja: { h: '自動車・モビリティ', p: 'コネクテッドカー、製造、フリート管理' } },
+      financial:          { en: { h: 'Financial Services', p: 'Capital markets, banking, payments, insurance' }, ja: { h: '金融サービス', p: '資本市場、銀行、決済、保険' } },
+      retail:             { en: { h: 'Retail & eCommerce', p: 'Omnichannel, store connectivity, supply chain' }, ja: { h: '小売・eコマース', p: 'オムニチャネル、店舗接続、サプライチェーン' } },
+      'manufacturing-cpg':{ en: { h: 'Manufacturing & CPG', p: 'Factory automation, supply chain, SAP integration' }, ja: { h: '製造・CPG', p: '工場自動化、サプライチェーン、SAP 統合' } },
+      more:               { en: { h: 'More Industries', p: 'Coming soon' }, ja: { h: 'その他の業界', p: '近日公開予定' } },
+      exploring:          { en: { h: 'Just Exploring', p: "Not in a specific industry? See a general overview of what Solace makes possible." }, ja: { h: 'まずは見てみる', p: '特定の業界に属さない方も、Solaceが実現できることの概要をご覧いただけます。' } }
+    };
+    Object.keys(indData).forEach(function(k) {
+      var d = indData[k][LANG];
+      if (d) {
+        setText('ind-card-h-' + k, d.h);
+        setText('ind-card-p-' + k, d.p);
+      }
+    });
+
+    // Grid divider or/または
+    setText('grid-divider-el', s.or);
+
+    // Result screen static labels
+    setText('stories-label-el', s.fromOrgs);
+    setText('why-solace-label-el', s.whySolace);
+    setText('logo-section-title-el', s.logoSectionTitle);
+    setText('ref-arch-label-el', s.refArch);
+    setText('arch-mesh-label-el', s.eventMeshLabel);
+    setHTML('deploy-footnote-el', s.deployFootnote);
+    setText('go-deeper-label-el', s.goDeeper);
+    setText('explore-further-title-el', s.exploreFurther);
+    setText('cta-subtitle-el', s.ctaSubtitle);
+    setText('cta-secondary-el', s.ctaSecondary);
+    setHTML('cta-primary-el', s.ctaPrimary + ' <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>');
+  }
+
+  function setText(id, val) { var el = document.getElementById(id); if (el && val !== undefined) el.textContent = val; }
+  function setHTML(id, val) { var el = document.getElementById(id); if (el && val !== undefined) el.innerHTML = val; }
 
   // ---- Navigation ----
   function goToScreen(screenId) {
     if (screenId === currentScreen) return;
-
-    const current = document.getElementById('screen-' + currentScreen);
-    const next = document.getElementById('screen-' + screenId);
-
+    var current = document.getElementById('screen-' + currentScreen);
+    var next = document.getElementById('screen-' + screenId);
     if (!next) return;
-
-    // Push current to history
-    if (currentScreen !== screenId) {
-      history.push(currentScreen);
-    }
-
-    // Animate out
+    if (currentScreen !== screenId) history.push(currentScreen);
     current.classList.add('exiting');
     current.classList.remove('active');
-
-    setTimeout(() => {
+    setTimeout(function() {
       current.classList.remove('exiting');
-
-      // Animate in
       next.classList.add('active');
       currentScreen = screenId;
-
-      // Animate cards with stagger
       animateCards(next);
-
-      // Update nav
       updateNav();
-
-      // Scroll to top for result screen
-      if (screenId === 'result') {
-        next.scrollTop = 0;
-      }
+      if (screenId === 'result') next.scrollTop = 0;
     }, 300);
   }
 
   function goBack() {
     if (history.length === 0) return;
-    const prev = history.pop();
-
-    // Reset selections if going back past them
-    if (prev === 'welcome') {
-      selectedRole = null;
-      selectedIndustry = null;
-    } else if (prev === 'role') {
-      selectedIndustry = null;
-    }
-
-    const current = document.getElementById('screen-' + currentScreen);
-    const next = document.getElementById('screen-' + prev);
-
+    var prev = history.pop();
+    if (prev === 'welcome') { selectedRole = null; selectedIndustry = null; }
+    else if (prev === 'role') { selectedIndustry = null; }
+    var current = document.getElementById('screen-' + currentScreen);
+    var next = document.getElementById('screen-' + prev);
     current.classList.add('exiting');
     current.classList.remove('active');
-
-    setTimeout(() => {
+    setTimeout(function() {
       current.classList.remove('exiting');
       next.classList.add('active');
       currentScreen = prev;
@@ -115,46 +363,39 @@
   }
 
   function animateCards(screen) {
-    const cards = screen.querySelectorAll('.card:not([style*="opacity: 0.4"])');
-    cards.forEach((card, i) => {
+    var cards = screen.querySelectorAll('.card:not([style*="opacity: 0.4"])');
+    cards.forEach(function(card, i) {
       card.classList.remove('animate');
       card.style.animationDelay = (i * 0.07 + 0.15) + 's';
-      // Force reflow
       void card.offsetWidth;
       card.classList.add('animate');
     });
   }
 
   function updateNav() {
-    const nav = document.getElementById('navbar');
-    const backBtn = document.getElementById('backBtn');
-    const breadcrumb = document.getElementById('breadcrumb');
+    var nav = document.getElementById('navbar');
+    var backBtn = document.getElementById('backBtn');
+    var breadcrumb = document.getElementById('breadcrumb');
 
-    // Show nav after welcome
     if (currentScreen !== 'welcome') {
       nav.classList.add('visible');
       backBtn.classList.add('visible');
     } else {
-      nav.classList.remove('visible');
+      nav.classList.add('visible');
       backBtn.classList.remove('visible');
     }
 
-    // Build breadcrumb
-    let crumbs = [];
-    if (selectedRole) {
-      crumbs.push({ label: roleLabels[selectedRole], screen: 'role' });
-    }
-    if (selectedIndustry) {
-      crumbs.push({ label: industryLabels[selectedIndustry], screen: 'industry' });
-    }
+    var crumbs = [];
+    if (selectedRole) crumbs.push({ label: getRoleLabel(selectedRole), screen: 'role' });
+    if (selectedIndustry) crumbs.push({ label: getIndustryLabel(selectedIndustry), screen: 'industry' });
 
     if (crumbs.length > 0) {
       breadcrumb.classList.add('visible');
-      breadcrumb.innerHTML = crumbs.map((c, i) => {
-        const isLast = i === crumbs.length - 1;
-        const sep = i < crumbs.length - 1 ? '<span class="separator">›</span>' : '';
-        const cls = isLast ? 'crumb current' : 'crumb';
-        return `<span class="${cls}" onclick="window._goToScreen('${c.screen}')">${c.label}</span>${sep}`;
+      breadcrumb.innerHTML = crumbs.map(function(c, i) {
+        var isLast = i === crumbs.length - 1;
+        var sep = i < crumbs.length - 1 ? '<span class="separator">\u203a</span>' : '';
+        var cls = isLast ? 'crumb current' : 'crumb';
+        return '<span class="' + cls + '" onclick="window._goToScreen(\'' + c.screen + '\')">' + c.label + '</span>' + sep;
       }).join('');
     } else {
       breadcrumb.classList.remove('visible');
@@ -163,69 +404,44 @@
   }
 
   // ---- Selection handlers ----
-  function selectRole(role) {
-    selectedRole = role;
-    goToScreen('industry');
-  }
-
-  function selectIndustry(industry) {
-    selectedIndustry = industry;
-    populateResult();
-    goToScreen('result');
-  }
+  function selectRole(role) { selectedRole = role; goToScreen('industry'); }
+  function selectIndustry(industry) { selectedIndustry = industry; populateResult(); goToScreen('result'); }
 
   // ---- Populate result screen ----
   function populateResult() {
     var role = selectedRole;
     var industry = selectedIndustry;
-    var roleLabel = roleLabels[role];
-    var industryLabel = industryLabels[industry];
-    var iShort = industryShortLabels[industry];
+    var roleLabel = getRoleLabel(role);
+    var industryLabel = getIndustryLabel(industry);
+    var iShort = getIndustryShort(industry);
+    var s = STRINGS[LANG];
 
     document.getElementById('resultTag').textContent = roleLabel + ' \u00B7 ' + industryLabel;
-
-    var titles = {
-      technology: 'What technology leaders in <em>' + iShort + '</em> are doing',
-      integration: 'How integration teams in <em>' + iShort + '</em> are modernising',
-      business: 'The business impact of real-time in <em>' + iShort + '</em>',
-      architect: 'Architecture patterns transforming <em>' + iShort + '</em>'
-    };
-    document.getElementById('resultTitle').innerHTML = titles[role] || titles.technology;
-
-    var subtitles = {
-      technology: 'See how organisations like yours are using event-driven architecture to reduce risk, consolidate vendors, and accelerate digital transformation in ' + iShort + '.',
-      integration: 'See how integration and middleware teams in ' + iShort + ' are consolidating platforms, replacing legacy middleware, and delivering faster.',
-      business: 'See how real-time, event-driven operations are driving revenue, improving customer experience, and transforming how ' + iShort + ' organisations compete.',
-      architect: 'See the architectural patterns, deployment models, and protocol strategies that ' + iShort + ' organisations are using with Solace.'
-    };
-    document.getElementById('resultSubtitle').textContent = subtitles[role] || subtitles.technology;
-
-    var storyTitles = {
-      technology: 'What leaders like you are doing',
-      integration: 'How teams like yours are delivering',
-      business: 'The results that matter',
-      architect: 'Patterns in production'
-    };
-    document.getElementById('storiesTitle').textContent = storyTitles[role] || storyTitles.technology;
-    document.getElementById('valuesTitle').innerHTML = 'Why Solace for <em>' + iShort + '</em>';
+    document.getElementById('resultTitle').innerHTML = tpl('resultTitles.' + role, { i: iShort }).replace('resultTitles.' + role, '') || s.resultTitles[role].replace(/{i}/g, iShort);
+    document.getElementById('resultSubtitle').textContent = s.resultSubtitles[role].replace(/{i}/g, iShort);
+    document.getElementById('storiesTitle').textContent = s.storyTitles[role];
+    document.getElementById('valuesTitle').innerHTML = s.valuesTitlePrefix.replace(/{i}/g, iShort);
     document.getElementById('ctaIndustry').textContent = iShort;
 
-    var content = (typeof getContent === 'function') ? getContent(role, industry) : null;
+    // Fix resultTitle with proper template
+    document.getElementById('resultTitle').innerHTML = s.resultTitles[role].replace(/{i}/g, iShort);
+
+    var content = (typeof getContent === 'function') ? getContent(role, industry, LANG) : null;
 
     var sc = document.getElementById('storiesContainer');
     if (sc && content && content.stories) {
-      sc.innerHTML = content.stories.map(function(s) {
+      sc.innerHTML = content.stories.map(function(story) {
         return '<div class="story-card">' +
-          '<div class="story-headline">' + s.headline + '</div>' +
-          '<div class="story-outcome">' + s.outcome + '</div>' +
+          '<div class="story-headline">' + story.headline + '</div>' +
+          '<div class="story-outcome">' + story.outcome + '</div>' +
           '<button class="story-expand" onclick="toggleStory(this)">' +
-            'Read more <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>' +
+            s.readMore + ' <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>' +
           '</button>' +
-          '<div class="story-detail"><div class="story-detail-inner">' + s.detail + '</div></div>' +
+          '<div class="story-detail"><div class="story-detail-inner">' + story.detail + '</div></div>' +
         '</div>';
       }).join('');
     } else if (sc) {
-      sc.innerHTML = '<div class="story-card"><div class="story-headline">Content coming soon</div><div class="story-outcome">We are building stories for this combination.</div></div>';
+      sc.innerHTML = '<div class="story-card"><div class="story-headline">' + s.contentSoon + '</div><div class="story-outcome">' + s.contentSoonSub + '</div></div>';
     }
 
     var vg = document.getElementById('valuesGrid');
@@ -243,31 +459,21 @@
         globe: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>'
       };
       var arrow = '<svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>';
-      // Generic placeholder URLs get greyed out with "coming soon"
       var genericUrls = ['https://solace.com/resources/', 'https://solace.com/company/customers/'];
-      var hasLiveLinks = false;
-      var linksHtml = content.links.map(function(l) {
-        var isGeneric = false;
-        for (var g = 0; g < genericUrls.length; g++) {
-          if (l.url === genericUrls[g]) { isGeneric = true; break; }
-        }
+      el.innerHTML = content.links.map(function(l) {
+        var isGeneric = genericUrls.indexOf(l.url) > -1;
         if (isGeneric) {
           return '<div class="explore-link explore-link-soon">' +
             (icons[l.icon] || icons.doc) + ' ' + l.text +
-            '<span class="soon-badge">Coming soon</span></div>';
+            '<span class="soon-badge">' + s.comingSoon + '</span></div>';
         } else {
-          hasLiveLinks = true;
           return '<a class="explore-link" href="' + l.url + '" target="_blank" rel="noopener">' +
             (icons[l.icon] || icons.doc) + ' ' + l.text + ' ' + arrow + '</a>';
         }
       }).join('');
-      el.innerHTML = linksHtml;
     }
 
-    // Render architecture diagram
     renderArchitecture(industry);
-
-    // Render logo bar
     renderLogos(industry);
   }
 
@@ -275,7 +481,10 @@
   var archActiveKey = null;
 
   function renderArchitecture(industry) {
-    var arch = (typeof ARCHITECTURE !== 'undefined') ? ARCHITECTURE[industry] : null;
+    var ARCH = (LANG === 'ja') ?
+      (typeof ARCHITECTURE_JA !== 'undefined' ? ARCHITECTURE_JA : null) :
+      (typeof ARCHITECTURE_EN !== 'undefined' ? ARCHITECTURE_EN : null);
+    var arch = ARCH ? ARCH[industry] : null;
     var section = document.getElementById('archSection');
     if (!section) return;
     if (!arch) { section.style.display = 'none'; return; }
@@ -284,14 +493,13 @@
     document.getElementById('archTitle').textContent = arch.title;
     document.getElementById('archDesc').textContent = arch.description;
 
-    // Close any open panel
     archActiveKey = null;
     var panel = document.getElementById('detailPanel');
     if (panel) panel.classList.remove('open');
 
-    // Left column with label
+    var s = STRINGS[LANG];
     var leftEl = document.getElementById('archLeft');
-    leftEl.innerHTML = '<div class="col-label">Operational technology</div><div class="col-nodes">' +
+    leftEl.innerHTML = '<div class="col-label">' + s.opTech + '</div><div class="col-nodes">' +
       arch.left.map(function(n) {
         return '<div class="sys-node" onclick="showArchDetail(\'' + n.id + '\')">' +
           '<div class="sn-name">' + n.name + '</div>' +
@@ -299,9 +507,8 @@
           '<div class="sn-flows">' + n.flows + '</div></div>';
       }).join('') + '</div>';
 
-    // Right column with label
     var rightEl = document.getElementById('archRight');
-    rightEl.innerHTML = '<div class="col-label">Enterprise & consumer</div><div class="col-nodes">' +
+    rightEl.innerHTML = '<div class="col-label">' + s.enterprise + '</div><div class="col-nodes">' +
       arch.right.map(function(n) {
         return '<div class="sys-node" onclick="showArchDetail(\'' + n.id + '\')">' +
           '<div class="sn-name">' + n.name + '</div>' +
@@ -309,7 +516,6 @@
           '<div class="sn-flows">' + n.flows + '</div></div>';
       }).join('') + '</div>';
 
-    // Deploy bar
     var deployEl = document.getElementById('archDeploy');
     deployEl.innerHTML = arch.deploy.map(function(d) {
       return '<div class="deploy-tag" onclick="showArchDetail(\'' + d.id + '\')">' +
@@ -318,23 +524,21 @@
   }
 
   function showArchDetail(key) {
-    var industry = selectedIndustry;
-    var arch = (typeof ARCHITECTURE !== 'undefined') ? ARCHITECTURE[industry] : null;
+    var ARCH = (LANG === 'ja') ?
+      (typeof ARCHITECTURE_JA !== 'undefined' ? ARCHITECTURE_JA : null) :
+      (typeof ARCHITECTURE_EN !== 'undefined' ? ARCHITECTURE_EN : null);
+    var arch = ARCH ? ARCH[selectedIndustry] : null;
     if (!arch) return;
 
     var panel = document.getElementById('detailPanel');
-
-    // Deselect all
     document.querySelectorAll('.sys-node.on, .deploy-tag.on').forEach(function(el) { el.classList.remove('on'); });
 
-    // Toggle off if same key
     if (archActiveKey === key) {
       panel.classList.remove('open');
       archActiveKey = null;
       return;
     }
 
-    // Find tip data
     var tipData = null;
     var allNodes = arch.left.concat(arch.right);
     for (var i = 0; i < allNodes.length; i++) {
@@ -347,7 +551,6 @@
     }
     if (!tipData) return;
 
-    // Highlight clicked node
     var allClickables = document.querySelectorAll('.sys-node, .deploy-tag');
     allClickables.forEach(function(el) {
       var handler = el.getAttribute('onclick') || '';
@@ -367,90 +570,87 @@
 
   // ---- Logo bar rendering ----
   function renderLogos(industry) {
-    var logos = (typeof LOGOS !== 'undefined') ? LOGOS[industry] : null;
+    var LOGOS = (LANG === 'ja') ?
+      (typeof LOGOS_JA !== 'undefined' ? LOGOS_JA : null) :
+      (typeof LOGOS_EN !== 'undefined' ? LOGOS_EN : null);
+    var EXTRA = (LANG === 'ja') ?
+      (typeof LOGO_EXTRA_COUNT_JA !== 'undefined' ? LOGO_EXTRA_COUNT_JA : {}) :
+      (typeof LOGO_EXTRA_COUNT_EN !== 'undefined' ? LOGO_EXTRA_COUNT_EN : {});
+
+    var logos = LOGOS ? LOGOS[industry] : null;
     var section = document.getElementById('logoSection');
     if (!section) return;
     if (!logos || logos.length === 0) { section.style.display = 'none'; return; }
     section.style.display = '';
 
-    var iShort = industryShortLabels[industry] || industry;
-    document.getElementById('logoLabel').textContent = 'Trusted by leaders in ' + iShort;
+    var iShort = getIndustryShort(industry);
+    document.getElementById('logoLabel').textContent = STRINGS[LANG].trustedBy.replace('{industry}', iShort);
 
     var band = document.getElementById('logoBand');
     band.innerHTML = logos.map(function(l) {
       return '<a class="logo-item" href="' + l.url + '" target="_blank" rel="noopener">' +
         '<div class="logo-mark" style="' + (l.style || '') + '">' + l.name + '</div>' +
-        '<span class="logo-link">Read story \u2197</span></a>';
+        '<span class="logo-link">' + STRINGS[LANG].readStory + '</span></a>';
     }).join('');
 
-    var extra = (typeof LOGO_EXTRA_COUNT !== 'undefined') ? LOGO_EXTRA_COUNT[industry] : 0;
+    var extra = EXTRA[industry] || 0;
     var countEl = document.getElementById('logoCount');
     if (extra > 0) {
-      countEl.textContent = '+ ' + extra + ' more transportation & logistics customers worldwide';
+      countEl.textContent = STRINGS[LANG].moreCustomers.replace('{n}', extra);
       countEl.style.display = '';
     } else {
       countEl.style.display = 'none';
     }
   }
 
-
-
   // ---- Story expand/collapse ----
   function toggleStory(btn) {
-    const detail = btn.nextElementSibling;
+    var detail = btn.nextElementSibling;
     btn.classList.toggle('open');
     detail.classList.toggle('open');
-    btn.textContent = btn.classList.contains('open') ? '' : '';
+    var s = STRINGS[LANG];
     btn.innerHTML = btn.classList.contains('open')
-      ? 'Show less <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>'
-      : 'Read more <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>';
+      ? s.showLess + ' <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>'
+      : s.readMore + ' <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>';
   }
 
-  // ---- Expose to global for inline handlers ----
+  // ---- Expose to global ----
   window.goToScreen = goToScreen;
   window._goToScreen = function(screen) {
-    // Reset future selections when clicking breadcrumb
-    if (screen === 'role') {
-      selectedRole = null;
-      selectedIndustry = null;
-      history.length = 0;
-    } else if (screen === 'industry') {
-      selectedIndustry = null;
-      // Keep history up to role
-      while (history.length > 1) history.pop();
-    }
+    if (screen === 'role') { selectedRole = null; selectedIndustry = null; history.length = 0; }
+    else if (screen === 'industry') { selectedIndustry = null; while (history.length > 1) history.pop(); }
     goToScreen(screen);
   };
   window.goBack = goBack;
   window.selectRole = selectRole;
   window.selectIndustry = selectIndustry;
   window.toggleStory = toggleStory;
+  window.setLang = setLang;
 
   // ---- Init ----
-  // Show welcome screen cards
-  const welcomeScreen = document.getElementById('screen-welcome');
+  var welcomeScreen = document.getElementById('screen-welcome');
   if (welcomeScreen) {
-    // Welcome has no cards to animate, but navbar starts hidden
+    renderStaticStrings();
     updateNav();
   }
 
-  // Handle URL params for direct linking
-  const params = new URLSearchParams(window.location.search);
-  const urlRole = params.get('role');
-  const urlIndustry = params.get('industry');
+  // Handle URL params
+  var params = new URLSearchParams(window.location.search);
+  var urlRole = params.get('role');
+  var urlIndustry = params.get('industry');
+  var urlLang = params.get('lang');
+  if (urlLang === 'ja') { LANG = 'ja'; renderStaticStrings(); }
 
-  if (urlRole && roleLabels[urlRole]) {
+  if (urlRole && (roleLabels.en[urlRole] || roleLabels.ja[urlRole])) {
     selectedRole = urlRole;
-    if (urlIndustry && industryLabels[urlIndustry]) {
+    if (urlIndustry && (industryLabels.en[urlIndustry] || industryLabels.ja[urlIndustry])) {
       selectedIndustry = urlIndustry;
       populateResult();
-      // Jump directly to result
       document.getElementById('screen-welcome').classList.remove('active');
       document.getElementById('screen-result').classList.add('active');
       currentScreen = 'result';
       history.push('welcome', 'role', 'industry');
     } else {
-      // Jump to industry selection
       document.getElementById('screen-welcome').classList.remove('active');
       document.getElementById('screen-industry').classList.add('active');
       currentScreen = 'industry';
@@ -459,5 +659,8 @@
     }
     updateNav();
   }
+
+  // Init lang toggle button states
+  setLang(LANG);
 
 })();
