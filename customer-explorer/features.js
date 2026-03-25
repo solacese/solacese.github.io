@@ -347,27 +347,27 @@ var ARCHITECTURE_EN = {
     title: 'Energy & utilities event mesh pattern',
     description: 'Field assets, grid operations, trading systems, and enterprise applications exchange telemetry, control signals, and business events bidirectionally.',
     left: [
-      { id: 'scada', name: 'SCADA / OT systems', proto: 'JMS \u00B7 MQTT', flows: '\u2190 \u2192 grid control, equipment status',
-        tip: { t: 'SCADA & operational technology', d: 'Grid management, pipeline monitoring, and plant control systems. Legacy SCADA connected via JMS bridge, modern OT via MQTT.', f: 'Publishes: equipment status, alarms, measurements \u00B7 Subscribes: control signals, set points' }},
-      { id: 'smartmeter', name: 'Smart meters & IoT', proto: 'MQTT', flows: '\u2192 consumption, quality, status',
-        tip: { t: 'Smart meters & field IoT', d: 'Electricity, gas, and water smart meters publishing consumption and quality telemetry via MQTT at scale across the distribution network.', f: 'Publishes: consumption readings, quality metrics, tamper alerts \u00B7 Subscribes: firmware updates, configuration' }},
-      { id: 'erp-en', name: 'SAP / ERP', proto: 'SAP AEM', flows: '\u2190 \u2192 work orders, procurement, finance',
-        tip: { t: 'SAP / ERP integration', d: 'SAP AEM connects maintenance, procurement, and finance to operational triggers. Condition monitoring events automatically generate work orders in SAP.', f: 'Publishes: PO confirmations, asset master \u00B7 Subscribes: maintenance triggers, meter readings' }},
-      { id: 'trading-en', name: 'Energy trading', proto: 'Native \u00B7 REST', flows: '\u2190 \u2192 prices, positions, settlements',
-        tip: { t: 'Energy & commodities trading', d: 'Real-time price distribution and trade execution for electricity, gas, and commodities markets. Cross-venue synchronisation with microsecond latency.', f: 'Publishes: prices, executions, positions \u00B7 Subscribes: market data, risk limits' }}
+      { id: 'scada', name: 'SCADA / OT systems', proto: 'JMS \u00B7 MQTT', flows: '\u2190 \u2192 plant control, pipeline monitoring',
+        tip: { t: 'SCADA & operational technology', d: 'Plant control systems, pipeline monitoring, and refinery automation. Legacy SCADA connected via JMS bridge, modern OT via MQTT. Real-time equipment status and alarm management.', f: 'Publishes: equipment status, alarms, measurements \u00B7 Subscribes: control signals, set points' }},
+      { id: 'grid-ops', name: 'Grid & network ops', proto: 'AMQP \u00B7 REST', flows: '\u2190 \u2192 load balancing, dispatch, outages',
+        tip: { t: 'Grid & network operations', d: 'Real-time grid load balancing, generation dispatch, and outage management. Voltage monitoring, switch events, and emergency notifications across the transmission and distribution network.', f: 'Publishes: dispatch instructions, outage status, voltage alerts \u00B7 Subscribes: generation data, demand signals, weather' }},
+      { id: 'smartmeter', name: 'Smart meters & field IoT', proto: 'MQTT', flows: '\u2192 consumption, quality, telemetry',
+        tip: { t: 'Smart meters & field IoT', d: 'Electricity, gas, and water smart meters publishing consumption and quality telemetry via MQTT at scale. Mining equipment sensors, well-site monitors, and environmental sensors in remote locations.', f: 'Publishes: consumption readings, equipment health, environmental data \u00B7 Subscribes: firmware updates, configuration, alert thresholds' }},
+      { id: 'mining', name: 'Mining & resources', proto: 'MQTT \u00B7 REST', flows: '\u2190 \u2192 pit-to-port, fleet, safety',
+        tip: { t: 'Mining & resources operations', d: 'A global mining company replaced IBM and Oracle Fusion with a next-generation event-driven integration platform. Pit-to-port event flows, fleet telemetry, and safety monitoring across remote mine sites.', f: 'Publishes: equipment telemetry, production events, safety alerts \u00B7 Subscribes: dispatch instructions, maintenance triggers' }}
     ],
     right: [
-      { id: 'grid-ops', name: 'Grid operations', proto: 'REST \u00B7 WebSocket', flows: '\u2190 \u2192 load balancing, dispatch',
-        tip: { t: 'Grid operations centre', d: 'Real-time dashboards for grid load balancing, generation dispatch, and outage management. WebSocket push for operator alerting.', f: 'Publishes: dispatch instructions, outage status \u00B7 Subscribes: generation data, demand signals, weather' }},
+      { id: 'erp-en', name: 'SAP / ERP', proto: 'SAP AEM', flows: '\u2190 \u2192 work orders, procurement, finance',
+        tip: { t: 'SAP / ERP integration', d: 'SAP AEM connects maintenance, procurement, and finance to operational triggers. Condition monitoring events automatically generate work orders. S/4HANA event mesh connecting to Databricks, PowerBI, and data lakes.', f: 'Publishes: PO confirmations, asset master, financial postings \u00B7 Subscribes: maintenance triggers, meter readings, production events' }},
+      { id: 'trading-en', name: 'Energy trading', proto: 'Native \u00B7 REST', flows: '\u2190 \u2192 prices, positions, settlements',
+        tip: { t: 'Energy & commodities trading', d: 'Real-time price distribution and trade execution for electricity, gas, and commodities markets. Cross-venue synchronisation between trading centres with low latency.', f: 'Publishes: prices, executions, positions \u00B7 Subscribes: market data, risk limits' }},
       { id: 'analytics-en2', name: 'Analytics & AI', proto: 'Kafka bridge', flows: '\u2190 events \u2192 predictions',
-        tip: { t: 'Analytics & predictive models', d: 'Operational events streamed to data lakes for predictive maintenance, demand forecasting, and grid optimisation models.', f: 'Publishes: predictions, anomaly alerts \u00B7 Subscribes: all operational telemetry and trading events' }},
+        tip: { t: 'Analytics & predictive models', d: 'Operational events streamed to Snowflake, Databricks, or Azure Synapse for predictive maintenance, demand forecasting, and grid optimisation. Foundation for real-time AI in energy operations.', f: 'Publishes: predictions, anomaly alerts \u00B7 Subscribes: all operational telemetry, trading events, meter data' }},
       { id: 'customer-en', name: 'Customer portal', proto: 'REST \u00B7 WebSocket', flows: '\u2190 \u2192 billing, usage, self-service',
-        tip: { t: 'Customer self-service', d: 'Real-time usage dashboards, billing notifications, and self-service activation for customers. Event-driven meter-to-cash processing.', f: 'Publishes: customer actions, service requests \u00B7 Subscribes: usage data, billing events, outage notifications' }},
-      { id: 'regulatory', name: 'Regulatory reporting', proto: 'REST', flows: '\u2190 compliance events',
-        tip: { t: 'Regulatory & compliance', d: 'Automated regulatory reporting from operational event streams. Safety incident events, emissions data, and grid performance metrics for regulatory submission.', f: 'Publishes: compliance reports \u00B7 Subscribes: safety events, emissions data, grid metrics' }}
+        tip: { t: 'Customer self-service', d: 'Real-time usage dashboards, billing notifications, and self-service activation portals. Event-driven meter-to-cash processing. A European energy company built a natural gas activation portal on SAP AEM.', f: 'Publishes: customer actions, service requests \u00B7 Subscribes: usage data, billing events, outage notifications' }}
     ],
     deploy: [
-      { id: 'd-field', label: 'Field / substation', sub: 'Remote \u00B7 air-gapped', tip: 'Edge brokers at substations, treatment plants, and remote field sites. Store-and-forward for intermittent connectivity.' },
+      { id: 'd-field', label: 'Field / substation', sub: 'Remote \u00B7 mine site', tip: 'Edge brokers at substations, mine sites, treatment plants, and remote field locations. Store-and-forward for intermittent connectivity in remote environments.' },
       { id: 'd-cloud-en2', label: 'Hyperscaler cloud', sub: 'AWS \u00B7 Azure \u00B7 GCP', tip: 'Cloud-hosted brokers for customer portals, analytics, and partner connectivity. Multi-region for international operations.' },
       { id: 'd-dc-en2', label: 'Data centre', sub: 'Control room \u00B7 trading', tip: 'On-premises brokers for grid control, SCADA connectivity, and energy trading. Hardware appliances for deterministic low latency.' }
     ]

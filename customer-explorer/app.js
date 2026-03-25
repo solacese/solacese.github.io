@@ -36,7 +36,7 @@
       contentSoonSub: 'We are building stories for this combination.',
       readStory: 'Read story \u2197',
       or: 'or',
-      moreCustomers: '+ {n} more transportation & logistics customers worldwide',
+      moreCustomers: '+ {n} more customers in {industry} worldwide',
       trustedBy: 'Trusted by leaders in {industry}',
       storyTitles: {
         technology: 'What leaders like you are doing',
@@ -89,7 +89,7 @@
       contentSoonSub: 'この組み合わせのストーリーを作成しています。',
       readStory: '事例を読む \u2197',
       or: 'または',
-      moreCustomers: '+ {n} 社以上の交通・物流分野のお客様が世界中で導入しています',
+      moreCustomers: '+ {n} 社以上の{industry}分野のお客様が世界中で導入',
       trustedBy: '{industry}のリーダー企業に信頼されています',
       storyTitles: {
         technology: 'あなたと同じリーダーたちの取り組み',
@@ -615,7 +615,7 @@
     var extra = EXTRA[industry] || 0;
     var countEl = document.getElementById('logoCount');
     if (extra > 0) {
-      countEl.textContent = STRINGS[LANG].moreCustomers.replace('{n}', extra);
+      countEl.textContent = STRINGS[LANG].moreCustomers.replace('{n}', extra).replace('{industry}', iShort);
       countEl.style.display = '';
     } else {
       countEl.style.display = 'none';
