@@ -908,6 +908,552 @@ links: {
 
 
   },
+
+  "energy": {
+
+stories: [
+  {
+    id: 'eu1',
+    // Source: Swissgrid (ActiveMQ replacement, grid notifications, equipment breakdown, voltage),
+    // Tampa Electric (BizTalk EOL 2028, 860K customers, storm surge volumes),
+    // Arizona Public Services (TIBCO EMS replacement + Boomi), Enexis (TIBCO EMS + Amazon MQ replacement),
+    // Farys (smart water IoT, real-time water quality monitoring via SAP AEM)
+    technology: {
+      headline: 'A national grid operator replaced ActiveMQ with an event mesh for real-time equipment alerts, voltage monitoring, and emergency notifications across the transmission network',
+      outcome: 'The existing integration environment relied on point-to-point patterns combining APIs, file transfers, and ActiveMQ with MySQL persistence. This could not scale for the real-time notification use cases the grid requires: equipment breakdowns, unstable voltage, switch events, and emergencies. The event mesh provides the infrastructural communication layer for all of these.',
+      detail: 'The pattern repeats across utilities: a US electric utility serving 860,000 customers is replacing end-of-life BizTalk with event-driven architecture — critical during storm events when data volumes surge dramatically with outage notifications, alarms, and service restoration updates. A water utility uses SAP AEM with IoT smart meters for real-time water quality and quantity monitoring. Multiple utilities are replacing TIBCO EMS and Amazon MQ as part of broader integration modernisation.'
+    },
+    integration: {
+      headline: 'Utilities are replacing TIBCO EMS, BizTalk, and ActiveMQ with event-driven platforms — pairing Solace with Boomi and SAP Integration Suite for hybrid integration',
+      outcome: 'Integration teams across multiple utilities are converging on the same stack: Solace for real-time event streaming paired with an iPaaS (Boomi or SAP Integration Suite) for orchestration. One utility was the first customer onboarded to the joint Boomi Event Streams Enterprise product. Another is migrating from SAP PI/PO to SAP Integration Suite with AEM.',
+      detail: 'The integration challenges are consistent: legacy middleware approaching end-of-support (BizTalk 2028, TIBCO EMS), point-to-point patterns that cannot scale, and the need to bridge operational technology (smart meters, grid sensors, SCADA) with enterprise IT (billing, CRM, analytics). The event mesh sits between OT and IT, handling the protocol translation and guaranteed delivery that utilities require.'
+    },
+    business: {
+      headline: 'An electric utility serving 860,000 customers needed messaging that could handle storm-surge data volumes — outage notifications, alarms, and restoration updates in real time',
+      outcome: 'During storm events, data volumes spike dramatically as outage notifications, equipment alarms, and service restoration updates flood the system simultaneously. The legacy BizTalk platform could not handle these surges. Event-driven architecture provides the elastic, reliable messaging that keeps customers informed and field crews coordinated during the moments that matter most.',
+      detail: 'A water utility uses real-time monitoring to detect anomalies in water quality and predict maintenance needs — supporting sustainability goals while reducing operational costs. A national grid operator treats the event mesh as critical infrastructure: equipment breakdowns and voltage instability require sub-second notification to prevent cascading failures. The business case across utilities is clear: real-time event infrastructure is not optional, it is safety-critical.'
+    },
+    architect: {
+      headline: 'Utility integration modernisation: ActiveMQ and BizTalk replaced with event mesh bridging SCADA, smart meters, and grid sensors to enterprise billing, CRM, and analytics',
+      outcome: 'The architecture bridges operational technology (SCADA, smart meters, grid sensors, water quality monitors) to enterprise IT (SAP billing, CRM, analytics platforms). MQTT for IoT device ingestion, JMS for legacy system bridging, REST for modern applications. Active-active deployment for utilities where messaging outages have safety implications.',
+      detail: 'Key patterns: IoT telemetry ingestion at scale via MQTT (smart meters, water sensors, grid monitors); protocol bridge from legacy ActiveMQ/TIBCO to modern event mesh; SAP AEM integration for billing and meter-to-cash processes; Boomi or SAP Integration Suite for orchestration alongside event streaming for real-time distribution. Storm-surge elasticity is a design requirement — the architecture must handle 10x normal volumes during extreme weather events.'
+    }
+  },
+  {
+    id: 'eu2',
+    // Source: Mercuria (commodities trading London/Geneva), Second Foundation Tech (energy trading startup, HA, low-latency),
+    // Drax Power (Forest to Furnace, biomass supply chain, carbon neutral 2035, subsidy deadline 2027),
+    // Naturgy (natural gas activation portal, SAP AEM + Integration Suite)
+    technology: {
+      headline: 'An energy trading firm streams commodities market data between trading centres in real time — while a renewables company optimises its entire biomass supply chain to meet carbon targets',
+      outcome: 'A commodities trading house uses Solace to distribute and synchronise market data and trades between its London and Geneva trading centres. Separately, a major renewables company is using event-driven architecture to optimise its biomass supply chain from forest to furnace — aiming to halve production and transportation costs to become profitable without government subsidies.',
+      detail: 'An energy trading startup built its entire platform on Solace, choosing it for high-frequency, low-latency capabilities with robust slow-consumer handling. The HA setup supports trading algorithms that require real-time data. A European energy company uses SAP AEM with Integration Suite to build a natural gas activation portal — the previous SAP-only approach lacked the reliability needed for a customer-facing self-service platform.'
+    },
+    integration: {
+      headline: 'Energy companies are event-enabling SAP for real-time activation portals, supply chain optimisation, and cross-site trading synchronisation',
+      outcome: 'Multiple energy companies use SAP AEM as the integration backbone: one for a natural gas B2B activation portal combining SAP Integration Suite with AEM for reliable, high-quality customer experience. Another for HR integration across multiple downstream systems, replacing manual updates and polling with event-driven synchronisation.',
+      detail: 'The trading use cases are architecturally distinct: cross-site data synchronisation requires guaranteed delivery with microsecond latency between geographic locations. The supply chain use cases (biomass logistics, equipment procurement) require integration between SAP, logistics providers, and operational systems. Both converge on the same event mesh — one infrastructure serving very different latency and reliability profiles.'
+    },
+    business: {
+      headline: 'A renewables company must halve its supply chain costs by 2027 to stay profitable without subsidies — event-driven architecture is optimising every step from forest to furnace',
+      outcome: 'Government subsidies for carbon-neutral energy expire, and the company must find internal efficiencies to remain viable. The largest cost is biomass fuel production and transportation. Event-driven architecture provides real-time visibility and optimisation across the entire supply chain — an initiative called Forest to Furnace.',
+      detail: 'In energy trading, the business case is straightforward: market data and trade synchronisation between trading centres must be real-time, reliable, and resilient. For the natural gas company, the event-driven activation portal directly impacts customer acquisition — delays or failures in gas activation drive customers to competitors. Across energy, the pattern is the same: real-time data flow drives both operational efficiency and customer experience.'
+    },
+    architect: {
+      headline: 'Energy trading and operations: cross-site event mesh for market data synchronisation, SAP AEM for supply chain and activation portals, HA for algorithmic trading',
+      outcome: 'Trading architecture: event mesh connecting geographically distributed trading centres with guaranteed delivery and low latency. Operational architecture: SAP AEM bridging ERP to logistics, procurement, and customer portals. Both deployed with high availability — trading algorithms and customer-facing portals cannot tolerate downtime.',
+      detail: 'Key patterns: cross-site mesh for trading (London-Geneva, multi-region); SAP AEM + Integration Suite for B2B portals (natural gas activation); supply chain event streaming for logistics optimisation (biomass from forest to furnace); HA software deployment for energy trading startups building algorithmic platforms. The architecture must support both the microsecond latency of trading and the guaranteed delivery of supply chain events.'
+    }
+  },
+  {
+    id: 'eu3',
+    // Source: Baker Hughes (legacy IoT to cloud, equipment health monitoring, batch to real-time),
+    // Halliburton (condition-based maintenance via SAP AEM, OTC, equipment/personnel master),
+    // BHP (next-gen integration platform, IBM/Oracle Fusion replacement, real-time mining ops),
+    // Shell (S/4HANA mesh with Databricks/PowerBI, multi-broker mesh across BTP and customer-controlled regions)
+    technology: {
+      headline: 'An oilfield services company moved equipment health monitoring from batch-based local data centres to real-time cloud analytics — enabling predictive maintenance across global operations',
+      outcome: 'Legacy IoT infrastructure confined health monitoring to on-premises data centres with limited analytical capabilities. The system could only provide basic notifications and batch reporting. By moving to event-driven cloud architecture, the company enabled real-time time-series analysis of equipment health data across global operations — shifting from reactive to predictive maintenance.',
+      detail: 'A global mining company replaced its IBM and Oracle Fusion integration infrastructure with a next-generation event-driven platform to support real-time digital transformation across operations. A major oil company successfully proved an event mesh spanning SAP BTP public brokers and customer-controlled regions, connecting S/4HANA with Databricks, PowerBI, and Azure Data Lake for real-time analytics.'
+    },
+    integration: {
+      headline: 'Energy and mining companies are building next-generation integration platforms — replacing IBM and Oracle with event-driven architecture for real-time field operations',
+      outcome: 'A global mining company designed and delivered what they call their next-generation integration platform using Solace, replacing IBM and Oracle Fusion infrastructure that could not support event-driven digital transformation. An oilfield services company uses SAP AEM for condition-based maintenance: equipment telemetry triggers maintenance orders automatically in S/4HANA.',
+      detail: 'The integration pattern in energy field operations: IoT sensors on equipment (pumps, turbines, drilling rigs, mining vehicles) publish telemetry via MQTT. The event mesh routes this to both real-time monitoring dashboards and SAP for automated maintenance workflows. Condition-based maintenance replaces scheduled maintenance — reducing costs while improving equipment uptime. The same mesh connects equipment master data, personnel, and order-to-cash processes.'
+    },
+    business: {
+      headline: 'Mining and energy companies that relied on batch processes were missing real-time signals — higher production costs, more environmental damage, and delayed maintenance decisions',
+      outcome: 'Without real-time event delivery, a mining company faced higher unit costs of production and greater environmental impact because operational decisions were based on stale data. Condition-based maintenance across oilfield operations means equipment is serviced when it needs it, not on arbitrary schedules — reducing both downtime and unnecessary maintenance costs.',
+      detail: 'The predictive maintenance business case is significant: moving from batch-based health monitoring to real-time analytics enables early detection of equipment degradation before failure occurs. For mining operations, real-time integration across the value chain — from pit to port — drives both efficiency and environmental compliance. These are not incremental improvements; they represent a shift from reactive operations to data-driven decision making.'
+    },
+    architect: {
+      headline: 'Industrial IoT event mesh: MQTT telemetry from field equipment to cloud analytics and SAP AEM for condition-based maintenance, spanning on-prem, BTP, and hyperscaler',
+      outcome: 'The architecture spans three deployment zones: edge (field equipment, rigs, mine sites), customer-controlled regions (on-premises data centres, private cloud), and hyperscaler cloud (analytics, AI/ML). IoT telemetry published via MQTT at the edge flows through the event mesh to cloud-hosted analytics (Databricks, PowerBI, Azure Data Lake) and SAP for automated maintenance workflows.',
+      detail: 'Key patterns: multi-broker mesh connecting SAP BTP brokers to customer-controlled brokers for data sovereignty; MQTT for high-volume equipment telemetry; SAP AEM for condition-based maintenance (sensor events trigger S/4HANA maintenance orders); CDC from S/4HANA to analytics platforms via event mesh; equipment master data distribution across global operations. The architecture must handle remote, high-latency environments (offshore rigs, remote mine sites) with store-and-forward capability.'
+    }
+  }
+],
+
+values: {
+  technology: [
+    { title: 'Real-time grid and network operations', text: 'Equipment alerts, voltage monitoring, and emergency notifications flow in real time across the network. Sub-second response when it matters most.' },
+    { title: 'OT-to-IT bridge', text: 'Connect SCADA, smart meters, and field sensors to enterprise billing, CRM, and analytics without custom middleware. MQTT for IoT, JMS for legacy, REST for modern apps.' },
+    { title: 'Storm-surge resilience', text: 'Handle 10x normal message volumes during extreme weather events. Elastic architecture ensures outage notifications and restoration updates keep flowing when customers need them most.' },
+    { title: 'Predictive maintenance at scale', text: 'Shift from batch-based health monitoring to real-time equipment analytics. Detect degradation before failure, reduce downtime, and optimise maintenance schedules.' }
+  ],
+  integration: [
+    { title: 'Legacy middleware replacement', text: 'Migrate from TIBCO EMS, BizTalk, ActiveMQ, and Amazon MQ to modern event brokers. Multi-protocol support means existing applications connect without rewrites.' },
+    { title: 'SAP AEM for energy', text: 'Event-enable SAP for meter-to-cash, condition-based maintenance, supply chain, and customer portals. Pairs with SAP Integration Suite for orchestration.' },
+    { title: 'iPaaS + event mesh', text: 'Boomi Event Streams Enterprise or SAP Integration Suite for orchestration. Solace for real-time event distribution and guaranteed delivery. Best of both worlds.' },
+    { title: 'Cross-site synchronisation', text: 'Trading centres, operational sites, and cloud regions connected via event mesh. Guaranteed delivery with geographic redundancy for mission-critical energy operations.' }
+  ],
+  business: [
+    { title: 'Safety-critical reliability', text: 'Grid operators and utilities treat the event mesh as critical infrastructure. Equipment failures and voltage instability require sub-second notification to prevent cascading outages.' },
+    { title: 'Supply chain optimisation', text: 'Real-time visibility from source to delivery — biomass logistics, fuel transport, equipment procurement. Event-driven operations cut costs and meet sustainability targets.' },
+    { title: 'Customer experience', text: 'Self-service portals for gas activation, real-time outage updates for electricity customers, smart meter data for personalised billing. Events power the customer-facing experience.' },
+    { title: 'Regulatory and sustainability', text: 'Real-time operational data supports carbon reporting, environmental compliance, and regulatory submissions. Auditable event streams for every operational decision.' }
+  ],
+  architect: [
+    { title: 'Edge-to-cloud telemetry', text: 'MQTT from field devices, rigs, and mine sites. Store-and-forward for remote and high-latency environments. Event mesh routes telemetry to cloud analytics and SAP.' },
+    { title: 'Multi-broker mesh', text: 'SAP BTP brokers, customer-controlled brokers, and hyperscaler-hosted brokers connected in a single mesh. Data sovereignty and latency requirements met by deployment topology.' },
+    { title: 'Protocol bridge for OT', text: 'SCADA systems, legacy historians, and industrial protocols bridge to the event mesh. OPC-UA to MQTT, Modbus to REST — connecting operational technology to enterprise IT.' },
+    { title: 'High availability for critical infra', text: 'Active-active deployment for utilities and grid operators. Zero message loss for safety-critical notifications. Automatic failover with no manual intervention.' }
+  ]
+},
+
+links: {
+  technology: [
+    { text: 'Solace for energy & utilities', url: 'https://solace.com/solutions/industries/', icon: 'globe' },
+    { text: 'IoT event streaming', url: 'https://solace.com/solutions/use-cases/', icon: 'doc' },
+    { text: 'Customer success stories', url: 'https://solace.com/company/customers/', icon: 'doc' }
+  ],
+  integration: [
+    { text: 'SAP integration with Solace', url: 'https://solace.com/solutions/technology/sap/', icon: 'globe' },
+    { text: 'Solace for energy & utilities', url: 'https://solace.com/solutions/industries/', icon: 'globe' },
+    { text: 'Legacy middleware migration', url: 'https://solace.com/resources/', icon: 'doc' }
+  ],
+  business: [
+    { text: 'Customer success stories', url: 'https://solace.com/company/customers/', icon: 'doc' },
+    { text: 'Solace for energy & utilities', url: 'https://solace.com/solutions/industries/', icon: 'globe' },
+    { text: 'Event-driven architecture overview', url: 'https://solace.com/resources/', icon: 'doc' }
+  ],
+  architect: [
+    { text: 'Event broker specifications', url: 'https://solace.com/products/event-broker/', icon: 'globe' },
+    { text: 'SAP integration with Solace', url: 'https://solace.com/solutions/technology/sap/', icon: 'globe' },
+    { text: 'Solace platform overview', url: 'https://solace.com/products/platform/', icon: 'globe' }
+  ]
+}
+
+
+  },
+
+  "telecom": {
+
+stories: [
+  {
+    id: 'tc1',
+    // Source: Jio (TIBCO EMS crash on day 1, massive scale), Bharti Airtel (prepaid benefit provisioning at scale),
+    // AT&T (80M wireless subscribers, 67 SORs, 10-second SLA), XL Smart (declining voice revenue, digital transformation)
+    technology: {
+      headline: 'A mobile operator serving hundreds of millions of subscribers replaced TIBCO EMS after it crashed on production launch day — the event mesh now handles the scale their legacy platform could not',
+      outcome: 'TIBCO EMS was selected as the messaging layer for order-to-activation, notification engine, master data management, POS, and customer platform. It could not scale to the initial production volume and crashed on go-live day. The event mesh replacement handles the full volume across all use cases reliably.',
+      detail: 'The pattern repeats across telcos: one operator serving 80 million wireless subscribers needed account updates to reach the correct locale within 10 seconds — the legacy system was taking minutes. Another operator with hundreds of millions of prepaid subscribers was straining its benefit provisioning system during rapid growth, causing delays when customers tried to add funds or request customised plans.'
+    },
+    integration: {
+      headline: 'Telco integration teams replaced TIBCO EMS and WebMethods with a unified event mesh — connecting order-to-activation, billing, CRM, and notification systems',
+      outcome: 'Multiple telcos had fragmented integration landscapes: in-house development, WebMethods, MFT, and other redundant technologies across the organisation. This created dependency on scarce expertise, poor developer productivity, high maintenance costs, and increasing system outages. The event mesh consolidated messaging into a single platform.',
+      detail: 'The integration use cases span the entire telco stack: order-to-activation workflows, notification engines, common logging feeds, master data management, POS systems, and customer platforms. One operator event-enabled their entire prepaid stack. Another uses the event mesh for SAP SuccessFactors integration with identity management. The common thread: replacing fragmented, unreliable messaging with a single event backbone that every system connects to.'
+    },
+    business: {
+      headline: 'When a prepaid subscriber cannot add funds to their phone, they switch carriers — a major operator fixed this by replacing the messaging platform that was causing the failures',
+      outcome: 'Prepaid subscribers rely on the ability to add funds instantly. Rapid subscriber growth was straining the benefit provisioning system, creating delays that directly drove churn. The event-driven platform handles the scale reliably, ensuring customers can always complete transactions.',
+      detail: 'For telcos competing on customer experience, messaging infrastructure reliability directly impacts revenue. System outages during peak hours lose subscribers. Slow account updates frustrate customers. The business case for modernising messaging infrastructure is measured in reduced churn and increased ARPU, not just IT cost savings.'
+    },
+    architect: {
+      headline: 'Telco-scale event mesh: TIBCO EMS and WebMethods replacement handling order-to-activation, notifications, and master data for hundreds of millions of subscribers',
+      outcome: 'Software event brokers deployed across data centres, replacing TIBCO EMS and WebMethods. Multi-protocol support connects legacy JMS applications, modern REST microservices, and MQTT IoT devices. The architecture handles the massive fan-out required for subscriber notifications and the guaranteed delivery required for order-to-activation.',
+      detail: 'Key patterns: subscriber-scale fan-out for notifications and benefit provisioning; guaranteed delivery for order-to-activation workflows; master data distribution from BSS/OSS to downstream systems; decoupled logging via event streaming to Splunk; multi-data-centre deployment with replication for HA. The architecture must handle burst traffic (prepaid top-ups during peak hours) and sustained high-throughput (continuous notification streams).'
+    }
+  },
+  {
+    id: 'tc2',
+    // Source: Spark NZ (microservices logging to Splunk, decoupled), Boomi (event-driven for consumption licensing),
+    // LawNet (multi-cloud AWS+Azure, REST+JMS/AMQP), F5 Networks (product-driven dev model, Salesforce event-enabling)
+    technology: {
+      headline: 'A telco built a reusable event-driven logging library shipped with every microservice — decoupling application performance from log infrastructure',
+      outcome: 'Rather than bringing a logging platform in-line with application performance, this operator decoupled log producers from consumers using the event mesh. A reusable library ships with every microservice, publishing logs as events. The log aggregation platform subscribes independently — application latency is unaffected regardless of log volume.',
+      detail: 'Technology companies in the telco ecosystem are adopting the same patterns: one built an event-driven platform to support consumption-based licensing and real-time data availability across internal systems. Another event-enabled Salesforce to distribute security notifications and knowledge articles across distributed teams. The common theme: event-driven architecture as a platform capability, not a point solution.'
+    },
+    integration: {
+      headline: 'Technology providers in the telco ecosystem event-enabled Salesforce, connected multi-cloud applications, and built consumption-based platforms on event-driven architecture',
+      outcome: 'Integration teams are using the event mesh to solve multi-cloud connectivity challenges: applications on AWS, Azure, and on-premises connected through a single event layer. REST, JMS, and AMQP applications all connect natively. Point-to-point integrations between cloud providers eliminated.',
+      detail: 'The integration pattern extends beyond traditional telco: technology vendors serving telco customers use event-driven architecture internally to accelerate innovation. Event-enabling Salesforce distributes CRM data to product, support, and security teams in real time. Consumption-based licensing models require real-time usage metering that batch processes cannot support.'
+    },
+    business: {
+      headline: 'Telcos facing declining voice and SMS revenue are using event-driven architecture to build data-led businesses — Open API frameworks, partner ecosystems, and real-time analytics',
+      outcome: 'Traditional voice and SMS revenue is declining. Telcos are transforming into data-led businesses through Open API frameworks that connect with partners, modernised analytics platforms, and new digital services. Event-driven architecture provides the real-time data distribution these new business models require.',
+      detail: 'The business transformation is fundamental: from infrastructure provider to platform business. Open APIs let partners build on telco data and connectivity. Real-time analytics enable new monetisation of network data. Event-driven architecture provides the technical foundation for both — real-time, reliable, and scalable data distribution to an ecosystem of internal and external consumers.'
+    },
+    architect: {
+      headline: 'Multi-cloud event mesh for telco platform transformation: AWS and Azure connected, microservices logging decoupled, Salesforce event-enabled, Open API ecosystem',
+      outcome: 'The architecture connects applications across multiple cloud providers (AWS, Azure) and on-premises through a single event mesh. Microservices publish domain events and logs via a common library. Salesforce events distribute to downstream consumers. Open API frameworks expose network capabilities to partners.',
+      detail: 'Key patterns: multi-cloud mesh eliminating provider-specific point-to-point connections; reusable event publishing libraries embedded in microservice templates; Salesforce event-enabling for CRM data distribution; decoupled logging architecture (producers write events, Splunk subscribes independently); consumption-based metering via real-time event streams.'
+    }
+  },
+  {
+    id: 'tc3',
+    // Source: Softbank (redundant WebMethods/in-house/MFT, outages), Vodafone (AEM/CPI hire-to-retire, SuccessFactors),
+    // Telefonica Soluciones (aviation SWIM for flight controller), NTT Comms (IoT infra for automotive, Solace Cloud)
+    technology: {
+      headline: 'A major Japanese telco simplified redundant integration technologies — reducing system outages while unlocking developer productivity across the organisation',
+      outcome: 'Redundant integration technologies (in-house development, WebMethods, MFT) were deployed across the organisation. This created dependency on scarce expertise, poor developer productivity, high maintenance costs, and increasing outages in both number, severity, and duration. Consolidating onto a modern event platform simplified operations and improved reliability.',
+      detail: 'Telcos are also extending Solace into adjacent industries: one is building scalable IoT infrastructure for an automotive OEM based on Solace Cloud, tested extensively for MQTT5, scalability, and monitoring. Another is entering the aviation market by offering SWIM-based flight controller solutions using Solace as the messaging backbone — demonstrating how telco infrastructure expertise translates to mission-critical domains.'
+    },
+    integration: {
+      headline: 'Telcos are consolidating fragmented middleware — replacing WebMethods, in-house tools, and MFT with a single event platform that every development team can use',
+      outcome: 'The integration landscape at large telcos often includes five or more messaging and integration technologies, each maintained by different teams with different expertise. Consolidating onto a shared event platform eliminates the silos: every team uses the same infrastructure, with consistent monitoring, security, and governance.',
+      detail: 'SAP integration is a growing use case: one European telco uses SAP AEM with Cloud Integration for hire-to-retire workflows, connecting SuccessFactors to identity management. Employee experience management (Medallia) integration is planned next. The pattern is familiar from other industries: SAP event-enabling as the starting point, expanding to adjacent systems over time.'
+    },
+    business: {
+      headline: 'System outages at a major telco were increasing in number, severity, and duration — middleware consolidation reversed the trend while cutting operational costs',
+      outcome: 'The business impact of fragmented middleware was measured in outages: more frequent, more severe, and longer to resolve. Each technology required different expertise, creating bottlenecks when issues arose. Consolidation reduced the operational risk and freed engineering capacity for innovation rather than maintenance.',
+      detail: 'Telcos are also creating new revenue streams by offering Solace-based infrastructure to enterprise customers: IoT platforms for automotive, SWIM solutions for aviation, and managed connectivity services. The event mesh becomes both an internal operational platform and a product capability sold to customers.'
+    },
+    architect: {
+      headline: 'Telco middleware consolidation: WebMethods, MFT, and in-house tools replaced with unified event mesh — plus SAP AEM for HR workflows and IoT platform for enterprise customers',
+      outcome: 'The architecture consolidates multiple messaging and integration technologies into a single event mesh. SAP AEM handles HR and enterprise workflows (SuccessFactors, identity management). The same Solace Cloud infrastructure serves internal telco operations and external IoT/connectivity products for enterprise customers.',
+      detail: 'Key patterns: middleware consolidation reducing operational complexity; SAP AEM for hire-to-retire and employee experience workflows; Solace Cloud as infrastructure for enterprise IoT products (automotive, aviation); MQTT5 for next-generation IoT connectivity; multi-protocol support connecting legacy WebMethods applications during migration.'
+    }
+  }
+],
+
+values: {
+  technology: [
+    { title: 'Subscriber-scale reliability', text: 'Handle hundreds of millions of subscribers with guaranteed message delivery. No more TIBCO crashes on launch day or WebMethods outages during peak hours.' },
+    { title: 'Multi-cloud connectivity', text: 'Connect applications across AWS, Azure, and on-premises through a single event mesh. Eliminate provider-specific point-to-point integrations.' },
+    { title: 'Middleware consolidation', text: 'Replace fragmented TIBCO, WebMethods, MFT, and in-house tools with one platform. Reduce operational complexity, outage frequency, and dependency on scarce expertise.' },
+    { title: 'Platform for new business models', text: 'Open APIs, IoT connectivity, partner ecosystems — event-driven architecture provides the real-time foundation for data-led transformation.' }
+  ],
+  integration: [
+    { title: 'BSS/OSS event-enabling', text: 'Order-to-activation, billing, CRM, and notification systems connected through a single event backbone. Every system publishes events; every system subscribes.' },
+    { title: 'SAP AEM for telco HR', text: 'SuccessFactors hire-to-retire, identity management, and employee experience workflows event-enabled through SAP AEM and Cloud Integration.' },
+    { title: 'Decoupled microservices', text: 'Reusable event publishing libraries shipped with every microservice. Logging, tracing, and domain events flow through the mesh without coupling services.' },
+    { title: 'Multi-protocol native', text: 'JMS from legacy BSS, REST from microservices, MQTT from IoT devices, AMQP from partner integrations. All connect natively to the same event broker.' }
+  ],
+  business: [
+    { title: 'Reduce subscriber churn', text: 'Instant benefit provisioning, real-time account updates, reliable notifications. When the messaging platform fails, subscribers leave.' },
+    { title: 'New revenue from platform services', text: 'Offer Solace-based IoT platforms, SWIM solutions, and managed connectivity to enterprise customers. The event mesh becomes a product, not just infrastructure.' },
+    { title: 'Lower operational risk', text: 'Fewer middleware platforms means fewer outages, faster resolution, and less dependency on specialists. Consolidation reduces risk and frees engineering capacity.' },
+    { title: 'Data-led transformation', text: 'Real-time data distribution powers the analytics, partner APIs, and digital services that replace declining voice and SMS revenue.' }
+  ],
+  architect: [
+    { title: 'Subscriber-scale fan-out', text: 'Massive parallel distribution of notifications, benefit updates, and account changes to hundreds of millions of endpoints. Topic-based filtering ensures each subscriber gets only relevant events.' },
+    { title: 'Multi-DC replication', text: 'Active-active deployment across data centres for zero-downtime subscriber services. Automatic failover with no message loss.' },
+    { title: 'IoT and MQTT5', text: 'Next-generation IoT connectivity for automotive, smart city, and enterprise customers. MQTT5 support for advanced features like shared subscriptions and message expiry.' },
+    { title: 'Gradual middleware migration', text: 'Side-by-side deployment with legacy WebMethods and TIBCO. Protocol bridge connects existing applications. Migrate workloads incrementally without big-bang cutover.' }
+  ]
+},
+
+links: {
+  technology: [
+    { text: 'Solace for telecommunications', url: 'https://solace.com/solutions/industries/', icon: 'globe' },
+    { text: 'Customer success stories', url: 'https://solace.com/company/customers/', icon: 'doc' },
+    { text: 'Event mesh explained', url: 'https://solace.com/what-is-an-event-mesh/', icon: 'doc' }
+  ],
+  integration: [
+    { text: 'SAP integration with Solace', url: 'https://solace.com/solutions/technology/sap/', icon: 'globe' },
+    { text: 'Solace for telecommunications', url: 'https://solace.com/solutions/industries/', icon: 'globe' },
+    { text: 'Platform overview', url: 'https://solace.com/products/platform/', icon: 'doc' }
+  ],
+  business: [
+    { text: 'Customer success stories', url: 'https://solace.com/company/customers/', icon: 'doc' },
+    { text: 'Solace for telecommunications', url: 'https://solace.com/solutions/industries/', icon: 'globe' },
+    { text: 'Industries we serve', url: 'https://solace.com/solutions/industries/', icon: 'globe' }
+  ],
+  architect: [
+    { text: 'Event broker specifications', url: 'https://solace.com/products/event-broker/', icon: 'globe' },
+    { text: 'Solace platform overview', url: 'https://solace.com/products/platform/', icon: 'globe' },
+    { text: 'IoT event streaming', url: 'https://solace.com/solutions/use-cases/', icon: 'doc' }
+  ]
+}
+
+
+  },
+
+  "lifesciences": {
+
+stories: [
+  {
+    id: 'ls1',
+    // Source: Roche (Aspire S/4 migration, MDM, PLM, HR), Merck KGaA (S/4HANA overhaul, EDA adoption),
+    // AstraZeneca (material master MDG sync to plants), Novartis (global Messaging as a Service),
+    // Novo Nordisk (SuccessFactors hiring automation via BPA + AEM)
+    technology: {
+      headline: 'A global pharma company uses event-driven architecture to power its SAP S/4HANA migration — master data, product lifecycle, and HR events flowing across the enterprise',
+      outcome: 'The SAP ECC to S/4HANA migration triggered an overhaul of all integration points. The event mesh handles master data management, product lifecycle management, and hire-to-retire workflows. Events from SAP connect to Veeva, SuccessFactors, Salesforce, and Snowflake through a single backbone.',
+      detail: 'SAP-driven adoption is the dominant pattern in pharma: one company synchronises material master data from SAP MDG to partner systems across plants. Another identified event-driven architecture as the better approach for application operations and is building a global Messaging as a Service capability. A third automates candidate hiring by streaming SuccessFactors events through SAP Build Process Automation.'
+    },
+    integration: {
+      headline: 'Pharma integration teams are event-enabling SAP for S/4HANA migrations — connecting MDM, PLM, and HR across on-premises plants and cloud platforms',
+      outcome: 'Multiple pharma companies are using SAP AEM as the integration backbone for their S/4HANA migrations. Master data, product lifecycle changes, and HR events publish from SAP and reach every downstream system — Veeva for CRM, SuccessFactors for HR, Snowflake for analytics, and plant-level systems for manufacturing.',
+      detail: 'The integration complexity in pharma is significant: regulatory requirements mean data must be traceable and auditable. Multi-site manufacturing requires consistent master data across plants. Clinical and commercial systems (Veeva, Salesforce) need real-time product and customer data. Event-driven architecture decouples all of these while maintaining guaranteed delivery and audit trails.'
+    },
+    business: {
+      headline: 'Pharma companies migrating to S/4HANA are using events to break data silos between R&D, manufacturing, and commercial — accelerating time to market for new therapies',
+      outcome: 'SAP migrations in pharma are not just IT upgrades — they are business transformation programmes. By event-enabling the ERP during migration, companies unlock real-time data flows between R&D (product lifecycle), manufacturing (material master), and commercial (Veeva, Salesforce) that were previously batch-driven.',
+      detail: 'The business impact: product changes propagate to manufacturing and commercial systems in real time rather than overnight. HR workflows for a company with tens of thousands of employees process in seconds rather than manual handoffs. Material master updates reach every plant simultaneously rather than one at a time. These are the operational improvements that justify the S/4HANA investment.'
+    },
+    architect: {
+      headline: 'Pharma S/4HANA migration architecture: SAP AEM connecting MDG, PLM, and SuccessFactors to Veeva, Snowflake, and plant systems via event mesh',
+      outcome: 'SAP AEM as the event backbone for S/4HANA migration. ASAPIO connectors event-enable ECC during the transition period. Events flow to Veeva (CRM), SuccessFactors (HR), Snowflake (analytics), and plant-level MES. Boomi or MuleSoft handles transformation where needed.',
+      detail: 'Key patterns: SAP MDG publishing material master changes as events; PLM changes triggering updates to manufacturing, HR LMS, and marketing simultaneously; hire-to-retire events from SuccessFactors flowing to identity management and downstream systems; CDC from S/4HANA to Snowflake via event mesh. The architecture must support GxP compliance requirements with full auditability of event flows.'
+    }
+  },
+  {
+    id: 'ls2',
+    // Source: B. Braun (hospitals, edge, factories, ASAPIO, MuleSoft, Salesforce),
+    // Kinseed/SwiftCare (cloud healthcare platform, clinical data events, database to EDA migration),
+    // LG-HY BCM (MES real-time data collection, joint venture)
+    technology: {
+      headline: 'A medical device company deployed an event mesh connecting on-premises factories, cloud services, and hospital edge locations — enabling real-time clinical data flows',
+      outcome: 'The company requires an event mesh connecting three distinct environments: on-premises data centres, cloud services, and edge locations at hospitals. The goal is to modernise their integration landscape by becoming more event-driven, using ASAPIO to event-enable SAP ECC and MuleSoft for transformation.',
+      detail: 'A healthcare technology company is transforming its cloud-based clinical platform from database-backed to event-driven architecture using Solace. Clinical data events flow between platform components at scale. In manufacturing, a joint venture company uses Solace within its MES for real-time data collection, demonstrating performance in instantaneous large-volume data transmission.'
+    },
+    integration: {
+      headline: 'Healthcare and medtech companies are bridging factory MES, clinical platforms, and SAP using event-driven architecture — with hospital edge connectivity for real-time patient data',
+      outcome: 'The integration challenge in healthcare spans from factory floor (manufacturing medical devices) to hospital bedside (clinical data). Event-driven architecture connects MES systems publishing production data, SAP ECC event-enabled via ASAPIO, MuleSoft handling transformations, and Salesforce for CRM — all through a single event mesh that extends to hospital edge locations.',
+      detail: 'A clinical platform built on a traditional database architecture is migrating to event-driven as it scales. Clinical data events — patient records, device readings, treatment updates — flow between platform components in real time. The event mesh provides the reliability and auditability that healthcare data regulations demand.'
+    },
+    business: {
+      headline: 'Medical device companies connecting factories to hospitals in real time are enabling new service models — from selling products to delivering outcomes',
+      outcome: 'When a medical device company can stream data from the factory where a device is made, through the supply chain, to the hospital where it is used, and back again — entirely new business models become possible. Predictive maintenance, usage-based billing, and real-time clinical feedback loops all depend on this end-to-end event flow.',
+      detail: 'For healthcare platforms serving hospitals, the business case is patient safety and clinical efficiency. When clinical data events flow in real time between platform components, clinicians see current information rather than stale records. For MES operations, real-time data collection at manufacturing scale means quality issues are caught immediately rather than in batch review.'
+    },
+    architect: {
+      headline: 'Healthcare event mesh: on-prem SAP and MES, cloud clinical platforms, and hospital edge — connected via ASAPIO, MuleSoft, and Salesforce integration',
+      outcome: 'Three-zone architecture: on-premises (SAP ECC via ASAPIO, factory MES), cloud (clinical platforms, Salesforce CRM, analytics), and edge (hospital locations with lightweight brokers). MuleSoft handles data transformation. The event mesh provides guaranteed delivery and audit trails required for healthcare regulatory compliance.',
+      detail: 'Key patterns: ASAPIO for SAP ECC event-enabling without core modifications; MuleSoft for complex data transformations between clinical and enterprise systems; edge deployment at hospitals for local clinical data processing with store-and-forward to cloud; MES integration for real-time manufacturing data collection; Salesforce micro-integration for CRM events. GxP and HIPAA compliance requirements shape the architecture.'
+    }
+  },
+  {
+    id: 'ls3',
+    // Source: Solventum/3M Healthcare (company separation, S4 migration, Snowflake data sharing),
+    // Galderma (Veeva/Salesforce customer master to Snowflake/ServiceNow/M3 via Boomi),
+    // Cytiva (PLM Magic system to sales, HR LMS, marketing), Tecan (production master data via Boomi),
+    // J&J (AEM for SAP integrations), Ottobock (hire-to-retire, then order/account mgmt)
+    technology: {
+      headline: 'A healthcare company separated from its parent used event-driven architecture to migrate S/4HANA data through Snowflake — maintaining business continuity during the corporate split',
+      outcome: 'During a major corporate separation, the new company needed daily and real-time data from the parent company\'s S/4HANA system. SAP AEM enabled data to flow from the parent\'s S/4 into Snowflake, where it was shared with the new entity and loaded into their own S/4 system. Business continuity was maintained throughout the separation.',
+      detail: 'The pattern of using events for corporate transitions is distinctive: product lifecycle changes from a PLM system flow to sales channels, HR learning management, and marketing analytics. Customer master data from Veeva and Salesforce publishes in a standard format and reaches Snowflake, ServiceNow, and M3 through the event mesh with Boomi as iPaaS. These are complex, multi-system integration challenges solved by publish-once, consume-many.'
+    },
+    integration: {
+      headline: 'Life sciences companies use event mesh with Boomi for multi-system master data distribution — Veeva, Salesforce, Snowflake, ServiceNow, and M3 all connected',
+      outcome: 'Customer master data from Veeva and Salesforce publishes events in a standard format. Snowflake, ServiceNow, and M3 subscribe and receive updates in real time. Boomi handles the iPaaS layer. The event mesh provides guaranteed delivery between all systems without point-to-point connections.',
+      detail: 'Product lifecycle management is another key integration pattern: when a product changes in the PLM system, events trigger updates to sales channel catalogues, HR learning management (for new training requirements), and marketing analytics — all from a single publish. Production master data distributes via Solace and Boomi to manufacturing systems. The common thread: complex multi-system distribution where batch updates are too slow and point-to-point connections too fragile.'
+    },
+    business: {
+      headline: 'When a healthcare company separates from its parent, event-driven architecture ensures the data keeps flowing — no disruption to patients, partners, or operations',
+      outcome: 'Corporate separations in healthcare carry unique risk: patient data, product information, and supply chain relationships must transfer without disruption. Event-driven architecture provided the data bridge between parent and child company during separation, ensuring business continuity for operations that directly impact patient care.',
+      detail: 'Beyond corporate events, the business case for event-driven master data distribution is operational efficiency: product changes that took days to propagate now take seconds. Customer updates in CRM reach service management instantly. Training requirements triggered by product changes reach HR automatically. Each of these was previously a manual process or overnight batch — the event mesh eliminates the lag.'
+    },
+    architect: {
+      headline: 'Life sciences master data architecture: Veeva and Salesforce publishing customer events, Snowflake and ServiceNow subscribing, Boomi transforming, SAP AEM bridging S/4HANA',
+      outcome: 'Customer master data events from Veeva/Salesforce flow through the event mesh in a standardised format. Snowflake subscribes for analytics, ServiceNow for service management, M3 for ERP. SAP AEM bridges S/4HANA for order and material data. Boomi provides iPaaS transformation. The architecture handles corporate separation data flows (parent S/4 → Snowflake → child S/4).',
+      detail: 'Key patterns: standardised event formats for customer master data across CRM sources; multi-consumer distribution without point-to-point connections; PLM event-enabling for product lifecycle changes triggering downstream updates; Snowflake as a data sharing intermediary during corporate separations; Boomi as the iPaaS transformation layer alongside event mesh for distribution.'
+    }
+  }
+],
+
+values: {
+  technology: [
+    { title: 'SAP S/4HANA migration backbone', text: 'Event-enable your ERP during S/4HANA migration. Master data, product lifecycle, and HR events flow to every downstream system through a single event mesh.' },
+    { title: 'Factory to hospital connectivity', text: 'Connect on-premises MES and SAP, cloud clinical platforms, and hospital edge locations through one event fabric. Three zones, one mesh.' },
+    { title: 'GxP-ready architecture', text: 'Guaranteed delivery, full audit trails, and data traceability built into the platform. Meet regulatory requirements without bolting on compliance as an afterthought.' },
+    { title: 'Clinical data in real time', text: 'Patient records, device readings, and treatment updates flow between platform components in real time. Clinicians see current data, not stale records.' }
+  ],
+  integration: [
+    { title: 'SAP AEM + ASAPIO', text: 'Event-enable SAP ECC and S/4HANA without core modifications. Master data, PLM, and HR events publish to any consumer — Veeva, Snowflake, SuccessFactors, plant systems.' },
+    { title: 'Boomi + event mesh', text: 'Boomi for iPaaS transformation, Solace for real-time distribution. Customer master data from Veeva/Salesforce reaches Snowflake, ServiceNow, and M3 via standardised events.' },
+    { title: 'Multi-system master data', text: 'Publish customer, product, and material master data once. Every downstream system subscribes. No point-to-point connections between Veeva, SAP, Snowflake, and ServiceNow.' },
+    { title: 'Edge for clinical locations', text: 'Lightweight brokers at hospitals and clinics for local clinical data processing. Store-and-forward to cloud when connectivity is intermittent.' }
+  ],
+  business: [
+    { title: 'Accelerate S/4HANA ROI', text: 'Event-enabling during migration unlocks real-time data flows between R&D, manufacturing, and commercial. The business transformation justifies the IT investment.' },
+    { title: 'Product lifecycle speed', text: 'Product changes propagate to manufacturing, sales, training, and marketing in real time. Launch new therapies faster with consistent data across every system.' },
+    { title: 'Business continuity', text: 'Corporate separations, mergers, and system migrations keep data flowing without disruption. Patients, partners, and operations are unaffected.' },
+    { title: 'Compliance by design', text: 'Auditable event streams, guaranteed delivery, and data traceability. Meet GxP, HIPAA, and regulatory requirements through architecture, not manual processes.' }
+  ],
+  architect: [
+    { title: 'Three-zone deployment', text: 'On-premises (SAP, MES, legacy), cloud (analytics, CRM, clinical platforms), and edge (hospitals, clinics). Event mesh spans all three with consistent security and governance.' },
+    { title: 'Standardised event formats', text: 'Customer, product, and material master data published in canonical formats. Any consumer subscribes without custom mapping. Schema governance via Event Portal.' },
+    { title: 'Corporate separation patterns', text: 'Parent S/4 → event mesh → Snowflake data sharing → child S/4. Bidirectional data flow maintained during transition with full audit trail.' },
+    { title: 'iPaaS + event mesh', text: 'Boomi or MuleSoft for complex transformations. Solace for reliable, real-time distribution. Each handles what it does best — transformation vs streaming.' }
+  ]
+},
+
+links: {
+  technology: [
+    { text: 'Solace for healthcare & life sciences', url: 'https://solace.com/solutions/industries/', icon: 'globe' },
+    { text: 'SAP integration with Solace', url: 'https://solace.com/solutions/technology/sap/', icon: 'globe' },
+    { text: 'Customer success stories', url: 'https://solace.com/company/customers/', icon: 'doc' }
+  ],
+  integration: [
+    { text: 'SAP integration with Solace', url: 'https://solace.com/solutions/technology/sap/', icon: 'globe' },
+    { text: 'Event Portal', url: 'https://solace.com/products/portal/', icon: 'globe' },
+    { text: 'Platform overview', url: 'https://solace.com/products/platform/', icon: 'doc' }
+  ],
+  business: [
+    { text: 'Customer success stories', url: 'https://solace.com/company/customers/', icon: 'doc' },
+    { text: 'Solace for healthcare & life sciences', url: 'https://solace.com/solutions/industries/', icon: 'globe' },
+    { text: 'Why Solace', url: 'https://solace.com/company/', icon: 'globe' }
+  ],
+  architect: [
+    { text: 'Event broker specifications', url: 'https://solace.com/products/event-broker/', icon: 'globe' },
+    { text: 'SAP integration with Solace', url: 'https://solace.com/solutions/technology/sap/', icon: 'globe' },
+    { text: 'Solace platform overview', url: 'https://solace.com/products/platform/', icon: 'globe' }
+  ]
+}
+
+
+  },
+
+  "public-sector": {
+
+stories: [
+  {
+    id: 'ps1',
+    // Source: ESDC (Benefits Delivery Modernization), Health NZ (death notification 6-9 month lag),
+    // Qatar (marriage process, citizen turns 60, multi-agency), Regione Veneto (car tax notifications),
+    // Maximus (legacy sync to PCF, poor citizen experience), Gov of Canada (departmental integration)
+    technology: {
+      headline: 'A national government modernised citizen services integration — replacing months-long notification delays with real-time event-driven data sharing across agencies',
+      outcome: 'A national healthcare system discovered that death notifications took 6-9 months to reach all 14 health districts, causing significant waste as services continued to be allocated to deceased citizens. Event-driven architecture reduced this to real-time notification across every district simultaneously.',
+      detail: 'The pattern applies across government: one national government uses Solace to integrate multiple internal systems in support of a Benefits Delivery Modernization initiative, enhancing services for citizens. A Middle Eastern government streamlined multi-step citizen processes (marriage, retirement benefits) that previously involved manual handoffs between agencies. A regional government in Europe replaced unreliable infrastructure for tax payment notifications. In every case, the citizen experience improved because data moved between agencies in real time.'
+    },
+    integration: {
+      headline: 'Government integration teams are replacing siloed databases and point-to-point connections with event-driven data exchange — enabling real-time cross-agency coordination',
+      outcome: 'Government agencies need to exchange data frequently, but approaches vary: email, SFTP, APIs, and custom integrations create an inconsistent, fragile landscape. A unified event-driven data exchange provides a standard way for every agency to publish and subscribe to events — no custom integration per pair.',
+      detail: 'One government technology agency identified the core problem: each agency implemented data exchange differently, making inter-agency coordination slow and inefficient. The event mesh provides a unified approach: agencies publish events in standard formats, other agencies subscribe. A port authority replaced a centralised Sybase database that had become a bottleneck — multiple systems reading and writing to shared tables — with decoupled event-driven communication.'
+    },
+    business: {
+      headline: 'When government notifications take months instead of seconds, citizens pay the price — event-driven architecture closes the gap between agencies',
+      outcome: 'The human impact of slow government data sharing is real: healthcare services allocated to deceased citizens for months, marriage processes delayed by manual handoffs between agencies, tax notifications failing to reach citizens. Event-driven architecture transforms these from multi-month processes to near-real-time coordination.',
+      detail: 'For government IT modernisation contractors, the business case is equally clear: legacy synchronous architectures create poor citizen experiences and are costly to maintain. Event-driven architecture enables the responsiveness citizens expect from digital government while reducing the operational cost of inter-agency coordination.'
+    },
+    architect: {
+      headline: 'Cross-agency event mesh: standardised event formats for citizen lifecycle events, multi-department subscription, secure data exchange with classification controls',
+      outcome: 'The architecture: agencies publish citizen lifecycle events (birth, death, marriage, address change, benefit eligibility) in standardised formats. Other agencies subscribe based on their mandate. Security classification controls ensure each agency sees only the data it is authorised to access. The mesh spans on-premises government data centres and secured cloud environments.',
+      detail: 'Key patterns: standardised event schemas for citizen data across agencies; topic-based access control aligned to security classifications; on-premises deployment for classified workloads; cloud deployment for citizen-facing services; guaranteed delivery for regulatory and compliance notifications; audit trails for every event exchange between agencies.'
+    }
+  },
+  {
+    id: 'ps2',
+    // Source: ICA (immigration, IBM MQ + Waterfall data diode, non-HA at Changi Airport),
+    // DSTA (classified), CBSA (border security, cross-government events),
+    // MPA Singapore (centralised Sybase replacement, multi-site), OGCIO (surveillance monitoring, cross-department)
+    technology: {
+      headline: 'A border security agency replaced non-HA IBM MQ infrastructure at a major international airport — ensuring immigration and checkpoint systems never go down',
+      outcome: 'The existing Secure Data Exchange Gateway at the airport used IBM MQ with a data diode in a non-HA configuration. When the single system failed, border operations were impacted. The event mesh provides high-availability data exchange between airport systems and backend immigration systems with guaranteed delivery.',
+      detail: 'Border and defence agencies have unique requirements: classified data handling, air-gapped networks, and zero tolerance for downtime. One border agency uses Solace for various border security operations and plans to exchange events with the broader federal government. A defence science agency operates Solace in classified environments. A government digital office deploys surveillance monitoring infrastructure across departments.'
+    },
+    integration: {
+      headline: 'Defence and border agencies replaced IBM MQ and centralised databases with secure event mesh — connecting immigration, surveillance, and inter-agency systems',
+      outcome: 'Legacy integration in government often relies on centralised databases or point-to-point MQ connections that create single points of failure. One port authority replaced a centralised Sybase database with event-driven communication — eliminating the bottleneck where multiple systems competed for access to shared tables.',
+      detail: 'The integration challenge in defence and border security is compounded by security requirements: data diodes, air-gapped networks, and classification controls. The event mesh operates within these constraints while providing the reliability and performance that critical infrastructure demands. Cross-agency event exchange enables border agencies to coordinate with other government departments without custom integration per pair.'
+    },
+    business: {
+      headline: 'When immigration systems go down at an international airport, the impact is immediate — HA event infrastructure eliminates the single point of failure',
+      outcome: 'Airport immigration processing cannot tolerate downtime. The previous non-HA architecture meant a single system failure impacted border operations at one of the world\'s busiest airports. High-availability event mesh ensures continuous operation with automatic failover.',
+      detail: 'For port and maritime authorities, the business case is operational efficiency: replacing a centralised database that had become slow and unreliable with event-driven communication that scales to multiple sites. For border agencies, the value is national security: reliable, real-time data exchange between checkpoints and backend systems, with the ability to extend to cross-government event sharing.'
+    },
+    architect: {
+      headline: 'Secure government event mesh: HA deployment replacing IBM MQ at border checkpoints, data diode integration, classified network support, multi-site port authority connectivity',
+      outcome: 'HA event brokers deployed at border checkpoints with automatic failover. Data diode integration for one-way classified data flows. Multi-site deployment for port authorities connecting on-premises and cloud systems. Cross-government event exchange via secure mesh connectivity between departments.',
+      detail: 'Key patterns: HA replacing non-HA IBM MQ for immigration checkpoints; data diode compatibility for classified environments; multi-site deployment for distributed government operations; centralised database replacement with event-driven decoupling; secure cross-agency event exchange with topic-based access control; on-premises deployment for classified workloads with optional cloud connectivity for unclassified services.'
+    }
+  },
+  {
+    id: 'ps3',
+    // Source: DTP Victoria (smarter roads, active traffic management),
+    // HDB Singapore (10K+ blocks, sensor monitoring for lifts/water/power/gas/solar),
+    // Transport NSW (SAP AEM, TACP asset custodian platform), Met Office (WMO WIS 2.0, global weather data),
+    // NEA Singapore (meteorological SWIM), Smart Dubai (happiness meter, real-time sentiment),
+    // University of California (enrollment shock absorption, 10 campuses)
+    technology: {
+      headline: 'A public housing authority monitors sensors across 10,000+ buildings in real time — lifts, water, power, gas, and solar panels all connected through an event mesh',
+      outcome: 'Over 10,000 residential blocks equipped with sensors for lifts, water meters, power meters, gas meters, and solar panels — but no central monitoring. The event mesh provides real-time visibility across the entire estate, enabling predictive maintenance and rapid response to faults.',
+      detail: 'Smart city infrastructure is a growing public sector use case: a state transport department uses Solace for active traffic management — incident response, congestion management, and road information distribution. A national meteorological service publishes weather data via a SWIM-based information exchange. A national weather service implements the WMO\'s next-generation global weather data sharing framework. A city government built a real-time happiness meter for citizen sentiment analysis.'
+    },
+    integration: {
+      headline: 'Smart city and infrastructure agencies connect thousands of IoT sensors, traffic systems, and weather stations through event-driven platforms — replacing manual monitoring with real-time automation',
+      outcome: 'Public sector IoT integration spans buildings (10,000+ blocks of sensors), roads (active traffic management), weather (global meteorological data exchange), and citizen services (real-time sentiment). The event mesh handles the volume and variety of IoT data while connecting to enterprise systems for automated response.',
+      detail: 'A state transport authority uses SAP AEM to expose API-based interaction channels for thousands of asset providers — the Transport Asset Custodian Platform built on SAP consulting. A university system uses Solace for enrollment shock absorption across 10 campuses — handling the surge when course registration opens and thousands of students enrol simultaneously.'
+    },
+    business: {
+      headline: 'When a lift breaks in a public housing block, the authority knows in seconds — not when a resident calls to complain. Smart infrastructure saves time, money, and citizen trust',
+      outcome: 'Without real-time monitoring, equipment faults in public buildings were only discovered when residents reported problems. Real-time sensor data enables predictive maintenance: detect degradation before failure, dispatch maintenance proactively, and reduce the cost and citizen impact of reactive repairs.',
+      detail: 'The business case extends across smart city infrastructure: real-time traffic management reduces congestion and improves incident response times. Global weather data sharing improves forecast accuracy and disaster preparedness. University enrollment systems that handle peak load smoothly improve the student experience and reduce administrative burden. In every case, real-time event infrastructure transforms public services from reactive to proactive.'
+    },
+    architect: {
+      headline: 'Smart city event mesh: MQTT from 10,000+ building sensors, traffic management systems, and weather stations — connected to SAP, analytics, and citizen-facing applications',
+      outcome: 'MQTT for high-volume IoT ingestion from building sensors, traffic systems, and weather stations. Event mesh routes telemetry to real-time dashboards, predictive maintenance systems, and citizen notification platforms. SAP AEM for asset management integration. Cloud deployment for analytics and citizen-facing services.',
+      detail: 'Key patterns: MQTT for massive IoT fan-in from distributed sensors; topic hierarchy by location, asset type, and severity for efficient routing; SAP AEM for asset custodian platforms; elastic scaling for burst events (enrollment periods, weather emergencies, traffic incidents); integration with global standards (WMO WIS 2.0, aviation SWIM) for cross-border data exchange.'
+    }
+  }
+],
+
+values: {
+  technology: [
+    { title: 'Cross-agency data exchange', text: 'Standardised event formats for citizen data. Agencies publish and subscribe without custom integration per pair. Real-time coordination replaces months-long notification delays.' },
+    { title: 'Smart city IoT at scale', text: '10,000+ buildings, traffic networks, weather stations — all publishing sensor data through a single event mesh. Real-time monitoring replaces manual inspection.' },
+    { title: 'Classified and secure', text: 'Deploy in air-gapped networks, integrate with data diodes, and enforce classification-based access control. Built for the security requirements of defence and border agencies.' },
+    { title: 'HA for critical infrastructure', text: 'Immigration checkpoints, traffic management, and emergency services cannot tolerate downtime. Active-active deployment with automatic failover and zero message loss.' }
+  ],
+  integration: [
+    { title: 'IBM MQ replacement', text: 'Replace non-HA IBM MQ at border checkpoints and government facilities with HA event mesh. Multi-protocol support connects legacy systems without rewrites.' },
+    { title: 'SAP AEM for government', text: 'Transport asset management, benefits delivery, and HR workflows event-enabled through SAP AEM and Cloud Integration.' },
+    { title: 'IoT sensor integration', text: 'MQTT from building sensors, traffic systems, and weather stations. High-volume ingestion with topic-based routing to monitoring, analytics, and automated response systems.' },
+    { title: 'Centralised database decoupling', text: 'Replace shared databases where multiple agencies read and write to the same tables. Event-driven communication eliminates contention and single points of failure.' }
+  ],
+  business: [
+    { title: 'Citizen experience', text: 'Benefits delivered faster, notifications in real time, processes that took months completed in days. Event-driven government serves citizens better.' },
+    { title: 'National security', text: 'Border operations, immigration processing, and inter-agency intelligence sharing operate reliably with zero downtime. HA infrastructure for mission-critical operations.' },
+    { title: 'Predictive public infrastructure', text: 'Detect equipment failures before they impact citizens. Proactive maintenance of lifts, water systems, power, and transport infrastructure.' },
+    { title: 'Operational efficiency', text: 'Eliminate manual data handoffs between agencies. Reduce the cost of maintaining fragmented integration infrastructure. Free capacity for digital transformation.' }
+  ],
+  architect: [
+    { title: 'Security classification controls', text: 'Topic-based access control aligned to government security classifications. Each agency accesses only authorised data. Full audit trail for every inter-agency exchange.' },
+    { title: 'Multi-tier deployment', text: 'Classified workloads on-premises in air-gapped networks. Citizen-facing services in secured cloud. Event mesh spans both with appropriate security boundaries.' },
+    { title: 'Global standards support', text: 'WMO WIS 2.0 for weather data, aviation SWIM for meteorological information, Open API for transport asset management. Standards-based event exchange.' },
+    { title: 'Burst scaling', text: 'University enrollment surges, weather emergencies, traffic incidents — elastic architecture handles 10x normal volumes without degradation.' }
+  ]
+},
+
+links: {
+  technology: [
+    { text: 'Solace for public sector', url: 'https://solace.com/solutions/industries/', icon: 'globe' },
+    { text: 'Customer success stories', url: 'https://solace.com/company/customers/', icon: 'doc' },
+    { text: 'Event mesh explained', url: 'https://solace.com/what-is-an-event-mesh/', icon: 'doc' }
+  ],
+  integration: [
+    { text: 'SAP integration with Solace', url: 'https://solace.com/solutions/technology/sap/', icon: 'globe' },
+    { text: 'IoT event streaming', url: 'https://solace.com/solutions/use-cases/', icon: 'doc' },
+    { text: 'Platform overview', url: 'https://solace.com/products/platform/', icon: 'doc' }
+  ],
+  business: [
+    { text: 'Customer success stories', url: 'https://solace.com/company/customers/', icon: 'doc' },
+    { text: 'Solace for public sector', url: 'https://solace.com/solutions/industries/', icon: 'globe' },
+    { text: 'Why Solace', url: 'https://solace.com/company/', icon: 'globe' }
+  ],
+  architect: [
+    { text: 'Event broker specifications', url: 'https://solace.com/products/event-broker/', icon: 'globe' },
+    { text: 'Solace platform overview', url: 'https://solace.com/products/platform/', icon: 'globe' },
+    { text: 'IoT event streaming', url: 'https://solace.com/solutions/use-cases/', icon: 'doc' }
+  ]
+}
+
+
+  },
 };
 
 // ============ JAPANESE CONTENT ============

@@ -150,8 +150,8 @@
       energy: 'Energy & Utilities',
       telecom: 'Telecommunications',
       cpg: 'Consumer Goods',
-      healthcare: 'Healthcare & Life Sciences',
-      public_sector: 'Public Sector',
+      lifesciences: 'Healthcare & Life Sciences',
+      "public-sector": "Public Sector",
       exploring: 'General'
     },
     ja: {
@@ -166,8 +166,8 @@
       energy: 'エネルギー・公共インフラ',
       telecom: '通信',
       cpg: '消費財',
-      healthcare: 'ヘルスケア・ライフサイエンス',
-      public_sector: '公共セクター',
+      lifesciences: 'ヘルスケア・ライフサイエンス',
+      "public-sector": "公共セクター",
       exploring: '一般'
     }
   };
@@ -185,8 +185,8 @@
       energy: 'energy',
       telecom: 'telecom',
       cpg: 'consumer goods',
-      healthcare: 'healthcare',
-      public_sector: 'public sector',
+      lifesciences: 'healthcare & life sciences',
+      "public-sector": "public sector",
       exploring: 'your industry'
     },
     ja: {
@@ -201,8 +201,8 @@
       energy: 'エネルギー',
       telecom: '通信',
       cpg: '消費財',
-      healthcare: 'ヘルスケア',
-      public_sector: '公共セクター',
+      lifesciences: 'ヘルスケア',
+      "public-sector": "公共セクター",
       exploring: 'あなたの業界'
     }
   };
@@ -294,7 +294,10 @@
       financial:          { en: { h: 'Financial Services', p: 'Capital markets, banking, payments, insurance' }, ja: { h: '金融サービス', p: '資本市場、銀行、決済、保険' } },
       retail:             { en: { h: 'Retail & eCommerce', p: 'Omnichannel, store connectivity, supply chain' }, ja: { h: '小売・eコマース', p: 'オムニチャネル、店舗接続、サプライチェーン' } },
       'manufacturing-cpg':{ en: { h: 'Manufacturing & CPG', p: 'Factory automation, supply chain, SAP integration' }, ja: { h: '製造・CPG', p: '工場自動化、サプライチェーン、SAP 統合' } },
-      more:               { en: { h: 'More Industries', p: 'Coming soon' }, ja: { h: 'その他の業界', p: '近日公開予定' } },
+      energy:             { en: { h: 'Energy & Utilities', p: 'Grid operations, renewables, oil & gas, mining' }, ja: { h: 'エネルギー・公共インフラ', p: 'グリッド運用、再生可能エネルギー、石油・ガス、鉱業' } },
+      telecom:            { en: { h: 'Telecommunications', p: 'Network operators, 5G, IoT connectivity' }, ja: { h: '通信', p: 'ネットワーク事業者、5G、IoT 接続' } },
+      lifesciences:       { en: { h: 'Healthcare & Life Sciences', p: 'Pharma, medical devices, clinical operations' }, ja: { h: 'ヘルスケア・ライフサイエンス', p: '製薬、医療機器、臨床業務' } },
+      'public-sector':    { en: { h: 'Public Sector', p: 'Government, defence, education' }, ja: { h: '公共セクター', p: '政府、防衛、教育' } },
       exploring:          { en: { h: 'Just Exploring', p: "Not in a specific industry? See a general overview of what Solace makes possible." }, ja: { h: 'まずは見てみる', p: '特定の業界に属さない方も、Solaceが実現できることの概要をご覧いただけます。' } }
     };
     Object.keys(indData).forEach(function(k) {
@@ -417,6 +420,22 @@
     var s = STRINGS[LANG];
 
     document.getElementById('resultTag').textContent = roleLabel + ' \u00B7 ' + industryLabel;
+
+    // Update persona switcher
+    var switcher = document.getElementById('personaSwitcher');
+    if (switcher) {
+      var btns = switcher.querySelectorAll('.persona-btn');
+      btns.forEach(function(btn) {
+        var btnRole = btn.getAttribute('data-role');
+        btn.classList.toggle('active', btnRole === role);
+      });
+      // Update labels for current language
+      var roleKeys = ['technology', 'integration', 'business', 'architect'];
+      roleKeys.forEach(function(rk) {
+        var labelEl = document.getElementById('persona-btn-' + rk);
+        if (labelEl) labelEl.textContent = getRoleLabel(rk);
+      });
+    }
     document.getElementById('resultTitle').innerHTML = tpl('resultTitles.' + role, { i: iShort }).replace('resultTitles.' + role, '') || s.resultTitles[role].replace(/{i}/g, iShort);
     document.getElementById('resultSubtitle').textContent = s.resultSubtitles[role].replace(/{i}/g, iShort);
     document.getElementById('storiesTitle').textContent = s.storyTitles[role];
@@ -626,6 +645,16 @@
   window.selectIndustry = selectIndustry;
   window.toggleStory = toggleStory;
   window.setLang = setLang;
+
+  function switchPersona(role) {
+    selectedRole = role;
+    populateResult();
+    updateNav();
+    // Scroll to top of result container
+    var container = document.getElementById('screen-result');
+    if (container) container.scrollTo(0, 0);
+  }
+  window.switchPersona = switchPersona;
 
   // ---- Init ----
   var welcomeScreen = document.getElementById('screen-welcome');

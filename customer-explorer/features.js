@@ -52,6 +52,37 @@ var LOGOS_EN = {
     { name: 'TSX', url: 'https://solace.com/company/customers/', style: 'font-size:20px;font-weight:800;letter-spacing:0.04em' },
     { name: 'AKUNA CAPITAL', url: 'https://solace.com/company/customers/', style: 'font-size:11px;font-weight:600;letter-spacing:0.04em;text-align:center;line-height:1.3' },
     { name: 'CIBC', url: 'https://solace.com/company/customers/', style: 'font-size:18px;font-weight:800;letter-spacing:0.04em' }
+  ],
+  exploring: [
+    { name: 'RBC CAPITAL MARKETS', url: 'https://solace.com/company/customers/rbc/', style: 'font-size:9px;font-weight:700;letter-spacing:0.04em;text-align:center;line-height:1.3' },
+    { name: 'DANONE', url: 'https://solace.com/company/customers/danone/', style: 'font-size:15px;font-weight:700;letter-spacing:0.06em' },
+    { name: 'BARCLAYS', url: 'https://solace.com/company/customers/', style: 'font-size:13px;font-weight:700;letter-spacing:0.08em' },
+    { name: 'EDEKA', url: 'https://solace.com/company/customers/', style: 'font-size:15px;font-weight:700;letter-spacing:0.08em' },
+    { name: 'AIRBUS', url: 'https://solace.com/company/customers/airbus/', style: 'font-size:17px;font-weight:700;letter-spacing:0.06em' },
+    { name: 'HEINEKEN', url: 'https://solace.com/company/customers/', style: 'font-size:13px;font-weight:700;letter-spacing:0.08em' },
+    { name: 'LSE', url: 'https://solace.com/company/customers/', style: 'font-size:20px;font-weight:800;letter-spacing:0.04em' },
+    { name: 'HORNBACH', url: 'https://solace.com/company/customers/', style: 'font-size:12px;font-weight:700;letter-spacing:0.06em' }
+  ],
+  energy: [
+    { name: 'DRAX POWER', url: 'https://solace.com/company/customers/', style: 'font-size:12px;font-weight:700;letter-spacing:0.06em' },
+    { name: 'NATURGY', url: 'https://solace.com/company/customers/', style: 'font-size:13px;font-weight:700;letter-spacing:0.06em' },
+    { name: 'MERCURIA', url: 'https://solace.com/company/customers/', style: 'font-size:13px;font-weight:700;letter-spacing:0.06em' },
+    { name: 'ENEXIS', url: 'https://solace.com/company/customers/', style: 'font-size:14px;font-weight:700;letter-spacing:0.06em' },
+    { name: 'FARYS', url: 'https://solace.com/company/customers/', style: 'font-size:16px;font-weight:700;letter-spacing:0.06em' }
+  ],
+  telecom: [
+    { name: 'BHARTI AIRTEL', url: 'https://solace.com/company/customers/', style: 'font-size:11px;font-weight:700;letter-spacing:0.04em;text-align:center;line-height:1.3' },
+    { name: 'JIO', url: 'https://solace.com/company/customers/', style: 'font-size:20px;font-weight:800;letter-spacing:0.04em' },
+    { name: 'XLSMART', url: 'https://solace.com/company/customers/', style: 'font-size:14px;font-weight:700;letter-spacing:0.06em' },
+    { name: 'TELEFONICA', url: 'https://solace.com/company/customers/', style: 'font-size:11px;font-weight:700;letter-spacing:0.04em' },
+    { name: 'TELUS', url: 'https://solace.com/company/customers/', style: 'font-size:16px;font-weight:700;letter-spacing:0.06em' }
+  ],
+  lifesciences: [
+    { name: 'KINSEED', url: 'https://solace.com/company/customers/', style: 'font-size:14px;font-weight:700;letter-spacing:0.06em' }
+  ],
+  "public-sector": [
+    { name: 'L3HARRIS', url: 'https://solace.com/company/customers/', style: 'font-size:14px;font-weight:700;letter-spacing:0.06em' },
+    { name: 'ESDC CANADA', url: 'https://solace.com/company/customers/', style: 'font-size:11px;font-weight:700;letter-spacing:0.04em;text-align:center;line-height:1.3' }
   ]
 };
 
@@ -62,7 +93,12 @@ var LOGO_EXTRA_COUNT_EN = {
   automotive: 20,
   "manufacturing-cpg": 30,
   retail: 40,
-  financial: 90
+  financial: 90,
+  exploring: 430,
+  energy: 20,
+  telecom: 10,
+  lifesciences: 15,
+  "public-sector": 25
 };
 
 var ARCHITECTURE_EN = {
@@ -274,10 +310,161 @@ var ARCHITECTURE_EN = {
       { id: 'd-cloud-fs', label: 'Hyperscaler cloud', sub: 'AWS \u00B7 Azure \u00B7 GCP', tip: 'Cloud-hosted brokers for digital banking, partner APIs, and elastic analytics workloads. Multi-region for global operations.' },
       { id: 'd-colo', label: 'Co-location', sub: 'Exchange proximity', tip: 'Brokers deployed in co-location facilities adjacent to exchanges for minimum-latency market data and order routing.' }
     ]
+  },
+
+  exploring: {
+    title: 'Enterprise event mesh pattern',
+    description: 'A unified event backbone connecting legacy systems, cloud services, IoT, and AI/ML pipelines across the entire enterprise.',
+    left: [
+      { id: 'erp-ex', name: 'SAP / ERP', proto: 'SAP AEM \u00B7 JMS', flows: '\u2190 \u2192 master data, orders, finance',
+        tip: { t: 'SAP / ERP systems', d: 'Event-enable SAP via AEM or ASAPIO. Master data, order events, and inventory movements publish once and reach every consumer — analytics, CRM, warehouse, partners.', f: 'Publishes: master data changes, order events, inventory \u00B7 Subscribes: confirmations, quality feedback' }},
+      { id: 'legacy-mw', name: 'Legacy middleware', proto: 'JMS \u00B7 AMQP', flows: '\u2190 \u2192 bridged from TIBCO / IBM MQ',
+        tip: { t: 'Legacy middleware bridge', d: 'Existing TIBCO, IBM MQ, RabbitMQ, and ActiveMQ applications connect natively via protocol bridge. No application rewrites. Incremental modernisation alongside existing infrastructure.', f: 'Publishes: legacy application events \u00B7 Subscribes: new event streams via native protocol' }},
+      { id: 'iot-ex', name: 'IoT & edge devices', proto: 'MQTT', flows: '\u2192 telemetry, sensor data',
+        tip: { t: 'IoT & edge devices', d: 'Sensors, connected devices, and edge systems publish telemetry via MQTT. High-volume ingestion at sub-second latency from factory floors, vehicles, stores, and field equipment.', f: 'Publishes: telemetry, status, alerts \u00B7 Subscribes: commands, configuration, thresholds' }},
+      { id: 'microservices', name: 'Microservices', proto: 'REST \u00B7 WebSocket', flows: '\u2190 \u2192 domain events, commands',
+        tip: { t: 'Cloud-native microservices', d: 'Event-driven microservices publish and subscribe to domain events. Loose coupling between services enables independent deployment and scaling.', f: 'Publishes: domain events, state changes \u00B7 Subscribes: commands, events from other domains' }}
+    ],
+    right: [
+      { id: 'analytics-ex', name: 'Analytics & AI/ML', proto: 'Kafka bridge', flows: '\u2190 events \u2192 predictions, models',
+        tip: { t: 'Analytics & AI/ML pipelines', d: 'Event streams feed data lakes, ML training pipelines, and real-time inference engines. Kafka bridge enables dual consumption for streaming analytics. Foundation for real-time AI.', f: 'Publishes: predictions, anomaly alerts, recommendations \u00B7 Subscribes: all operational event streams' }},
+      { id: 'crm-ex', name: 'CRM & digital channels', proto: 'REST \u00B7 WebSocket', flows: '\u2190 \u2192 customer events, notifications',
+        tip: { t: 'CRM & digital channels', d: 'Salesforce, mobile apps, web portals, and customer notifications. Real-time push of events to customer-facing channels and consumption of customer actions.', f: 'Publishes: customer actions, preferences \u00B7 Subscribes: order updates, personalised offers, alerts' }},
+      { id: 'partners-ex', name: 'Partners & APIs', proto: 'REST \u00B7 AMQP', flows: '\u2190 \u2192 B2B events, API streams',
+        tip: { t: 'Partner & API ecosystem', d: 'Suppliers, distributors, and technology partners connect via event-driven APIs. New partners onboard by subscribing to existing event streams — no custom integration per partner.', f: 'Publishes: partner data, external events \u00B7 Subscribes: orders, inventory, status updates' }},
+      { id: 'eventportal', name: 'Event Portal', proto: 'Governance', flows: '\u2190 catalogue, discover, govern',
+        tip: { t: 'Event Portal — governance & discovery', d: 'Catalogue every event across the enterprise. Teams discover and reuse existing event streams instead of building new integrations. Schema governance ensures consistency and compatibility.', f: 'Provides: event catalogue, schema registry, lifecycle management, access control' }}
+    ],
+    deploy: [
+      { id: 'd-onprem-ex', label: 'On-premises', sub: 'Data centre \u00B7 legacy', tip: 'Software brokers or hardware appliances in your data centres. Connects legacy systems and latency-sensitive workloads. Full control, no cloud dependency.' },
+      { id: 'd-cloud-ex', label: 'Hyperscaler cloud', sub: 'AWS \u00B7 Azure \u00B7 GCP', tip: 'Cloud-hosted brokers for microservices, digital channels, analytics, and elastic workloads. Multi-region deployment for global operations.' },
+      { id: 'd-edge-ex', label: 'Edge', sub: 'Factory \u00B7 store \u00B7 vehicle', tip: 'Lightweight brokers at the edge for local processing and store-and-forward. Connected to the broader mesh via dynamic message routing.' }
+    ]
+  },
+
+
+  energy: {
+    title: 'Energy & utilities event mesh pattern',
+    description: 'Field assets, grid operations, trading systems, and enterprise applications exchange telemetry, control signals, and business events bidirectionally.',
+    left: [
+      { id: 'scada', name: 'SCADA / OT systems', proto: 'JMS \u00B7 MQTT', flows: '\u2190 \u2192 grid control, equipment status',
+        tip: { t: 'SCADA & operational technology', d: 'Grid management, pipeline monitoring, and plant control systems. Legacy SCADA connected via JMS bridge, modern OT via MQTT.', f: 'Publishes: equipment status, alarms, measurements \u00B7 Subscribes: control signals, set points' }},
+      { id: 'smartmeter', name: 'Smart meters & IoT', proto: 'MQTT', flows: '\u2192 consumption, quality, status',
+        tip: { t: 'Smart meters & field IoT', d: 'Electricity, gas, and water smart meters publishing consumption and quality telemetry via MQTT at scale across the distribution network.', f: 'Publishes: consumption readings, quality metrics, tamper alerts \u00B7 Subscribes: firmware updates, configuration' }},
+      { id: 'erp-en', name: 'SAP / ERP', proto: 'SAP AEM', flows: '\u2190 \u2192 work orders, procurement, finance',
+        tip: { t: 'SAP / ERP integration', d: 'SAP AEM connects maintenance, procurement, and finance to operational triggers. Condition monitoring events automatically generate work orders in SAP.', f: 'Publishes: PO confirmations, asset master \u00B7 Subscribes: maintenance triggers, meter readings' }},
+      { id: 'trading-en', name: 'Energy trading', proto: 'Native \u00B7 REST', flows: '\u2190 \u2192 prices, positions, settlements',
+        tip: { t: 'Energy & commodities trading', d: 'Real-time price distribution and trade execution for electricity, gas, and commodities markets. Cross-venue synchronisation with microsecond latency.', f: 'Publishes: prices, executions, positions \u00B7 Subscribes: market data, risk limits' }}
+    ],
+    right: [
+      { id: 'grid-ops', name: 'Grid operations', proto: 'REST \u00B7 WebSocket', flows: '\u2190 \u2192 load balancing, dispatch',
+        tip: { t: 'Grid operations centre', d: 'Real-time dashboards for grid load balancing, generation dispatch, and outage management. WebSocket push for operator alerting.', f: 'Publishes: dispatch instructions, outage status \u00B7 Subscribes: generation data, demand signals, weather' }},
+      { id: 'analytics-en2', name: 'Analytics & AI', proto: 'Kafka bridge', flows: '\u2190 events \u2192 predictions',
+        tip: { t: 'Analytics & predictive models', d: 'Operational events streamed to data lakes for predictive maintenance, demand forecasting, and grid optimisation models.', f: 'Publishes: predictions, anomaly alerts \u00B7 Subscribes: all operational telemetry and trading events' }},
+      { id: 'customer-en', name: 'Customer portal', proto: 'REST \u00B7 WebSocket', flows: '\u2190 \u2192 billing, usage, self-service',
+        tip: { t: 'Customer self-service', d: 'Real-time usage dashboards, billing notifications, and self-service activation for customers. Event-driven meter-to-cash processing.', f: 'Publishes: customer actions, service requests \u00B7 Subscribes: usage data, billing events, outage notifications' }},
+      { id: 'regulatory', name: 'Regulatory reporting', proto: 'REST', flows: '\u2190 compliance events',
+        tip: { t: 'Regulatory & compliance', d: 'Automated regulatory reporting from operational event streams. Safety incident events, emissions data, and grid performance metrics for regulatory submission.', f: 'Publishes: compliance reports \u00B7 Subscribes: safety events, emissions data, grid metrics' }}
+    ],
+    deploy: [
+      { id: 'd-field', label: 'Field / substation', sub: 'Remote \u00B7 air-gapped', tip: 'Edge brokers at substations, treatment plants, and remote field sites. Store-and-forward for intermittent connectivity.' },
+      { id: 'd-cloud-en2', label: 'Hyperscaler cloud', sub: 'AWS \u00B7 Azure \u00B7 GCP', tip: 'Cloud-hosted brokers for customer portals, analytics, and partner connectivity. Multi-region for international operations.' },
+      { id: 'd-dc-en2', label: 'Data centre', sub: 'Control room \u00B7 trading', tip: 'On-premises brokers for grid control, SCADA connectivity, and energy trading. Hardware appliances for deterministic low latency.' }
+    ]
+  },
+
+  telecom: {
+    title: 'Telecommunications event mesh pattern',
+    description: 'BSS/OSS, network operations, customer platforms, and partner ecosystems exchange subscriber, service, and network events at telco scale.',
+    left: [
+      { id: 'bss', name: 'BSS / billing', proto: 'JMS \u00B7 REST', flows: '\u2190 \u2192 orders, billing, provisioning',
+        tip: { t: 'Business support systems', d: 'Order management, billing, rating, and provisioning. Each subscriber event publishes once and reaches all consuming systems — CRM, fulfilment, notifications.', f: 'Publishes: order events, billing records, provisioning requests \u00B7 Subscribes: network events, usage data' }},
+      { id: 'oss', name: 'OSS / network', proto: 'AMQP \u00B7 MQTT', flows: '\u2190 \u2192 faults, performance, config',
+        tip: { t: 'Operations support systems', d: 'Network fault management, performance monitoring, and configuration management. Real-time network events enable automated remediation and SLA monitoring.', f: 'Publishes: fault events, performance metrics \u00B7 Subscribes: configuration changes, remediation commands' }},
+      { id: 'legacy-bss', name: 'Legacy middleware', proto: 'JMS', flows: '\u2190 \u2192 bridged from TIBCO / WebMethods',
+        tip: { t: 'Legacy middleware bridge', d: 'Existing TIBCO EMS, WebMethods, and in-house messaging connected via JMS bridge. Incremental migration without disrupting live subscriber services.', f: 'Publishes: legacy system events \u00B7 Subscribes: new event streams via native protocol' }},
+      { id: 'iot-telco', name: 'IoT / 5G edge', proto: 'MQTT', flows: '\u2192 device telemetry, edge events',
+        tip: { t: 'IoT & 5G edge computing', d: 'Connected devices, vehicles, and smart infrastructure publishing telemetry via MQTT. Edge brokers at cell sites for local processing.', f: 'Publishes: device telemetry, location data \u00B7 Subscribes: commands, firmware updates, configuration' }}
+    ],
+    right: [
+      { id: 'crm-telco', name: 'CRM & customer 360', proto: 'REST \u00B7 WebSocket', flows: '\u2190 \u2192 profiles, interactions',
+        tip: { t: 'CRM & customer experience', d: 'Real-time customer 360 view updated from every touchpoint. Account changes propagate across all 67+ systems of record in under 10 seconds.', f: 'Publishes: customer actions, preferences \u00B7 Subscribes: account events, service changes, usage' }},
+      { id: 'partner-telco', name: 'Partner ecosystem', proto: 'REST \u00B7 AMQP', flows: '\u2190 \u2192 APIs, service events',
+        tip: { t: 'Partner & digital services', d: 'Open API framework for partner connectivity. Event-driven APIs enable rapid onboarding of digital service partners — days instead of months.', f: 'Publishes: service events, API notifications \u00B7 Subscribes: partner requests, content events' }},
+      { id: 'analytics-telco', name: 'Analytics & AI', proto: 'Kafka bridge', flows: '\u2190 events \u2192 insights',
+        tip: { t: 'Analytics & network intelligence', d: 'Network performance, subscriber behaviour, and usage events streamed to analytics platforms for network optimisation, churn prediction, and capacity planning.', f: 'Publishes: predictions, recommendations \u00B7 Subscribes: all network and subscriber events' }},
+      { id: 'notification', name: 'Notification engine', proto: 'WebSocket \u00B7 REST', flows: '\u2190 triggers \u2192 push notifications',
+        tip: { t: 'Notification & messaging', d: 'High-volume notification fan-out to millions of subscribers. Balance top-ups, service activations, promotional offers, and service disruption alerts.', f: 'Publishes: notifications, alerts \u00B7 Subscribes: account events, service triggers, promotional rules' }}
+    ],
+    deploy: [
+      { id: 'd-dc-telco', label: 'Data centre', sub: 'Core BSS/OSS', tip: 'Central brokers handling BSS/OSS integration, customer 360 replication, and notification fan-out to millions of subscribers.' },
+      { id: 'd-cloud-telco', label: 'Hyperscaler cloud', sub: 'AWS \u00B7 Azure \u00B7 GCP', tip: 'Cloud-hosted brokers for partner APIs, digital services, and elastic analytics workloads. Multi-cloud for customer flexibility.' },
+      { id: 'd-edge-telco', label: 'Edge / 5G', sub: 'Cell site \u00B7 MEC', tip: 'Edge brokers at cell sites for IoT ingestion, 5G MEC applications, and local processing with store-and-forward to central mesh.' }
+    ]
+  },
+
+  lifesciences: {
+    title: 'Life sciences & healthcare event mesh pattern',
+    description: 'Manufacturing, clinical systems, regulatory platforms, and patient-facing services exchange master data, quality events, and clinical data bidirectionally.',
+    left: [
+      { id: 'sap-pharma', name: 'SAP S/4HANA', proto: 'SAP AEM \u00B7 ASAPIO', flows: '\u2190 \u2192 master data, orders, production',
+        tip: { t: 'SAP ERP & master data', d: 'SAP S/4HANA migration is the primary Solace entry point in pharma. AEM and ASAPIO event-enable master data, production events, and HR lifecycle events.', f: 'Publishes: material master, production events, HR lifecycle \u00B7 Subscribes: quality feedback, regulatory changes' }},
+      { id: 'mes-pharma', name: 'Manufacturing / MES', proto: 'MQTT \u00B7 JMS', flows: '\u2190 \u2192 production, quality, batch',
+        tip: { t: 'Manufacturing execution', d: 'Clean-room manufacturing systems publishing production batch events, quality measurements, and equipment telemetry. GxP-validated data flows.', f: 'Publishes: batch records, quality events, equipment telemetry \u00B7 Subscribes: production orders, master data' }},
+      { id: 'clinical', name: 'Clinical systems', proto: 'REST \u00B7 AMQP', flows: '\u2190 \u2192 patient data, notifications',
+        tip: { t: 'Clinical data exchange', d: 'Healthcare platforms exchanging clinical data between care providers, laboratories, and health districts. Real-time notification replacing 6-9 month batch delays.', f: 'Publishes: clinical events, notifications \u00B7 Subscribes: patient data, lab results' }},
+      { id: 'devices', name: 'Medical devices', proto: 'MQTT', flows: '\u2192 telemetry, alerts',
+        tip: { t: 'Medical device telemetry', d: 'Hospital equipment and connected medical devices publishing telemetry for remote monitoring, predictive maintenance, and clinical alerting.', f: 'Publishes: device telemetry, alerts, status \u00B7 Subscribes: configuration, firmware updates' }}
+    ],
+    right: [
+      { id: 'veeva', name: 'Veeva / CRM', proto: 'REST', flows: '\u2190 \u2192 customer master, regulatory',
+        tip: { t: 'Veeva & commercial CRM', d: 'Customer master data from Veeva CRM published as events to downstream systems. Commercial operations integration for sales and regulatory.', f: 'Publishes: customer events, regulatory submissions \u00B7 Subscribes: product master, pricing' }},
+      { id: 'analytics-pharma', name: 'Snowflake / analytics', proto: 'Kafka bridge', flows: '\u2190 events \u2192 insights, reports',
+        tip: { t: 'Analytics & data lake', d: 'Manufacturing, clinical, and commercial events streamed to Snowflake for analytics, regulatory reporting, and ML models.', f: 'Publishes: predictions, quality insights \u00B7 Subscribes: all manufacturing and clinical events' }},
+      { id: 'regulatory-pharma', name: 'Regulatory / GxP', proto: 'REST \u00B7 JMS', flows: '\u2190 audit trails \u2192 submissions',
+        tip: { t: 'Regulatory & GxP compliance', d: 'Auditable event trails for every data flow. GxP-ready infrastructure for validated manufacturing processes and regulatory submission pipelines.', f: 'Publishes: compliance reports \u00B7 Subscribes: quality events, batch records, audit triggers' }},
+      { id: 'hr-pharma', name: 'SuccessFactors / HR', proto: 'SAP AEM', flows: '\u2190 \u2192 hire-to-retire events',
+        tip: { t: 'HR & employee lifecycle', d: 'SuccessFactors events for hiring, role changes, and departures flow to identity management, access control, and downstream systems.', f: 'Publishes: HR lifecycle events \u00B7 Subscribes: organisational changes, compliance triggers' }}
+    ],
+    deploy: [
+      { id: 'd-factory', label: 'Manufacturing', sub: 'Clean room \u00B7 plant', tip: 'On-premises brokers at manufacturing sites for GxP-validated event flows. Air-gapped options for regulated production environments.' },
+      { id: 'd-cloud-pharma', label: 'Hyperscaler cloud', sub: 'AWS \u00B7 Azure \u00B7 GCP', tip: 'Cloud-hosted brokers for commercial operations, analytics, and partner connectivity. Multi-region for global pharma operations.' },
+      { id: 'd-hospital', label: 'Hospital / edge', sub: 'Clinical \u00B7 device', tip: 'Edge brokers at hospital sites for clinical data exchange and medical device telemetry. Patient data sovereignty compliance.' }
+    ]
+  },
+
+  "public-sector": {
+    title: 'Public sector event mesh pattern',
+    description: 'Government agencies, smart city infrastructure, and citizen services exchange data through a secure, classified-aware event backbone.',
+    left: [
+      { id: 'agency', name: 'Agency systems', proto: 'JMS \u00B7 REST', flows: '\u2190 \u2192 citizen data, case events',
+        tip: { t: 'Government agency systems', d: 'Each agency publishes events about citizen interactions, case updates, and service delivery. Other agencies subscribe to relevant events without shared databases.', f: 'Publishes: citizen events, case updates, service delivery \u00B7 Subscribes: cross-agency notifications, policy changes' }},
+      { id: 'iot-city', name: 'Smart city IoT', proto: 'MQTT', flows: '\u2192 sensors, infrastructure telemetry',
+        tip: { t: 'Smart city sensors & IoT', d: 'Building sensors, traffic monitors, environmental sensors, and infrastructure equipment across thousands of locations publishing telemetry for real-time monitoring.', f: 'Publishes: sensor readings, equipment status, environmental data \u00B7 Subscribes: alert thresholds, configuration' }},
+      { id: 'legacy-gov', name: 'Legacy gateways', proto: 'JMS \u00B7 AMQP', flows: '\u2190 \u2192 bridged from IBM MQ',
+        tip: { t: 'Legacy gateway replacement', d: 'IBM MQ-based secure data exchange gateways replaced with HA event mesh. Eliminates non-HA single points of failure in mission-critical border and immigration systems.', f: 'Publishes: security events, immigration data \u00B7 Subscribes: border alerts, cross-agency feeds' }},
+      { id: 'sap-gov', name: 'SAP / asset mgmt', proto: 'SAP AEM', flows: '\u2190 \u2192 assets, work orders, finance',
+        tip: { t: 'SAP & asset management', d: 'SAP AEM for infrastructure asset management. Sensor events trigger maintenance work orders automatically. Transport and utilities asset platforms.', f: 'Publishes: asset master, work orders \u00B7 Subscribes: sensor events, inspection results' }}
+    ],
+    right: [
+      { id: 'citizen', name: 'Citizen services', proto: 'REST \u00B7 WebSocket', flows: '\u2190 \u2192 applications, notifications',
+        tip: { t: 'Digital citizen services', d: 'Real-time citizen service delivery: application status, benefit notifications, and lifecycle event processing (marriage, retirement, address change) across agencies in parallel.', f: 'Publishes: citizen applications, feedback \u00B7 Subscribes: service status, benefit updates' }},
+      { id: 'weather', name: 'Meteorological / WIS', proto: 'AMQP \u00B7 MQTT', flows: '\u2190 \u2192 weather data, forecasts',
+        tip: { t: 'Weather & environmental data', d: 'Next-generation WIS 2.0 weather data sharing replacing decades-old GTS systems. National weather services publishing meteorological data to aviation, agriculture, and disaster response.', f: 'Publishes: forecasts, warnings, observations \u00B7 Subscribes: global weather feeds, satellite data' }},
+      { id: 'defence', name: 'Defence / classified', proto: 'AMQP', flows: '\u2190 \u2192 secure, classified channels',
+        tip: { t: 'Defence & classified systems', d: 'Air-gapped event mesh for classified workloads. Data diode integration for cross-domain exchange. Security classification mapped to topic-based access control.', f: 'Publishes: classified events \u00B7 Subscribes: authorised feeds via security classification routing' }},
+      { id: 'analytics-gov', name: 'Analytics & reporting', proto: 'Kafka bridge', flows: '\u2190 events \u2192 dashboards, reports',
+        tip: { t: 'Government analytics', d: 'Citizen service events, infrastructure telemetry, and operational data streamed to analytics platforms for policy planning, performance monitoring, and reporting.', f: 'Publishes: insights, reports \u00B7 Subscribes: all operational and citizen events' }}
+    ],
+    deploy: [
+      { id: 'd-gov-dc', label: 'Government DC', sub: 'Sovereign \u00B7 classified', tip: 'On-premises in government-owned data centres. Air-gapped options for classified workloads. Full data sovereignty.' },
+      { id: 'd-gov-cloud', label: 'Government cloud', sub: 'GovCloud \u00B7 sovereign', tip: 'Government-approved cloud regions for citizen-facing services. Sovereign cloud for data residency requirements.' },
+      { id: 'd-gov-edge', label: 'Field / building', sub: 'IoT \u00B7 infrastructure', tip: 'Edge brokers at buildings, roads, and infrastructure sites for real-time sensor processing and local alerting.' }
+    ]
   }
+
 };
 
-// ============ JAPANESE FEATURES ============
 // Solace Explorer — Logos and Reference Architecture Data
 // Adds to the content layer alongside content.js
 
@@ -332,6 +519,37 @@ var LOGOS_JA = {
     { name: 'TSX', url: 'https://solace.com/company/customers/', style: 'font-size:20px;font-weight:800;letter-spacing:0.04em' },
     { name: 'AKUNA CAPITAL', url: 'https://solace.com/company/customers/', style: 'font-size:11px;font-weight:600;letter-spacing:0.04em;text-align:center;line-height:1.3' },
     { name: 'CIBC', url: 'https://solace.com/company/customers/', style: 'font-size:18px;font-weight:800;letter-spacing:0.04em' }
+  ],
+  exploring: [
+    { name: 'RBC CAPITAL MARKETS', url: 'https://solace.com/company/customers/rbc/', style: 'font-size:9px;font-weight:700;letter-spacing:0.04em;text-align:center;line-height:1.3' },
+    { name: 'DANONE', url: 'https://solace.com/company/customers/danone/', style: 'font-size:15px;font-weight:700;letter-spacing:0.06em' },
+    { name: 'BARCLAYS', url: 'https://solace.com/company/customers/', style: 'font-size:13px;font-weight:700;letter-spacing:0.08em' },
+    { name: 'EDEKA', url: 'https://solace.com/company/customers/', style: 'font-size:15px;font-weight:700;letter-spacing:0.08em' },
+    { name: 'AIRBUS', url: 'https://solace.com/company/customers/airbus/', style: 'font-size:17px;font-weight:700;letter-spacing:0.06em' },
+    { name: 'HEINEKEN', url: 'https://solace.com/company/customers/', style: 'font-size:13px;font-weight:700;letter-spacing:0.08em' },
+    { name: 'LSE', url: 'https://solace.com/company/customers/', style: 'font-size:20px;font-weight:800;letter-spacing:0.04em' },
+    { name: 'HORNBACH', url: 'https://solace.com/company/customers/', style: 'font-size:12px;font-weight:700;letter-spacing:0.06em' }
+  ],
+  energy: [
+    { name: 'DRAX POWER', url: 'https://solace.com/company/customers/', style: 'font-size:12px;font-weight:700;letter-spacing:0.06em' },
+    { name: 'NATURGY', url: 'https://solace.com/company/customers/', style: 'font-size:13px;font-weight:700;letter-spacing:0.06em' },
+    { name: 'MERCURIA', url: 'https://solace.com/company/customers/', style: 'font-size:13px;font-weight:700;letter-spacing:0.06em' },
+    { name: 'ENEXIS', url: 'https://solace.com/company/customers/', style: 'font-size:14px;font-weight:700;letter-spacing:0.06em' },
+    { name: 'FARYS', url: 'https://solace.com/company/customers/', style: 'font-size:16px;font-weight:700;letter-spacing:0.06em' }
+  ],
+  telecom: [
+    { name: 'BHARTI AIRTEL', url: 'https://solace.com/company/customers/', style: 'font-size:11px;font-weight:700;letter-spacing:0.04em;text-align:center;line-height:1.3' },
+    { name: 'JIO', url: 'https://solace.com/company/customers/', style: 'font-size:20px;font-weight:800;letter-spacing:0.04em' },
+    { name: 'XLSMART', url: 'https://solace.com/company/customers/', style: 'font-size:14px;font-weight:700;letter-spacing:0.06em' },
+    { name: 'TELEFONICA', url: 'https://solace.com/company/customers/', style: 'font-size:11px;font-weight:700;letter-spacing:0.04em' },
+    { name: 'TELUS', url: 'https://solace.com/company/customers/', style: 'font-size:16px;font-weight:700;letter-spacing:0.06em' }
+  ],
+  lifesciences: [
+    { name: 'KINSEED', url: 'https://solace.com/company/customers/', style: 'font-size:14px;font-weight:700;letter-spacing:0.06em' }
+  ],
+  "public-sector": [
+    { name: 'L3HARRIS', url: 'https://solace.com/company/customers/', style: 'font-size:14px;font-weight:700;letter-spacing:0.06em' },
+    { name: 'ESDC CANADA', url: 'https://solace.com/company/customers/', style: 'font-size:11px;font-weight:700;letter-spacing:0.04em;text-align:center;line-height:1.3' }
   ]
 };
 
@@ -342,7 +560,12 @@ var LOGO_EXTRA_COUNT_JA = {
   automotive: 20,
   "manufacturing-cpg": 30,
   retail: 40,
-  financial: 90
+  financial: 90,
+  exploring: 430,
+  energy: 20,
+  telecom: 10,
+  lifesciences: 15,
+  "public-sector": 25
 };
 
 var ARCHITECTURE_JA = {
@@ -554,5 +777,159 @@ var ARCHITECTURE_JA = {
       { id: 'd-cloud-fs', label: 'ハイパースケーラークラウド', sub: 'AWS \u00B7 Azure \u00B7 GCP', tip: 'デジタルバンキング、パートナー API、弾力的な分析ワークロード向けクラウドホストブローカー。グローバル運営のためのマルチリージョン。' },
       { id: 'd-colo', label: 'コロケーション', sub: '取引所近接', tip: '最小レイテンシの市場データと注文ルーティングのための取引所隣接コロケーション施設にブローカーを展開。' }
     ]
+
+  },
+
+  exploring: {
+    title: 'エンタープライズ・イベントメッシュパターン',
+    description: 'レガシーシステム、クラウドサービス、IoT、AI/ML パイプラインを企業全体で接続する統一イベントバックボーン。',
+    left: [
+      { id: 'erp-ex', name: 'SAP / ERP', proto: 'SAP AEM \u00B7 JMS', flows: '\u2190 \u2192 マスターデータ、注文、財務',
+        tip: { t: 'SAP / ERP システム', d: 'SAP AEM または ASAPIO で SAP をイベント対応に。マスターデータ、注文イベント、在庫移動が一度パブリッシュされ、すべてのコンシューマに届きます。', f: 'パブリッシュ：マスターデータ変更、注文イベント、在庫 \u00B7 サブスクライブ：確認、品質フィードバック' }},
+      { id: 'legacy-mw', name: 'レガシーミドルウェア', proto: 'JMS \u00B7 AMQP', flows: '\u2190 \u2192 TIBCO / IBM MQ からブリッジ',
+        tip: { t: 'レガシーミドルウェアブリッジ', d: '既存の TIBCO、IBM MQ、RabbitMQ、ActiveMQ アプリケーションがプロトコルブリッジ経由でネイティブ接続。アプリケーション書き換え不要。', f: 'パブリッシュ：レガシーアプリケーションイベント \u00B7 サブスクライブ：ネイティブプロトコル経由の新しいイベントストリーム' }},
+      { id: 'iot-ex', name: 'IoT・エッジデバイス', proto: 'MQTT', flows: '\u2192 テレメトリ、センサーデータ',
+        tip: { t: 'IoT・エッジデバイス', d: 'センサー、コネクテッドデバイス、エッジシステムが MQTT 経由でテレメトリをパブリッシュ。工場、車両、店舗からサブ秒レイテンシで大量取り込み。', f: 'パブリッシュ：テレメトリ、ステータス、アラート \u00B7 サブスクライブ：コマンド、設定、閾値' }},
+      { id: 'microservices', name: 'マイクロサービス', proto: 'REST \u00B7 WebSocket', flows: '\u2190 \u2192 ドメインイベント、コマンド',
+        tip: { t: 'クラウドネイティブ・マイクロサービス', d: 'イベント駆動型マイクロサービスがドメインイベントをパブリッシュ・サブスクライブ。サービス間の疎結合により独立したデプロイとスケーリングが可能。', f: 'パブリッシュ：ドメインイベント、状態変更 \u00B7 サブスクライブ：コマンド、他ドメインからのイベント' }}
+    ],
+    right: [
+      { id: 'analytics-ex', name: '分析・AI/ML', proto: 'Kafka ブリッジ', flows: '\u2190 イベント \u2192 予測、モデル',
+        tip: { t: '分析・AI/ML パイプライン', d: 'イベントストリームがデータレイク、ML 学習パイプライン、リアルタイム推論エンジンに供給。Kafka ブリッジでストリーミング分析の二重消費を実現。', f: 'パブリッシュ：予測、異常アラート、推薦 \u00B7 サブスクライブ：すべての運用イベントストリーム' }},
+      { id: 'crm-ex', name: 'CRM・デジタルチャネル', proto: 'REST \u00B7 WebSocket', flows: '\u2190 \u2192 顧客イベント、通知',
+        tip: { t: 'CRM・デジタルチャネル', d: 'Salesforce、モバイルアプリ、Web ポータル、顧客通知。顧客向けチャネルへのリアルタイムイベントプッシュと顧客アクションの消費。', f: 'パブリッシュ：顧客アクション、設定 \u00B7 サブスクライブ：注文更新、パーソナライズされたオファー、アラート' }},
+      { id: 'partners-ex', name: 'パートナー・API', proto: 'REST \u00B7 AMQP', flows: '\u2190 \u2192 B2B イベント、API ストリーム',
+        tip: { t: 'パートナー・API エコシステム', d: 'サプライヤー、ディストリビューター、テクノロジーパートナーがイベント駆動型 API で接続。新しいパートナーは既存イベントストリームにサブスクライブしてオンボード。', f: 'パブリッシュ：パートナーデータ、外部イベント \u00B7 サブスクライブ：注文、在庫、ステータス更新' }},
+      { id: 'eventportal', name: 'Event Portal', proto: 'ガバナンス', flows: '\u2190 カタログ、発見、管理',
+        tip: { t: 'Event Portal — ガバナンスと発見性', d: '企業全体のすべてのイベントをカタログ化。チームが新しい統合を構築するのではなく、既存イベントストリームを発見して再利用。', f: '提供：イベントカタログ、スキーマレジストリ、ライフサイクル管理、アクセス制御' }}
+    ],
+    deploy: [
+      { id: 'd-onprem-ex', label: 'オンプレミス', sub: 'データセンター \u00B7 レガシー', tip: 'データセンターのソフトウェアブローカーまたはハードウェアアプライアンス。レガシーシステムとレイテンシ重視のワークロードを接続。' },
+      { id: 'd-cloud-ex', label: 'ハイパースケーラークラウド', sub: 'AWS \u00B7 Azure \u00B7 GCP', tip: 'マイクロサービス、デジタルチャネル、分析、弾力的ワークロード向けクラウドホストブローカー。' },
+      { id: 'd-edge-ex', label: 'エッジ', sub: '工場 \u00B7 店舗 \u00B7 車両', tip: 'ローカル処理とストア・アンド・フォワードのためのエッジの軽量ブローカー。動的メッセージルーティングで広域メッシュに接続。' }
+    ]
+  },
+
+
+
+  energy: {
+    title: 'Energy & utilities event mesh pattern',
+    description: 'Field assets, grid operations, trading systems, and enterprise applications exchange telemetry, control signals, and business events bidirectionally.',
+    left: [
+      { id: 'scada', name: 'SCADA / OT systems', proto: 'JMS \u00B7 MQTT', flows: '\u2190 \u2192 grid control, equipment status',
+        tip: { t: 'SCADA & operational technology', d: 'Grid management, pipeline monitoring, and plant control systems. Legacy SCADA connected via JMS bridge, modern OT via MQTT.', f: 'Publishes: equipment status, alarms, measurements \u00B7 Subscribes: control signals, set points' }},
+      { id: 'smartmeter', name: 'Smart meters & IoT', proto: 'MQTT', flows: '\u2192 consumption, quality, status',
+        tip: { t: 'Smart meters & field IoT', d: 'Electricity, gas, and water smart meters publishing consumption and quality telemetry via MQTT at scale across the distribution network.', f: 'Publishes: consumption readings, quality metrics, tamper alerts \u00B7 Subscribes: firmware updates, configuration' }},
+      { id: 'erp-en', name: 'SAP / ERP', proto: 'SAP AEM', flows: '\u2190 \u2192 work orders, procurement, finance',
+        tip: { t: 'SAP / ERP integration', d: 'SAP AEM connects maintenance, procurement, and finance to operational triggers. Condition monitoring events automatically generate work orders in SAP.', f: 'Publishes: PO confirmations, asset master \u00B7 Subscribes: maintenance triggers, meter readings' }},
+      { id: 'trading-en', name: 'Energy trading', proto: 'Native \u00B7 REST', flows: '\u2190 \u2192 prices, positions, settlements',
+        tip: { t: 'Energy & commodities trading', d: 'Real-time price distribution and trade execution for electricity, gas, and commodities markets. Cross-venue synchronisation with microsecond latency.', f: 'Publishes: prices, executions, positions \u00B7 Subscribes: market data, risk limits' }}
+    ],
+    right: [
+      { id: 'grid-ops', name: 'Grid operations', proto: 'REST \u00B7 WebSocket', flows: '\u2190 \u2192 load balancing, dispatch',
+        tip: { t: 'Grid operations centre', d: 'Real-time dashboards for grid load balancing, generation dispatch, and outage management. WebSocket push for operator alerting.', f: 'Publishes: dispatch instructions, outage status \u00B7 Subscribes: generation data, demand signals, weather' }},
+      { id: 'analytics-en2', name: 'Analytics & AI', proto: 'Kafka bridge', flows: '\u2190 events \u2192 predictions',
+        tip: { t: 'Analytics & predictive models', d: 'Operational events streamed to data lakes for predictive maintenance, demand forecasting, and grid optimisation models.', f: 'Publishes: predictions, anomaly alerts \u00B7 Subscribes: all operational telemetry and trading events' }},
+      { id: 'customer-en', name: 'Customer portal', proto: 'REST \u00B7 WebSocket', flows: '\u2190 \u2192 billing, usage, self-service',
+        tip: { t: 'Customer self-service', d: 'Real-time usage dashboards, billing notifications, and self-service activation for customers. Event-driven meter-to-cash processing.', f: 'Publishes: customer actions, service requests \u00B7 Subscribes: usage data, billing events, outage notifications' }},
+      { id: 'regulatory', name: 'Regulatory reporting', proto: 'REST', flows: '\u2190 compliance events',
+        tip: { t: 'Regulatory & compliance', d: 'Automated regulatory reporting from operational event streams. Safety incident events, emissions data, and grid performance metrics for regulatory submission.', f: 'Publishes: compliance reports \u00B7 Subscribes: safety events, emissions data, grid metrics' }}
+    ],
+    deploy: [
+      { id: 'd-field', label: 'Field / substation', sub: 'Remote \u00B7 air-gapped', tip: 'Edge brokers at substations, treatment plants, and remote field sites. Store-and-forward for intermittent connectivity.' },
+      { id: 'd-cloud-en2', label: 'Hyperscaler cloud', sub: 'AWS \u00B7 Azure \u00B7 GCP', tip: 'Cloud-hosted brokers for customer portals, analytics, and partner connectivity. Multi-region for international operations.' },
+      { id: 'd-dc-en2', label: 'Data centre', sub: 'Control room \u00B7 trading', tip: 'On-premises brokers for grid control, SCADA connectivity, and energy trading. Hardware appliances for deterministic low latency.' }
+    ]
+  },
+
+  telecom: {
+    title: 'Telecommunications event mesh pattern',
+    description: 'BSS/OSS, network operations, customer platforms, and partner ecosystems exchange subscriber, service, and network events at telco scale.',
+    left: [
+      { id: 'bss', name: 'BSS / billing', proto: 'JMS \u00B7 REST', flows: '\u2190 \u2192 orders, billing, provisioning',
+        tip: { t: 'Business support systems', d: 'Order management, billing, rating, and provisioning. Each subscriber event publishes once and reaches all consuming systems — CRM, fulfilment, notifications.', f: 'Publishes: order events, billing records, provisioning requests \u00B7 Subscribes: network events, usage data' }},
+      { id: 'oss', name: 'OSS / network', proto: 'AMQP \u00B7 MQTT', flows: '\u2190 \u2192 faults, performance, config',
+        tip: { t: 'Operations support systems', d: 'Network fault management, performance monitoring, and configuration management. Real-time network events enable automated remediation and SLA monitoring.', f: 'Publishes: fault events, performance metrics \u00B7 Subscribes: configuration changes, remediation commands' }},
+      { id: 'legacy-bss', name: 'Legacy middleware', proto: 'JMS', flows: '\u2190 \u2192 bridged from TIBCO / WebMethods',
+        tip: { t: 'Legacy middleware bridge', d: 'Existing TIBCO EMS, WebMethods, and in-house messaging connected via JMS bridge. Incremental migration without disrupting live subscriber services.', f: 'Publishes: legacy system events \u00B7 Subscribes: new event streams via native protocol' }},
+      { id: 'iot-telco', name: 'IoT / 5G edge', proto: 'MQTT', flows: '\u2192 device telemetry, edge events',
+        tip: { t: 'IoT & 5G edge computing', d: 'Connected devices, vehicles, and smart infrastructure publishing telemetry via MQTT. Edge brokers at cell sites for local processing.', f: 'Publishes: device telemetry, location data \u00B7 Subscribes: commands, firmware updates, configuration' }}
+    ],
+    right: [
+      { id: 'crm-telco', name: 'CRM & customer 360', proto: 'REST \u00B7 WebSocket', flows: '\u2190 \u2192 profiles, interactions',
+        tip: { t: 'CRM & customer experience', d: 'Real-time customer 360 view updated from every touchpoint. Account changes propagate across all 67+ systems of record in under 10 seconds.', f: 'Publishes: customer actions, preferences \u00B7 Subscribes: account events, service changes, usage' }},
+      { id: 'partner-telco', name: 'Partner ecosystem', proto: 'REST \u00B7 AMQP', flows: '\u2190 \u2192 APIs, service events',
+        tip: { t: 'Partner & digital services', d: 'Open API framework for partner connectivity. Event-driven APIs enable rapid onboarding of digital service partners — days instead of months.', f: 'Publishes: service events, API notifications \u00B7 Subscribes: partner requests, content events' }},
+      { id: 'analytics-telco', name: 'Analytics & AI', proto: 'Kafka bridge', flows: '\u2190 events \u2192 insights',
+        tip: { t: 'Analytics & network intelligence', d: 'Network performance, subscriber behaviour, and usage events streamed to analytics platforms for network optimisation, churn prediction, and capacity planning.', f: 'Publishes: predictions, recommendations \u00B7 Subscribes: all network and subscriber events' }},
+      { id: 'notification', name: 'Notification engine', proto: 'WebSocket \u00B7 REST', flows: '\u2190 triggers \u2192 push notifications',
+        tip: { t: 'Notification & messaging', d: 'High-volume notification fan-out to millions of subscribers. Balance top-ups, service activations, promotional offers, and service disruption alerts.', f: 'Publishes: notifications, alerts \u00B7 Subscribes: account events, service triggers, promotional rules' }}
+    ],
+    deploy: [
+      { id: 'd-dc-telco', label: 'Data centre', sub: 'Core BSS/OSS', tip: 'Central brokers handling BSS/OSS integration, customer 360 replication, and notification fan-out to millions of subscribers.' },
+      { id: 'd-cloud-telco', label: 'Hyperscaler cloud', sub: 'AWS \u00B7 Azure \u00B7 GCP', tip: 'Cloud-hosted brokers for partner APIs, digital services, and elastic analytics workloads. Multi-cloud for customer flexibility.' },
+      { id: 'd-edge-telco', label: 'Edge / 5G', sub: 'Cell site \u00B7 MEC', tip: 'Edge brokers at cell sites for IoT ingestion, 5G MEC applications, and local processing with store-and-forward to central mesh.' }
+    ]
+  },
+
+  lifesciences: {
+    title: 'Life sciences & healthcare event mesh pattern',
+    description: 'Manufacturing, clinical systems, regulatory platforms, and patient-facing services exchange master data, quality events, and clinical data bidirectionally.',
+    left: [
+      { id: 'sap-pharma', name: 'SAP S/4HANA', proto: 'SAP AEM \u00B7 ASAPIO', flows: '\u2190 \u2192 master data, orders, production',
+        tip: { t: 'SAP ERP & master data', d: 'SAP S/4HANA migration is the primary Solace entry point in pharma. AEM and ASAPIO event-enable master data, production events, and HR lifecycle events.', f: 'Publishes: material master, production events, HR lifecycle \u00B7 Subscribes: quality feedback, regulatory changes' }},
+      { id: 'mes-pharma', name: 'Manufacturing / MES', proto: 'MQTT \u00B7 JMS', flows: '\u2190 \u2192 production, quality, batch',
+        tip: { t: 'Manufacturing execution', d: 'Clean-room manufacturing systems publishing production batch events, quality measurements, and equipment telemetry. GxP-validated data flows.', f: 'Publishes: batch records, quality events, equipment telemetry \u00B7 Subscribes: production orders, master data' }},
+      { id: 'clinical', name: 'Clinical systems', proto: 'REST \u00B7 AMQP', flows: '\u2190 \u2192 patient data, notifications',
+        tip: { t: 'Clinical data exchange', d: 'Healthcare platforms exchanging clinical data between care providers, laboratories, and health districts. Real-time notification replacing 6-9 month batch delays.', f: 'Publishes: clinical events, notifications \u00B7 Subscribes: patient data, lab results' }},
+      { id: 'devices', name: 'Medical devices', proto: 'MQTT', flows: '\u2192 telemetry, alerts',
+        tip: { t: 'Medical device telemetry', d: 'Hospital equipment and connected medical devices publishing telemetry for remote monitoring, predictive maintenance, and clinical alerting.', f: 'Publishes: device telemetry, alerts, status \u00B7 Subscribes: configuration, firmware updates' }}
+    ],
+    right: [
+      { id: 'veeva', name: 'Veeva / CRM', proto: 'REST', flows: '\u2190 \u2192 customer master, regulatory',
+        tip: { t: 'Veeva & commercial CRM', d: 'Customer master data from Veeva CRM published as events to downstream systems. Commercial operations integration for sales and regulatory.', f: 'Publishes: customer events, regulatory submissions \u00B7 Subscribes: product master, pricing' }},
+      { id: 'analytics-pharma', name: 'Snowflake / analytics', proto: 'Kafka bridge', flows: '\u2190 events \u2192 insights, reports',
+        tip: { t: 'Analytics & data lake', d: 'Manufacturing, clinical, and commercial events streamed to Snowflake for analytics, regulatory reporting, and ML models.', f: 'Publishes: predictions, quality insights \u00B7 Subscribes: all manufacturing and clinical events' }},
+      { id: 'regulatory-pharma', name: 'Regulatory / GxP', proto: 'REST \u00B7 JMS', flows: '\u2190 audit trails \u2192 submissions',
+        tip: { t: 'Regulatory & GxP compliance', d: 'Auditable event trails for every data flow. GxP-ready infrastructure for validated manufacturing processes and regulatory submission pipelines.', f: 'Publishes: compliance reports \u00B7 Subscribes: quality events, batch records, audit triggers' }},
+      { id: 'hr-pharma', name: 'SuccessFactors / HR', proto: 'SAP AEM', flows: '\u2190 \u2192 hire-to-retire events',
+        tip: { t: 'HR & employee lifecycle', d: 'SuccessFactors events for hiring, role changes, and departures flow to identity management, access control, and downstream systems.', f: 'Publishes: HR lifecycle events \u00B7 Subscribes: organisational changes, compliance triggers' }}
+    ],
+    deploy: [
+      { id: 'd-factory', label: 'Manufacturing', sub: 'Clean room \u00B7 plant', tip: 'On-premises brokers at manufacturing sites for GxP-validated event flows. Air-gapped options for regulated production environments.' },
+      { id: 'd-cloud-pharma', label: 'Hyperscaler cloud', sub: 'AWS \u00B7 Azure \u00B7 GCP', tip: 'Cloud-hosted brokers for commercial operations, analytics, and partner connectivity. Multi-region for global pharma operations.' },
+      { id: 'd-hospital', label: 'Hospital / edge', sub: 'Clinical \u00B7 device', tip: 'Edge brokers at hospital sites for clinical data exchange and medical device telemetry. Patient data sovereignty compliance.' }
+    ]
+  },
+
+  "public-sector": {
+    title: 'Public sector event mesh pattern',
+    description: 'Government agencies, smart city infrastructure, and citizen services exchange data through a secure, classified-aware event backbone.',
+    left: [
+      { id: 'agency', name: 'Agency systems', proto: 'JMS \u00B7 REST', flows: '\u2190 \u2192 citizen data, case events',
+        tip: { t: 'Government agency systems', d: 'Each agency publishes events about citizen interactions, case updates, and service delivery. Other agencies subscribe to relevant events without shared databases.', f: 'Publishes: citizen events, case updates, service delivery \u00B7 Subscribes: cross-agency notifications, policy changes' }},
+      { id: 'iot-city', name: 'Smart city IoT', proto: 'MQTT', flows: '\u2192 sensors, infrastructure telemetry',
+        tip: { t: 'Smart city sensors & IoT', d: 'Building sensors, traffic monitors, environmental sensors, and infrastructure equipment across thousands of locations publishing telemetry for real-time monitoring.', f: 'Publishes: sensor readings, equipment status, environmental data \u00B7 Subscribes: alert thresholds, configuration' }},
+      { id: 'legacy-gov', name: 'Legacy gateways', proto: 'JMS \u00B7 AMQP', flows: '\u2190 \u2192 bridged from IBM MQ',
+        tip: { t: 'Legacy gateway replacement', d: 'IBM MQ-based secure data exchange gateways replaced with HA event mesh. Eliminates non-HA single points of failure in mission-critical border and immigration systems.', f: 'Publishes: security events, immigration data \u00B7 Subscribes: border alerts, cross-agency feeds' }},
+      { id: 'sap-gov', name: 'SAP / asset mgmt', proto: 'SAP AEM', flows: '\u2190 \u2192 assets, work orders, finance',
+        tip: { t: 'SAP & asset management', d: 'SAP AEM for infrastructure asset management. Sensor events trigger maintenance work orders automatically. Transport and utilities asset platforms.', f: 'Publishes: asset master, work orders \u00B7 Subscribes: sensor events, inspection results' }}
+    ],
+    right: [
+      { id: 'citizen', name: 'Citizen services', proto: 'REST \u00B7 WebSocket', flows: '\u2190 \u2192 applications, notifications',
+        tip: { t: 'Digital citizen services', d: 'Real-time citizen service delivery: application status, benefit notifications, and lifecycle event processing (marriage, retirement, address change) across agencies in parallel.', f: 'Publishes: citizen applications, feedback \u00B7 Subscribes: service status, benefit updates' }},
+      { id: 'weather', name: 'Meteorological / WIS', proto: 'AMQP \u00B7 MQTT', flows: '\u2190 \u2192 weather data, forecasts',
+        tip: { t: 'Weather & environmental data', d: 'Next-generation WIS 2.0 weather data sharing replacing decades-old GTS systems. National weather services publishing meteorological data to aviation, agriculture, and disaster response.', f: 'Publishes: forecasts, warnings, observations \u00B7 Subscribes: global weather feeds, satellite data' }},
+      { id: 'defence', name: 'Defence / classified', proto: 'AMQP', flows: '\u2190 \u2192 secure, classified channels',
+        tip: { t: 'Defence & classified systems', d: 'Air-gapped event mesh for classified workloads. Data diode integration for cross-domain exchange. Security classification mapped to topic-based access control.', f: 'Publishes: classified events \u00B7 Subscribes: authorised feeds via security classification routing' }},
+      { id: 'analytics-gov', name: 'Analytics & reporting', proto: 'Kafka bridge', flows: '\u2190 events \u2192 dashboards, reports',
+        tip: { t: 'Government analytics', d: 'Citizen service events, infrastructure telemetry, and operational data streamed to analytics platforms for policy planning, performance monitoring, and reporting.', f: 'Publishes: insights, reports \u00B7 Subscribes: all operational and citizen events' }}
+    ],
+    deploy: [
+      { id: 'd-gov-dc', label: 'Government DC', sub: 'Sovereign \u00B7 classified', tip: 'On-premises in government-owned data centres. Air-gapped options for classified workloads. Full data sovereignty.' },
+      { id: 'd-gov-cloud', label: 'Government cloud', sub: 'GovCloud \u00B7 sovereign', tip: 'Government-approved cloud regions for citizen-facing services. Sovereign cloud for data residency requirements.' },
+      { id: 'd-gov-edge', label: 'Field / building', sub: 'IoT \u00B7 infrastructure', tip: 'Edge brokers at buildings, roads, and infrastructure sites for real-time sensor processing and local alerting.' }
+    ]
   }
+
 };
