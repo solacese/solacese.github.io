@@ -187,7 +187,7 @@
       cpg: 'consumer goods',
       lifesciences: 'healthcare & life sciences',
       "public-sector": "public sector",
-      exploring: 'your industry'
+      exploring: 'all industries'
     },
     ja: {
       aviation: '航空',
@@ -203,7 +203,7 @@
       cpg: '消費財',
       lifesciences: 'ヘルスケア',
       "public-sector": "公共セクター",
-      exploring: 'あなたの業界'
+      exploring: '全業界'
     }
   };
 
