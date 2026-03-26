@@ -450,13 +450,21 @@
     var sc = document.getElementById('storiesContainer');
     if (sc && content && content.stories) {
       sc.innerHTML = content.stories.map(function(story) {
+        var pill = story.subsector ? '<span class="story-subsector">' + story.subsector + '</span>' : '';
         return '<div class="story-card">' +
-          '<div class="story-headline">' + story.headline + '</div>' +
-          '<div class="story-outcome">' + story.outcome + '</div>' +
+          '<div class="story-header">' +
+            pill +
+            '<div class="story-headline">' + story.headline + '</div>' +
+          '</div>' +
           '<button class="story-expand" onclick="toggleStory(this)">' +
             s.readMore + ' <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>' +
           '</button>' +
-          '<div class="story-detail"><div class="story-detail-inner">' + story.detail + '</div></div>' +
+          '<div class="story-detail">' +
+            '<div class="story-detail-inner">' +
+              '<div class="story-outcome">' + story.outcome + '</div>' +
+              '<div class="story-detail-text">' + story.detail + '</div>' +
+            '</div>' +
+          '</div>' +
         '</div>';
       }).join('');
     } else if (sc) {
@@ -494,6 +502,7 @@
 
     renderArchitecture(industry);
     renderLogos(industry);
+    updateSectionNavLabels();
   }
 
   // ---- Architecture diagram rendering ----
@@ -656,11 +665,60 @@
   }
   window.switchPersona = switchPersona;
 
+  // ---- Section nav: scroll tracking + click to scroll ----
+  function initSectionNav() {
+    var navItems = document.querySelectorAll('.section-nav-item');
+    navItems.forEach(function(item) {
+      item.addEventListener('click', function(e) {
+        e.preventDefault();
+        var sectionId = item.getAttribute('data-section');
+        var section = document.getElementById(sectionId);
+        if (section) {
+          section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+
+    // Scroll spy — highlight active section
+    var resultScreen = document.getElementById('screen-result');
+    if (resultScreen) {
+      resultScreen.addEventListener('scroll', function() {
+        var sectionIds = ['valuesSection', 'storiesSection', 'logoSection', 'archSection', 'exploreSection'];
+        var scrollTop = resultScreen.scrollTop + 120;
+        var activeId = sectionIds[0];
+        sectionIds.forEach(function(id) {
+          var el = document.getElementById(id);
+          if (el && el.offsetTop <= scrollTop) { activeId = id; }
+        });
+        navItems.forEach(function(item) {
+          item.classList.toggle('active', item.getAttribute('data-section') === activeId);
+        });
+      });
+    }
+  }
+
+  // Update section nav labels for language
+  function updateSectionNavLabels() {
+    var s = STRINGS[LANG];
+    var labels = {
+      'nav-values': s.whySolace || 'Values',
+      'nav-stories': s.fromOrgs || 'Stories',
+      'nav-customers': s.logoSectionTitle || 'Customers',
+      'nav-architecture': s.refArch || 'Architecture',
+      'nav-explore': s.exploreFurther || 'Explore'
+    };
+    Object.keys(labels).forEach(function(id) {
+      var el = document.getElementById(id);
+      if (el) el.textContent = labels[id];
+    });
+  }
+
   // ---- Init ----
   var welcomeScreen = document.getElementById('screen-welcome');
   if (welcomeScreen) {
     renderStaticStrings();
     updateNav();
+    initSectionNav();
   }
 
   // Handle URL params

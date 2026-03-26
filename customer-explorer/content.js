@@ -4,6 +4,7 @@ const CONTENT_EN = {
 stories: [
   {
     id: 'av1',
+    subsector: 'Air Traffic Management',
     technology: {
       headline: 'A pan-European air traffic organisation replaced legacy messaging to connect 40+ national agencies in real time',
       outcome: 'By deploying an event-driven backbone using open standards like AMQP, this organisation now manages real-time flight schedules and aviation data across dozens of national air traffic control agencies — continuously calculating optimal flight path adjustments as conditions change.',
@@ -27,6 +28,7 @@ stories: [
   },
   {
     id: 'av2',
+    subsector: 'Airlines',
     technology: {
       headline: 'A major airline migrated 100+ legacy messaging instances to the cloud — eliminating the outages that had grounded flights',
       outcome: 'Facing failed DR testing and legacy TIBCO and IBM MQ systems that were not cloud-ready, this airline deployed event brokers on-premise and in the cloud, connected via event mesh. The result: zero message loss across regions and a clear migration path away from vendor lock-in.',
@@ -50,6 +52,7 @@ stories: [
   },
   {
     id: 'av3',
+    subsector: 'Airports & Ground Infrastructure',
     technology: {
       headline: 'Asia-Pacific airports replaced siloed legacy systems with a unified event platform — accelerating new service rollout across terminals',
       outcome: 'Multiple airports across the region were running siloed IBM middleware with file-based and point-to-point integrations. By moving to a unified event platform, they broke down data silos across terminals and dramatically reduced the time to deploy new services.',
@@ -69,6 +72,55 @@ stories: [
       headline: 'Airport integration modernisation: iPaaS + event broker pattern replacing IBM middleware, with developer portal for partner self-service',
       outcome: 'The architecture pairs an iPaaS layer (API orchestration, transformations) with PubSub+ (async event distribution, queueing, guaranteed delivery). Events are published once and consumed by any system — flight info, baggage handling, ground ops, and external partners all subscribe to the same data streams.',
       detail: 'On-premise appliances handle latency-sensitive ground ops (fuelling, de-icing, runway handling). The developer portal enables partner self-service. Protocol support includes AMQP, REST, and MQTT — the last being critical for IoT sensors and ground equipment. One airport is using the platform as the SWIM backbone for drone UTM integration.'
+    }
+  }
+,
+  {
+    id: 'av4',
+    subsector: 'Aerospace & Defence',
+    technology: {
+      headline: 'Aerospace manufacturers connected MRO systems, supply chain compliance, and factory IoT through an event mesh — enabling real-time visibility across global production programmes',
+      outcome: 'Aerospace manufacturing involves complex multi-tier supply chains with strict compliance requirements. The event mesh connects MRO (maintenance, repair, overhaul) systems, factory IoT sensors, and supply chain compliance tracking in real time across multiple production sites globally.',
+      detail: 'Defence and aerospace companies operate in environments where data integrity and traceability are non-negotiable. Safety-critical data distribution requires guaranteed delivery with full audit trails. The event mesh handles both the high-volume telemetry from factory IoT and the lower-volume but mission-critical compliance events through a single infrastructure.'
+    },
+    integration: {
+      headline: 'Aerospace integration teams connected SAP, MES, and supply chain compliance systems through event-driven architecture — replacing batch-driven production reporting',
+      outcome: 'Production data from MES, quality events from inspection systems, and supply chain compliance signals from tier-1 and tier-2 suppliers all flow through the event mesh. SAP integration handles procurement and MRO workflows triggered by operational events.',
+      detail: 'The integration challenge in aerospace is multi-party: OEMs, engine manufacturers, component suppliers, and MRO providers all need to exchange data in near real time. The event mesh provides a shared infrastructure where each party publishes and subscribes to relevant event topics without custom point-to-point integrations per relationship.'
+    },
+    business: {
+      headline: 'Aerospace companies that can trace every component from supplier to aircraft in real time reduce compliance risk and accelerate production programmes',
+      outcome: 'Regulatory compliance in aerospace requires end-to-end traceability. Batch-based reporting creates gaps where non-compliant components could enter production undetected. Real-time event flows from suppliers through manufacturing to assembly ensure compliance is continuous, not periodic.',
+      detail: 'The business impact extends beyond compliance: real-time production visibility enables better capacity planning, reduces work-in-progress inventory, and accelerates time-to-delivery for aircraft programmes that can span years. Every day saved in the production cycle has significant financial value.'
+    },
+    architect: {
+      headline: 'Aerospace event mesh: factory IoT via MQTT, SAP AEM for MRO and procurement, supply chain compliance events, multi-site production visibility',
+      outcome: 'MQTT for factory IoT sensor ingestion. SAP AEM for MRO and procurement event flows. REST APIs for supplier compliance data exchange. Multi-site mesh connecting production facilities, assembly lines, and MRO centres globally. Guaranteed delivery with full audit trail for safety-critical events.',
+      detail: 'Key patterns: multi-party event exchange between OEMs and suppliers; factory IoT for production monitoring; SAP integration for MRO lifecycle events; compliance event streaming with guaranteed delivery and audit; multi-site mesh spanning production facilities across countries; edge deployment at factory locations for local processing.'
+    }
+  },
+  {
+    id: 'av5',
+    subsector: 'Aviation Technology',
+    technology: {
+      headline: 'Aviation technology providers built event-driven platforms for passenger servicing, crew management, and disruption handling — connecting airlines, airports, and ground handlers',
+      outcome: 'Aviation technology platforms serve as the connective tissue between airlines, airports, and ground handling companies. Event-driven architecture enables real-time passenger rebooking during disruptions, crew scheduling updates, and baggage tracking across the entire journey — from check-in to arrival.',
+      detail: 'The aviation ecosystem requires real-time coordination between dozens of independent systems and organisations. A flight delay triggers cascading events: passenger rebooking, crew reassignment, gate changes, baggage re-routing, catering adjustments, and fuel recalculation. The event mesh handles this cascade in real time rather than through sequential batch updates.'
+    },
+    integration: {
+      headline: 'Aviation platform providers replaced legacy TIBCO and IBM MQ integrations with event mesh — connecting departure control, crew management, and passenger servicing systems',
+      outcome: 'Legacy messaging platforms (TIBCO, IBM MQ) could not handle the volume and complexity of modern airline operations. The event mesh connects departure control systems, crew management, loyalty platforms, and passenger servicing through a single backbone with multi-protocol support.',
+      detail: 'Integration patterns: IATA standard messaging for inter-airline and airport communication; JMS bridge for legacy airline systems; REST/WebSocket for modern passenger-facing applications; MQTT for IoT devices (self-service kiosks, bag tags, beacons). The event mesh normalises these diverse protocols into a unified event layer.'
+    },
+    business: {
+      headline: 'When a flight is disrupted, every minute of delay in rebooking costs passenger satisfaction and revenue — event-driven platforms reduce disruption response from hours to minutes',
+      outcome: 'Flight disruptions are inevitable. The competitive differentiator is how quickly an airline can respond: rebook passengers, reassign crew, update connections, and notify travellers. Airlines using event-driven platforms recover from disruptions faster, retain more passengers, and reduce compensation costs.',
+      detail: 'Beyond disruption handling, real-time event flows enable personalised passenger experiences: lounge access offers triggered by delay events, meal preferences flowing to catering, and loyalty tier recognition at every touchpoint. The passenger experience becomes proactive rather than reactive.'
+    },
+    architect: {
+      headline: 'Aviation platform architecture: departure control events, crew scheduling, passenger rebooking, loyalty integration — multi-protocol mesh connecting airlines, airports, and handlers',
+      outcome: 'Event mesh connecting airline host systems, departure control, crew management, loyalty platforms, airport operational databases, and ground handler systems. IATA standard messaging alongside proprietary protocols. Multi-site deployment across airline hubs with cross-site event routing for connecting passenger journeys.',
+      detail: 'Key patterns: disruption cascade management (one delay event triggers parallel rebooking, crew, gate, baggage, catering events); IATA Type B messaging bridge for legacy airline systems; multi-tenant architecture for platform providers serving multiple airlines; real-time loyalty event streaming; WebSocket push for passenger notifications; edge deployment at airport locations.'
     }
   }
 ],
@@ -130,6 +182,7 @@ links: {
 stories: [
   {
     id: 'lo1',
+    subsector: 'Ports & Maritime',
     technology: {
       headline: "The world's largest fully automated port runs its entire crane and vehicle fleet on an event-driven messaging backbone",
       outcome: "At a brand-new automated port, event brokers serve as the messaging backbone between applications, automated guided vehicles, yard cranes, and quay cranes \u2014 all communicating in real time within strict latency budgets over a private 5G network.",
@@ -153,6 +206,7 @@ stories: [
   },
   {
     id: 'lo2',
+    subsector: 'Shipping & Supply Chain',
     technology: {
       headline: "A global shipping line event-enabled its master data \u2014 delivering instant booking confirmations and real-time container tracking",
       outcome: "By event-enabling MDM and source systems, this shipping company now instantly confirms booking allocations and notifies logistics partners of value-add services purchased during shipment.",
@@ -176,6 +230,7 @@ stories: [
   },
   {
     id: 'lo3',
+    subsector: 'Freight & Logistics',
     technology: {
       headline: "Freight and logistics companies replaced legacy middleware with hybrid integration platforms \u2014 unifying tracking and warehouse systems",
       outcome: "Multiple logistics companies migrated from Oracle SOA, database-embedded business logic, and on-premise queuing to modern hybrid architectures. Common theme: real-time freight tracking, unified visibility, and a path to cloud.",
@@ -195,6 +250,55 @@ stories: [
       headline: "Hybrid integration for logistics: Boomi + Solace with CDC, Kafka bridge, and Snowflake analytics",
       outcome: "iPaaS (Boomi) for sync orchestration, PubSub+ for async. CDC from source systems feeds both operational consumers and analytics via Kafka bridge to Snowflake. On-prem to Azure hybrid.",
       detail: "Pub/sub and request/reply patterns, IoT telemetry ingestion, topic filtering for dynamic routing. Supports both sync API and async event patterns \u2014 critical where some interactions need guaranteed request/reply and others are fire-and-forget."
+    }
+  }
+,
+  {
+    id: 'lo4',
+    subsector: 'Last-Mile Delivery',
+    technology: {
+      headline: 'A logistics company connected driver apps, route optimisation, and proof-of-delivery systems through event-driven architecture — closing the visibility gap in the final leg of delivery',
+      outcome: 'Last-mile delivery is where logistics meets the customer. Driver apps publish location updates, delivery confirmations, and exception events via MQTT. Route optimisation systems consume these events and publish dynamic re-routing instructions. Customers receive real-time delivery tracking without polling.',
+      detail: 'The last-mile challenge is scale and variability: thousands of drivers, millions of parcels, and constantly changing conditions (traffic, weather, customer availability). Event-driven architecture handles this dynamism — every delivery attempt, every status change, every exception publishes as an event that triggers immediate downstream actions rather than waiting for batch sync.'
+    },
+    integration: {
+      headline: 'Last-mile integration teams connected driver mobile apps, warehouse dispatch, route engines, and customer notification systems through a single event backbone',
+      outcome: 'The integration spans warehouse (dispatch events), fleet (driver location and status), route engine (optimisation instructions), and customer (tracking and notification). Each system publishes and subscribes to relevant events. New delivery partners onboard by subscribing to existing event topics.',
+      detail: 'Key integration patterns: MQTT for driver app telemetry (location, battery, connectivity status); REST for warehouse dispatch events; WebSocket for real-time customer tracking; Kafka bridge for analytics (delivery time prediction, route optimisation ML models). The event mesh handles the bidirectional flow between dispatch and field operations.'
+    },
+    business: {
+      headline: 'Customers expect real-time delivery tracking and accurate ETAs — event-driven last-mile logistics delivers both while reducing failed delivery attempts',
+      outcome: 'Failed deliveries are expensive: return logistics, re-delivery attempts, and customer dissatisfaction. Real-time events enable proactive communication — customers know exactly when their delivery will arrive and can reschedule before a failed attempt occurs. Delivery success rates improve while operational costs decrease.',
+      detail: 'The competitive advantage in last-mile is visibility: logistics providers that offer real-time tracking, accurate ETAs, and proactive exception handling win contracts over those that cannot. Event-driven architecture provides this visibility as a platform capability, not a per-customer integration project.'
+    },
+    architect: {
+      headline: 'Last-mile event mesh: MQTT from driver apps, dispatch events from warehouse, dynamic routing, WebSocket customer tracking, and ML-based ETA prediction',
+      outcome: 'MQTT for high-volume driver telemetry ingestion. Event mesh routes location updates to customer tracking (WebSocket), route optimisation (REST), and analytics (Kafka bridge). Dispatch events from warehouse management trigger driver assignment. Proof-of-delivery events close the loop back to order management and customer notification.',
+      detail: 'Key patterns: massive fan-in from thousands of driver devices via MQTT; real-time ETA calculation consuming driver location + traffic + delivery queue events; customer tracking via WebSocket push (no polling); exception handling events triggering automated customer notification and re-routing; Kafka bridge for delivery analytics and ML model training.'
+    }
+  },
+  {
+    id: 'lo5',
+    subsector: 'Postal & Parcel',
+    technology: {
+      headline: 'National postal operators modernised their integration infrastructure with event-driven architecture — connecting sorting centres, delivery networks, and customs across millions of parcels daily',
+      outcome: 'National postal operators handle millions of parcels daily through complex networks of sorting centres, depots, and delivery routes. Event-driven architecture replaced batch-based tracking with real-time visibility across the entire network — from acceptance through sorting to last-mile delivery.',
+      detail: 'The postal transformation extends beyond parcel tracking: modern postal operators are becoming logistics platforms, competing with private carriers on speed and visibility. Event-driven architecture enables the real-time data flows that this transformation requires — connecting legacy sorting infrastructure with modern digital services.'
+    },
+    integration: {
+      headline: 'Postal integration teams connected legacy sorting machines, modern scanning systems, and digital customer platforms through event mesh — bridging decades-old infrastructure with cloud services',
+      outcome: 'The integration challenge in postal is bridging legacy infrastructure (sorting machines, conveyor systems, legacy tracking databases) with modern expectations (real-time tracking, API access for eCommerce platforms, customs pre-clearance). The event mesh provides the protocol bridge between industrial OT and digital IT.',
+      detail: 'Key integration patterns: JMS bridge for legacy sorting machine events; MQTT for modern scanning devices and IoT sensors; REST for eCommerce platform integration; cross-border event exchange for international parcels; SAP integration for finance and procurement. The event mesh handles the diversity of protocols and systems that postal networks accumulate over decades.'
+    },
+    business: {
+      headline: 'National postal operators competing with private carriers need real-time parcel tracking and eCommerce integration — event-driven architecture closes the capability gap',
+      outcome: 'eCommerce platforms choose carriers based on tracking visibility, delivery speed, and API integration. National postal operators that cannot offer real-time tracking lose volume to private carriers. Event-driven architecture provides the real-time visibility and API capability that eCommerce demands.',
+      detail: 'The revenue model for postal operators is shifting from universal service to competitive logistics. Real-time event infrastructure enables premium services (guaranteed delivery windows, proactive notifications) that command higher margins while improving the base service for standard parcels.'
+    },
+    architect: {
+      headline: 'Postal event mesh: legacy sorting machines via JMS, modern scanners via MQTT, eCommerce APIs via REST, cross-border customs exchange, and real-time tracking',
+      outcome: 'Multi-protocol mesh bridging legacy sorting infrastructure (JMS) with modern scanning and IoT (MQTT). eCommerce platforms integrate via REST APIs. Cross-border event exchange for international parcel tracking and customs pre-clearance. Real-time tracking events pushed to customer platforms via WebSocket.',
+      detail: 'Key patterns: high-volume event ingestion from sorting centres (millions of scan events daily); protocol bridge between legacy and modern systems; cross-border mesh for international postal networks; eCommerce API integration for marketplace platforms; customs pre-clearance event flows; multi-site deployment across national sorting and depot infrastructure.'
     }
   }
 ],
@@ -253,6 +357,7 @@ links: {
 stories: [
   {
     id: 'ra1',
+    subsector: 'Rail Operations',
     technology: {
       headline: "A national railway runs 40+ real-time use cases on a single event platform \u2014 from driver info to tunnel supervision",
       outcome: "One of Europe's busiest rail operators uses event-driven messaging for 40+ use cases: train driver information, real-time position and speed, exception events, capacity planning, timetable management, shunting, and tunnel supervision.",
@@ -276,6 +381,7 @@ stories: [
   },
   {
     id: 'ra2',
+    subsector: 'Rail Infrastructure',
     technology: {
       headline: "Rail operators replaced TIBCO and Mosquitto with event-driven platforms \u2014 modernising ERP, telemetry, and ticketing",
       outcome: "Multiple operators replaced legacy messaging (TIBCO BW/EMS, Mosquitto) with modern event platforms. Use cases: ERP integration, employee certification tracking, locomotive telemetry, and passenger check-in/check-out processing.",
@@ -299,6 +405,7 @@ stories: [
   },
   {
     id: 'ra3',
+    subsector: 'Smart Trains & IoT',
     technology: {
       headline: "Next-generation smart trains connect to back-end systems via onboard sensors \u2014 a capability that did not exist before",
       outcome: "Rail operators deploying new rolling stock are building real-time connections between train sensors and HQ for the first time. The challenge: ingesting IoT data from multiple train suppliers into a unified analytics and operations platform.",
@@ -318,6 +425,55 @@ stories: [
       headline: "Connected trains: MQTT/REST from sensors, event broker ingestion, Kafka bridge to Azure data lake",
       outcome: "Onboard sensors connect via MQTT or REST to the event broker at HQ. Handles multi-supplier ingestion, normalises data, distributes to operations and analytics. Kafka bridge feeds Azure data lake.",
       detail: "Each train manufacturer delivers different IoT systems. The event broker abstracts diversity behind a consistent event model. ActiveMQ replaced for reliability. Boomi handles enterprise orchestration while Solace handles high-throughput sensor data."
+    }
+  }
+,
+  {
+    id: 'ra4',
+    subsector: 'Passenger Experience',
+    technology: {
+      headline: 'Rail operators connected passenger information, ticketing, and disruption management through event-driven architecture — delivering real-time updates across platforms, apps, and station displays',
+      outcome: 'Passenger information systems consume events from train operations (delays, cancellations, platform changes) and publish real-time updates to station displays, mobile apps, and journey planners simultaneously. When a disruption occurs, passengers receive immediate notification across every channel.',
+      detail: 'The passenger experience in rail depends on information accuracy and timeliness. Legacy batch-based passenger information meant delays between an operational event and the passenger being informed. Event-driven architecture closes this gap to seconds — a platform change publishes as an event and reaches every display, app, and announcement system simultaneously.'
+    },
+    integration: {
+      headline: 'Rail passenger systems integration: ticketing, journey planning, disruption alerts, and accessibility services connected through a single event backbone',
+      outcome: 'Ticketing systems, journey planners, disruption management, accessibility services, and retail/catering systems all connect through the event mesh. A train delay event triggers parallel updates to passenger information, connection protection, ticket validity extensions, and alternative transport arrangements.',
+      detail: 'Key integration patterns: operational events from traffic management consumed by passenger information systems; ticketing events for gate control and revenue management; accessibility events matching passenger needs with train and station facilities; retail events for on-board catering and station services; multi-operator event exchange for through-ticketing and connections.'
+    },
+    business: {
+      headline: 'Passengers who receive accurate, immediate disruption information trust the railway more — even when things go wrong, communication quality determines satisfaction',
+      outcome: 'Research consistently shows that passenger satisfaction during disruptions depends more on information quality than on the disruption itself. Rail operators that provide immediate, accurate, personalised disruption information retain passenger trust and loyalty even when services are delayed.',
+      detail: 'The business case extends to revenue: real-time ticketing events enable dynamic pricing, yield management, and promotional offers triggered by capacity availability. Connection protection (holding connecting services for delayed passengers) requires real-time event coordination between operators. Every improvement in passenger information quality reduces complaint handling costs.'
+    },
+    architect: {
+      headline: 'Rail passenger architecture: operational events driving real-time passenger information, multi-channel distribution via WebSocket, ticketing integration, and multi-operator event exchange',
+      outcome: 'Operational events from traffic management systems consumed by passenger information engines. Multi-channel distribution via WebSocket (apps), REST (journey planners), and direct feeds (station displays). Ticketing integration for gate control and revenue management. Multi-operator event exchange for through-ticketing.',
+      detail: 'Key patterns: event-driven passenger information replacing polled data feeds; multi-channel fan-out from single operational event to displays, apps, announcements; connection protection via cross-operator event sharing; dynamic pricing consuming capacity and demand events; accessibility matching consuming train composition and station facility events.'
+    }
+  },
+  {
+    id: 'ra5',
+    subsector: 'Rail Freight & Intermodal',
+    technology: {
+      headline: 'Rail freight operators connected intermodal terminals, wagon tracking, and customs systems through event-driven architecture — enabling real-time visibility across multi-modal supply chains',
+      outcome: 'Rail freight involves coordination between terminals, shippers, rail operators, and customs authorities. Event-driven architecture provides real-time wagon tracking, terminal operations events, and automated customs pre-clearance — replacing phone calls and manual status updates with automated event flows.',
+      detail: 'Intermodal freight (container transfers between rail, road, and sea) is particularly complex: each handover point is a potential visibility gap. The event mesh bridges these gaps by publishing container movement events at every stage — crane lifts, wagon assignments, departure, arrival, and customs clearance.'
+    },
+    integration: {
+      headline: 'Rail freight integration teams connected terminal management, wagon tracking, and cross-border customs through event mesh — replacing EDI batch with real-time event exchange',
+      outcome: 'Legacy EDI-based freight integration meant status updates were hours old by the time they reached shippers. The event mesh connects terminal operating systems, wagon tracking, train composition systems, and customs platforms in real time. Cross-border event exchange enables international freight visibility.',
+      detail: 'Key integration patterns: terminal operating system events for container movements; wagon tracking via IoT/GPS; train composition events for loading and departure; customs pre-clearance event flows; shipper notification via REST/WebSocket; SAP integration for freight billing and revenue management.'
+    },
+    business: {
+      headline: 'Rail freight operators competing with road transport need real-time tracking and reliable ETAs — event-driven visibility makes rail competitive for time-sensitive supply chains',
+      outcome: 'Rail freight loses volume to road transport when shippers cannot get real-time visibility. Event-driven tracking and ETA prediction make rail competitive for supply chains that previously required road transport for visibility reasons. The modal shift also supports sustainability targets.',
+      detail: 'The business case combines revenue growth (winning freight volumes from road), operational efficiency (better terminal utilisation through real-time coordination), and sustainability (supporting modal shift targets by making rail viable for more freight types). Real-time customs pre-clearance reduces border delays that make international rail freight uncompetitive.'
+    },
+    architect: {
+      headline: 'Rail freight event mesh: terminal operations, wagon IoT tracking, train composition events, cross-border customs exchange, and shipper notification via REST/WebSocket',
+      outcome: 'Terminal operating system events via JMS/REST. Wagon and container tracking via MQTT/IoT. Train composition and departure events from traffic management. Cross-border mesh for international freight customs exchange. Shipper portals consuming tracking events via WebSocket. SAP integration for freight billing.',
+      detail: 'Key patterns: intermodal handover events bridging rail, road, and maritime visibility; cross-border event mesh for international freight corridors; terminal optimisation from real-time container position events; customs pre-clearance automation; IoT tracking for wagon and container condition monitoring (temperature, shock, door status).'
     }
   }
 ],
@@ -376,6 +532,7 @@ links: {
 stories: [
   {
     id: 'au1',
+    subsector: 'Connected Vehicles',
     technology: {
       headline: "A global automaker streams telemetry between millions of connected cars and its customer app",
       outcome: "One of the world's most recognised premium automakers uses event-driven messaging to exchange telemetry between connected cars and its consumer mobile app. This was the original deployment and has expanded to procurement, production, and SAP migration.",
@@ -399,6 +556,7 @@ stories: [
   },
   {
     id: 'au2',
+    subsector: 'Automotive Services',
     technology: {
       headline: "A vehicle auction platform modernised its messaging across 200+ locations in 11 countries \u2014 after the vendor was acquired",
       outcome: "Operating real-time auctions across 200+ locations with 25,000+ concurrent connections, this company faced a forced migration when its messaging vendor was acquired. They replaced the decade-old system while maintaining sub-second bidding latency.",
@@ -422,6 +580,7 @@ stories: [
   },
   {
     id: 'au3',
+    subsector: 'Mobility Platforms',
     technology: {
       headline: "A car-sharing platform rebuilt its monolith with event-driven architecture \u2014 and a rental giant connected its entire reservation flow in real time",
       outcome: "A car-sharing startup replaced a vendor monolith with event-driven architecture for speed and scalability. Meanwhile, one of the world's largest rental companies connected its entire reservation, checkout, and return flow through real-time events.",
@@ -441,6 +600,55 @@ stories: [
       headline: "Mobility platform modernisation: COTS-to-EDA migration, real-time reservations, and future vehicle telemetry",
       outcome: "EDA replaces monolithic COTS. Reservations and fleet operations published as events. New features event-native, existing apps migrated incrementally. Future: MQTT vehicle telemetry.",
       detail: "Car-sharing rebuild demonstrates full EDA platform design. Rental company demonstrates incremental adoption. Architecture extends from business events to IoT events."
+    }
+  }
+,
+  {
+    id: 'au4',
+    subsector: 'EV & Powertrain',
+    technology: {
+      headline: 'Automotive manufacturers built event-driven platforms connecting EV battery management, charging infrastructure, and powertrain data — enabling real-time vehicle health monitoring at scale',
+      outcome: 'Electric vehicle manufacturers need real-time telemetry from battery management systems, charging sessions, and powertrain performance. The event mesh handles millions of vehicle-to-cloud events for battery health monitoring, charging optimisation, and over-the-air update coordination.',
+      detail: 'The EV transformation creates new data volumes that internal combustion vehicles never generated: every charging session, every battery cell temperature reading, every regenerative braking event. Event-driven architecture handles this volume while connecting vehicle data to manufacturing (warranty analytics), service (predictive maintenance), and energy grid (smart charging coordination).'
+    },
+    integration: {
+      headline: 'EV integration teams connected battery telemetry, charging networks, grid operators, and dealer management systems through a single event backbone',
+      outcome: 'The EV ecosystem requires integration between vehicle systems, charging infrastructure operators, energy grid operators, and dealer/service networks. The event mesh provides a single backbone where each participant publishes and subscribes to relevant events without point-to-point connections per relationship.',
+      detail: 'Key integration patterns: MQTT for vehicle telemetry (battery state, charging status, location); REST for charging network APIs; event-driven grid coordination for smart charging (load balancing, time-of-use optimisation); SAP integration for warranty claims and service scheduling; dealer management system updates via JMS.'
+    },
+    business: {
+      headline: 'EV manufacturers that monitor battery health in real time can predict failures before they occur — reducing warranty costs and improving customer confidence in electric vehicles',
+      outcome: 'Battery degradation is the primary concern for EV owners and the largest warranty exposure for manufacturers. Real-time battery health monitoring enables early intervention — software adjustments, proactive service appointments, or charging behaviour recommendations — before costly battery replacement is needed.',
+      detail: 'Beyond warranty cost reduction, real-time vehicle data enables new revenue streams: usage-based insurance partnerships, energy grid services (vehicle-to-grid), and predictive maintenance subscriptions. The event-driven platform transforms the vehicle from a product sold once to a connected service generating ongoing value.'
+    },
+    architect: {
+      headline: 'EV event mesh: MQTT from battery management systems, charging session events, grid coordination, OTA update distribution, and dealer integration',
+      outcome: 'MQTT for high-volume vehicle telemetry ingestion from millions of connected EVs. Event mesh routes battery health data to analytics (Kafka bridge), service alerts to dealer systems (JMS), and charging coordination to grid operators (REST). Over-the-air update distribution uses topic-based targeting by vehicle model, region, and software version.',
+      detail: 'Key patterns: massive fan-in from vehicle fleet via MQTT; battery analytics pipeline consuming real-time cell telemetry; smart charging coordination between vehicles, chargers, and grid operators; OTA update distribution with topic-based targeting; dealer notification for proactive service scheduling; cross-cloud deployment connecting vehicle cloud with enterprise cloud.'
+    }
+  },
+  {
+    id: 'au5',
+    subsector: 'Fleet & Dealer Management',
+    technology: {
+      headline: 'Automotive companies connected dealer management systems, fleet operations, and customer portals through event-driven architecture — replacing batch-driven inventory and service updates',
+      outcome: 'Dealer networks with hundreds or thousands of locations need real-time inventory visibility, service scheduling, and customer data synchronisation. The event mesh connects dealer management systems to central platforms, replacing overnight batch synchronisation with real-time event flows.',
+      detail: 'Fleet management adds another dimension: rental companies, leasing firms, and corporate fleet operators need real-time vehicle status, location, and maintenance data. The event mesh handles both the dealer network (B2B) and fleet operations (B2B2C) through a single infrastructure.'
+    },
+    integration: {
+      headline: 'Automotive integration teams connected dealer networks, fleet management platforms, and OEM systems through event mesh — replacing EDI and batch synchronisation',
+      outcome: 'Legacy dealer integration relied on EDI and overnight batch files for inventory, pricing, warranty claims, and service records. Event-driven architecture enables real-time bidirectional data flow between OEM central systems and hundreds of independently operated dealer locations.',
+      detail: 'Key integration patterns: vehicle inventory events from dealer to OEM (real-time stock visibility); pricing and incentive updates from OEM to dealer; warranty claim events triggering real-time approval workflows; service appointment scheduling consuming vehicle health data; fleet telematics integration for corporate and rental customers.'
+    },
+    business: {
+      headline: 'A vehicle auction platform modernised messaging across 200+ locations — while rental companies use real-time fleet events to maximise vehicle utilisation',
+      outcome: 'Vehicle auctions require real-time bidding, inventory updates, and transportation coordination across hundreds of locations. Rental companies need instant vehicle status to optimise fleet allocation. Both use cases demand reliable messaging at scale that legacy platforms could not provide.',
+      detail: 'The business case spans the automotive value chain: OEMs need real-time dealer inventory for production planning; dealers need current pricing and incentive data for customer interactions; fleet operators need vehicle health data for maintenance scheduling. In every case, batch delays create operational inefficiency and missed revenue opportunities.'
+    },
+    architect: {
+      headline: 'Automotive dealer and fleet architecture: hub-and-spoke from OEM to dealer locations, fleet telematics via MQTT, auction platform messaging, and SAP integration for warranty and finance',
+      outcome: 'Hub-and-spoke topology with central OEM brokers and dealer locations connecting as clients or via edge brokers. Fleet telematics via MQTT for vehicle location, health, and utilisation. Auction platform using event mesh for real-time bidding across 200+ locations. SAP integration for warranty claims, parts ordering, and financial settlements.',
+      detail: 'Key patterns: massive fan-out from OEM to dealer network (pricing, incentives, recalls); dealer-to-OEM event flow (inventory, sales, warranty claims); fleet telematics ingestion via MQTT; auction bidding events with guaranteed ordering; edge deployment at large dealer groups; multi-protocol support connecting legacy dealer systems (JMS, EDI bridge) with modern platforms (REST).'
     }
   }
 ],
@@ -502,8 +710,7 @@ links: {
 stories: [
   {
     id: 'mc1',
-    // Source: Danone (Cortex, 100+ factories, 300 DCs, Industry 5.0, named/public)
-    // + Unilever (Virtual Ocean Control Tower, 2000 vessels, SAP AEM)
+    subsector: 'Food & Beverage Manufacturing',
     technology: {
       headline: 'A global food producer connected 100+ factories and 300 distribution centres through a real-time event mesh \u2014 powering Industry 5.0 operations',
       outcome: 'Danone built \u201cCortex\u201d \u2014 a real-time, event-driven digital ecosystem that connects factories, warehouses, and enterprise systems. Real-time insights enable faster, data-driven decision-making across global operations.',
@@ -527,9 +734,7 @@ stories: [
   },
   {
     id: 'mc2',
-    // Source: P&G (MDM event-enabling, hybrid Azure/on-prem)
-    // + Heineken (700% order spike, Azure Service Bus failure, supply chain)
-    // + Campbell's (MDM + PLM replication, EDI)
+    subsector: 'Consumer Goods (FMCG)',
     technology: {
       headline: 'Global CPG companies event-enabled their master data \u2014 eliminating synchronisation failures that were costing hundreds of thousands per hour',
       outcome: 'Multiple CPG manufacturers replaced fragile request/reply MDM synchronisation with event-driven streaming. At one company, a 700% spike in orders caused the existing Azure Service Bus and iPaaS platform to duplicate and lose orders \u2014 costing hundreds of thousands of dollars per hour. Event-driven messaging eliminated these failures.',
@@ -553,10 +758,7 @@ stories: [
   },
   {
     id: 'mc3',
-    // Source: LG Chemical (MES modernisation, factory data ingestion)
-    // + Schaeffler (shopfloor-to-SAP via NATS bridge)
-    // + Dow Chemical (SAP ECC event-enabling, Azure, fragmented integration)
-    // + Bosch (Software AG UIM replacement, OT/IT, IoT Cloud)
+    subsector: 'Industrial Manufacturing',
     technology: {
       headline: 'Manufacturers modernised legacy factory systems \u2014 connecting shopfloors to SAP and cloud analytics in real time for the first time',
       outcome: 'Multiple manufacturers replaced legacy MES platforms, batch-driven integrations, and proprietary middleware with event-driven architectures. The common outcome: real-time data flowing from factory floors to enterprise systems and cloud analytics, enabling predictive maintenance and production optimisation.',
@@ -576,6 +778,55 @@ stories: [
       headline: 'Factory-to-cloud architecture: MES/SCADA via MQTT and NATS bridge to SAP AEM, with Kafka bridge to Azure data lake for analytics',
       outcome: 'Shopfloor systems connect via MQTT, native REST, or NATS bridge to the event broker. SAP AEM handles enterprise integration (master data distribution, work orders, procurement). Kafka bridge feeds Azure Data Lake and Databricks for manufacturing analytics. The architecture spans on-prem factory, corporate data centre, and cloud.',
       detail: 'Key patterns: file-to-event conversion for legacy edge systems, NATS bridge for shopfloor protocols, SAP event-enabling add-on for ECC/S4HANA, and CDC from multiple regional ERP instances. The three-tier deployment (factory edge, corporate DC, cloud) is connected via dynamic message routing. Each tier handles the workloads appropriate to its environment \u2014 low-latency OT at the edge, enterprise integration in the DC, elastic analytics in the cloud.'
+    }
+  }
+,
+  {
+    id: 'mc4',
+    subsector: 'Supply Chain & Distribution',
+    technology: {
+      headline: 'A global CPG company built a virtual ocean control tower using event-driven architecture — tracking 2,000 vessels from 100 carriers in real time across their sea freight logistics',
+      outcome: 'Sea freight logistics for large CPG companies involves thousands of vessels, hundreds of carriers, and millions of container movements. The virtual ocean control tower provides real-time visibility of each step in the sea freight supply chain — replacing batch-based tracking that was days behind actual vessel positions.',
+      detail: 'The supply chain use case extends beyond ocean freight: distribution centres (one company operates 300), warehouse management, demand sensing, and distributor integration all benefit from event-driven architecture. Real-time inventory signals from distribution centres enable demand-responsive replenishment rather than forecast-driven allocation.'
+    },
+    integration: {
+      headline: 'CPG supply chain teams connected carrier tracking, warehouse management, and demand planning through event mesh — with SAP AEM bridging ERP to logistics partners',
+      outcome: 'The integration challenge in CPG supply chain is multi-party: carriers, warehouses, distributors, and retailers all need to exchange data in near real time. SAP AEM bridges the ERP to logistics partners. The event mesh handles the variety of protocols and data formats across the supply chain ecosystem.',
+      detail: 'Key integration patterns: carrier tracking events from 100+ logistics partners; warehouse management events for inventory movements; SAP AEM for procurement, order management, and financial settlement; distributor integration for demand signals and order replenishment; cold chain monitoring for temperature-sensitive products.'
+    },
+    business: {
+      headline: 'When a CPG company cannot see where its products are in the supply chain, it over-stocks to compensate — real-time visibility eliminates this expensive safety buffer',
+      outcome: 'Supply chain invisibility drives excess inventory: if you cannot see where your products are, you hold more buffer stock to avoid stockouts. Real-time event flows from carriers, warehouses, and distributors provide the visibility that reduces safety stock while improving on-shelf availability.',
+      detail: 'The financial impact is significant: one company identified that real-time supply chain visibility across 300 distribution centres could reduce inventory holding costs by millions annually. Demand sensing — consuming real-time POS data from retailers — enables production scheduling that responds to actual demand rather than forecasts.'
+    },
+    architect: {
+      headline: 'CPG supply chain architecture: carrier tracking events, warehouse IoT, SAP AEM for ERP integration, demand sensing from retail POS, and virtual control tower analytics',
+      outcome: 'Multi-party event mesh connecting carriers (100+ logistics partners), warehouses (300 distribution centres), distributors, and retail POS. SAP AEM bridges ERP to supply chain. Kafka bridge feeds analytics platforms for demand forecasting and supply chain optimisation. Cold chain MQTT sensors for temperature monitoring.',
+      detail: 'Key patterns: multi-party event exchange with diverse protocol support per partner; SAP AEM for procurement and order-to-cash; virtual control tower consuming all supply chain events for real-time visibility; demand sensing from retail POS event streams; cold chain monitoring via MQTT; multi-region deployment for global supply chain operations.'
+    }
+  },
+  {
+    id: 'mc5',
+    subsector: 'Chemicals & Materials',
+    technology: {
+      headline: 'Chemical and materials companies event-enabled SAP to connect on-premises ERP with cloud analytics — bridging process monitoring, safety systems, and regulatory compliance in real time',
+      outcome: 'Chemical manufacturers need to bridge operational technology (process monitoring, safety systems, environmental sensors) with enterprise IT (SAP ERP, analytics, regulatory reporting). Event-driven architecture connects these worlds — a process alarm triggers both an immediate safety response and a compliance record simultaneously.',
+      detail: 'Multiple chemical companies use SAP AEM to connect SAP ECC and S/4HANA to cloud platforms: one connects on-premises ERP to Azure in real time; another bridges 11+ regional ERPs through event-driven integration. The chemicals industry faces unique regulatory and safety requirements that demand auditable, guaranteed event delivery.'
+    },
+    integration: {
+      headline: 'Chemical companies connected regional SAP instances, process control systems, and regulatory reporting through event mesh — replacing fragmented, batch-driven compliance',
+      outcome: 'Large chemical companies often operate multiple regional ERP instances that need to share data for consolidated reporting, global procurement, and regulatory compliance. The event mesh connects these instances in real time, replacing overnight batch consolidation.',
+      detail: 'Key integration patterns: SAP AEM connecting multiple regional ERP instances; process control events from DCS/SCADA bridged to enterprise IT; safety and environmental events with guaranteed delivery and audit trails; regulatory reporting consuming operational event streams; quality management events linking lab systems to production and SAP.'
+    },
+    business: {
+      headline: 'Chemical companies operating across 11+ regional ERPs needed real-time data consolidation — batch processing created compliance gaps and delayed business decisions',
+      outcome: 'Regional ERP fragmentation is common in chemicals: each plant or region operates its own SAP instance. Batch consolidation means headquarters sees yesterday\'s data. Event-driven integration provides real-time visibility across all regions for procurement, compliance, and financial reporting.',
+      detail: 'The safety dimension is critical: environmental incidents, process deviations, and safety events must be reported in real time — both internally for immediate response and externally for regulatory compliance. Batch-based reporting creates windows where non-compliance goes undetected.'
+    },
+    architect: {
+      headline: 'Chemicals event mesh: multi-instance SAP AEM connecting regional ERPs, process control events via OPC-UA/MQTT bridge, safety-critical event streaming, and regulatory reporting',
+      outcome: 'SAP AEM connecting 11+ regional ERP instances for real-time data consolidation. OPC-UA and MQTT bridge for process control and safety system events. Guaranteed delivery for safety-critical and regulatory event streams. Cloud connectivity for analytics platforms (Azure, Snowflake). Multi-site mesh spanning production facilities globally.',
+      detail: 'Key patterns: multi-instance SAP integration via AEM; OT-to-IT bridge for process control events; safety-critical event streaming with guaranteed delivery and full audit; regulatory event archival and reporting; quality management events linking lab systems to SAP; multi-region deployment for chemical companies operating across continents.'
     }
   }
 ],
@@ -639,8 +890,7 @@ links: {
 stories: [
   {
     id: 'rt1',
-    // Source: EDEKA (6000 stores, master data to wireless devices), Schwarz/Lidl (US expansion, marketplace),
-    // IKEA (global event mesh, Alibaba T-Mall, 60% online growth), Menard (store-to-DC ActiveMQ bridge)
+    subsector: 'Grocery & Mass Market',
     technology: {
       headline: 'A European grocery chain streams real-time master data to wireless devices in 6,000 stores \u2014 keeping product, pricing, and promotions accurate everywhere',
       outcome: 'This high-end grocery retailer needed real-time master data distribution from data centres to every store. The event-driven architecture streams product information, pricing, and promotional data to wireless handheld devices across 6,000 locations \u2014 ensuring every store has accurate, up-to-date information.',
@@ -664,10 +914,7 @@ stories: [
   },
   {
     id: 'rt2',
-    // Source: Richemont (1000s factories/stores, global event mesh, luxury customer-centric model)
-    // + Harrods (\u00a325m excess inventory, supplier onboarding, priority 1 customer experience)
-    // + H&M (HMesh enterprise-wide integration, app domains, Kafka for analytics)
-    // + Deichmann (Europe largest shoe retailer, omnichannel EDA, Event Portal governance)
+    subsector: 'Luxury & Fashion',
     technology: {
       headline: 'A global luxury goods company deployed an event mesh across thousands of factories and stores \u2014 enabling precision manufacturing and personalised customer experiences',
       outcome: 'One of the world\u2019s largest luxury goods companies is transforming into a real-time, data-driven enterprise. The global event mesh facilitates the flow of information about events and transactions occurring across thousands of factories and stores, both physical and digital.',
@@ -691,28 +938,74 @@ stories: [
   },
   {
     id: 'rt3',
-    // Source: dmTECH (TIBCO EMS replacement, multi-cloud), Bunnings (BizTalk replacement, store-HQ real-time),
-    // Valvoline (WebMethods replacement, 1800 stores, command and control), Super Retail Group (MuleSoft limitations, volatile COVID sales)
-    // + PhotoSi (RabbitMQ replacement, cart abandonment from delivery uncertainty)
+    subsector: 'Omnichannel & BOPIS',
     technology: {
-      headline: 'Retailers replaced legacy middleware \u2014 TIBCO, BizTalk, WebMethods, RabbitMQ \u2014 with modern event brokers that scale to thousands of store connections',
-      outcome: 'Multiple retailers migrated away from legacy messaging platforms that could not scale or meet real-time requirements. One replaced TIBCO EMS to reduce TCO and enable multi-cloud deployment. Another replaced Microsoft BizTalk which could not scale for store-to-HQ real-time data exchange. A third replaced WebMethods to connect 1,800 store locations.',
-      detail: 'The migration drivers are remarkably consistent across retailers: legacy platforms that cannot handle the volume or speed modern retail demands, vendor lock-in limiting cloud adoption, and increasing maintenance costs with declining vendor support. The event mesh approach provides a migration path that preserves existing application investments while enabling new real-time capabilities.'
+      headline: 'A major retailer deployed 450+ event-driven flows to unify the customer experience across in-store, mobile, and online \u2014 enabling click-and-collect, ship-from-store, and real-time product traceability',
+      outcome: 'Disconnected supply and distribution systems caused unsold inventory and empty shelves. The retailer needed real-time data sharing between HQ, stores, and customer-facing apps. 450+ new event-driven flows unified the digital experience across all channels \u2014 in-store, mobile, and online.',
+      detail: 'Omnichannel is not just a customer-facing concept. Behind the scenes, it requires real-time coordination between inventory systems, order management, fulfilment, and logistics. Buy online pick up in store (BOPIS), ship-from-store, and endless aisle all depend on real-time inventory visibility across every location. The event mesh provides this by streaming inventory and order events to every channel simultaneously.'
     },
     integration: {
-      headline: 'Retail integration teams migrated from TIBCO, BizTalk, and WebMethods to event-driven platforms \u2014 without disrupting store operations',
-      outcome: 'The integration teams executed middleware replacements while stores continued operating. Multi-protocol support meant existing JMS applications connected without rewrites. At one retailer, the migration from a synchronous API-led approach (MuleSoft) to event-driven patterns was driven by volatile sales during COVID exposing the limitations of sync-only integration.',
-      detail: 'At one home improvement chain, the event broker replaced Microsoft BizTalk which was approaching end-of-support and could not meet real-time demands. At a rapid oil-change franchise, 1,800 stores connect as remote clients to central brokers, receiving master data, employee information, and command-and-control updates. A photo printing retailer replaced RabbitMQ which could not scale reliably during peak order periods.'
+      headline: 'Omnichannel integration teams connected in-store POS, eCommerce, mobile apps, and marketplace channels through a single event backbone \u2014 450+ event-driven flows replacing point-to-point connections',
+      outcome: 'The integration challenge: every channel (store POS, eCommerce, mobile app, marketplace, loyalty) needed real-time access to inventory, pricing, and customer data. Point-to-point connections between each pair of systems were fragile and slow. The event mesh provides a single backbone where every system publishes events and every channel subscribes.',
+      detail: 'Key integration patterns: inventory events publishing from warehouse and store systems, consumed by eCommerce (availability), mobile app (stock locator), and fulfilment (allocation); order events from any channel flowing to a single fulfilment engine; customer events from POS and digital channels feeding a unified loyalty platform. Real-time product traceability connects supplier, warehouse, and store for quality and recall management.'
     },
     business: {
-      headline: 'An online retailer was losing customers at checkout because their messaging platform could not guarantee delivery times \u2014 replacing it recovered the revenue',
-      outcome: 'Customers were abandoning their shopping carts because the retailer could not calculate or guarantee delivery times for printed photos during peak periods. The legacy RabbitMQ platform could not scale reliably. After replacing it with event-driven messaging, real-time delivery time calculation and predictable fulfilment recovered the lost revenue.',
-      detail: 'The pattern repeats across retail: legacy messaging limitations directly impacting revenue. At a major home improvement retailer, the integration platform was holding back digital transformation and brand reputation was at risk. At a car services franchise, store system updates and customer history lookups were unreliable. In every case, the business case for replacement was clear: the messaging platform had become a bottleneck for the business, not just for IT.'
+      headline: 'Customers expect to buy online and pick up in store within hours \u2014 retailers without real-time inventory visibility across every location cannot deliver this promise',
+      outcome: 'Click-and-collect, ship-from-store, and endless aisle all depend on one thing: knowing exactly what is in stock at every location in real time. Retailers with batch-driven inventory synchronisation cannot confidently promise same-day pickup because their stock data may be hours old. Event-driven inventory events close this gap.',
+      detail: 'The revenue impact of omnichannel is significant: retailers offering BOPIS capture sales that would otherwise go to competitors with faster fulfilment. Ship-from-store turns every location into a mini distribution centre, reducing delivery times and shipping costs. Endless aisle extends the product range beyond physical shelf space. All require the same foundation: real-time event flows between every channel and every location.'
     },
     architect: {
-      headline: 'Legacy middleware migration in retail: TIBCO EMS, BizTalk, WebMethods, and RabbitMQ replaced with event mesh spanning data centre, cloud, and 1,800+ store edge nodes',
-      outcome: 'The architecture pattern: central brokers in the data centre or cloud, with store locations connecting as clients or via edge brokers. Multi-protocol support (JMS for legacy, REST for modern, MQTT for IoT) enables incremental migration. Active-active DR for retailers where downtime means lost sales.',
-      detail: 'Key technical drivers: BizTalk end-of-support and inability to scale; TIBCO EMS TCO versus modern alternatives; WebMethods limitations in multi-cloud; RabbitMQ scaling failures under peak load. The replacement architecture typically pairs the event broker with existing iPaaS (MuleSoft, Boomi) for API orchestration, adding event streaming for use cases where sync-only integration was failing.'
+      headline: 'Omnichannel architecture: real-time inventory events across stores, warehouses, and channels \u2014 enabling BOPIS, ship-from-store, and unified fulfilment from a single event mesh',
+      outcome: 'Inventory events publish from every store and warehouse. Every channel (eCommerce, mobile, POS, marketplace) subscribes to real-time availability. Order events from any channel route to the optimal fulfilment location based on stock position and proximity. The event mesh handles the fan-out and routing that omnichannel requires.',
+      detail: 'Key patterns: inventory event publishing from store POS and warehouse management systems; topic-based routing by location, product category, and channel; unified order event stream from all channels to fulfilment; customer event aggregation from POS, digital, and loyalty for unified profiles; real-time product traceability from supplier through warehouse to store for quality management and recall.'
+    }
+  },
+  {
+    id: 'rt4',
+    subsector: 'Home Improvement & Trade',
+    technology: {
+      headline: 'Home improvement retailers deployed event brokers connecting store-level systems to central data centres \u2014 bridging ActiveMQ at the edge with enterprise messaging at HQ',
+      outcome: 'A home improvement chain with hundreds of stores uses event brokers in the data centre to handle message traffic from all locations. Store-level ActiveMQ instances bridge to the central mesh, providing reliable bidirectional communication between HQ and every store.',
+      detail: 'The B2B dimension is significant for home improvement: trade customers, contractors, and suppliers all need real-time ordering and availability data. Another retailer uses SAP AEM and Integration Suite to integrate S/4HANA with Salesforce for better customer experience. The event mesh handles both consumer-facing and trade-facing integration through a single backbone.'
+    },
+    integration: {
+      headline: 'Home improvement integration teams bridge store-level ActiveMQ to central event mesh \u2014 with SAP AEM connecting ERP to CRM for trade customer experience',
+      outcome: 'The integration pattern: central event brokers in the data centre, store-level ActiveMQ instances at the edge bridging via JMS. Master data, employee information, sales data, discounts, and command-and-control messages flow bidirectionally. SAP AEM connects S/4HANA to Salesforce for trade customer workflows.',
+      detail: 'Key integration use cases: master data distribution from HQ to stores; employee and discount information pushed to POS; sales transaction data lifted from stores to the data centre; command-and-control for store system updates; SAP-to-Salesforce integration for B2B trade ordering. The architecture solves the challenge of managing reliable messaging across hundreds of remote locations.'
+    },
+    business: {
+      headline: 'A home improvement chain serving trade and consumer customers needed reliable real-time messaging across hundreds of stores \u2014 the legacy platform could not scale',
+      outcome: 'Store operations depend on reliable data flow: pricing, inventory, employee schedules, and customer history must be current at every location. The previous platform created vulnerabilities. The event mesh provides reliable, scalable messaging that supports both the in-store consumer experience and the B2B trade ordering workflow.',
+      detail: 'For home improvement retailers with large B2B trade operations, integration speed directly impacts revenue: trade customers expect real-time availability and pricing. Delays or errors in order processing drive trade customers to competitors. The event mesh ensures trade and consumer channels both operate on current, accurate data.'
+    },
+    architect: {
+      headline: 'Home improvement edge-to-core: ActiveMQ at store level, Solace appliances in data centre, JMS bridge, SAP AEM for B2B trade integration',
+      outcome: 'Central Solace appliances in the data centre handle traffic from all stores. ActiveMQ at each store location bridges to the central mesh via JMS. Remote Java clients at stores connect for bidirectional messaging. SAP AEM bridges S/4HANA to Salesforce for trade customer workflows.',
+      detail: 'Key patterns: hub-and-spoke with central data centre brokers and store-level edge messaging; JMS bridge from ActiveMQ at stores; command-and-control pattern for store system updates; master data fan-out from HQ to hundreds of locations; customer history lookup from stores to central systems; SAP-to-Salesforce integration via AEM for B2B ordering.'
+    }
+  },
+  {
+    id: 'rt5',
+    subsector: 'Supply Chain & Demand Sensing',
+    technology: {
+      headline: 'Retailers are connecting POS transaction events, demand signals, and supplier systems in real time \u2014 enabling demand sensing that replaces forecast-driven replenishment with live signals',
+      outcome: 'Traditional retail replenishment relies on forecasts based on historical data. Demand sensing uses real-time POS transaction events, foot traffic data, weather, and local events to dynamically adjust replenishment. The event mesh streams these signals from stores to supply chain systems continuously.',
+      detail: 'The supply chain advantage compounds: real-time demand signals from thousands of stores feed supplier integration systems, enabling vendors to see actual consumption rather than periodic purchase orders. This reduces the bullwhip effect where small demand changes amplify into large swings across the supply chain.'
+    },
+    integration: {
+      headline: 'Supply chain integration teams connected POS transaction streams, warehouse management, and supplier portals through event mesh \u2014 replacing batch replenishment with demand-driven flows',
+      outcome: 'POS transaction events stream from stores to supply chain systems in real time. Warehouse management consumes demand signals for dynamic allocation. Supplier portals receive consumption-based replenishment triggers rather than periodic purchase orders. Kafka bridge feeds demand forecasting ML models.',
+      detail: 'Key integration patterns: POS event streaming from thousands of store locations; warehouse management integration for real-time stock allocation; supplier event exchange for consumption-based replenishment; perishables management with temperature and freshness event monitoring; Kafka bridge for demand forecasting and markdown optimisation models.'
+    },
+    business: {
+      headline: 'A grocery retailer reduced perishable waste by connecting real-time demand signals to supply chain replenishment \u2014 shelves stay stocked while spoilage drops',
+      outcome: 'Perishable goods are the highest-waste category in grocery retail. Forecast-driven replenishment either over-stocks (leading to spoilage) or under-stocks (leading to lost sales). Real-time demand sensing from POS events, combined with freshness monitoring, optimises replenishment to match actual consumption patterns.',
+      detail: 'The business case extends beyond perishables: real-time demand signals improve markdown timing (reducing clearance losses), promotional effectiveness (measuring sell-through in real time rather than next-day reports), and new product launches (adjusting distribution based on early sales signals). Retailers with demand sensing capabilities consistently outperform those relying on historical forecasts.'
+    },
+    architect: {
+      headline: 'Demand sensing architecture: POS event streaming from thousands of stores, Kafka bridge for ML demand models, supplier event exchange, and perishables monitoring via IoT',
+      outcome: 'POS systems publish transaction events via the event mesh. Kafka bridge feeds demand forecasting models in Snowflake or Databricks. Supplier portals consume demand signals via REST APIs. IoT sensors (temperature, humidity) monitor perishable conditions. The architecture enables both real-time operational decisions and ML-driven demand planning.',
+      detail: 'Key patterns: high-volume POS event ingestion from thousands of store locations; topic hierarchy by store, category, and product for granular demand signals; Kafka bridge for ML model training and real-time inference; supplier event exchange for consumption-based replenishment; IoT sensors for cold chain and freshness monitoring; edge processing at distribution centres for local replenishment decisions.'
     }
   }
 ],
@@ -776,10 +1069,7 @@ links: {
 stories: [
   {
     id: 'fs1',
-    // Source: RBC (118B msgs/day, 50+ appliances, global mesh, named/public)
-    // + JPMorgan (IDP market data, Nirvana replacement, multiple teams)
-    // + Citigroup (FX, equities, retail bank, credit cards, microservices)
-    // + Barclays (front/middle/back office integration)
+    subsector: 'Investment Banking & Trading',
     technology: {
       headline: 'A top-10 global investment bank streams 118 billion messages per day across 6 data centres \u2014 without a single message lost',
       outcome: 'This bank deployed over 50 event broker appliances in financial centres around the world, forming a global event mesh for their low-latency trading platform. The infrastructure handles over 118 billion messages daily across tens of thousands of application connections \u2014 completely seamlessly, with zero data loss.',
@@ -803,9 +1093,7 @@ stories: [
   },
   {
     id: 'fs2',
-    // Source: ANZ (NPP microservices, zero message loss), HDFC (digital interaction, 7+ day integration cycles)
-    // + IndusInd (ESB limitations, UPI 200 TPS failure), NETS (payment backbone, new provider onboarding)
-    // + Banco de Chile (REST/request-reply to EDA), HDI Seguros (lost client requests under load)
+    subsector: 'Retail Banking & Payments',
     technology: {
       headline: 'Retail banks and payment processors replaced fragile ESBs and batch systems with event-driven platforms \u2014 handling real-time payments at scale',
       outcome: 'Multiple banks and payment companies migrated from legacy ESBs, batch processes, and REST-only architectures to event-driven platforms. One bank adopted event-driven microservices to support a national payments mandate, with zero message loss as the top requirement. A payments network became the eventing backbone across all lines of business.',
@@ -829,10 +1117,7 @@ stories: [
   },
   {
     id: 'fs3',
-    // Source: KRX (Exture+ matching engine, DR replication, Exture 3.0)
-    // + BSE (market data distribution, broker barrier-to-entry reduction)
-    // + Finalto (ActiveMQ replacement, multi-site event mesh, FX pricing/trading)
-    // + FxPro (FX price distribution to mobile devices)
+    subsector: 'Exchanges & Trading Platforms',
     technology: {
       headline: 'Stock exchanges and trading platforms deployed event brokers at the core of their matching engines \u2014 distributing market data with microsecond precision',
       outcome: 'Multiple exchanges use Solace as critical infrastructure within their trading platforms. One deployed event brokers as part of its next-generation matching engine system, handling real-time disaster recovery replication. Another uses them to distribute market data to member brokers, lowering the technological barrier to entry for smaller firms.',
@@ -852,6 +1137,54 @@ stories: [
       headline: 'Exchange-grade architecture: event brokers in matching engine infrastructure, real-time DR replication, multi-site event mesh for FX and derivatives',
       outcome: 'Hardware appliances deployed within exchange matching engine infrastructure for deterministic low latency. Real-time DR replication ensures zero data loss. Multi-site event mesh connects primary, DR, and international trading venues. Market data fan-out to thousands of member connections.',
       detail: 'Key architectural patterns: appliances for latency-critical matching engine integration, software brokers for market data distribution to members, cross-site event mesh for multi-venue trading. The KRX Exture 3.0 next-generation system represents continuous adoption through multiple platform generations \u2014 from Exture+ in 2014 to the current system.'
+    }
+  },
+  {
+    id: 'fs4',
+    subsector: 'Asset Management',
+    technology: {
+      headline: 'Hedge funds and asset managers use Solace to stream internal model output, portfolio events, and risk signals across trading desks \u2014 with the low latency quantitative strategies demand',
+      outcome: 'Quantitative trading firms and multi-strategy hedge funds require event infrastructure that can handle massive information flows in an event-driven manner, even through peak volatility. The platform scales to accommodate growing data volumes while working alongside existing C++ and Python trading systems.',
+      detail: 'Asset managers are adopting Solace for use cases ranging from portfolio risk aggregation to AI-driven chatbots for advisor interfaces. One firm uses Solace to share internal model output across desks via topic-based distribution. The common requirement: deterministic low latency with guaranteed delivery for position and risk data.'
+    },
+    integration: {
+      headline: 'Asset management integration teams connect OMS, EMS, risk engines, and market data through a single event mesh \u2014 replacing fragmented messaging across the investment lifecycle',
+      outcome: 'The investment lifecycle involves order management, execution management, post-trade processing, risk calculation, and regulatory reporting \u2014 each historically running on different messaging infrastructure. The event mesh unifies these into a single backbone with topic-based routing.',
+      detail: 'Integration patterns: market data distribution from multiple sources normalised through the event mesh; order and execution events flowing between OMS and EMS; real-time position updates to risk engines; portfolio event streaming for P&L attribution; regulatory reporting consuming trade events. Multi-protocol support connects legacy FIX-based systems alongside modern REST APIs.'
+    },
+    business: {
+      headline: 'When markets spike, hedge funds need infrastructure that scales with volatility \u2014 not infrastructure that becomes the bottleneck',
+      outcome: 'Peak and volatile market conditions are exactly when trading infrastructure matters most. Legacy messaging that cannot scale during market events forces firms to throttle or queue \u2014 both unacceptable for time-sensitive strategies. Event mesh handles burst volumes without degradation.',
+      detail: 'The business case for asset managers is competitive edge: faster data distribution means better-informed trading decisions. Firms that can process more market signals in less time have an advantage. The event mesh also reduces operational risk \u2014 a messaging failure during volatile markets can result in significant losses.'
+    },
+    architect: {
+      headline: 'Asset management event mesh: low-latency model distribution, OMS/EMS integration, real-time risk aggregation, and market data normalisation',
+      outcome: 'Hardware appliances for latency-critical model distribution. Software brokers for risk aggregation and regulatory reporting. Topic-based routing ensures each desk receives only relevant signals. Multi-protocol support connects FIX, JMS, REST, and WebSocket consumers.',
+      detail: 'Key patterns: topic hierarchy by asset class, strategy, and desk for fine-grained distribution; shared subscriptions for load-balanced consumption across risk calculation nodes; hardware appliances in co-location for market data; software brokers in cloud for regulatory reporting and analytics; cross-site mesh between primary trading venue and DR site.'
+    }
+  },
+  {
+    id: 'fs5',
+    subsector: 'Insurance',
+    technology: {
+      headline: 'Insurance companies replaced batch-driven policy and claims processing with event-driven architecture \u2014 enabling real-time underwriting, instant notifications, and cloud migration',
+      outcome: 'Legacy batch-oriented workflows meant policy changes, claims updates, and customer notifications took hours or overnight. Event-driven architecture enables real-time processing: a claim event triggers assessment, notification, and reserve adjustment simultaneously rather than sequentially.',
+      detail: 'One insurer uses Solace to integrate all aspects of its product offerings, ensuring an optimal user experience for customers. Another uses it for on-premises to cloud integration and connectivity with their policy system provider. A global insurance arm of a major bank is building an event-driven exchange platform connecting operations across Latin America and internal cloud zones.'
+    },
+    integration: {
+      headline: 'Insurance integration teams are event-enabling policy systems, claims platforms, and underwriting engines \u2014 connecting on-premises legacy with cloud-hosted digital channels',
+      outcome: 'The insurance technology stack typically spans legacy policy administration (on-premises), modern claims platforms (cloud), underwriting engines, actuarial systems, and agent/broker portals. Event-driven architecture connects all of these without the fragile point-to-point integrations that break when any system changes.',
+      detail: 'Integration patterns: policy lifecycle events (new business, endorsements, renewals, cancellations) publishing from administration systems; claims events triggering parallel workflows (assessment, notification, reserve, recovery); real-time underwriting data from external enrichment sources; agent portal updates via WebSocket push. Hybrid deployment bridges on-premises policy systems with cloud-hosted digital channels.'
+    },
+    business: {
+      headline: 'Insurers that process claims in real time rather than overnight batches deliver faster payouts, better customer experience, and more accurate reserves',
+      outcome: 'Customer expectations in insurance have shifted: policyholders expect instant confirmation, real-time claims tracking, and proactive notifications. Batch processing creates delays that drive customer dissatisfaction and operational inefficiency. Event-driven processing closes the gap.',
+      detail: 'The business case extends to underwriting accuracy: real-time data from IoT devices, telematics, and external sources enables dynamic risk assessment rather than annual reviews. Insurers with real-time event infrastructure can offer usage-based and behaviour-based products that batch-oriented competitors cannot.'
+    },
+    architect: {
+      headline: 'Insurance event mesh: policy administration events, claims workflow orchestration, real-time underwriting, hybrid on-prem/cloud spanning legacy and digital channels',
+      outcome: 'On-premises policy administration systems publish lifecycle events via JMS bridge. Cloud-hosted claims platforms consume and publish via REST. Underwriting engines subscribe to enrichment data and publish risk assessments. Agent portals receive real-time updates via WebSocket. Event mesh spans on-premises and multiple cloud zones.',
+      detail: 'Key patterns: policy lifecycle event streaming replacing batch extracts; parallel claims processing (multiple consumers triggered simultaneously from one claim event); real-time underwriting enrichment from external data sources; hybrid deployment bridging legacy on-prem to cloud digital channels; multi-region deployment for international insurance operations spanning Latin America, EMEA, and APAC.'
     }
   }
 ],
@@ -914,10 +1247,7 @@ links: {
 stories: [
   {
     id: 'eu1',
-    // Source: Swissgrid (ActiveMQ replacement, grid notifications, equipment breakdown, voltage),
-    // Tampa Electric (BizTalk EOL 2028, 860K customers, storm surge volumes),
-    // Arizona Public Services (TIBCO EMS replacement + Boomi), Enexis (TIBCO EMS + Amazon MQ replacement),
-    // Farys (smart water IoT, real-time water quality monitoring via SAP AEM)
+    subsector: 'Grid & Utilities',
     technology: {
       headline: 'A national grid operator replaced ActiveMQ with an event mesh for real-time equipment alerts, voltage monitoring, and emergency notifications across the transmission network',
       outcome: 'The existing integration environment relied on point-to-point patterns combining APIs, file transfers, and ActiveMQ with MySQL persistence. This could not scale for the real-time notification use cases the grid requires: equipment breakdowns, unstable voltage, switch events, and emergencies. The event mesh provides the infrastructural communication layer for all of these.',
@@ -941,9 +1271,7 @@ stories: [
   },
   {
     id: 'eu2',
-    // Source: Mercuria (commodities trading London/Geneva), Second Foundation Tech (energy trading startup, HA, low-latency),
-    // Drax Power (Forest to Furnace, biomass supply chain, carbon neutral 2035, subsidy deadline 2027),
-    // Naturgy (natural gas activation portal, SAP AEM + Integration Suite)
+    subsector: 'Energy Trading & Renewables',
     technology: {
       headline: 'An energy trading firm streams commodities market data between trading centres in real time — while a renewables company optimises its entire biomass supply chain to meet carbon targets',
       outcome: 'A commodities trading house uses Solace to distribute and synchronise market data and trades between its London and Geneva trading centres. Separately, a major renewables company is using event-driven architecture to optimise its biomass supply chain from forest to furnace — aiming to halve production and transportation costs to become profitable without government subsidies.',
@@ -967,10 +1295,7 @@ stories: [
   },
   {
     id: 'eu3',
-    // Source: Baker Hughes (legacy IoT to cloud, equipment health monitoring, batch to real-time),
-    // Halliburton (condition-based maintenance via SAP AEM, OTC, equipment/personnel master),
-    // BHP (next-gen integration platform, IBM/Oracle Fusion replacement, real-time mining ops),
-    // Shell (S/4HANA mesh with Databricks/PowerBI, multi-broker mesh across BTP and customer-controlled regions)
+    subsector: 'Oil & Gas Services',
     technology: {
       headline: 'An oilfield services company moved equipment health monitoring from batch-based local data centres to real-time cloud analytics — enabling predictive maintenance across global operations',
       outcome: 'Legacy IoT infrastructure confined health monitoring to on-premises data centres with limited analytical capabilities. The system could only provide basic notifications and batch reporting. By moving to event-driven cloud architecture, the company enabled real-time time-series analysis of equipment health data across global operations — shifting from reactive to predictive maintenance.',
@@ -990,6 +1315,54 @@ stories: [
       headline: 'Industrial IoT event mesh: MQTT telemetry from field equipment to cloud analytics and SAP AEM for condition-based maintenance, spanning on-prem, BTP, and hyperscaler',
       outcome: 'The architecture spans three deployment zones: edge (field equipment, rigs, mine sites), customer-controlled regions (on-premises data centres, private cloud), and hyperscaler cloud (analytics, AI/ML). IoT telemetry published via MQTT at the edge flows through the event mesh to cloud-hosted analytics (Databricks, PowerBI, Azure Data Lake) and SAP for automated maintenance workflows.',
       detail: 'Key patterns: multi-broker mesh connecting SAP BTP brokers to customer-controlled brokers for data sovereignty; MQTT for high-volume equipment telemetry; SAP AEM for condition-based maintenance (sensor events trigger S/4HANA maintenance orders); CDC from S/4HANA to analytics platforms via event mesh; equipment master data distribution across global operations. The architecture must handle remote, high-latency environments (offshore rigs, remote mine sites) with store-and-forward capability.'
+    }
+  },
+  {
+    id: 'eu4',
+    subsector: 'Mining & Resources',
+    technology: {
+      headline: 'A global mining company replaced IBM and Oracle Fusion with a next-generation event-driven integration platform \u2014 enabling real-time digital transformation across pit-to-port operations',
+      outcome: 'The existing integration infrastructure could not support the event-driven digital transformation needed to improve performance across mining operations. The next-generation integration platform uses Solace to deliver real-time events across the entire value chain \u2014 from extraction through processing to port logistics.',
+      detail: 'Without real-time event delivery, the company faced higher unit costs of production and greater environmental impact because operational decisions were based on stale data. Material management systems were double-handling materials due to inefficiencies. Real-time train scheduling and fleet telemetry replaced batch processes that could not respond to changing conditions on the fly.'
+    },
+    integration: {
+      headline: 'Mining integration teams replaced IBM and Oracle Fusion with event-driven architecture \u2014 connecting fleet telemetry, scheduling, and SAP across remote mine sites',
+      outcome: 'The integration challenge in mining spans extreme conditions: remote sites with intermittent connectivity, heavy equipment generating high-volume telemetry, and supply chain coordination from pit to port. The event mesh connects all of these with store-and-forward capability for remote locations.',
+      detail: 'Key integration patterns: fleet telemetry from mining vehicles and equipment via MQTT; train scheduling events replacing batch-driven manifests; material tracking across processing stages; SAP integration for procurement and maintenance workflows. The event mesh bridges on-premises systems at mine sites with cloud-hosted analytics and enterprise applications.'
+    },
+    business: {
+      headline: 'Higher production costs and environmental damage from batch-based operations \u2014 a mining company shifted to real-time event-driven integration to reduce both',
+      outcome: 'Batch processes meant operational decisions were based on data that was hours or days old. Equipment was double-handled, schedules were inflexible, and environmental monitoring lagged. Real-time event flows across the value chain enable data-driven decisions that reduce costs, improve safety, and lower environmental impact.',
+      detail: 'The business case for mining is operational efficiency at scale: every hour of equipment downtime costs significantly. Real-time fleet telemetry and predictive maintenance reduce unplanned downtime. Dynamic train scheduling optimises logistics. Environmental monitoring with real-time alerts ensures compliance and reduces remediation costs.'
+    },
+    architect: {
+      headline: 'Mining event mesh: MQTT telemetry from heavy equipment, store-and-forward at remote sites, SAP integration, and cloud analytics across pit-to-port operations',
+      outcome: 'Edge brokers at mine sites handle local processing and store-and-forward for intermittent satellite connectivity. MQTT for high-volume equipment telemetry. Event mesh bridges to cloud-hosted analytics (Databricks, Snowflake) and on-premises SAP for procurement and maintenance. Multi-site mesh connects mines, processing plants, rail, and port operations.',
+      detail: 'Key architectural requirements: store-and-forward for remote sites with limited connectivity; high-volume MQTT ingestion from mining equipment; multi-site mesh spanning geographically distributed operations; SAP integration for maintenance and procurement workflows; environmental monitoring with real-time alerting; DR across sites for operational continuity.'
+    }
+  },
+  {
+    id: 'eu5',
+    subsector: 'Water & Smart Infrastructure',
+    technology: {
+      headline: 'A water utility deployed IoT smart meters with SAP AEM for real-time water quality monitoring \u2014 enabling predictive maintenance and faster anomaly detection across the distribution network',
+      outcome: 'The smart water platform combines IoT-driven smart meters with event-driven architecture for real-time monitoring of water quality and quantity. The system enables faster anomaly detection, predictive maintenance, and improved water management decisions \u2014 supporting sustainability and efficiency goals.',
+      detail: 'Multiple utilities are modernising simultaneously: one is replacing a legacy billing system and migrating from SAP PI/PO to SAP Integration Suite with AEM. Another is migrating away from Amazon MQ and TIBCO EMS as part of broader integration modernisation. The common driver: legacy systems cannot support the real-time monitoring and customer experience that modern utilities require.'
+    },
+    integration: {
+      headline: 'Water and electricity utilities are pairing SAP AEM with IoT platforms for real-time meter-to-cash \u2014 replacing batch billing with event-driven processing',
+      outcome: 'Smart meter telemetry flows via MQTT to the event mesh, which routes readings to SAP for billing, to analytics for demand forecasting, and to customer portals for real-time usage dashboards. The meter-to-cash process becomes event-driven rather than batch-driven.',
+      detail: 'Integration patterns: MQTT for smart meter ingestion at scale; SAP AEM bridging meter data to billing and CRM; new billing system integration via SAP Integration Suite and AEM; real-time customer notifications for usage, billing, and outage updates. The architecture replaces overnight batch billing with continuous event-driven processing.'
+    },
+    business: {
+      headline: 'A water utility uses real-time monitoring to detect quality anomalies before they reach customers \u2014 supporting sustainability goals while reducing operational costs',
+      outcome: 'Traditional water quality monitoring relied on periodic sampling. Real-time IoT monitoring detects anomalies as they occur \u2014 before contaminated water reaches customers. Predictive maintenance reduces pipe bursts and leaks. The operational efficiency gains directly support sustainability targets.',
+      detail: 'For electricity utilities, the business case includes personalised pricing plans based on real-time consumption data, reducing customer attrition. One utility created more personalised pricing by combining real-time billing with meter telemetry. The customer experience improvement drives retention in increasingly competitive energy markets.'
+    },
+    architect: {
+      headline: 'Smart utility architecture: MQTT from smart meters, SAP AEM for billing integration, real-time customer portals, and predictive maintenance from IoT event streams',
+      outcome: 'MQTT for high-volume smart meter ingestion across the distribution network. SAP AEM bridges meter data to SAP billing. Customer portals receive real-time usage and billing events via WebSocket. Analytics platforms consume meter streams for demand forecasting and anomaly detection.',
+      detail: 'Key patterns: smart meter MQTT ingestion at network scale; SAP PI/PO to Integration Suite migration with AEM for event streaming; real-time meter-to-cash replacing overnight batch; customer notification events for outages and billing; predictive maintenance from water quality and infrastructure sensor streams; DR for utilities where billing outages have regulatory consequences.'
     }
   }
 ],
@@ -1052,8 +1425,7 @@ links: {
 stories: [
   {
     id: 'tc1',
-    // Source: Jio (TIBCO EMS crash on day 1, massive scale), Bharti Airtel (prepaid benefit provisioning at scale),
-    // AT&T (80M wireless subscribers, 67 SORs, 10-second SLA), XL Smart (declining voice revenue, digital transformation)
+    subsector: 'Mobile Network Operators',
     technology: {
       headline: 'A mobile operator serving hundreds of millions of subscribers replaced TIBCO EMS after it crashed on production launch day — the event mesh now handles the scale their legacy platform could not',
       outcome: 'TIBCO EMS was selected as the messaging layer for order-to-activation, notification engine, master data management, POS, and customer platform. It could not scale to the initial production volume and crashed on go-live day. The event mesh replacement handles the full volume across all use cases reliably.',
@@ -1077,8 +1449,7 @@ stories: [
   },
   {
     id: 'tc2',
-    // Source: Spark NZ (microservices logging to Splunk, decoupled), Boomi (event-driven for consumption licensing),
-    // LawNet (multi-cloud AWS+Azure, REST+JMS/AMQP), F5 Networks (product-driven dev model, Salesforce event-enabling)
+    subsector: 'Platform & Digital Services',
     technology: {
       headline: 'A telco built a reusable event-driven logging library shipped with every microservice — decoupling application performance from log infrastructure',
       outcome: 'Rather than bringing a logging platform in-line with application performance, this operator decoupled log producers from consumers using the event mesh. A reusable library ships with every microservice, publishing logs as events. The log aggregation platform subscribes independently — application latency is unaffected regardless of log volume.',
@@ -1102,8 +1473,7 @@ stories: [
   },
   {
     id: 'tc3',
-    // Source: Softbank (redundant WebMethods/in-house/MFT, outages), Vodafone (AEM/CPI hire-to-retire, SuccessFactors),
-    // Telefonica Soluciones (aviation SWIM for flight controller), NTT Comms (IoT infra for automotive, Solace Cloud)
+    subsector: 'Middleware Consolidation',
     technology: {
       headline: 'A major Japanese telco simplified redundant integration technologies — reducing system outages while unlocking developer productivity across the organisation',
       outcome: 'Redundant integration technologies (in-house development, WebMethods, MFT) were deployed across the organisation. This created dependency on scarce expertise, poor developer productivity, high maintenance costs, and increasing outages in both number, severity, and duration. Consolidating onto a modern event platform simplified operations and improved reliability.',
@@ -1123,6 +1493,55 @@ stories: [
       headline: 'Telco middleware consolidation: WebMethods, MFT, and in-house tools replaced with unified event mesh — plus SAP AEM for HR workflows and IoT platform for enterprise customers',
       outcome: 'The architecture consolidates multiple messaging and integration technologies into a single event mesh. SAP AEM handles HR and enterprise workflows (SuccessFactors, identity management). The same Solace Cloud infrastructure serves internal telco operations and external IoT/connectivity products for enterprise customers.',
       detail: 'Key patterns: middleware consolidation reducing operational complexity; SAP AEM for hire-to-retire and employee experience workflows; Solace Cloud as infrastructure for enterprise IoT products (automotive, aviation); MQTT5 for next-generation IoT connectivity; multi-protocol support connecting legacy WebMethods applications during migration.'
+    }
+  }
+,
+  {
+    id: 'tc4',
+    subsector: 'IoT & Enterprise Services',
+    technology: {
+      headline: 'Telcos are building IoT connectivity platforms on event-driven architecture — offering managed event mesh as a service to automotive, smart city, and industrial customers',
+      outcome: 'Telecommunications companies are extending their infrastructure expertise into IoT platforms: one is building scalable IoT infrastructure for an automotive OEM, tested extensively for MQTT5, scalability, and monitoring. The event mesh becomes both internal infrastructure and a product offered to enterprise customers.',
+      detail: 'The telco-as-platform model uses Solace Cloud as the foundation for IoT connectivity services: automotive telematics, smart city sensor networks, and industrial IoT monitoring. MQTT5 support enables advanced features like shared subscriptions, message expiry, and request-response patterns that enterprise IoT requires.'
+    },
+    integration: {
+      headline: 'Telco platform teams built enterprise IoT services by combining network connectivity with event-driven data distribution — onboarding enterprise customers through standardised MQTT5 APIs',
+      outcome: 'The integration model: enterprise customers connect their IoT devices via the telco network, and the managed event mesh handles data distribution, protocol translation, and integration with enterprise backend systems. Standardised MQTT5 APIs make onboarding repeatable.',
+      detail: 'Key integration patterns: MQTT5 for device connectivity with QoS levels per use case; event mesh for routing telemetry to customer analytics platforms; protocol translation between IoT protocols and enterprise REST/JMS; multi-tenant architecture isolating customer data while sharing infrastructure; API gateway integration for partner access.'
+    },
+    business: {
+      headline: 'Telcos are creating new revenue from managed IoT platforms — event mesh infrastructure becomes a product, not just a cost centre',
+      outcome: 'Traditional telco revenue from connectivity is declining. Managed IoT platforms generate higher-margin revenue by offering not just connectivity but data distribution, event processing, and integration as a service. Enterprise customers pay for the platform capability, not just the network pipe.',
+      detail: 'The revenue model shifts from per-device connectivity fees to platform subscription: customers pay for event throughput, topic management, and integration services. The same Solace Cloud infrastructure serves multiple enterprise customers (automotive, industrial, smart city) with tenant isolation.'
+    },
+    architect: {
+      headline: 'Telco IoT platform: Solace Cloud multi-tenant event mesh, MQTT5 device connectivity, enterprise customer isolation, and API gateway integration',
+      outcome: 'Solace Cloud deployed as multi-tenant IoT platform infrastructure. MQTT5 for device connectivity with per-customer topic isolation. Event mesh routes device telemetry to customer-specific analytics endpoints. API gateway provides managed access for enterprise customers and partners.',
+      detail: 'Key patterns: multi-tenant architecture with topic-based customer isolation; MQTT5 for advanced IoT features (shared subscriptions, message expiry); Solace Cloud for managed infrastructure; API gateway integration for enterprise customer onboarding; protocol bridging between IoT protocols and enterprise messaging; scalability tested for automotive-grade device volumes.'
+    }
+  },
+  {
+    id: 'tc5',
+    subsector: 'SAP & Enterprise Workflows',
+    technology: {
+      headline: 'Telcos are using SAP AEM for hire-to-retire HR workflows and employee experience management — event-enabling SuccessFactors, identity management, and Medallia integration',
+      outcome: 'A major European telco uses SAP AEM with Cloud Integration for hire-to-retire workflows: SuccessFactors events trigger identity management updates, access provisioning, and equipment allocation. Employee experience management via Medallia integration is planned as the next expansion.',
+      detail: 'SAP event-enabling in telcos follows the same pattern as other industries but at telco scale: tens of thousands of employees, multiple geographies, and complex HR systems spanning acquired companies. The event mesh handles the volume and complexity while providing guaranteed delivery for compliance-sensitive HR events.'
+    },
+    integration: {
+      headline: 'Telco HR integration teams event-enabled SuccessFactors with SAP AEM — connecting identity management, access provisioning, and employee experience platforms',
+      outcome: 'The hire-to-retire workflow: a hiring event in SuccessFactors triggers identity creation in the directory, access provisioning for systems and buildings, equipment allocation, and welcome communications — all from a single event rather than manual handoffs between HR, IT, and facilities teams.',
+      detail: 'Key integration patterns: SAP AEM for SuccessFactors event streaming; Cloud Integration for transformation and orchestration; identity management system consuming employee lifecycle events; Medallia integration for real-time employee experience feedback; multi-geography deployment for international telco HR operations.'
+    },
+    business: {
+      headline: 'When employee onboarding takes days instead of hours because HR, IT, and facilities systems are disconnected — event-driven integration automates the entire lifecycle',
+      outcome: 'Manual onboarding processes create delays: new employees wait days for system access, equipment, and building passes. Event-driven hire-to-retire means a single hiring event cascades to every system simultaneously — the employee is productive from day one.',
+      detail: 'The business case extends to employee experience: telcos competing for talent need smooth onboarding, responsive HR services, and proactive employee engagement. Event-driven integration enables the real-time, automated HR operations that modern employees expect from technology companies.'
+    },
+    architect: {
+      headline: 'Telco HR architecture: SAP AEM for SuccessFactors events, Cloud Integration for transformation, identity management, Medallia for employee experience, multi-geography deployment',
+      outcome: 'SAP AEM bridges SuccessFactors to downstream HR systems. Cloud Integration handles data transformation between SAP and non-SAP systems. Identity management consumes employee lifecycle events for automated provisioning. Medallia integration for real-time employee sentiment. Multi-geography deployment spanning international telco operations.',
+      detail: 'Key patterns: SAP AEM for HR event streaming; CPI/AEM adapter for bidirectional SuccessFactors integration; automated identity lifecycle (create, modify, disable) from HR events; employee experience events from Medallia feeding back to HR analytics; guaranteed delivery for compliance-sensitive HR data; multi-region deployment for international HR operations.'
     }
   }
 ],
@@ -1185,9 +1604,7 @@ links: {
 stories: [
   {
     id: 'ls1',
-    // Source: Roche (Aspire S/4 migration, MDM, PLM, HR), Merck KGaA (S/4HANA overhaul, EDA adoption),
-    // AstraZeneca (material master MDG sync to plants), Novartis (global Messaging as a Service),
-    // Novo Nordisk (SuccessFactors hiring automation via BPA + AEM)
+    subsector: 'Pharma & SAP Migration',
     technology: {
       headline: 'A global pharma company uses event-driven architecture to power its SAP S/4HANA migration — master data, product lifecycle, and HR events flowing across the enterprise',
       outcome: 'The SAP ECC to S/4HANA migration triggered an overhaul of all integration points. The event mesh handles master data management, product lifecycle management, and hire-to-retire workflows. Events from SAP connect to Veeva, SuccessFactors, Salesforce, and Snowflake through a single backbone.',
@@ -1211,9 +1628,7 @@ stories: [
   },
   {
     id: 'ls2',
-    // Source: B. Braun (hospitals, edge, factories, ASAPIO, MuleSoft, Salesforce),
-    // Kinseed/SwiftCare (cloud healthcare platform, clinical data events, database to EDA migration),
-    // LG-HY BCM (MES real-time data collection, joint venture)
+    subsector: 'Medical Devices & Clinical',
     technology: {
       headline: 'A medical device company deployed an event mesh connecting on-premises factories, cloud services, and hospital edge locations — enabling real-time clinical data flows',
       outcome: 'The company requires an event mesh connecting three distinct environments: on-premises data centres, cloud services, and edge locations at hospitals. The goal is to modernise their integration landscape by becoming more event-driven, using ASAPIO to event-enable SAP ECC and MuleSoft for transformation.',
@@ -1237,10 +1652,7 @@ stories: [
   },
   {
     id: 'ls3',
-    // Source: Solventum/3M Healthcare (company separation, S4 migration, Snowflake data sharing),
-    // Galderma (Veeva/Salesforce customer master to Snowflake/ServiceNow/M3 via Boomi),
-    // Cytiva (PLM Magic system to sales, HR LMS, marketing), Tecan (production master data via Boomi),
-    // J&J (AEM for SAP integrations), Ottobock (hire-to-retire, then order/account mgmt)
+    subsector: 'Corporate & Master Data',
     technology: {
       headline: 'A healthcare company separated from its parent used event-driven architecture to migrate S/4HANA data through Snowflake — maintaining business continuity during the corporate split',
       outcome: 'During a major corporate separation, the new company needed daily and real-time data from the parent company\'s S/4HANA system. SAP AEM enabled data to flow from the parent\'s S/4 into Snowflake, where it was shared with the new entity and loaded into their own S/4 system. Business continuity was maintained throughout the separation.',
@@ -1260,6 +1672,55 @@ stories: [
       headline: 'Life sciences master data architecture: Veeva and Salesforce publishing customer events, Snowflake and ServiceNow subscribing, Boomi transforming, SAP AEM bridging S/4HANA',
       outcome: 'Customer master data events from Veeva/Salesforce flow through the event mesh in a standardised format. Snowflake subscribes for analytics, ServiceNow for service management, M3 for ERP. SAP AEM bridges S/4HANA for order and material data. Boomi provides iPaaS transformation. The architecture handles corporate separation data flows (parent S/4 → Snowflake → child S/4).',
       detail: 'Key patterns: standardised event formats for customer master data across CRM sources; multi-consumer distribution without point-to-point connections; PLM event-enabling for product lifecycle changes triggering downstream updates; Snowflake as a data sharing intermediary during corporate separations; Boomi as the iPaaS transformation layer alongside event mesh for distribution.'
+    }
+  }
+,
+  {
+    id: 'ls4',
+    subsector: 'Hospital & Clinical Systems',
+    technology: {
+      headline: 'A healthcare technology company is transforming its cloud-based clinical platform from database-backed to event-driven architecture — enabling real-time clinical data flows at scale',
+      outcome: 'The clinical platform serves hospitals with patient records, device readings, and treatment management. As it scales to more hospitals and more data, the database-backed architecture cannot keep pace. Event-driven architecture enables real-time clinical data exchange between platform components without database bottlenecks.',
+      detail: 'The healthcare IoT dimension adds volume: connected medical devices in hospitals publish vital signs, infusion status, and alarm events continuously. A medical device company is building an event mesh connecting on-premises factories, cloud services, and hospital edge locations — the actual hospitals become edge deployment sites in the event mesh topology.'
+    },
+    integration: {
+      headline: 'Clinical integration teams are connecting hospital systems, medical devices, and cloud platforms through event-driven architecture — with edge deployment at hospital locations',
+      outcome: 'The integration challenge in healthcare spans from medical devices at the bedside to cloud-hosted analytics and EHR systems. Event-driven architecture connects these with guaranteed delivery and the auditability that clinical data regulations require. Edge brokers at hospital locations handle local processing for latency-sensitive clinical workflows.',
+      detail: 'Key integration patterns: medical device telemetry via MQTT; HL7 FHIR event streaming for clinical data exchange; edge deployment at hospitals for local clinical workflow processing; cloud analytics for population health and clinical research; EHR integration for patient record updates; guaranteed delivery with full audit trail for regulatory compliance.'
+    },
+    business: {
+      headline: 'When clinical data flows in real time between platform components, clinicians see current patient information — not data that is minutes or hours old',
+      outcome: 'Clinical decision-making depends on current data. A vital sign change, a medication administration, or a lab result that takes minutes to propagate between systems creates a window where clinicians may act on stale information. Event-driven architecture closes this gap for patient safety.',
+      detail: 'The business model for healthcare technology companies is also shifting: from selling software licences to providing outcome-based services. Real-time event infrastructure enables the monitoring, alerting, and analytics capabilities that outcome-based models require. Predictive analytics consuming live clinical event streams can identify at-risk patients before adverse events occur.'
+    },
+    architect: {
+      headline: 'Clinical platform architecture: medical device MQTT telemetry, HL7 FHIR event streaming, hospital edge deployment, cloud analytics, and guaranteed delivery for clinical data',
+      outcome: 'MQTT for medical device telemetry ingestion at hospital locations. HL7 FHIR events for clinical data exchange between platform components. Edge brokers at hospitals for local processing. Cloud-hosted analytics for population health and research. Guaranteed delivery with audit trail for regulatory compliance (HIPAA, GDPR).',
+      detail: 'Key patterns: three-zone deployment (hospital edge, cloud platform, enterprise analytics); medical device MQTT ingestion with local processing at edge; HL7 FHIR event streaming for interoperability; guaranteed delivery for clinical data integrity; audit trail for regulatory compliance; store-and-forward for hospitals with intermittent cloud connectivity.'
+    }
+  },
+  {
+    id: 'ls5',
+    subsector: 'Manufacturing & Quality',
+    technology: {
+      headline: 'Life sciences manufacturers deployed event-driven MES integration for real-time production data collection — achieving performance that batch reporting could not match',
+      outcome: 'A joint venture manufacturing company deployed Solace within its MES for real-time data collection, demonstrating excellent performance in instantaneous large-volume data transmission. Various forms of data collection and delivery operate in real time rather than periodic batch uploads.',
+      detail: 'Quality management in life sciences manufacturing is uniquely demanding: GxP regulations require that every production parameter is recorded, traceable, and auditable. Event-driven architecture handles this by publishing quality events as they occur — temperature deviations, batch completions, equipment calibrations — rather than accumulating them in batch logs.'
+    },
+    integration: {
+      headline: 'Life sciences manufacturing teams connected MES, quality management, and production master data through event mesh — with Boomi for distribution to downstream systems',
+      outcome: 'Production master data distributes via event mesh and Boomi integration platform to manufacturing systems. Quality events from MES flow to quality management systems for real-time batch release decisions. Equipment calibration events trigger compliance workflows automatically.',
+      detail: 'Key integration patterns: MES event streaming for real-time production data; quality management events for batch release and deviation handling; equipment calibration and maintenance events; production master data distribution via Boomi; SAP integration for batch record management and regulatory submission; environmental monitoring for cleanroom conditions.'
+    },
+    business: {
+      headline: 'In life sciences manufacturing, a batch deviation detected in real time can be corrected — a deviation detected hours later in batch reporting means the entire batch may be lost',
+      outcome: 'The cost of a lost batch in pharmaceutical or medical device manufacturing is significant: raw materials, production time, and the opportunity cost of delayed product availability. Real-time quality monitoring enables immediate intervention when parameters deviate, potentially saving the batch rather than discovering the issue after the fact.',
+      detail: 'Regulatory inspection readiness is another driver: GxP auditors expect real-time traceability. Companies with event-driven production records can demonstrate compliance immediately rather than reconstructing batch histories from multiple systems. This reduces audit duration and regulatory risk.'
+    },
+    architect: {
+      headline: 'Life sciences manufacturing architecture: MES event streaming, quality management integration, production master data via Boomi, cleanroom environmental monitoring, and GxP audit trail',
+      outcome: 'MES publishes production events in real time for quality monitoring and batch record management. Boomi distributes production master data to downstream systems. Environmental monitoring (temperature, humidity, particle count) via MQTT from cleanroom sensors. SAP integration for batch records and regulatory submission. Full event audit trail for GxP compliance.',
+      detail: 'Key patterns: real-time MES event streaming replacing batch reporting; quality event triggers for automated deviation handling; environmental monitoring via MQTT sensors; production master data distribution via Boomi + event mesh; GxP-compliant audit trail with guaranteed delivery; SAP integration for regulatory submission and batch record management.'
     }
   }
 ],
@@ -1322,9 +1783,7 @@ links: {
 stories: [
   {
     id: 'ps1',
-    // Source: ESDC (Benefits Delivery Modernization), Health NZ (death notification 6-9 month lag),
-    // Qatar (marriage process, citizen turns 60, multi-agency), Regione Veneto (car tax notifications),
-    // Maximus (legacy sync to PCF, poor citizen experience), Gov of Canada (departmental integration)
+    subsector: 'Citizen Services',
     technology: {
       headline: 'A national government modernised citizen services integration — replacing months-long notification delays with real-time event-driven data sharing across agencies',
       outcome: 'A national healthcare system discovered that death notifications took 6-9 months to reach all 14 health districts, causing significant waste as services continued to be allocated to deceased citizens. Event-driven architecture reduced this to real-time notification across every district simultaneously.',
@@ -1348,9 +1807,7 @@ stories: [
   },
   {
     id: 'ps2',
-    // Source: ICA (immigration, IBM MQ + Waterfall data diode, non-HA at Changi Airport),
-    // DSTA (classified), CBSA (border security, cross-government events),
-    // MPA Singapore (centralised Sybase replacement, multi-site), OGCIO (surveillance monitoring, cross-department)
+    subsector: 'Border & Defence',
     technology: {
       headline: 'A border security agency replaced non-HA IBM MQ infrastructure at a major international airport — ensuring immigration and checkpoint systems never go down',
       outcome: 'The existing Secure Data Exchange Gateway at the airport used IBM MQ with a data diode in a non-HA configuration. When the single system failed, border operations were impacted. The event mesh provides high-availability data exchange between airport systems and backend immigration systems with guaranteed delivery.',
@@ -1374,11 +1831,7 @@ stories: [
   },
   {
     id: 'ps3',
-    // Source: DTP Victoria (smarter roads, active traffic management),
-    // HDB Singapore (10K+ blocks, sensor monitoring for lifts/water/power/gas/solar),
-    // Transport NSW (SAP AEM, TACP asset custodian platform), Met Office (WMO WIS 2.0, global weather data),
-    // NEA Singapore (meteorological SWIM), Smart Dubai (happiness meter, real-time sentiment),
-    // University of California (enrollment shock absorption, 10 campuses)
+    subsector: 'Smart Infrastructure',
     technology: {
       headline: 'A public housing authority monitors sensors across 10,000+ buildings in real time — lifts, water, power, gas, and solar panels all connected through an event mesh',
       outcome: 'Over 10,000 residential blocks equipped with sensors for lifts, water meters, power meters, gas meters, and solar panels — but no central monitoring. The event mesh provides real-time visibility across the entire estate, enabling predictive maintenance and rapid response to faults.',
@@ -1398,6 +1851,54 @@ stories: [
       headline: 'Smart city event mesh: MQTT from 10,000+ building sensors, traffic management systems, and weather stations — connected to SAP, analytics, and citizen-facing applications',
       outcome: 'MQTT for high-volume IoT ingestion from building sensors, traffic systems, and weather stations. Event mesh routes telemetry to real-time dashboards, predictive maintenance systems, and citizen notification platforms. SAP AEM for asset management integration. Cloud deployment for analytics and citizen-facing services.',
       detail: 'Key patterns: MQTT for massive IoT fan-in from distributed sensors; topic hierarchy by location, asset type, and severity for efficient routing; SAP AEM for asset custodian platforms; elastic scaling for burst events (enrollment periods, weather emergencies, traffic incidents); integration with global standards (WMO WIS 2.0, aviation SWIM) for cross-border data exchange.'
+    }
+  },
+  {
+    id: 'ps4',
+    subsector: 'Transport & Infrastructure',
+    technology: {
+      headline: 'State transport authorities deployed event-driven platforms for active traffic management \u2014 real-time incident response, congestion monitoring, and road network coordination',
+      outcome: 'A state transport department uses Solace as part of its smarter roads initiative, providing real-time active traffic management for incident response and congestion. Another uses SAP AEM to expose API-based interaction channels for thousands of asset providers through a Transport Asset Custodian Platform.',
+      detail: 'Public transport infrastructure generates massive event volumes: traffic sensors, signal controllers, toll systems, and passenger information displays all publish and consume events continuously. The event mesh handles this volume while connecting to SAP for asset management and to public-facing information systems for traveller updates.'
+    },
+    integration: {
+      headline: 'Transport agencies are using SAP AEM to build asset custodian platforms \u2014 connecting thousands of infrastructure providers through standardised event-driven APIs',
+      outcome: 'A Transport Asset Custodian Platform built on SAP AEM exposes API-based interaction channels for thousands of asset providers. The platform standardises how infrastructure data flows between asset owners, maintenance contractors, and the transport authority.',
+      detail: 'Integration patterns: SAP AEM for asset lifecycle management; MQTT for traffic sensor and signal data; REST APIs for partner and contractor integration; real-time passenger information from operational events. The architecture must handle both steady-state traffic monitoring and surge events during incidents or extreme weather.'
+    },
+    business: {
+      headline: 'Smarter roads mean faster incident response, reduced congestion, and better-informed travellers \u2014 all powered by real-time event flows across the transport network',
+      outcome: 'Active traffic management reduces congestion costs, improves incident response times, and provides travellers with real-time information. The transport authority acts as a broker connecting road operators, emergency services, and public information systems through a shared event layer.',
+      detail: 'The business case for transport authorities combines citizen service improvement (better travel information, faster incident response) with operational efficiency (automated signal management, predictive maintenance of infrastructure). Real-time event infrastructure transforms reactive transport management into proactive network optimisation.'
+    },
+    architect: {
+      headline: 'Transport infrastructure event mesh: traffic sensors and signals via MQTT, SAP AEM for asset management, real-time passenger information, and multi-agency coordination',
+      outcome: 'MQTT for traffic sensor ingestion across the road network. SAP AEM for asset custodian platform connecting thousands of infrastructure providers. WebSocket for real-time passenger information displays. REST APIs for emergency services and contractor integration. Multi-site deployment across transport management centres.',
+      detail: 'Key patterns: high-volume sensor ingestion from distributed traffic infrastructure; SAP AEM for standardised asset lifecycle events; multi-agency event sharing between transport, emergency, and information services; elastic scaling for incident and weather surge events; on-premises deployment in transport management centres with cloud connectivity for public-facing services.'
+    }
+  },
+  {
+    id: 'ps5',
+    subsector: 'Meteorology & Environment',
+    technology: {
+      headline: 'National meteorological services are implementing next-generation global weather data sharing \u2014 replacing legacy systems with event-driven SWIM-based information exchange',
+      outcome: 'The World Meteorological Organization\u2019s WIS 2.0 framework uses modern web technologies to replace the older Global Telecommunication System (GTS) for sharing weather, climate, and water data among member nations. National agencies are implementing this using Solace for reliable, real-time data distribution.',
+      detail: 'A national weather service implements WIS 2.0 for global meteorological data exchange. Another government agency is building a meteorological SWIM (System Wide Information Management) to facilitate information exchange \u2014 serving the same purpose as aviation SWIM but for environmental monitoring. Real-time environmental data supports disaster preparedness, climate monitoring, and public safety.'
+    },
+    integration: {
+      headline: 'Environmental agencies connect weather stations, air quality monitors, and satellite data through event-driven platforms \u2014 replacing file-based data exchange with real-time streaming',
+      outcome: 'Legacy meteorological data sharing relied on file transfers and batch processes. Event-driven architecture enables real-time streaming of weather observations, forecasts, warnings, and climate data between national agencies, research institutions, and public safety systems.',
+      detail: 'Integration patterns: WMO WIS 2.0 standards-based event exchange; MQTT for automated weather station telemetry; real-time warning dissemination to civil protection agencies; cross-border data sharing between national meteorological services; integration with aviation SWIM for coordinated airspace and weather information.'
+    },
+    business: {
+      headline: 'When severe weather warnings reach agencies minutes faster, lives are saved \u2014 real-time meteorological data sharing replaces the delays of legacy file transfer systems',
+      outcome: 'The speed of weather warning dissemination directly impacts public safety. Legacy file-based systems introduced delays that could mean the difference between timely evacuation and late response. Real-time event-driven data sharing ensures warnings reach civil protection agencies, media, and public alert systems within seconds.',
+      detail: 'Beyond emergency response, real-time environmental monitoring supports climate research, agricultural planning, energy grid management (wind and solar forecasting), and aviation safety. The business case spans multiple government functions that all benefit from the same real-time environmental data streams.'
+    },
+    architect: {
+      headline: 'Environmental event mesh: WMO WIS 2.0 standards, MQTT from weather stations, cross-border data sharing, and real-time warning dissemination to civil protection',
+      outcome: 'Standards-based event exchange following WMO WIS 2.0 specifications. MQTT for automated weather station telemetry ingestion. Cross-border mesh connecting national meteorological services. Real-time warning distribution to civil protection, aviation, and media. Integration with aviation SWIM for coordinated information management.',
+      detail: 'Key patterns: WMO WIS 2.0 compliance for international interoperability; high-volume MQTT ingestion from distributed weather stations; topic-based filtering by region, hazard type, and severity for targeted warning distribution; cross-border event mesh for international meteorological data exchange; integration with aviation SWIM standards; archival event streaming to climate research databases.'
     }
   }
 ],
@@ -1452,6 +1953,183 @@ links: {
   ]
 }
 
+
+  },
+
+
+  "exploring": {
+stories: [
+  {
+    id: 'ex1',
+    subsector: 'Digital Backbone',
+    technology: {
+      headline: 'The real-time digital backbone \u2014 how enterprises are building a unified event layer that connects every system, cloud, and data source in motion',
+      outcome: 'Forward-thinking enterprises are moving beyond point-to-point integration toward a real-time digital backbone: a single event layer that connects operational systems, cloud services, partner ecosystems, and AI/ML pipelines. Every business event flows through one fabric and reaches every system that needs it, instantly.',
+      detail: 'This is not just faster integration. It is a fundamentally different architecture where data moves in real time by default, not by request. The backbone becomes the foundation for real-time AI: ML models consume live event streams for fraud detection, demand forecasting, predictive maintenance, and personalisation.'
+    },
+    integration: {
+      headline: 'A real-time digital backbone replaces the patchwork of point-to-point integrations with a single event layer \u2014 every system publishes once, every consumer subscribes',
+      outcome: 'Integration teams are shifting from building individual connections between systems to establishing a shared event backbone. Any system can publish events. Any system can subscribe. New consumers onboard without touching the producer.',
+      detail: 'The practical impact: when a new analytics platform, AI model, or partner integration needs access to events, there is no new integration project. The events are already flowing. The new consumer simply subscribes.'
+    },
+    business: {
+      headline: 'Enterprises with a real-time digital backbone make decisions in milliseconds, not hours \u2014 and are building the foundation for AI that acts on live data',
+      outcome: 'Batch processing creates a gap between what is happening and what you know. A real-time digital backbone closes that gap. Pricing decisions, inventory allocation, fraud detection, and customer interactions all operate on live data.',
+      detail: 'Real-time data is the foundation for AI that acts, not just analyses. Fraud models that score transactions as they happen. Demand forecasting that adjusts to live signals. Personalisation engines that respond to what a customer is doing right now.'
+    },
+    architect: {
+      headline: 'Real-time digital backbone: a unified event mesh spanning on-prem, multi-cloud, and edge \u2014 with event streams feeding operational systems and AI/ML pipelines simultaneously',
+      outcome: 'Event brokers deployed across on-premises data centres, multiple clouds, and edge locations, connected into a single logical event mesh. Every business event is published once and dynamically routed to operational consumers, analytics platforms, and AI/ML pipelines.',
+      detail: 'Key design principles: publish once, consume many; topic-based dynamic routing; multi-protocol support (JMS, AMQP, MQTT, REST, WebSocket); Kafka bridge for streaming analytics; Event Portal for governance and discoverability.'
+    }
+  },
+  {
+    id: 'ex2',
+    subsector: 'Platform Integration',
+    technology: {
+      headline: 'Build once, consume everywhere \u2014 how event mesh turns integration from a project into a platform capability',
+      outcome: 'Enterprises using Solace are shifting from project-based integration to platform-based integration. When SAP publishes an order event, it reaches the warehouse, the analytics platform, the partner portal, and the customer app \u2014 all from a single publish.',
+      detail: 'SAP event-enabling is the most common starting point: using SAP AEM or ASAPIO, enterprises event-enable their ERP without modifying core SAP. The same pattern extends to any system. Each system publishes its events once. The event mesh handles routing to every consumer.'
+    },
+    integration: {
+      headline: 'SAP event-enabling as the universal starting point \u2014 event-enable your ERP once, and every consumer gets real-time data without new integration projects',
+      outcome: 'SAP sits at the centre of most enterprises. Event-enabling it turns the ERP from a data silo into a real-time event source. Master data, orders, inventory, and financial events publish once and reach every downstream system automatically.',
+      detail: 'The pattern works regardless of what SAP connects to: Snowflake for analytics, Salesforce for CRM, Boomi or MuleSoft for API orchestration, Kafka for streaming. Integration teams report that subsequent consumers onboard in days or hours because the events are already flowing.'
+    },
+    business: {
+      headline: 'When integration becomes a platform, new business capabilities launch in days instead of months \u2014 starting with the systems you already have',
+      outcome: 'Every new business initiative used to start with an integration project. With event mesh as a platform, the data is already flowing. New capabilities plug into existing event streams and launch faster.',
+      detail: 'The business impact compounds over time. The first use case delivers incremental value. But the tenth use case, built on the same event backbone, launches in a fraction of the time and cost.'
+    },
+    architect: {
+      headline: 'Event mesh as integration platform: SAP AEM at the core, multi-protocol fanout, topic-based routing, with Event Portal for governance and discoverability',
+      outcome: 'SAP publishes events via AEM or ASAPIO. The event mesh routes them by topic to any consumer \u2014 analytics, CRM, warehouse, mobile apps. New consumers subscribe to existing topics without touching the producer.',
+      detail: 'Key advantages: topic hierarchy for fine-grained filtering; Event Portal for event catalogue and governance; multi-protocol support for legacy and modern consumers; guaranteed delivery between producer and consumer.'
+    }
+  },
+  {
+    id: 'ex3',
+    subsector: 'Middleware Modernisation',
+    technology: {
+      headline: 'Middleware modernisation \u2014 extending legacy messaging infrastructure into a hybrid, multi-cloud event mesh without disrupting what already works',
+      outcome: 'Enterprises running TIBCO, IBM MQ, WebMethods, RabbitMQ, or ActiveMQ are not ripping and replacing. They are extending: connecting legacy messaging into a broader event mesh that spans cloud, on-premises, and edge.',
+      detail: 'The modernisation approach is incremental. Solace brokers bridge to existing messaging platforms via native protocol support. Legacy applications do not need to be rewritten. They publish and subscribe through the event mesh using the protocols they already speak.'
+    },
+    integration: {
+      headline: 'Integration teams are modernising middleware incrementally \u2014 bridging TIBCO, IBM MQ, and RabbitMQ into a unified event mesh without rewriting applications',
+      outcome: 'Deploy Solace alongside existing messaging, bridge legacy applications via native protocol support, and gradually shift workloads as business needs evolve. No big-bang cutover. No application rewrites.',
+      detail: 'Multi-protocol support is the enabler: JMS from TIBCO and IBM MQ, AMQP from RabbitMQ, REST from microservices, MQTT from IoT \u2014 all through the same event broker. One platform to monitor, secure, and govern.'
+    },
+    business: {
+      headline: 'Middleware modernisation reduces operational risk and cost \u2014 without the business disruption of a rip-and-replace migration',
+      outcome: 'Legacy messaging platforms create growing risk: end-of-support timelines, escalating licence costs, inability to support cloud workloads. Modernisation addresses all of these without disrupting the business applications that depend on them.',
+      detail: 'Enterprises report 40-60% TCO reduction when consolidating from multiple messaging platforms to a single event mesh, while gaining capabilities like multi-cloud deployment and real-time analytics.'
+    },
+    architect: {
+      headline: 'Incremental middleware modernisation: multi-protocol bridge from TIBCO/IBM MQ/RabbitMQ into hybrid event mesh with zero application rewrites',
+      outcome: 'Solace event brokers deployed alongside existing messaging. JMS bridge connects TIBCO EMS and IBM MQ. AMQP bridge connects RabbitMQ. New applications connect via REST, MQTT, or WebSocket. All traffic flows through a unified event mesh.',
+      detail: 'Key patterns: side-by-side deployment during transition; topic mapping from legacy queue names; gradual workload migration; active-active DR that the legacy platform may not have supported.'
+    }
+  },
+  {
+    id: 'ex4',
+    subsector: 'Legacy Platform Migration',
+    technology: {
+      headline: 'Enterprises replaced TIBCO, BizTalk, WebMethods, and RabbitMQ with modern event brokers \u2014 scaling to thousands of connected locations without disrupting operations',
+      outcome: 'Multiple enterprises migrated away from legacy messaging platforms that could not scale or meet real-time requirements. One replaced TIBCO EMS to reduce TCO and enable multi-cloud deployment. Another replaced BizTalk which could not scale. A third replaced WebMethods to connect 1,800 locations.',
+      detail: 'The migration drivers are consistent: legacy platforms that cannot handle the volume or speed modern business demands, vendor lock-in limiting cloud adoption, and increasing maintenance costs with declining vendor support. The event mesh provides a migration path that preserves existing application investments while enabling new real-time capabilities.'
+    },
+    integration: {
+      headline: 'Integration teams migrated from TIBCO, BizTalk, and WebMethods to event-driven platforms \u2014 multi-protocol support meant existing applications connected without rewrites',
+      outcome: 'The integration teams executed middleware replacements while operations continued. Multi-protocol support meant existing JMS applications connected without rewrites. Migration from synchronous API-led approaches to event-driven patterns was often driven by real-world failures exposing the limitations of sync-only integration.',
+      detail: 'The replacement architecture typically pairs the event broker with existing iPaaS (MuleSoft, Boomi) for API orchestration, adding event streaming for use cases where sync-only integration was failing. Multi-protocol support (JMS, AMQP, REST, MQTT) enables incremental migration rather than big-bang cutover.'
+    },
+    business: {
+      headline: 'When the messaging platform becomes the bottleneck for the business \u2014 not just for IT \u2014 the case for modernisation is clear',
+      outcome: 'Legacy messaging limitations directly impact revenue: cart abandonment from unreliable systems, lost orders from messaging failures, delayed operations from platforms that cannot scale. Modern event infrastructure eliminates these revenue leaks.',
+      detail: 'At one organisation, the integration platform was holding back digital transformation. At another, volatile demand during COVID exposed the limitations of sync-only integration. In every case, the business case for replacement was driven by business impact, not just IT preference.'
+    },
+    architect: {
+      headline: 'Legacy middleware migration: TIBCO EMS, BizTalk, WebMethods, and RabbitMQ replaced with event mesh spanning data centre, cloud, and 1,800+ edge nodes',
+      outcome: 'Central brokers in the data centre or cloud, with locations connecting as clients or via edge brokers. Multi-protocol support (JMS for legacy, REST for modern, MQTT for IoT) enables incremental migration. Active-active DR for environments where downtime means lost revenue.',
+      detail: 'Key technical drivers: BizTalk end-of-support; TIBCO EMS TCO versus modern alternatives; WebMethods limitations in multi-cloud; RabbitMQ scaling failures under peak load. The architecture pairs event broker with iPaaS for orchestration.'
+    }
+  },
+  {
+    id: 'ex5',
+    subsector: 'SAP Event-Enabling',
+    technology: {
+      headline: 'Enterprises are using SAP AEM to stream real-time master data from ERP to every downstream system \u2014 replacing batch-driven data synchronisation across the organisation',
+      outcome: 'SAP AEM streams product, pricing, and operational data from SAP to thousands of endpoints in real time. Multiple enterprises use AEM with ASAPIO for non-SAP system integration. The pattern is consistent: SAP as the event source, everything else as subscribers.',
+      detail: 'The SAP event-enabling pattern works at enterprise scale: thousands of consuming endpoints, multiple cloud and on-premises environments, and high-frequency data updates. The event mesh handles the massive fan-out from one SAP publish to thousands of subscribers across the organisation.'
+    },
+    integration: {
+      headline: 'Integration teams event-enabled SAP for master data, order management, and partner connectivity \u2014 with Boomi or MuleSoft handling orchestration alongside the event mesh',
+      outcome: 'The integration stack: SAP AEM or ASAPIO for event-enabling the ERP, Boomi or MuleSoft for API orchestration and transformation, and the event mesh for real-time distribution. Master data changes, order events, and operational updates publish from SAP and reach every downstream system.',
+      detail: 'SAP event-enabling patterns: master data distribution to operational systems; Kafka connector for CDC to analytics platforms; Salesforce integration via AEM; partner connectivity including third-party cloud platforms; Boomi or MuleSoft for complex transformations.'
+    },
+    business: {
+      headline: 'When operational data takes hours to propagate from SAP to downstream systems, decisions are made on stale information \u2014 event-enabling fixes this in real time',
+      outcome: 'Batch-driven data synchronisation creates windows where different systems show different information. Changes take hours to propagate. Event-driven SAP integration closes this gap to seconds \u2014 every system sees current data simultaneously.',
+      detail: 'The impact is direct: operational errors from stale data, delayed decisions from lagging information, and inconsistent customer experiences across channels. Real-time SAP event-enabling ensures every system operates on current, accurate information.'
+    },
+    architect: {
+      headline: 'SAP event-enabling architecture: SAP AEM + ASAPIO for ERP events, Boomi/MuleSoft for orchestration, Kafka bridge for analytics, multi-environment fan-out',
+      outcome: 'SAP AEM or ASAPIO event-enables the ERP without core modifications. Master data, order, and operational events publish to the event mesh. Systems subscribe via JMS, REST, or WebSocket. Kafka bridge feeds analytics platforms.',
+      detail: 'Key patterns: ASAPIO for SAP ECC event-enabling during S/4HANA transition; SAP AEM for native S/4HANA event streaming; massive fan-out handling thousands of endpoints; Boomi or MuleSoft for complex transformations; Kafka bridge for CDC to analytics; multi-cloud event mesh for partner connectivity.'
+    }
+  }
+],
+
+values: {
+  technology: [
+    { title: 'Real-time by default', text: 'Every business event flows in real time across your entire enterprise. No more batch delays, no more stale data driving critical decisions.' },
+    { title: 'Foundation for real-time AI', text: 'ML models consume live event streams for fraud detection, demand forecasting, and personalisation. The event mesh provides the data pipeline AI needs.' },
+    { title: 'Hybrid and multi-cloud', text: 'Deploy across on-premises, AWS, Azure, GCP, and edge locations. One logical event mesh spanning every environment.' },
+    { title: 'Modernise without disruption', text: 'Extend legacy messaging (TIBCO, IBM MQ, RabbitMQ) into a modern event mesh. No rip-and-replace. Existing applications connect via native protocols.' }
+  ],
+  integration: [
+    { title: 'Multi-protocol native', text: 'JMS, AMQP, MQTT, REST, WebSocket \u2014 all supported natively. Legacy and modern applications connect without translation layers.' },
+    { title: 'SAP event-enabling', text: 'Event-enable SAP via AEM or ASAPIO. Master data, orders, and inventory publish as events and reach every consumer.' },
+    { title: 'Platform, not project', text: 'Shift from building individual integrations to establishing a shared event backbone. New consumers onboard in hours.' },
+    { title: 'Event Portal governance', text: 'Catalogue, discover, and govern every event across the enterprise. Teams find and reuse existing events.' }
+  ],
+  business: [
+    { title: 'Faster time to value', text: 'New business capabilities launch in days, not months. The event backbone means data is already flowing.' },
+    { title: 'Lower total cost of ownership', text: 'Consolidate multiple messaging platforms into one. 40-60% TCO reduction while gaining cloud and real-time AI capabilities.' },
+    { title: 'Reduced operational risk', text: 'Replace end-of-support platforms, eliminate single points of failure, and gain active-active DR.' },
+    { title: 'AI-ready infrastructure', text: 'Real-time event streams are the data foundation AI needs. Build the backbone today that AI-driven operations will require tomorrow.' }
+  ],
+  architect: [
+    { title: 'Event mesh topology', text: 'Brokers across data centres, clouds, and edge connected into a single logical mesh with dynamic message routing.' },
+    { title: 'Topic-based routing', text: 'Hierarchical topic structure enables fine-grained subscriptions. Consumers receive exactly the events they need.' },
+    { title: 'Kafka coexistence', text: 'Event mesh for operational integration. Kafka for streaming analytics. Kafka bridge connects both.' },
+    { title: 'Zero-downtime migration', text: 'Side-by-side deployment with legacy messaging. Protocol bridges connect existing applications. Gradual workload migration.' }
+  ]
+},
+
+links: {
+  technology: [
+    { text: 'Solace platform overview', url: 'https://solace.com/products/platform/', icon: 'globe' },
+    { text: 'Event mesh explained', url: 'https://solace.com/what-is-an-event-mesh/', icon: 'doc' },
+    { text: 'Customer success stories', url: 'https://solace.com/company/customers/', icon: 'doc' }
+  ],
+  integration: [
+    { text: 'SAP integration with Solace', url: 'https://solace.com/solutions/technology/sap/', icon: 'globe' },
+    { text: 'Event Portal', url: 'https://solace.com/products/portal/', icon: 'globe' },
+    { text: 'Platform overview', url: 'https://solace.com/products/platform/', icon: 'doc' }
+  ],
+  business: [
+    { text: 'Customer success stories', url: 'https://solace.com/company/customers/', icon: 'doc' },
+    { text: 'Why Solace', url: 'https://solace.com/company/', icon: 'globe' },
+    { text: 'Industries we serve', url: 'https://solace.com/solutions/industries/', icon: 'globe' }
+  ],
+  architect: [
+    { text: 'Event broker specifications', url: 'https://solace.com/products/event-broker/', icon: 'globe' },
+    { text: 'Event mesh explained', url: 'https://solace.com/what-is-an-event-mesh/', icon: 'doc' },
+    { text: 'Solace platform overview', url: 'https://solace.com/products/platform/', icon: 'globe' }
+  ]
+}
 
   },
 };
@@ -2345,7 +3023,7 @@ function getContent(role, industry, lang) {
   if (!ind) return null;
   return {
     stories: ind.stories.map(function(s) {
-      return { id: s.id, headline: s[role].headline, outcome: s[role].outcome, detail: s[role].detail };
+      return { id: s.id, subsector: s.subsector || '', headline: s[role].headline, outcome: s[role].outcome, detail: s[role].detail };
     }),
     values: ind.values[role] || [],
     links: ind.links[role] || []

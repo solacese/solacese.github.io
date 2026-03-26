@@ -57,6 +57,40 @@
   .persona-btn { padding: 8px 12px; font-size: 12px; }
   .persona-btn svg { width: 14px; height: 14px; }
 }
+.result-layout {
+  display: flex; gap: 32px; position: relative;
+}
+.section-nav {
+  display: flex; flex-direction: column; gap: 2px;
+  min-width: 110px; position: sticky; top: 80px; align-self: flex-start;
+  padding-top: 4px;
+}
+.section-nav-item {
+  font-size: 13px; padding: 8px 12px;
+  border-left: 2px solid transparent;
+  color: var(--grey-400, #999); text-decoration: none;
+  transition: all 0.18s; cursor: pointer;
+  font-family: inherit; white-space: nowrap;
+}
+.section-nav-item:hover { color: var(--navy, #093B5F); }
+.section-nav-item.active {
+  border-left-color: #00C895; color: #00C895; font-weight: 600;
+}
+.result-content { flex: 1; min-width: 0; }
+@media(max-width:768px) {
+  .result-layout { flex-direction: column; gap: 0; }
+  .section-nav {
+    flex-direction: row; position: static; min-width: 0;
+    gap: 4px; padding: 8px 0 16px; overflow-x: auto;
+    border-bottom: 1px solid var(--grey-200, #e5e7eb);
+    margin-bottom: 16px;
+  }
+  .section-nav-item {
+    border-left: none; border-bottom: 2px solid transparent;
+    padding: 6px 12px; font-size: 12px;
+  }
+  .section-nav-item.active { border-left-color: transparent; border-bottom-color: #00C895; }
+}
 </style>
 </head><body>
 
@@ -285,18 +319,30 @@
       </button>
     </div>
 
+    <!-- Side nav + content layout -->
+    <div class="result-layout">
+      <nav class="section-nav" id="sectionNav">
+        <a class="section-nav-item active" href="#valuesSection" data-section="valuesSection" id="nav-values">Values</a>
+        <a class="section-nav-item" href="#storiesSection" data-section="storiesSection" id="nav-stories">Stories</a>
+        <a class="section-nav-item" href="#logoSection" data-section="logoSection" id="nav-customers">Customers</a>
+        <a class="section-nav-item" href="#archSection" data-section="archSection" id="nav-architecture">Architecture</a>
+        <a class="section-nav-item" href="#exploreSection" data-section="exploreSection" id="nav-explore">Explore</a>
+      </nav>
+      <div class="result-content">
+
     <!-- A. Value props -->
-    <div class="values-section">
+    <div class="values-section" id="valuesSection">
       <div class="section-label" id="why-solace-label-el">Why Solace</div>
       <div class="section-title" id="valuesTitle">Why Solace for <em>aviation</em></div>
       <div class="values-grid" id="valuesGrid"></div>
     </div>
 
     <!-- B. Stories -->
-    <div class="stories-section">
+    <div class="stories-section" id="storiesSection">
       <div class="section-label" id="stories-label-el">From organisations like yours</div>
       <div class="section-title" id="storiesTitle">What leaders like you are doing</div>
       <div id="storiesContainer"></div>
+    </div>
 
     <!-- C. Logo Bar -->
     <div class="logo-section" id="logoSection" style="display:none;">
@@ -331,10 +377,14 @@
     </div>
 
     <!-- E. Explore further -->
-    <div class="explore-section">
+    <div class="explore-section" id="exploreSection">
       <div class="section-label" id="go-deeper-label-el">Go deeper</div>
       <div class="section-title" id="explore-further-title-el">Explore further</div>
       <div class="explore-links" id="exploreLinks"></div>
+    </div>
+
+      </div><!-- .result-content -->
+    </div><!-- .result-layout -->
 
     <!-- F. CTA -->
     <div class="cta-section">
