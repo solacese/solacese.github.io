@@ -61,14 +61,14 @@
     },
     ja: {
       back: '戻る',
-      roleHeader: 'あなたの役割は何ですか？',
-      roleSubtitle: 'あなたにとって最も重要なことに合わせて、すべてをカスタマイズします。',
-      industryHeader: 'あなたの業界はどちらですか？',
-      industrySubtitle: 'あなたの業界のストーリーと可能性をご紹介します。',
+      roleHeader: 'お客様の役割は何ですか？',
+      roleSubtitle: 'お客様にとって最も重要なことに合わせてカスタマイズします。',
+      industryHeader: 'お客様の業界はどちらですか？',
+      industrySubtitle: 'お客様の業界の事例とユースケースをご紹介します。',
       welcomeEyebrow: 'Solace Explorer',
-      welcomeTitle: 'あなたの世界で<em>リアルタイム</em>がどう見えるかを発見する',
-      welcomeSubtitle: 'あなたと同じような組織が、イベント駆動型アーキテクチャを活用して、より速く動き、よりスマートに統合し、次のステージを切り開く方法をご覧ください。',
-      welcomeCta: '探索を始める',
+      welcomeTitle: 'お客様の業界で<em>リアルタイム</em>がどう見えるかを発見',
+      welcomeSubtitle: 'お客様と同じような組織が、イベントドリブンアーキテクチャを活用して、より速く動き、よりスマートに統合し、次のステージを切り開く方法をご覧ください。',
+      welcomeCta: '詳細を調べる',
       fromOrgs: '同じような組織の事例',
       whySolace: 'Solace を選ぶ理由',
       logoSectionTitle: 'この分野の Solace 導入企業',
@@ -78,7 +78,7 @@
       enterprise: 'エンタープライズ・コンシューマー',
       deployFootnote: 'すべて <span>Solace Cloud</span> で管理 — あらゆるデプロイ環境を一元的に可視化',
       goDeeper: 'さらに深掘りする',
-      exploreFurther: '詳細を探索する',
+      exploreFurther: '詳細情報はこちら',
       ctaSubtitle: 'セールストークも押し売りもありません。あなたの業界を理解した担当者との率直な会話です。',
       ctaPrimary: '会話を始める',
       ctaSecondary: 'まだ準備ができていない方はリソースをご覧ください →',
@@ -92,8 +92,8 @@
       moreCustomers: '+ {n} 社以上の{industry}分野のお客様が世界中で導入',
       trustedBy: '{industry}のリーダー企業に信頼されています',
       storyTitles: {
-        technology: 'あなたと同じリーダーたちの取り組み',
-        integration: 'あなたと同じチームの実績',
+        technology: 'お客様と同じようなリーダーの取り組み',
+        integration: 'お客様と同じようなチームの実績',
         business: '重要な成果',
         architect: '本番環境で実証されたパターン'
       },
@@ -104,7 +104,7 @@
         architect: '<em>{i}</em>を変革するアーキテクチャパターン'
       },
       resultSubtitles: {
-        technology: 'あなたと同じような組織が、イベント駆動型アーキテクチャを活用してリスクを低減し、ベンダーを集約し、{i}のデジタルトランスフォーメーションを加速する方法をご覧ください。',
+        technology: 'お客様と同じような組織が、イベントドリブンアーキテクチャを活用してリスクを低減し、ベンダーを集約し、{i}のデジタルトランスフォーメーションを加速する方法をご覧ください。',
         integration: '{i}の統合・ミドルウェアチームが、プラットフォームの集約、レガシーミドルウェアの刷新、そして迅速なデリバリーを実現する方法をご覧ください。',
         business: 'リアルタイムのイベント駆動型オペレーションが、{i}の組織において収益を向上させ、顧客体験を改善し、競争力を変革している方法をご覧ください。',
         architect: '{i}の組織が Solace を活用して実践しているアーキテクチャパターン、デプロイモデル、プロトコル戦略をご覧ください。'
@@ -156,7 +156,7 @@
     },
     ja: {
       aviation: '航空・空港',
-      logistics: '物流・海運',
+      logistics: '物流・運輸',
       rail: '鉄道・交通',
       automotive: '自動車・モビリティ',
       financial: '金融サービス',
@@ -190,8 +190,8 @@
       exploring: 'all industries'
     },
     ja: {
-      aviation: '航空',
-      logistics: '物流・海運',
+      aviation: '航空業界',
+      logistics: '物流・運輸',
       rail: '鉄道・交通',
       automotive: '自動車',
       financial: '金融サービス',
@@ -288,7 +288,7 @@
     // Industry cards
     var indData = {
       aviation:           { en: { h: 'Aviation & Airports', p: 'Airlines, air traffic, airport operations' }, ja: { h: '航空・空港', p: '航空会社、航空管制、空港運営' } },
-      logistics:          { en: { h: 'Logistics & Shipping', p: 'Ports, freight, postal, supply chain' }, ja: { h: '物流・海運', p: '港湾、貨物、郵便、サプライチェーン' } },
+      logistics:          { en: { h: 'Logistics & Shipping', p: 'Ports, freight, postal, supply chain' }, ja: { h: '物流・運輸', p: '港湾、貨物、郵便、サプライチェーン' } },
       rail:               { en: { h: 'Rail & Transit', p: 'Railways, transit operators, passenger systems' }, ja: { h: '鉄道・交通', p: '鉄道事業者、交通機関、旅客システム' } },
       automotive:         { en: { h: 'Automotive & Mobility', p: 'Connected vehicles, manufacturing, fleet' }, ja: { h: '自動車・モビリティ', p: 'コネクテッドカー、製造、フリート管理' } },
       financial:          { en: { h: 'Financial Services', p: 'Capital markets, banking, payments, insurance' }, ja: { h: '金融サービス', p: '資本市場、銀行、決済、保険' } },
@@ -298,7 +298,7 @@
       telecom:            { en: { h: 'Telecommunications', p: 'Network operators, 5G, IoT connectivity' }, ja: { h: '通信', p: 'ネットワーク事業者、5G、IoT 接続' } },
       lifesciences:       { en: { h: 'Healthcare & Life Sciences', p: 'Pharma, medical devices, clinical operations' }, ja: { h: 'ヘルスケア・ライフサイエンス', p: '製薬、医療機器、臨床業務' } },
       'public-sector':    { en: { h: 'Public Sector', p: 'Government, defence, education' }, ja: { h: '公共セクター', p: '政府、防衛、教育' } },
-      exploring:          { en: { h: 'Just Exploring', p: "Not in a specific industry? See a general overview of what Solace makes possible." }, ja: { h: 'まずは見てみる', p: '特定の業界に属さない方も、Solaceが実現できることの概要をご覧いただけます。' } }
+      exploring:          { en: { h: 'Just Exploring', p: "Not in a specific industry? See a general overview of what Solace makes possible." }, ja: { h: '概要を見る（業界未定）', p: '特定の業界に属さない方も、Solaceが実現できることの概要をご覧いただけます。' } }
     };
     Object.keys(indData).forEach(function(k) {
       var d = indData[k][LANG];
