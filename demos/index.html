@@ -69,7 +69,34 @@
       background: rgba(0,200,149,0.12);
       border: 1px solid rgba(0,200,149,0.25);
       padding: 3px 10px; border-radius: 100px;
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
     }
+    .header-badge:hover { background: rgba(0,200,149,0.22); }
+    .header-badge.is-staging {
+      color: #92400e;
+      background: rgba(251,191,36,0.15);
+      border-color: rgba(251,191,36,0.5);
+    }
+    .header-badge.is-staging:hover { background: rgba(251,191,36,0.25); }
+
+    /* ── Staging banner ── */
+    .staging-banner {
+      display: none;
+      background: #fffbeb;
+      border-bottom: 1px solid #fde68a;
+      padding: 8px 24px;
+      font-size: 13px; color: #92400e;
+      align-items: center; justify-content: center; gap: 10px;
+    }
+    .staging-banner.visible { display: flex; flex-wrap: wrap; gap: 6px 12px; }
+    .staging-banner strong { font-weight: 700; }
+    .staging-banner a {
+      color: #92400e; font-weight: 600;
+      text-decoration: underline; text-underline-offset: 2px;
+    }
+    .staging-banner a:hover { opacity: 0.75; }
 
     /* ── Hero ── */
     .hero {
@@ -105,7 +132,6 @@
     /* ── Controls ── */
     .controls { max-width: 960px; margin: 0 auto; padding: 32px 24px 0; }
 
-    /* Search */
     .search-wrap { position: relative; margin-bottom: 20px; }
     .search-icon {
       position: absolute; left: 14px; top: 50%;
@@ -146,48 +172,28 @@
       padding: 4px 20px;
       box-shadow: var(--shadow-sm);
     }
-
     .filter-row {
-      display: flex;
-      align-items: flex-start;
-      gap: 16px;
-      padding: 14px 0;
+      display: flex; align-items: flex-start;
+      gap: 16px; padding: 14px 0;
     }
-
-    .filter-divider {
-      height: 1px;
-      background: var(--border);
-    }
-
+    .filter-divider { height: 1px; background: var(--border); }
     .filter-label {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.07em;
-      text-transform: uppercase;
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 0.07em; text-transform: uppercase;
       color: var(--text-light);
-      min-width: 68px;
-      padding-top: 5px;
-      flex-shrink: 0;
+      min-width: 68px; padding-top: 5px; flex-shrink: 0;
     }
-
-    .pill-group {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-    }
-
+    .pill-group { display: flex; flex-wrap: wrap; gap: 6px; }
     .pill {
       font-family: var(--font);
       font-size: 12px; font-weight: 600;
       letter-spacing: 0.02em;
-      padding: 4px 13px;
-      border-radius: 100px;
+      padding: 4px 13px; border-radius: 100px;
       border: 1px solid var(--border);
       background: var(--bg); color: var(--text-mid);
-      cursor: pointer;
+      cursor: pointer; line-height: 1.5;
       transition: background 0.15s, color 0.15s, border-color 0.15s, box-shadow 0.15s;
       white-space: nowrap;
-      line-height: 1.5;
     }
     .pill:hover { border-color: var(--green); color: var(--green); }
     .pill.active {
@@ -201,25 +207,19 @@
       height: 0; overflow: hidden; opacity: 0;
       transition: height 0.2s ease, opacity 0.2s ease;
     }
-    .filter-summary-row.visible {
-      height: 40px; opacity: 1;
-    }
+    .filter-summary-row.visible { height: 40px; opacity: 1; }
     .filter-summary-inner {
       display: flex; align-items: center;
       justify-content: space-between;
-      padding: 0 20px;
-      height: 40px;
+      padding: 0 20px; height: 40px;
       border-top: 1px solid var(--border);
       background: rgba(0,200,149,0.04);
       border-radius: 0 0 12px 12px;
     }
-    .filter-summary-text {
-      font-size: 12px; color: var(--text-mid);
-    }
+    .filter-summary-text { font-size: 12px; color: var(--text-mid); }
     .filter-summary-text strong { color: var(--text-dark); font-weight: 600; }
     .filter-reset {
-      font-size: 12px; font-weight: 600;
-      color: var(--green);
+      font-size: 12px; font-weight: 600; color: var(--green);
       background: none; border: none; cursor: pointer;
       padding: 0; transition: opacity 0.15s;
     }
@@ -227,12 +227,6 @@
 
     /* ── Grid ── */
     .grid-section { max-width: 960px; margin: 0 auto; padding: 24px 24px 60px; }
-    .result-count {
-      font-size: 13px; color: var(--text-light);
-      margin-bottom: 16px; min-height: 18px;
-    }
-    .result-count strong { color: var(--text-mid); font-weight: 600; }
-
     .card-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -245,7 +239,6 @@
       border: 1px solid var(--border);
       border-radius: var(--radius);
       padding: 24px;
-      cursor: pointer;
       display: flex; flex-direction: column; gap: 12px;
       box-shadow: var(--shadow-sm);
       position: relative; overflow: hidden;
@@ -254,33 +247,44 @@
         box-shadow 0.2s ease,
         border-color 0.2s ease;
     }
+    .demo-card.is-link { cursor: pointer; }
+    .demo-card.is-link:hover {
+      transform: translateY(-2px);
+      border-color: var(--green);
+      box-shadow: var(--shadow-hover);
+    }
+    .demo-card.is-link:hover::before { opacity: 1; }
     .demo-card::before {
       content: '';
       position: absolute; top: 0; left: 0; right: 0; height: 2px;
       background: linear-gradient(90deg, var(--green), var(--lime));
       opacity: 0; transition: opacity 0.2s ease;
     }
-    .demo-card:hover {
-      transform: translateY(-2px);
-      border-color: var(--green);
-      box-shadow: var(--shadow-hover);
-    }
-    .demo-card:hover::before { opacity: 1; }
-    .demo-card.hidden { display: none; }
-
-    /* ── Video card variant ── */
     .demo-card.is-video::before {
       background: linear-gradient(90deg, #FF4444, #FF8C00);
     }
-    .demo-card.is-video:hover {
+    .demo-card.is-video.is-link:hover {
       border-color: #e03333;
       box-shadow: 0 8px 32px rgba(255,68,68,0.10), 0 2px 8px rgba(255,68,68,0.07);
     }
+    .demo-card.hidden { display: none; }
+
+    /* Disabled / coming-soon card */
+    .demo-card.no-url { opacity: 0.65; cursor: default; }
+    .coming-soon-badge {
+      position: absolute; top: 12px; right: 12px;
+      font-size: 9px; font-weight: 700;
+      letter-spacing: 0.07em; text-transform: uppercase;
+      padding: 3px 8px; border-radius: 100px;
+      background: var(--bg); color: var(--text-light);
+      border: 1px solid var(--border);
+    }
+
+    /* Video play badge */
     .video-badge-corner {
       position: absolute; top: 14px; right: 14px;
       width: 26px; height: 26px;
-      background: #FF4444;
-      border-radius: 50%;
+      background: #FF4444; border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
     }
     .video-badge-corner svg { margin-left: 2px; }
@@ -297,7 +301,7 @@
       font-size: 15px; font-weight: 700; color: var(--text-dark);
       letter-spacing: -0.01em; line-height: 1.3;
     }
-    .is-video .card-title { padding-right: 32px; }
+    .has-badge .card-title { padding-right: 32px; }
     .card-desc {
       font-size: 13px; color: var(--text-mid);
       line-height: 1.55; font-weight: 400;
@@ -308,7 +312,6 @@
       justify-content: space-between; margin-top: 4px; gap: 6px;
     }
     .card-tags { display: flex; flex-wrap: wrap; gap: 4px; flex: 1; }
-
     .card-tag {
       font-size: 10px; font-weight: 700;
       letter-spacing: 0.06em; text-transform: uppercase;
@@ -330,13 +333,60 @@
       background: rgba(183,254,134,0.25); color: #3a6b1a;
       border: 1px solid rgba(183,254,134,0.6);
     }
-
     .card-arrow {
       font-size: 14px; color: var(--text-light);
       transition: color 0.15s, transform 0.15s; flex-shrink: 0;
     }
-    .demo-card:hover .card-arrow { color: var(--green); transform: translateX(3px); }
-    .demo-card.is-video:hover .card-arrow { color: #FF4444; }
+    .demo-card.is-link:hover .card-arrow { color: var(--green); transform: translateX(3px); }
+    .demo-card.is-video.is-link:hover .card-arrow { color: #FF4444; }
+
+    .card-date {
+      font-size: 11px; color: var(--text-light);
+      font-weight: 500; margin-top: 2px;
+    }
+
+    /* ── Grid toolbar ── */
+    .grid-toolbar {
+      display: flex; align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap; gap: 10px;
+      margin-bottom: 16px;
+    }
+    .result-count {
+      font-size: 13px; color: var(--text-light); min-height: 18px;
+    }
+    .result-count strong { color: var(--text-mid); font-weight: 600; }
+
+    /* ── Sort bar ── */
+    .sort-bar {
+      display: flex; align-items: center; gap: 8px;
+      flex-wrap: wrap;
+    }
+    .sort-label {
+      font-size: 12px; font-weight: 600;
+      color: var(--text-light); flex-shrink: 0;
+    }
+    .sort-btn {
+      font-family: var(--font);
+      font-size: 12px; font-weight: 600;
+      padding: 4px 12px; border-radius: 100px;
+      border: 1px solid var(--border);
+      background: var(--white); color: var(--text-mid);
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+    .sort-btn:hover { border-color: var(--green); color: var(--green); }
+    .sort-btn.active {
+      background: var(--navy); color: var(--white);
+      border-color: var(--navy);
+    }
+    .loading-state, .error-state {
+      grid-column: 1 / -1;
+      text-align: center; padding: 64px 24px;
+    }
+    .loading-state { color: var(--text-light); font-size: 14px; }
+    .error-state { color: #CC2200; font-size: 14px; }
 
     /* Empty state */
     .empty-state {
@@ -382,25 +432,6 @@
     }
     .hero-inner { animation: fadeUp 0.5s ease both; }
     .demo-card  { animation: fadeUp 0.4s ease both; }
-    .demo-card:nth-child(1)  { animation-delay: 0.03s; }
-    .demo-card:nth-child(2)  { animation-delay: 0.06s; }
-    .demo-card:nth-child(3)  { animation-delay: 0.09s; }
-    .demo-card:nth-child(4)  { animation-delay: 0.12s; }
-    .demo-card:nth-child(5)  { animation-delay: 0.15s; }
-    .demo-card:nth-child(6)  { animation-delay: 0.18s; }
-    .demo-card:nth-child(7)  { animation-delay: 0.21s; }
-    .demo-card:nth-child(8)  { animation-delay: 0.24s; }
-    .demo-card:nth-child(9)  { animation-delay: 0.27s; }
-    .demo-card:nth-child(10) { animation-delay: 0.30s; }
-    .demo-card:nth-child(11) { animation-delay: 0.33s; }
-    .demo-card:nth-child(12) { animation-delay: 0.36s; }
-    .demo-card:nth-child(13) { animation-delay: 0.39s; }
-    .demo-card:nth-child(14) { animation-delay: 0.42s; }
-    .demo-card:nth-child(15) { animation-delay: 0.45s; }
-    .demo-card:nth-child(16) { animation-delay: 0.48s; }
-    .demo-card:nth-child(17) { animation-delay: 0.51s; }
-    .demo-card:nth-child(18) { animation-delay: 0.54s; }
-    .demo-card:nth-child(19) { animation-delay: 0.57s; }
   </style>
 </head>
 <body>
@@ -415,9 +446,9 @@
       />
     </a>
     <div class="header-divider"></div>
-    <a class="header-back" href="/">&#8592; solacese.github.io</a>
+    <a class="header-back" href="https://solacese.github.io/">&#8592; solacese.github.io</a>
     <div class="header-spacer"></div>
-    <span class="header-badge">SE Team</span>
+    <a class="header-badge" href="https://studious-adventure-wwvq361.pages.github.io/" title="SE-only access to the internal Pitch Hub">Solace Login</a>
   </header>
 
   <!-- HERO -->
@@ -430,7 +461,6 @@
 
   <!-- CONTROLS -->
   <div class="controls">
-
     <div class="search-wrap">
       <span class="search-icon">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -442,7 +472,6 @@
       <button class="search-clear" id="searchClear" aria-label="Clear search">&#215;</button>
     </div>
 
-    <!-- Three-axis filter panel -->
     <div class="filter-panel">
       <div class="filter-row">
         <span class="filter-label">Format</span>
@@ -460,452 +489,35 @@
       </div>
     </div>
 
-    <!-- Active filter summary (slides in below panel) -->
     <div class="filter-summary-row" id="filterSummaryRow">
       <div class="filter-summary-inner">
         <span class="filter-summary-text" id="filterSummaryText"></span>
         <button class="filter-reset" id="filterReset">Reset filters</button>
       </div>
     </div>
-
   </div>
 
   <!-- GRID -->
   <main class="grid-section">
-    <div class="result-count" id="resultCount"></div>
+    <div class="grid-toolbar">
+      <div class="result-count" id="resultCount"></div>
+      <div class="sort-bar">
+        <span class="sort-label">Sort:</span>
+        <button class="sort-btn" data-sort="date-desc">Newest</button>
+        <button class="sort-btn" data-sort="date-asc">Oldest</button>
+        <button class="sort-btn" data-sort="alpha-asc">A–Z</button>
+        <button class="sort-btn" data-sort="alpha-desc">Z–A</button>
+      </div>
+    </div>
     <div class="card-grid" id="cardGrid">
-
-      <!--
-        ═══════════════════════════════════════════════════════
-        CARD DATA ATTRIBUTES:
-          data-format:   "interactive" | "video"
-          data-industry: "Transport" | "Aviation" | "Industrial" |
-                         "Agriculture" | "Finance" | "Enterprise"
-                         or "" (untagged — shows only under All)
-          data-theme:    "Event Mesh" | "IoT" | "Integration" |
-                         "Analytics" | "AI" | "Tools"
-        ═══════════════════════════════════════════════════════
-      -->
-
-      <!-- Entanglement -->
-      <a class="demo-card"
-         href="https://sg.solace.rocks/qr" target="_blank" rel="noopener"
-         data-demo="entanglement"
-         data-format="interactive" data-industry="" data-theme="Event Mesh">
-        <div class="card-icon">
-          <img src="/demos/icons/phone.svg" alt="" onerror="this.parentElement.textContent='📱'" />
-        </div>
-        <div class="card-body">
-          <div class="card-title">Entanglement</div>
-          <div class="card-desc">Real time synchronised phone to web via Broker</div>
-        </div>
-        <div class="card-footer">
-          <div class="card-tags">
-            <span class="card-tag tag-format-interactive">Interactive</span>
-            <span class="card-tag tag-theme">Event Mesh</span>
-          </div>
-          <span class="card-arrow">→</span>
-        </div>
-      </a>
-
-      <!-- Dragonboat -->
-      <a class="demo-card"
-         href="https://sg.solace.rocks/db/index.html" target="_blank" rel="noopener"
-         data-demo="dragonboat"
-         data-format="interactive" data-industry="" data-theme="Event Mesh">
-        <div class="card-icon">
-          <img src="/demos/icons/boat.svg" alt="" onerror="this.parentElement.textContent='⛵'" />
-        </div>
-        <div class="card-body">
-          <div class="card-title">Dragonboat</div>
-          <div class="card-desc">An interactive dragonboat race with audience participation</div>
-        </div>
-        <div class="card-footer">
-          <div class="card-tags">
-            <span class="card-tag tag-format-interactive">Interactive</span>
-            <span class="card-tag tag-theme">Event Mesh</span>
-          </div>
-          <span class="card-arrow">→</span>
-        </div>
-      </a>
-
-      <!-- Singapore Buses -->
-      <a class="demo-card"
-         href="https://sg.solace.rocks/bus" target="_blank" rel="noopener"
-         data-demo="singapore-buses"
-         data-format="interactive" data-industry="Transport" data-theme="IoT">
-        <div class="card-icon">
-          <img src="/demos/icons/bus.svg" alt="" onerror="this.parentElement.textContent='🚌'" />
-        </div>
-        <div class="card-body">
-          <div class="card-title">Singapore Buses</div>
-          <div class="card-desc">Visualisation and interactivity with the Singapore bus network</div>
-        </div>
-        <div class="card-footer">
-          <div class="card-tags">
-            <span class="card-tag tag-format-interactive">Interactive</span>
-            <span class="card-tag tag-industry">Transport</span>
-            <span class="card-tag tag-theme">IoT</span>
-          </div>
-          <span class="card-arrow">→</span>
-        </div>
-      </a>
-
-      <!-- Connected Mine -->
-      <a class="demo-card"
-         href="https://sg.solace.rocks/mining/" target="_blank" rel="noopener"
-         data-demo="connected-mine"
-         data-format="interactive" data-industry="Industrial" data-theme="IoT">
-        <div class="card-icon">
-          <img src="/demos/icons/mine.svg" alt="" onerror="this.parentElement.textContent='⛏️'" />
-        </div>
-        <div class="card-body">
-          <div class="card-title">Connected Mine</div>
-          <div class="card-desc">Smart monitoring of mining assets at a Western Australian Mine</div>
-        </div>
-        <div class="card-footer">
-          <div class="card-tags">
-            <span class="card-tag tag-format-interactive">Interactive</span>
-            <span class="card-tag tag-industry">Industrial</span>
-            <span class="card-tag tag-theme">IoT</span>
-          </div>
-          <span class="card-arrow">→</span>
-        </div>
-      </a>
-
-      <!-- Connected Airport -->
-      <a class="demo-card"
-         href="https://sg.solace.rocks/cag1/" target="_blank" rel="noopener"
-         data-demo="connected-airport"
-         data-format="interactive" data-industry="Aviation" data-theme="IoT">
-        <div class="card-icon">
-          <img src="/demos/icons/plane.svg" alt="" onerror="this.parentElement.textContent='✈️'" />
-        </div>
-        <div class="card-body">
-          <div class="card-title">Connected Airport</div>
-          <div class="card-desc">Smart Passenger Insights for Smarter Airport Retail</div>
-        </div>
-        <div class="card-footer">
-          <div class="card-tags">
-            <span class="card-tag tag-format-interactive">Interactive</span>
-            <span class="card-tag tag-industry">Aviation</span>
-            <span class="card-tag tag-theme">IoT</span>
-          </div>
-          <span class="card-arrow">→</span>
-        </div>
-      </a>
-
-      <!-- Connected Agriculture -->
-      <a class="demo-card"
-         href="https://sg.solace.rocks/agri/" target="_blank" rel="noopener"
-         data-demo="connected-agriculture"
-         data-format="interactive" data-industry="Agriculture" data-theme="IoT">
-        <div class="card-icon">
-          <img src="/demos/icons/ag.svg" alt="" onerror="this.parentElement.textContent='🌾'" />
-        </div>
-        <div class="card-body">
-          <div class="card-title">Connected Agriculture</div>
-          <div class="card-desc">Smart monitoring of agriculture assets</div>
-        </div>
-        <div class="card-footer">
-          <div class="card-tags">
-            <span class="card-tag tag-format-interactive">Interactive</span>
-            <span class="card-tag tag-industry">Agriculture</span>
-            <span class="card-tag tag-theme">IoT</span>
-          </div>
-          <span class="card-arrow">→</span>
-        </div>
-      </a>
-
-      <!-- Aircraft Movement -->
-      <a class="demo-card"
-         href="https://solacese.github.io/faa-scds-feeds-gui/" target="_blank" rel="noopener"
-         data-demo="aircraft-movement"
-         data-format="interactive" data-industry="Aviation" data-theme="Integration">
-        <div class="card-icon">
-          <img src="/demos/icons/plane.svg" alt="" onerror="this.parentElement.textContent='✈️'" />
-        </div>
-        <div class="card-body">
-          <div class="card-title">Aircraft Movement</div>
-          <div class="card-desc">SWIM feed of aircraft movements from the FAA</div>
-        </div>
-        <div class="card-footer">
-          <div class="card-tags">
-            <span class="card-tag tag-format-interactive">Interactive</span>
-            <span class="card-tag tag-industry">Aviation</span>
-            <span class="card-tag tag-theme">Integration</span>
-          </div>
-          <span class="card-arrow">→</span>
-        </div>
-      </a>
-
-      <!-- Sunburst Topic Explorer -->
-      <a class="demo-card"
-         href="https://sg.solace.rocks/topic/" target="_blank" rel="noopener"
-         data-demo="sunburst"
-         data-format="interactive" data-industry="" data-theme="Tools">
-        <div class="card-icon">
-          <img src="/demos/icons/sunburst.svg" alt="" onerror="this.parentElement.textContent='📊'" />
-        </div>
-        <div class="card-body">
-          <div class="card-title">Sunburst Topic Explorer</div>
-          <div class="card-desc">Visualization of topics being exchanged at an event broker</div>
-        </div>
-        <div class="card-footer">
-          <div class="card-tags">
-            <span class="card-tag tag-format-interactive">Interactive</span>
-            <span class="card-tag tag-theme">Tools</span>
-          </div>
-          <span class="card-arrow">→</span>
-        </div>
-      </a>
-
-      <!-- Entanglement (SAP) — no live URL yet, div not a -->
-      <div class="demo-card"
-           data-demo="entanglement-sap"
-           data-format="interactive" data-industry="Enterprise" data-theme="Integration">
-        <div class="card-icon">
-          <img src="/demos/icons/phone.svg" alt="" onerror="this.parentElement.textContent='🏢'" />
-        </div>
-        <div class="card-body">
-          <div class="card-title">Entanglement (SAP)</div>
-          <div class="card-desc">Real time synchronised phone to web via Broker — SAP variant</div>
-        </div>
-        <div class="card-footer">
-          <div class="card-tags">
-            <span class="card-tag tag-format-interactive">Interactive</span>
-            <span class="card-tag tag-industry">Enterprise</span>
-            <span class="card-tag tag-theme">Integration</span>
-          </div>
-          <span class="card-arrow">→</span>
-        </div>
-      </div>
-
-      <!-- ADR Fiumicino -->
-      <a class="demo-card"
-         href="https://london.solace.rocks/adr1/" target="_blank" rel="noopener"
-         data-demo="adr-fiumicino"
-         data-format="interactive" data-industry="Transport" data-theme="IoT">
-        <div class="card-icon">📍</div>
-        <div class="card-body">
-          <div class="card-title">ADR Fiumicino Situational Awareness</div>
-          <div class="card-desc">Geo situational awareness demo at Rome Fiumicino airport</div>
-        </div>
-        <div class="card-footer">
-          <div class="card-tags">
-            <span class="card-tag tag-format-interactive">Interactive</span>
-            <span class="card-tag tag-industry">Transport</span>
-            <span class="card-tag tag-theme">IoT</span>
-          </div>
-          <span class="card-arrow">→</span>
-        </div>
-      </a>
-
-      <!-- Singapore Taxi -->
-      <a class="demo-card"
-         href="https://sg.solace.rocks/taxi/" target="_blank" rel="noopener"
-         data-demo="singapore-taxi"
-         data-format="interactive" data-industry="Transport" data-theme="IoT">
-        <div class="card-icon">🚖</div>
-        <div class="card-body">
-          <div class="card-title">Singapore Taxi</div>
-          <div class="card-desc">Real-time visualisation of Singapore taxi locations and availability</div>
-        </div>
-        <div class="card-footer">
-          <div class="card-tags">
-            <span class="card-tag tag-format-interactive">Interactive</span>
-            <span class="card-tag tag-industry">Transport</span>
-            <span class="card-tag tag-theme">IoT</span>
-          </div>
-          <span class="card-arrow">→</span>
-        </div>
-      </a>
-
-      <!-- India Railway -->
-      <a class="demo-card"
-         href="https://gvensan.github.io/india-railway-monitoring-sim/" target="_blank" rel="noopener"
-         data-demo="india-railway"
-         data-format="interactive" data-industry="Transport" data-theme="IoT">
-        <div class="card-icon">🚂</div>
-        <div class="card-body">
-          <div class="card-title">India Railway Monitoring</div>
-          <div class="card-desc">Real-time monitoring simulation of India's railway network</div>
-        </div>
-        <div class="card-footer">
-          <div class="card-tags">
-            <span class="card-tag tag-format-interactive">Interactive</span>
-            <span class="card-tag tag-industry">Transport</span>
-            <span class="card-tag tag-theme">IoT</span>
-          </div>
-          <span class="card-arrow">→</span>
-        </div>
-      </a>
-
-      <!-- Machine Learning Demo -->
-      <a class="demo-card"
-         href="https://london.solace.rocks/cloud-analytics/machine-learning.html" target="_blank" rel="noopener"
-         data-demo="machine-learning"
-         data-format="interactive" data-industry="" data-theme="Analytics">
-        <div class="card-icon">🤖</div>
-        <div class="card-body">
-          <div class="card-title">Machine Learning Demo</div>
-          <div class="card-desc">Cloud analytics and real-time ML inference via Solace event streams</div>
-        </div>
-        <div class="card-footer">
-          <div class="card-tags">
-            <span class="card-tag tag-format-interactive">Interactive</span>
-            <span class="card-tag tag-theme">Analytics</span>
-          </div>
-          <span class="card-arrow">→</span>
-        </div>
-      </a>
-
-      <!-- Digital Silk Road -->
-      <a class="demo-card"
-         href="http://london.solace.rocks/multi-cloud/digital-silk-road.html" target="_blank" rel="noopener"
-         data-demo="digital-silk-road"
-         data-format="interactive" data-industry="" data-theme="Event Mesh">
-        <div class="card-icon">🌐</div>
-        <div class="card-body">
-          <div class="card-title">Digital Silk Road</div>
-          <div class="card-desc">Multi-cloud event mesh — data flowing across cloud regions in real time</div>
-        </div>
-        <div class="card-footer">
-          <div class="card-tags">
-            <span class="card-tag tag-format-interactive">Interactive</span>
-            <span class="card-tag tag-theme">Event Mesh</span>
-          </div>
-          <span class="card-arrow">→</span>
-        </div>
-      </a>
-
-      <!-- Cloud Arbitrage -->
-      <a class="demo-card"
-         href="http://london.solace.rocks/multi-cloud/arbitrage.html" target="_blank" rel="noopener"
-         data-demo="cloud-arbitrage"
-         data-format="interactive" data-industry="" data-theme="Event Mesh">
-        <div class="card-icon">⚡</div>
-        <div class="card-body">
-          <div class="card-title">Cloud Arbitrage</div>
-          <div class="card-desc">Multi-cloud latency arbitrage demonstration using a Solace event mesh</div>
-        </div>
-        <div class="card-footer">
-          <div class="card-tags">
-            <span class="card-tag tag-format-interactive">Interactive</span>
-            <span class="card-tag tag-theme">Event Mesh</span>
-          </div>
-          <span class="card-arrow">→</span>
-        </div>
-      </a>
-
-      <!-- FX Trading -->
-      <a class="demo-card"
-         href="http://london.solace.rocks/trading" target="_blank" rel="noopener"
-         data-demo="fx-trading"
-         data-format="interactive" data-industry="Finance" data-theme="Event Mesh">
-        <div class="card-icon">📈</div>
-        <div class="card-body">
-          <div class="card-title">FX Trading Demo</div>
-          <div class="card-desc">Real-time FX trading visualisation powered by Solace event streaming</div>
-        </div>
-        <div class="card-footer">
-          <div class="card-tags">
-            <span class="card-tag tag-format-interactive">Interactive</span>
-            <span class="card-tag tag-industry">Finance</span>
-            <span class="card-tag tag-theme">Event Mesh</span>
-          </div>
-          <span class="card-arrow">→</span>
-        </div>
-      </a>
-
-      <!-- VIDEO: AI & Event Mesh -->
-      <a class="demo-card is-video"
-         href="https://www.youtube.com/watch?v=gvV-AIbc1Dc" target="_blank" rel="noopener"
-         data-demo="video-ai-event-mesh"
-         data-format="video" data-industry="" data-theme="AI">
-        <span class="video-badge-corner" aria-label="Video">
-          <svg width="10" height="12" viewBox="0 0 10 12" fill="white"><polygon points="0,0 10,6 0,12"/></svg>
-        </span>
-        <div class="card-icon">🎬</div>
-        <div class="card-body">
-          <div class="card-title">AI &amp; Event Mesh</div>
-          <div class="card-desc">Connecting Data Events and AI Models to a Real Time Solace Event Mesh</div>
-        </div>
-        <div class="card-footer">
-          <div class="card-tags">
-            <span class="card-tag tag-format-video">Video</span>
-            <span class="card-tag tag-theme">AI</span>
-          </div>
-          <span class="card-arrow">→</span>
-        </div>
-      </a>
-
-      <!-- VIDEO: Solace Context Mesh -->
-      <a class="demo-card is-video"
-         href="https://www.youtube.com/watch?v=FW68XOOmlrs" target="_blank" rel="noopener"
-         data-demo="video-context-mesh"
-         data-format="video" data-industry="" data-theme="AI">
-        <span class="video-badge-corner" aria-label="Video">
-          <svg width="10" height="12" viewBox="0 0 10 12" fill="white"><polygon points="0,0 10,6 0,12"/></svg>
-        </span>
-        <div class="card-icon">🎬</div>
-        <div class="card-body">
-          <div class="card-title">Solace Context Mesh Demo</div>
-          <div class="card-desc">Realtime RAG — Solace Context Mesh Demo walkthrough</div>
-        </div>
-        <div class="card-footer">
-          <div class="card-tags">
-            <span class="card-tag tag-format-video">Video</span>
-            <span class="card-tag tag-theme">AI</span>
-          </div>
-          <span class="card-arrow">→</span>
-        </div>
-      </a>
-
-      <!-- VIDEO: Video Analytics / Neural Processing -->
-      <a class="demo-card is-video"
-         href="https://www.youtube.com/watch?v=Z6aYwU8xnsA" target="_blank" rel="noopener"
-         data-demo="video-neural-analytics"
-         data-format="video" data-industry="Industrial" data-theme="AI">
-        <span class="video-badge-corner" aria-label="Video">
-          <svg width="10" height="12" viewBox="0 0 10 12" fill="white"><polygon points="0,0 10,6 0,12"/></svg>
-        </span>
-        <div class="card-icon">🎬</div>
-        <div class="card-body">
-          <div class="card-title">Video Analytics with Neural Processing</div>
-          <div class="card-desc">Raspberry Pi AI HAT+ — video analytics with a neural processing unit and Solace</div>
-        </div>
-        <div class="card-footer">
-          <div class="card-tags">
-            <span class="card-tag tag-format-video">Video</span>
-            <span class="card-tag tag-industry">Industrial</span>
-            <span class="card-tag tag-theme">AI</span>
-          </div>
-          <span class="card-arrow">→</span>
-        </div>
-      </a>
-
-      <!--
-        ═══════════════════════════════════════════════════════
-        ADD NEW CARDS ABOVE THIS LINE
-        Interactive: <a class="demo-card" href="..." data-format="interactive" data-industry="X" data-theme="Y">
-        Video:       <a class="demo-card is-video" href="..." data-format="video" data-industry="" data-theme="AI">
-        Leave data-industry="" for demos that span multiple industries.
-        ═══════════════════════════════════════════════════════
-      -->
-
-      <div class="empty-state" id="emptyState">
-        <div class="empty-icon">🔍</div>
-        <p>No demos match your current filters.</p>
-      </div>
-
+      <div class="loading-state">Loading demos…</div>
     </div>
   </main>
 
   <!-- FOOTER -->
   <footer class="site-footer">
     <div class="footer-links">
-      <a href="/">&#8592; Back to solacese.github.io</a>
+      <a href="https://solacese.github.io/">&#8592; Back to solacese.github.io</a>
       <a href="https://solace.com" target="_blank" rel="noopener">solace.com</a>
     </div>
     <div class="footer-copy">Built by the Solace Solution Engineering team &middot; <span id="footerYear"></span></div>
@@ -914,56 +526,148 @@
   <script>
     document.getElementById('footerYear').textContent = new Date().getFullYear();
 
-    // ── Card collection ──────────────────────────────────────────────
-    const cards = Array.from(document.querySelectorAll('.demo-card[data-demo]'));
-
-    // ── Filter state: each axis is fully independent ─────────────────
+    // ── State ─────────────────────────────────────────────────────────
     const state = { format: 'ALL', industry: 'ALL', theme: 'ALL' };
     let searchQuery = '';
+    let allCards = [];      // DOM nodes, populated after render
+    let currentSort = 'date-desc'; // default: newest first
 
-    // ── Axis definitions ─────────────────────────────────────────────
-    // Values ordered as desired in UI; filtered to only those present in cards
+    // ── Sort logic ────────────────────────────────────────────────────
+    function applySort() {
+      const grid = document.getElementById('cardGrid');
+      const empty = document.getElementById('emptyState');
+
+      // Sort allCards array
+      const sorted = [...allCards].sort((a, b) => {
+        if (currentSort === 'alpha-asc')  return a.dataset.demo.localeCompare(b.dataset.demo) || (a.querySelector('.card-title')?.textContent || '').localeCompare(b.querySelector('.card-title')?.textContent || '');
+        if (currentSort === 'alpha-desc') return (b.querySelector('.card-title')?.textContent || '').localeCompare(a.querySelector('.card-title')?.textContent || '');
+        const da = a.dataset.updated || '0000-00-00';
+        const db = b.dataset.updated || '0000-00-00';
+        if (currentSort === 'date-desc') return db.localeCompare(da);
+        if (currentSort === 'date-asc')  return da.localeCompare(db);
+        return 0;
+      });
+
+      // Re-insert cards in sorted order (keep empty state at end)
+      sorted.forEach(c => grid.insertBefore(c, empty));
+
+      // Update button active states
+      document.querySelectorAll('.sort-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.sort === currentSort);
+      });
+    }
+
+    // ── Axis config — ordered display values ──────────────────────────
     const axisConfig = [
-      {
-        key: 'format',
-        elId: 'pills-format',
-        ordered: ['Interactive', 'Video'],
-        // format values are stored lowercase on cards; normalise for comparison
-        normalize: v => v.toLowerCase()
-      },
-      {
-        key: 'industry',
-        elId: 'pills-industry',
-        ordered: ['Transport','Aviation','Industrial','Agriculture','Finance','Enterprise'],
-        normalize: v => v
-      },
-      {
-        key: 'theme',
-        elId: 'pills-theme',
-        ordered: ['Event Mesh','IoT','Integration','Analytics','AI','Tools'],
-        normalize: v => v
-      }
+      { key: 'format',   elId: 'pills-format',   ordered: null }, // derived from taxonomy
+      { key: 'industry', elId: 'pills-industry',  ordered: null },
+      { key: 'theme',    elId: 'pills-theme',     ordered: null }
     ];
 
-    // ── Build pill rows ───────────────────────────────────────────────
-    axisConfig.forEach(({ key, elId, ordered, normalize }) => {
+    // ── Icon renderer ─────────────────────────────────────────────────
+    // Icon field can be an emoji string or a filename like "phone.svg"
+    function renderIcon(icon) {
+      if (!icon) return '<div class="card-icon">📄</div>';
+      const isSvg = icon.endsWith('.svg');
+      if (isSvg) {
+        return `<div class="card-icon">
+          <img src="/demos/icons/${icon}" alt=""
+               onerror="this.parentElement.textContent='📄'" />
+        </div>`;
+      }
+      return `<div class="card-icon">${icon}</div>`;
+    }
+
+    // ── Card renderer ─────────────────────────────────────────────────
+    function renderCard(demo, index) {
+      const isVideo    = demo.format === 'video';
+      const hasUrl     = !!demo.url;
+      const tag        = hasUrl ? 'a' : 'div';
+      const linkAttrs  = hasUrl
+        ? `href="${demo.url}" target="_blank" rel="noopener"`
+        : '';
+
+      const classes = [
+        'demo-card',
+        isVideo  ? 'is-video' : '',
+        hasUrl   ? 'is-link'  : 'no-url'
+      ].filter(Boolean).join(' ');
+
+      // Format tag class
+      const formatTagClass = isVideo ? 'tag-format-video' : 'tag-format-interactive';
+      const formatLabel    = isVideo ? 'Video' : 'Interactive';
+
+      // Industry + theme tags (only if set)
+      const industryTag = demo.industry
+        ? `<span class="card-tag tag-industry">${demo.industry}</span>` : '';
+      const themeTag = demo.theme
+        ? `<span class="card-tag tag-theme">${demo.theme}</span>` : '';
+
+      // Badges
+      const videoBadge = isVideo
+        ? `<span class="video-badge-corner" aria-label="Video">
+            <svg width="10" height="12" viewBox="0 0 10 12" fill="white"><polygon points="0,0 10,6 0,12"/></svg>
+           </span>` : '';
+      const comingSoonBadge = !hasUrl
+        ? `<span class="coming-soon-badge">Coming soon</span>` : '';
+
+      const arrowEl = hasUrl ? `<span class="card-arrow">&#8594;</span>` : '';
+
+      const bodyClass = (isVideo || !hasUrl) ? 'has-badge' : '';
+
+      // Format updated date for display
+      const updatedAttr = demo.updated || '';
+      const dateDisplay = demo.updated
+        ? (() => {
+            const [y, m, d] = demo.updated.split('-');
+            const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+            return `Updated ${months[parseInt(m,10)-1]} ${y}`;
+          })()
+        : '';
+
+      return `
+        <${tag} class="${classes}" ${linkAttrs}
+          data-demo="${demo.id}"
+          data-format="${demo.format}"
+          data-industry="${demo.industry || ''}"
+          data-theme="${demo.theme || ''}"
+          data-updated="${updatedAttr}"
+          style="animation-delay:${(index * 0.03).toFixed(2)}s">
+          ${videoBadge}${comingSoonBadge}
+          ${renderIcon(demo.icon)}
+          <div class="card-body ${bodyClass}">
+            <div class="card-title">${demo.title}</div>
+            <div class="card-desc">${demo.description}</div>
+            ${dateDisplay ? `<div class="card-date">${dateDisplay}</div>` : ''}
+          </div>
+          <div class="card-footer">
+            <div class="card-tags">
+              <span class="card-tag ${formatTagClass}">${formatLabel}</span>
+              ${industryTag}
+              ${themeTag}
+            </div>
+            ${arrowEl}
+          </div>
+        </${tag}>`;
+    }
+
+    // ── Pill builder ──────────────────────────────────────────────────
+    function buildPills(key, elId, values) {
       const container = document.getElementById(elId);
+      container.innerHTML = '';
 
-      // Determine which values are actually present in cards
-      const present = ordered.filter(v =>
-        cards.some(c => {
-          const raw = c.dataset[key] || '';
-          return normalize(raw) === normalize(v);
-        })
-      );
-
-      // All pill
       const allBtn = makePill('All', key, 'ALL', true);
       container.appendChild(allBtn);
 
-      present.forEach(val => {
-        container.appendChild(makePill(val, key, val, false));
-      });
+      // Only show values present in enabled demos
+      const present = values.filter(v =>
+        allCards.some(c => {
+          const raw = (c.dataset[key] || '').toLowerCase();
+          return raw === v.toLowerCase();
+        })
+      );
+
+      present.forEach(val => container.appendChild(makePill(val, key, val, false)));
 
       container.addEventListener('click', e => {
         const btn = e.target.closest('.pill');
@@ -973,7 +677,7 @@
         btn.classList.add('active');
         applyFilters();
       });
-    });
+    }
 
     function makePill(label, axis, val, active) {
       const btn = document.createElement('button');
@@ -989,48 +693,31 @@
       const q = searchQuery.toLowerCase().trim();
       let visible = 0;
 
-      cards.forEach(card => {
+      allCards.forEach(card => {
         const title    = (card.querySelector('.card-title')?.textContent || '').toLowerCase();
         const desc     = (card.querySelector('.card-desc')?.textContent  || '').toLowerCase();
         const format   = (card.dataset.format   || '').toLowerCase();
         const industry = card.dataset.industry  || '';
         const theme    = card.dataset.theme     || '';
 
-        // Format axis — pill label "Interactive"/"Video" matched case-insensitively
-        const matchFormat = state.format === 'ALL' ||
-          format === state.format.toLowerCase();
-
-        // Industry axis — untagged cards ("") only show under All
-        const matchIndustry = state.industry === 'ALL' ||
-          industry === state.industry;
-
-        // Theme axis
-        const matchTheme = state.theme === 'ALL' ||
-          theme === state.theme;
-
-        // Search
-        const matchSearch = !q ||
-          title.includes(q) || desc.includes(q) ||
-          format.includes(q) ||
-          industry.toLowerCase().includes(q) ||
-          theme.toLowerCase().includes(q);
+        const matchFormat   = state.format   === 'ALL' || format   === state.format.toLowerCase();
+        const matchIndustry = state.industry === 'ALL' || industry === state.industry;
+        const matchTheme    = state.theme    === 'ALL' || theme    === state.theme;
+        const matchSearch   = !q || title.includes(q) || desc.includes(q)
+          || format.includes(q) || industry.toLowerCase().includes(q) || theme.toLowerCase().includes(q);
 
         const show = matchFormat && matchIndustry && matchTheme && matchSearch;
         card.classList.toggle('hidden', !show);
         if (show) visible++;
       });
 
-      // Empty state
       document.getElementById('emptyState').classList.toggle('visible', visible === 0);
 
-      // Result count
-      const total = cards.length;
+      const total = allCards.length;
       const countEl = document.getElementById('resultCount');
       countEl.innerHTML = (visible === total && !q)
-        ? ''
-        : `Showing <strong>${visible}</strong> of ${total}`;
+        ? '' : `Showing <strong>${visible}</strong> of ${total}`;
 
-      // Filter summary strip
       const active = [];
       if (state.format   !== 'ALL') active.push(state.format);
       if (state.industry !== 'ALL') active.push(state.industry);
@@ -1039,7 +726,6 @@
 
       const summaryRow  = document.getElementById('filterSummaryRow');
       const summaryText = document.getElementById('filterSummaryText');
-
       if (active.length) {
         summaryText.innerHTML = 'Filtered by: ' + active.map(a => `<strong>${a}</strong>`).join(', ');
         summaryRow.classList.add('visible');
@@ -1054,8 +740,7 @@
       document.querySelectorAll('.pill').forEach(p => {
         p.classList.toggle('active', p.dataset.val === 'ALL');
       });
-      searchInput.value = '';
-      searchQuery = '';
+      searchInput.value = ''; searchQuery = '';
       searchClear.classList.remove('visible');
       applyFilters();
     });
@@ -1069,7 +754,6 @@
       searchClear.classList.toggle('visible', searchQuery.length > 0);
       applyFilters();
     });
-
     searchInput.addEventListener('keydown', e => {
       if (e.key === 'Escape') {
         searchInput.value = ''; searchQuery = '';
@@ -1077,12 +761,73 @@
         applyFilters(); searchInput.blur();
       }
     });
-
     searchClear.addEventListener('click', () => {
       searchInput.value = ''; searchQuery = '';
       searchClear.classList.remove('visible');
       applyFilters(); searchInput.focus();
     });
+
+    // ── Mode toggle: Live ↔ Staging ──────────────────────────────────
+    // ── Sort buttons ──────────────────────────────────────────────────
+    document.querySelectorAll('.sort-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        currentSort = btn.dataset.sort;
+        applySort();
+      });
+    });
+
+    // ── Bootstrap: fetch catalog and render ───────────────────────────
+    async function loadCatalog(catalogUrl) {
+      const grid = document.getElementById('cardGrid');
+      grid.innerHTML = '<div class="loading-state">Loading demos…</div>';
+
+      // Reset filters and sort on catalog switch
+      state.format = state.industry = state.theme = 'ALL';
+      currentSort = 'date-desc';
+      searchInput.value = ''; searchQuery = '';
+      searchClear.classList.remove('visible');
+      document.getElementById('filterSummaryRow').classList.remove('visible');
+      document.querySelectorAll('.pill').forEach(p => {
+        if (p.dataset.val === 'ALL') p.classList.add('active');
+        else p.classList.remove('active');
+      });
+
+      let catalog;
+      try {
+        const res = await fetch(catalogUrl);
+        if (!res.ok) throw new Error(`HTTP ${res.status} — ${catalogUrl}`);
+        catalog = await res.json();
+      } catch (err) {
+        grid.innerHTML = `<div class="error-state">
+          ⚠️ Could not load ${catalogUrl}<br><small>${err.message}</small>
+        </div>`;
+        return;
+      }
+
+      const demos = (catalog.demos || []).filter(d => d.enabled !== false);
+
+      grid.innerHTML = demos.map((d, i) => renderCard(d, i)).join('') +
+        `<div class="empty-state" id="emptyState">
+          <div class="empty-icon">🔍</div>
+          <p>No demos match your current filters.</p>
+        </div>`;
+
+      allCards = Array.from(grid.querySelectorAll('.demo-card[data-demo]'));
+
+      const tax = catalog.taxonomy || {};
+      buildPills('format',   'pills-format',   (tax.format?.values   || ['interactive','video']).map(v => v.charAt(0).toUpperCase() + v.slice(1)));
+      buildPills('industry', 'pills-industry',  tax.industry?.values  || []);
+      buildPills('theme',    'pills-theme',     tax.theme?.values     || []);
+
+      applySort();
+      applyFilters();
+    }
+
+    function init() {
+      loadCatalog('./demos.json');
+    }
+
+    init();
   </script>
 
 </body>
