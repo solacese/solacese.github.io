@@ -1,0 +1,267 @@
+{
+  "_comment": "Solace SE Demo Hub — catalog. This file is the single source of truth for all demo cards. Edit here; index.html renders from this automatically.",
+  "_last_updated": "2026-03-12",
+  "taxonomy": {
+    "format": {
+      "values": [
+        "interactive",
+        "video"
+      ],
+      "notes": "interactive = live clickable demo. video = YouTube walkthrough."
+    },
+    "industry": {
+      "values": [
+        "Transport",
+        "Aviation",
+        "Industrial",
+        "Agriculture",
+        "Finance",
+        "Enterprise"
+      ],
+      "notes": "Leave blank for demos that span multiple industries — they show under All but not under any specific industry filter."
+    },
+    "theme": {
+      "values": [
+        "Event Mesh",
+        "IoT",
+        "Integration",
+        "Analytics",
+        "AI",
+        "Tools"
+      ],
+      "notes": "Primary technology theme of the demo."
+    }
+  },
+  "demos": [
+    {
+      "id": "entanglement",
+      "title": "Entanglement",
+      "description": "Real time synchronised phone to web via Broker",
+      "url": "https://sg.solace.rocks/qr",
+      "format": "interactive",
+      "industry": "",
+      "theme": "Event Mesh",
+      "icon": "phone.svg",
+      "enabled": true,
+      "updated": "2024-06-01"
+    },
+    {
+      "id": "dragonboat",
+      "title": "Dragonboat",
+      "description": "An interactive dragonboat race with audience participation",
+      "url": "https://sg.solace.rocks/db/index.html",
+      "format": "interactive",
+      "industry": "",
+      "theme": "Event Mesh",
+      "icon": "boat.svg",
+      "enabled": true,
+      "updated": "2024-06-01"
+    },
+    {
+      "id": "singapore-buses",
+      "title": "Singapore Buses",
+      "description": "Visualisation and interactivity with the Singapore bus network",
+      "url": "https://sg.solace.rocks/bus",
+      "format": "interactive",
+      "industry": "Transport",
+      "theme": "IoT",
+      "icon": "bus.svg",
+      "enabled": true,
+      "updated": "2024-03-01"
+    },
+    {
+      "id": "connected-mine",
+      "title": "Connected Mine",
+      "description": "Smart monitoring of mining assets at a Western Australian Mine",
+      "url": "https://sg.solace.rocks/mining/",
+      "format": "interactive",
+      "industry": "Industrial",
+      "theme": "IoT",
+      "icon": "mine.svg",
+      "enabled": true,
+      "updated": "2024-06-01"
+    },
+    {
+      "id": "connected-airport",
+      "title": "Connected Airport",
+      "description": "Smart Passenger Insights for Smarter Airport Retail",
+      "url": "https://sg.solace.rocks/cag1/",
+      "format": "interactive",
+      "industry": "Aviation",
+      "theme": "IoT",
+      "icon": "plane.svg",
+      "enabled": true,
+      "updated": "2024-06-01"
+    },
+    {
+      "id": "connected-agriculture",
+      "title": "Connected Agriculture",
+      "description": "Smart monitoring of agriculture assets",
+      "url": "https://sg.solace.rocks/agri/",
+      "format": "interactive",
+      "industry": "Agriculture",
+      "theme": "IoT",
+      "icon": "ag.svg",
+      "enabled": true,
+      "updated": "2024-06-01"
+    },
+    {
+      "id": "aircraft-movement",
+      "title": "Aircraft Movement",
+      "description": "SWIM feed of aircraft movements from the FAA",
+      "url": "https://solacese.github.io/faa-scds-feeds-gui/",
+      "format": "interactive",
+      "industry": "Aviation",
+      "theme": "Integration",
+      "icon": "plane.svg",
+      "enabled": true,
+      "updated": "2023-09-01"
+    },
+    {
+      "id": "sunburst",
+      "title": "Sunburst Topic Explorer",
+      "description": "Visualization of topics being exchanged at an event broker",
+      "url": "https://explorer.solace.dev/",
+      "format": "interactive",
+      "industry": "",
+      "theme": "Tools",
+      "icon": "sunburst.svg",
+      "enabled": true,
+      "updated": "2025-11-01"
+    },
+    {
+      "id": "entanglement-sap",
+      "title": "Entanglement (SAP)",
+      "description": "Real time synchronised phone to web via Broker — SAP variant",
+      "url": "",
+      "format": "interactive",
+      "industry": "Enterprise",
+      "theme": "Integration",
+      "icon": "phone.svg",
+      "enabled": true,
+      "_note": "No URL yet — renders as non-clickable card until url is populated.",
+      "updated": "2025-01-01"
+    },
+    {
+      "id": "adr-fiumicino",
+      "title": "ADR Fiumicino Situational Awareness",
+      "description": "Geo situational awareness demo at Rome Fiumicino airport",
+      "url": "https://london.solace.rocks/adr1/",
+      "format": "interactive",
+      "industry": "Transport",
+      "theme": "IoT",
+      "icon": "📍",
+      "enabled": true,
+      "updated": "2024-09-01"
+    },
+    {
+      "id": "singapore-taxi",
+      "title": "Singapore Taxi",
+      "description": "Real-time visualisation of Singapore taxi locations and availability",
+      "url": "https://sg.solace.rocks/taxi/",
+      "format": "interactive",
+      "industry": "Transport",
+      "theme": "IoT",
+      "icon": "🚖",
+      "enabled": true,
+      "updated": "2024-03-01"
+    },
+    {
+      "id": "india-railway",
+      "title": "India Railway Monitoring",
+      "description": "Real-time monitoring simulation of India's railway network",
+      "url": "https://gvensan.github.io/india-railway-monitoring-sim/",
+      "format": "interactive",
+      "industry": "Transport",
+      "theme": "IoT",
+      "icon": "🚂",
+      "enabled": true,
+      "updated": "2024-06-01"
+    },
+    {
+      "id": "machine-learning",
+      "title": "Machine Learning Demo",
+      "description": "Cloud analytics and real-time ML inference via Solace event streams",
+      "url": "https://london.solace.rocks/cloud-analytics/machine-learning.html",
+      "format": "interactive",
+      "industry": "",
+      "theme": "Analytics",
+      "icon": "🤖",
+      "enabled": true,
+      "updated": "2024-03-01"
+    },
+    {
+      "id": "digital-silk-road",
+      "title": "Digital Silk Road",
+      "description": "Multi-cloud event mesh — data flowing across cloud regions in real time",
+      "url": "http://london.solace.rocks/multi-cloud/digital-silk-road.html",
+      "format": "interactive",
+      "industry": "",
+      "theme": "Event Mesh",
+      "icon": "🌐",
+      "enabled": true,
+      "updated": "2024-03-01"
+    },
+    {
+      "id": "cloud-arbitrage",
+      "title": "Cloud Arbitrage",
+      "description": "Multi-cloud latency arbitrage demonstration using a Solace event mesh",
+      "url": "http://london.solace.rocks/multi-cloud/arbitrage.html",
+      "format": "interactive",
+      "industry": "",
+      "theme": "Event Mesh",
+      "icon": "⚡",
+      "enabled": true,
+      "updated": "2024-03-01"
+    },
+    {
+      "id": "fx-trading",
+      "title": "FX Trading Demo",
+      "description": "Real-time FX trading visualisation powered by Solace event streaming",
+      "url": "http://london.solace.rocks/trading",
+      "format": "interactive",
+      "industry": "Finance",
+      "theme": "Event Mesh",
+      "icon": "📈",
+      "enabled": true,
+      "updated": "2024-09-01"
+    },
+    {
+      "id": "video-ai-event-mesh",
+      "title": "AI & Event Mesh",
+      "description": "Connecting Data Events and AI Models to a Real Time Solace Event Mesh",
+      "url": "https://www.youtube.com/watch?v=gvV-AIbc1Dc",
+      "format": "video",
+      "industry": "",
+      "theme": "AI",
+      "icon": "🎬",
+      "enabled": true,
+      "updated": "2025-03-01"
+    },
+    {
+      "id": "video-context-mesh",
+      "title": "Solace Context Mesh Demo",
+      "description": "Realtime RAG — Solace Context Mesh Demo walkthrough",
+      "url": "https://www.youtube.com/watch?v=FW68XOOmlrs",
+      "format": "video",
+      "industry": "",
+      "theme": "AI",
+      "icon": "🎬",
+      "enabled": true,
+      "updated": "2025-06-01"
+    },
+    {
+      "id": "video-neural-analytics",
+      "title": "Video Analytics with Neural Processing",
+      "description": "Raspberry Pi AI HAT+ — video analytics with a neural processing unit and Solace",
+      "url": "https://www.youtube.com/watch?v=Z6aYwU8xnsA",
+      "format": "video",
+      "industry": "Industrial",
+      "theme": "AI",
+      "icon": "🎬",
+      "enabled": true,
+      "updated": "2025-09-01"
+    }
+  ],
+  "_generated": "Generated from pitch-hub/demos/demos.json by scripts/build-public-demos.py. Do not edit by hand — edit the canonical and rerun."
+}
