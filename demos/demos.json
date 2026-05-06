@@ -97,14 +97,13 @@
       "id": "entanglement-sap",
       "title": "Entanglement (SAP)",
       "description": "Real time synchronised phone to web via Broker — SAP variant",
-      "url": "",
+      "url": "https://sg.solace.rocks/sap2/",
       "format": "interactive",
       "industry": "Enterprise",
       "theme": "Integration",
       "icon": "phone.svg",
       "enabled": true,
-      "_note": "No URL yet — renders as non-clickable card until url is populated.",
-      "updated": "2025-01-01"
+      "updated": "2026-05-06"
     },
     {
       "id": "adr-fiumicino",
