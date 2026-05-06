@@ -448,19 +448,8 @@
     <div class="header-divider"></div>
     <a class="header-back" href="https://solacese.github.io/">&#8592; solacese.github.io</a>
     <div class="header-spacer"></div>
-    <!-- INTERNAL:START -->
-    <button class="header-badge" id="modeToggle" title="Toggle Live / Staging catalog">Pitch Hub · Live</button>
-    <!-- INTERNAL:END -->
-    <!-- PUBLIC:PILL -->
+    <a class="header-badge" href="https://pitch-hub.mymaas.net" title="SE-only access to the internal Pitch Hub">Solace Login</a>
   </header>
-
-  <!-- INTERNAL:START -->
-  <!-- STAGING BANNER -->
-  <div class="staging-banner" id="stagingBanner">
-    <span>⚠️ <strong>Staging catalog</strong> — showing demos-staging.json, not the live site.</span>
-    <a href="/demos/submit-demo.html">+ Submit a demo</a>
-  </div>
-  <!-- INTERNAL:END -->
 
   <!-- HERO -->
   <section class="hero">
@@ -779,34 +768,6 @@
     });
 
     // ── Mode toggle: Live ↔ Staging ──────────────────────────────────
-    /* INTERNAL:START */
-    (() => {
-      const CATALOG_FILES = {
-        live:    './demos.json',
-        staging: './demos-staging.json'
-      };
-      const BADGE_LABELS = {
-        live:    'Pitch Hub · Live',
-        staging: 'Pitch Hub · Staging'
-      };
-
-      let currentMode = 'live';
-
-      const modeToggle    = document.getElementById('modeToggle');
-      const stagingBanner = document.getElementById('stagingBanner');
-
-      if (!modeToggle) return;
-
-      modeToggle.addEventListener('click', () => {
-        currentMode = currentMode === 'live' ? 'staging' : 'live';
-        modeToggle.textContent = BADGE_LABELS[currentMode];
-        modeToggle.classList.toggle('is-staging', currentMode === 'staging');
-        if (stagingBanner) stagingBanner.classList.toggle('visible', currentMode === 'staging');
-        loadCatalog(CATALOG_FILES[currentMode]);
-      });
-    })();
-    /* INTERNAL:END */
-
     // ── Sort buttons ──────────────────────────────────────────────────
     document.querySelectorAll('.sort-btn').forEach(btn => {
       btn.addEventListener('click', () => {

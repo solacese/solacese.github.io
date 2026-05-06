@@ -274,5 +274,6 @@
       "enabled": true,
       "updated": "2023-09-01"
     }
-  ]
+  ],
+  "_generated": "Generated from pitch-hub/demos/demos.json by scripts/build-public-demos.py. Do not edit by hand — edit the canonical and rerun."
 }
