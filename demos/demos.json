@@ -1,6 +1,6 @@
 {
   "_comment": "Solace SE Demo Hub — catalog. AUTO-GENERATED from the Confluence Demo Catalog (PitchHub space, parent pageId 6240075876). Edit demo metadata in Confluence, then run scripts/build-demos.py — do NOT hand-edit this file.",
-  "_last_updated": "2026-05-05",
+  "_last_updated": "2026-05-07",
   "taxonomy": {
     "format": {
       "values": [
@@ -33,6 +33,78 @@
     }
   },
   "demos": [
+    {
+      "id": "sam-evaluations",
+      "title": "SAM Evaluations",
+      "description": "Benchmark any AI agent for reliability in business-critical tasks — reproducible, secure, fair.",
+      "url": "https://raphael-solace.github.io/sam-eval-report/",
+      "format": "interactive",
+      "industry": "Enterprise",
+      "theme": "AI",
+      "icon": "🧪",
+      "enabled": true,
+      "updated": "2026-05-07"
+    },
+    {
+      "id": "sam-for-purchasing-teams",
+      "title": "SAM for Purchasing teams",
+      "description": "Real-time commodity prices, news, and contract data for purchasing teams — orchestrated by SAM agents.",
+      "url": "https://raphael-solace.github.io/sam-purchasing/#/",
+      "format": "interactive",
+      "industry": "Finance",
+      "theme": "AI",
+      "icon": "🤑",
+      "enabled": true,
+      "updated": "2026-05-07"
+    },
+    {
+      "id": "sam-minecraft",
+      "title": "SAM + Minecraft",
+      "description": "SAM orchestrates multi-provider agents on long-running collaborative tasks — demoed by building in Minecraft.",
+      "url": "https://www.youtube.com/watch?v=P8Zmj0sCVu8",
+      "format": "video",
+      "industry": "Industrial",
+      "theme": "AI",
+      "icon": "🧱",
+      "enabled": true,
+      "updated": "2026-05-07"
+    },
+    {
+      "id": "sam-rfq-process-in-london",
+      "title": "SAM RFQ process in London",
+      "description": "SAM agents collaborate across systems for end-to-end quote generation in real time.",
+      "url": "https://www.youtube.com/watch?v=Wq5K_JFqXVw",
+      "format": "video",
+      "industry": "Industrial",
+      "theme": "AI",
+      "icon": "🤝",
+      "enabled": true,
+      "updated": "2026-05-07"
+    },
+    {
+      "id": "sam-scoop",
+      "title": "SAM Scoop",
+      "description": "Real-time qualified news streams for sales and time-sensitive ops — new sources added by topic subscription.",
+      "url": "https://raphael-solace.github.io/solace-scoop/",
+      "format": "interactive",
+      "industry": "Enterprise",
+      "theme": "AI",
+      "icon": "📰",
+      "enabled": true,
+      "updated": "2026-05-07"
+    },
+    {
+      "id": "entanglement-sap",
+      "title": "Entanglement (SAP)",
+      "description": "Real time synchronised phone to web via Broker — SAP variant",
+      "url": "https://sg.solace.rocks/sap2/",
+      "format": "interactive",
+      "industry": "Enterprise",
+      "theme": "Integration",
+      "icon": "phone.svg",
+      "enabled": true,
+      "updated": "2026-05-06"
+    },
     {
       "id": "orbital-mesh",
       "title": "Orbital Mesh",
@@ -92,18 +164,6 @@
       "icon": "🎬",
       "enabled": true,
       "updated": "2025-03-01"
-    },
-    {
-      "id": "entanglement-sap",
-      "title": "Entanglement (SAP)",
-      "description": "Real time synchronised phone to web via Broker — SAP variant",
-      "url": "https://sg.solace.rocks/sap2/",
-      "format": "interactive",
-      "industry": "Enterprise",
-      "theme": "Integration",
-      "icon": "phone.svg",
-      "enabled": true,
-      "updated": "2026-05-06"
     },
     {
       "id": "adr-fiumicino",
