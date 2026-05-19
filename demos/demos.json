@@ -1,6 +1,6 @@
 {
   "_comment": "Solace SE Demo Hub — catalog. AUTO-GENERATED from the Confluence Demo Catalog (PitchHub space, parent pageId 6240075876). Edit demo metadata in Confluence, then run scripts/build-demos.py — do NOT hand-edit this file.",
-  "_last_updated": "2026-05-14",
+  "_last_updated": "2026-05-15",
   "taxonomy": {
     "format": {
       "values": [
@@ -38,6 +38,30 @@
     }
   },
   "demos": [
+    {
+      "id": "aeroswift-agentic-passenger-checkin",
+      "title": "Aeroswift Agentic Passenger Checkin",
+      "description": "AI-powered passenger recognition and boarding assistance for airports — camera streams via Solace.",
+      "url": "https://aeroswift-ai.vercel.app/",
+      "format": "interactive",
+      "industry": "Travel, Transportation & Space",
+      "theme": "Event Mesh",
+      "icon": "📷",
+      "enabled": true,
+      "updated": "2026-05-15"
+    },
+    {
+      "id": "time-travelling",
+      "title": "Time Travelling",
+      "description": "Event-driven mystery game — replay GPS timelines, interrogate AI characters, solve geo-mysteries via Solace mesh.",
+      "url": "http://time-travelling-mesh.sol-se-emea.com",
+      "format": "interactive",
+      "industry": "",
+      "theme": "AI",
+      "icon": "⌛",
+      "enabled": true,
+      "updated": "2026-05-15"
+    },
     {
       "id": "ai-ops",
       "title": "AI-Ops",
