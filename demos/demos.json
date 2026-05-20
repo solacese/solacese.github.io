@@ -1,6 +1,6 @@
 {
   "_comment": "Solace SE Demo Hub — catalog. AUTO-GENERATED from the Confluence Demo Catalog (PitchHub space, parent pageId 6240075876). Edit demo metadata in Confluence, then run scripts/build-demos.py — do NOT hand-edit this file.",
-  "_last_updated": "2026-05-15",
+  "_last_updated": "2026-05-18",
   "taxonomy": {
     "format": {
       "values": [
@@ -39,6 +39,18 @@
   },
   "demos": [
     {
+      "id": "solace-qreport",
+      "title": "Solace QReport",
+      "description": "Automated Solace broker analysis — Datadog metrics, AI narratives, anomaly detection, scheduled reports over the mesh.",
+      "url": "https://ec2-3-131-60-99.us-east-2.compute.amazonaws.com/",
+      "format": "interactive",
+      "industry": "",
+      "theme": "Tools",
+      "icon": "📝",
+      "enabled": true,
+      "updated": "2026-05-18"
+    },
+    {
       "id": "aeroswift-agentic-passenger-checkin",
       "title": "Aeroswift Agentic Passenger Checkin",
       "description": "AI-powered passenger recognition and boarding assistance for airports — camera streams via Solace.",
@@ -47,6 +59,18 @@
       "industry": "Travel, Transportation & Space",
       "theme": "Event Mesh",
       "icon": "📷",
+      "enabled": true,
+      "updated": "2026-05-15"
+    },
+    {
+      "id": "precision-agriculture",
+      "title": "Precision Agriculture",
+      "description": "Live map of simulated farm telemetry — livestock, soil, crops, weather — streamed via Solace brokers and AI agents.",
+      "url": "http://ag.knotr.com",
+      "format": "interactive",
+      "industry": "Agriculture",
+      "theme": "IoT",
+      "icon": "🚜",
       "enabled": true,
       "updated": "2026-05-15"
     },
