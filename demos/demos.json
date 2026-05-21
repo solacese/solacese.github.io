@@ -21,7 +21,8 @@
         "Capital Markets",
         "Public Sector",
         "Lifesciences & Healthcare",
-        "Telecommunications"
+        "Telecommunications",
+        "Hospitality & Gaming"
       ],
       "notes": "Canonical-aligned Solace verticals. Leave blank for demos that span multiple industries — they show under All but not under any specific industry filter. The grid only renders a pill for industries that have at least one demo."
     },
@@ -49,6 +50,18 @@
       "icon": "📝",
       "enabled": true,
       "updated": "2026-05-18"
+    },
+    {
+      "id": "sams-wedding",
+      "title": "Sam's Wedding",
+      "description": "A Solace Agent Mesh–powered wedding planning system and a Solace PubSub+ event-driven photo sharing platform.",
+      "url": "https://github.com/TracyWuSol/vktt-sams-wedding",
+      "format": "interactive",
+      "industry": "Hospitality & Gaming",
+      "theme": "AI",
+      "icon": "💍",
+      "enabled": true,
+      "updated": "2026-05-17"
     },
     {
       "id": "aeroswift-agentic-passenger-checkin",
@@ -83,6 +96,66 @@
       "industry": "",
       "theme": "AI",
       "icon": "⌛",
+      "enabled": true,
+      "updated": "2026-05-15"
+    },
+    {
+      "id": "itinerary-in-motion",
+      "title": "Itinerary in Motion",
+      "description": "Your itinerary listens to the world and re-plans itself in seconds.",
+      "url": "https://jet-huang.github.io/Demothon-2026-Temp",
+      "format": "interactive",
+      "industry": "Travel, Transportation & Space",
+      "theme": "AI",
+      "icon": "✈️",
+      "enabled": true,
+      "updated": "2026-05-15"
+    },
+    {
+      "id": "solace-queues-demo",
+      "title": "Solace Queues Demo",
+      "description": "Yet another demo to visually see different queue types",
+      "url": "http://20.51.158.49:3000/",
+      "format": "interactive",
+      "industry": "",
+      "theme": "Tools",
+      "icon": "📬",
+      "enabled": true,
+      "updated": "2026-05-15"
+    },
+    {
+      "id": "respawn-protocol",
+      "title": "Respawn Protocol",
+      "description": "AI powered CNC Self Healing Demo",
+      "url": "https://ec2-3-7-124-191.ap-south-1.compute.amazonaws.com/",
+      "format": "interactive",
+      "industry": "Manufacturing",
+      "theme": "AI",
+      "icon": "🔧",
+      "enabled": true,
+      "updated": "2026-05-15"
+    },
+    {
+      "id": "hvac-fleet-management",
+      "title": "HVAC Fleet Management",
+      "description": "High-volume HVAC sensor fleet on Solace MQTT — a deterministic pipeline filters ~99% of noise before it reaches an LLM, with Solace Agent Mesh for on-demand fleet Q&A, analysis, and Slack alerts.",
+      "url": "http://ec2-18-116-251-212.us-east-2.compute.amazonaws.com/",
+      "format": "interactive",
+      "industry": "Manufacturing",
+      "theme": "IoT",
+      "icon": "🌡️",
+      "enabled": true,
+      "updated": "2026-05-15"
+    },
+    {
+      "id": "event-aware-ontology",
+      "title": "Event Aware Ontology",
+      "description": "A demo platform combining Solace Event Portal, Knowledge Graphs, and Solace Agent Mesh to help enterprises model, understand, and intelligently act on real-time business events.",
+      "url": "https://github.com/dprudhoe/event-ontology-platform",
+      "format": "interactive",
+      "industry": "",
+      "theme": "AI",
+      "icon": "🕸️",
       "enabled": true,
       "updated": "2026-05-15"
     },
@@ -145,6 +218,18 @@
       "icon": "🌦️",
       "enabled": true,
       "updated": "2026-05-14"
+    },
+    {
+      "id": "end-to-end-retail",
+      "title": "End-to-end Retail",
+      "description": "Master Data Distribution & AI Store Integration",
+      "url": "https://d33ti4dy11s9k8.cloudfront.net",
+      "format": "interactive",
+      "industry": "Retail",
+      "theme": "Integration",
+      "icon": "🛒",
+      "enabled": true,
+      "updated": "2026-05-11"
     },
     {
       "id": "sam-evaluations",
