@@ -1,0 +1,1025 @@
+<!doctype html>
+<html lang="en">
+  <head>
+<script defer src="https://cloud.umami.is/script.js" data-website-id="9db9f6c0-5815-4f6b-ab49-9616474cfeaf"></script>
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AIOps Across Your Whole Stack | Solace Agent Mesh</title>
+    <meta
+      name="description"
+      content="Solace AIOps, built on Solace Agent Mesh: AI agents that know your Kubernetes, Postgres, Kafka and Solace estate and your runbooks. Delivered by Solace forward-deployed engineers: root cause in about five minutes instead of one to two hours."
+    />
+    <meta name="theme-color" content="#03213b" />
+    <link rel="canonical" href="https://solace.rocks/solutions/aiops/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Solace" />
+    <meta property="og:title" content="AIOps Across Your Whole Stack | Solace Agent Mesh" />
+    <meta
+      property="og:description"
+      content="AI agents that already know your stack. Ask in plain English or let the incident route itself, and get to the root cause in about five minutes."
+    />
+    <meta property="og:url" content="https://solace.rocks/solutions/aiops/" />
+    <meta property="og:image" content="https://solace.rocks/solutions/aiops/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="AIOps Across Your Whole Stack, built on Solace Agent Mesh" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="AIOps Across Your Whole Stack | Solace Agent Mesh" />
+    <meta name="twitter:description" content="AI agents that already know your stack. Root cause in about five minutes, not two hours." />
+    <meta name="twitter:image" content="https://solace.rocks/solutions/aiops/og-image.png" />
+    <script>
+      document.documentElement.classList.add("js");
+    </script>
+    <link rel="icon" type="image/svg+xml" href="./assets/solace/solace-icon-classic-green.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png" />
+    <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "VideoObject",
+            "name": "Solace's AIOps Solution for your Infrastructure",
+            "description": "From a 2:14 AM page to a cited root cause and fix: Solace AIOps on Solace Agent Mesh.",
+            "thumbnailUrl": "https://i.ytimg.com/vi/BTTCmoq-I5Y/maxresdefault.jpg",
+            "uploadDate": "2026-11-10T03:00:17-08:00",
+            "duration": "PT3M30S",
+            "embedUrl": "https://www.youtube-nocookie.com/embed/BTTCmoq-I5Y",
+            "contentUrl": "https://www.youtube.com/watch?v=BTTCmoq-I5Y"
+          },
+          {
+            "@type": "VideoObject",
+            "name": "AIOps for Solace, IBM MQ, and Kafka with Solace Agent Mesh",
+            "description": "AIOps across Solace, IBM MQ and Kafka with Solace Agent Mesh.",
+            "thumbnailUrl": "https://i.ytimg.com/vi/JZW1km_awzo/maxresdefault.jpg",
+            "uploadDate": "2026-11-12T08:00:20-08:00",
+            "duration": "PT14M44S",
+            "embedUrl": "https://www.youtube-nocookie.com/embed/JZW1km_awzo",
+            "contentUrl": "https://www.youtube.com/watch?v=JZW1km_awzo"
+          },
+          {
+            "@type": "VideoObject",
+            "name": "AIOps for Kafka",
+            "description": "AIOps for Kafka with Solace Agent Mesh.",
+            "thumbnailUrl": "https://i.ytimg.com/vi/lnaWnSmAqnU/maxresdefault.jpg",
+            "uploadDate": "2026-10-16T04:00:35-07:00",
+            "duration": "PT13M12S",
+            "embedUrl": "https://www.youtube-nocookie.com/embed/lnaWnSmAqnU",
+            "contentUrl": "https://www.youtube.com/watch?v=lnaWnSmAqnU"
+          },
+          {
+            "@type": "VideoObject",
+            "name": "AIOps with Solace Agent Mesh",
+            "description": "A platform overview of AIOps on Solace Agent Mesh.",
+            "thumbnailUrl": "https://i.ytimg.com/vi/rK_gzbQ8f5A/maxresdefault.jpg",
+            "uploadDate": "2026-10-09T07:12:56-07:00",
+            "duration": "PT14M20S",
+            "embedUrl": "https://www.youtube-nocookie.com/embed/rK_gzbQ8f5A",
+            "contentUrl": "https://www.youtube.com/watch?v=rK_gzbQ8f5A"
+          }
+        ]
+      }
+    </script>
+    <script type="module" crossorigin src="./assets/index-DkArbXKQ.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-zcOygorr.css">
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+
+    <!-- ============ NAV ============ -->
+    <header class="nav" id="top">
+      <div class="nav__inner wrap">
+        <a class="nav__brand" href="https://solace.com/">
+          <img src="./assets/solace/solace-logo-classic-green.png" alt="Solace" height="26" />
+          <span class="nav__product"><span class="nav__txt">AIOps <span class="nav__sub">Solution</span></span></span>
+        </a>
+        <nav class="nav__links" aria-label="Page sections">
+          <a href="#watch">Watch</a>
+          <a href="#how">How It Works</a>
+          <a href="#platform">Platform</a>
+          <a href="#solution">Solution</a>
+        </nav>
+        <div class="nav__cta">
+          <a class="btn btn--ghost btn--sm" href="https://solace.com/products/agent-mesh/download/?utm_source=aiops-landing&utm_medium=web&utm_campaign=aiops-on-sam&utm_content=nav">Download</a>
+          <a class="btn btn--primary btn--sm" href="https://solace.com/agent-mesh-demo/?utm_source=aiops-landing&utm_medium=web&utm_campaign=aiops-on-sam&utm_content=nav">Book a Demo</a>
+        </div>
+      </div>
+      <span class="nav__bar" aria-hidden="true"><i></i></span>
+    </header>
+
+    <main id="main">
+      <!-- ============ HERO (pinned, scroll-scrubbed) ============ -->
+      <section class="hero" id="hero" aria-label="Introduction">
+        <div class="hero__pin">
+          <div class="hero__grid wrap">
+            <div class="hero__copy">
+              <p class="overline">AIOps · Built on Solace Agent Mesh</p>
+              <h1 class="h1">AIOps Across Your <em>Whole Stack</em></h1>
+              <p class="lead">
+                AI agents that already know your <span class="tk"><img src="./assets/tech/kubernetes.svg" alt="" />Kubernetes</span>, <span class="tk"><img src="./assets/tech/postgres.svg" alt="" />Postgres</span>, <span class="tk"><img src="./assets/tech/kafka.svg" alt="" />Kafka</span> and <span class="tk"><img src="./assets/tech/solace.svg" alt="" />Solace</span> estate, and your runbooks.
+                Ask in plain English, or let the incident route itself. Get to the root cause in
+                <mark class="kw">about five minutes</mark>, not two hours. A Solace forward-deployed engineer builds it
+                around your platform.
+              </p>
+              <div class="hero__ctas">
+                <a class="btn btn--primary" href="https://solace.com/agent-mesh-demo/?utm_source=aiops-landing&utm_medium=web&utm_campaign=aiops-on-sam&utm_content=hero">Book a Demo</a>
+                <a class="btn btn--ghost" href="https://solace.com/products/agent-mesh/download/?utm_source=aiops-landing&utm_medium=web&utm_campaign=aiops-on-sam&utm_content=hero"><span>Download <span class="hide-sm">Agent Mesh </span>Free</span></a>
+              </div>
+
+              <ol class="rail" aria-hidden="true">
+                <li class="rail__step" data-step="0"><span class="rail__t">02:14</span>Three alerts fire</li>
+                <li class="rail__step" data-step="1"><span class="rail__t">02:15</span>Agents investigate</li>
+                <li class="rail__step" data-step="2"><span class="rail__t">02:19</span>Root cause and fix</li>
+                <span class="rail__bar"><span class="rail__fill"></span></span>
+              </ol>
+
+            </div>
+
+            <div class="hero__stage">
+              <!-- Alert toasts -->
+              <div class="alerts" aria-hidden="true">
+                <div class="alert">
+                  <span class="alert__sys"><img src="./assets/tech/kubernetes.svg" alt="K8s" /></span>
+                  <div class="alert__body">
+                    <span class="alert__meta">prod-us-east · 02:14</span>
+                    <span class="alert__msg">orders-api crash-looping</span>
+                  </div>
+                  <span class="alert__val">14×</span>
+                </div>
+                <div class="alert">
+                  <span class="alert__sys"><img src="./assets/tech/postgres.svg" alt="Postgres" /></span>
+                  <div class="alert__body">
+                    <span class="alert__meta">orders-db · 02:14</span>
+                    <span class="alert__msg">too many clients</span>
+                  </div>
+                  <span class="alert__val">200/200</span>
+                </div>
+                <div class="alert">
+                  <span class="alert__sys"><img src="./assets/tech/kafka.svg" alt="Kafka" /></span>
+                  <div class="alert__body">
+                    <span class="alert__meta">consumer group · 02:15</span>
+                    <span class="alert__msg">orders lag climbing</span>
+                  </div>
+                  <span class="alert__val">1.2M</span>
+                </div>
+              </div>
+
+              <!-- SAM chat window -->
+              <div class="sam" role="img" aria-label="Solace Agent Mesh chat: an engineer asks why the checkout service is down. Four agents check Kubernetes, Postgres, Kafka and observability data, and find that yesterday's deploy introduced a connection leak that drained the Postgres pool.">
+                <div class="sam__chrome">
+                  <span class="sam__dots"><i></i><i></i><i></i></span>
+                  <span class="sam__title">Agent Mesh · AIOps</span>
+                  <span class="sam__incident" aria-hidden="true"><span class="inc inc--open"><i></i>INC0012214 · 3 alerts</span><span class="inc inc--done"><i></i>INC0012214 · RCA ✓</span></span>
+                  <span class="sam__live"><i></i>live</span>
+                </div>
+                <div class="sam__body">
+                  <aside class="sam__side">
+                    <img src="./assets/solace/solace-icon-classic-green.svg" alt="" width="22" height="22" />
+                    <span class="sam__nav is-on">Chat</span>
+                    <span class="sam__nav">Agents</span>
+                    <span class="sam__nav">Workflows</span>
+                    <span class="sam__nav">Activity</span>
+                    <span class="sam__nav">Usage</span>
+                  </aside>
+                  <div class="sam__main">
+                    <!-- Home screen: the question is typed here, then sent -->
+                    <div class="home">
+                      <div class="home__brand">
+                        <svg class="acme" viewBox="0 0 48 48" aria-hidden="true">
+                          <rect width="48" height="48" rx="12" fill="#1B3A8C" />
+                          <path d="M24 9 L39 17.5 H9 Z" fill="#F2C14E" />
+                          <rect x="11" y="19.5" width="26" height="2.4" rx="1" fill="#fff" />
+                          <rect x="13" y="23.5" width="3.4" height="12" rx="1" fill="#fff" />
+                          <rect x="19.5" y="23.5" width="3.4" height="12" rx="1" fill="#fff" />
+                          <rect x="25.1" y="23.5" width="3.4" height="12" rx="1" fill="#fff" />
+                          <rect x="31.6" y="23.5" width="3.4" height="12" rx="1" fill="#fff" />
+                          <rect x="9" y="37" width="30" height="2.6" rx="1" fill="#F2C14E" />
+                        </svg>
+                        <span class="home__org">Acme Bank <i>Platform Ops</i></span>
+                      </div>
+                      <p class="home__title">How can I help with your stack today?</p>
+                      <div class="home__stack">
+                        <span class="lg" title="Kubernetes"><img src="./assets/tech/kubernetes.svg" alt="Kubernetes" /></span>
+                        <span class="lg" title="Apache Kafka"><img src="./assets/tech/kafka.svg" alt="Apache Kafka" /></span>
+                        <span class="lg" title="PostgreSQL"><img src="./assets/tech/postgres.svg" alt="PostgreSQL" /></span>
+                        <span class="lg" title="Redis"><img src="./assets/tech/redis.svg" alt="Redis" /></span>
+                        <span class="lg" title="Elasticsearch"><img src="./assets/tech/elasticsearch.svg" alt="Elasticsearch" /></span>
+                        <span class="lg" title="Solace"><img src="./assets/tech/solace.svg" alt="Solace" /></span>
+                      </div>
+                      <div class="composer">
+                        <p class="composer__text">
+                          <span class="composer__ph">Ask about your stack…</span><span class="typed" data-text="The checkout service is down and orders-api pods are crash-looping in prod. Why?"></span><span class="caret"></span>
+                        </p>
+                        <div class="composer__bar">
+                          <span class="composer__plus">+</span>
+                          <span class="composer__send"><svg viewBox="0 0 16 16"><path d="M8 13V3.5M3.8 7.5 8 3.3l4.2 4.2" /></svg></span>
+                        </div>
+                      </div>
+                      <div class="home__chips">
+                        <span>✦ Investigate an incident</span><span>✦ Kafka consumer lag</span><span>✦ Who owns this topic?</span>
+                      </div>
+                    </div>
+
+                    <div class="sam__thread">
+                      <div class="msg msg--user">
+                        <span class="msg__who">You · 02:15</span>
+                        <p class="msg__text">The checkout service is down and orders-api pods are crash-looping in prod. Why?</p>
+                      </div>
+
+                      <div class="msg msg--agent fanout">
+                        <span class="msg__who"><b>Orchestrator</b> · dispatching 4 agents</span>
+                        <div class="agents">
+                          <div class="agent" data-agent>
+                            <span class="agent__dot"></span><span class="agent__name"><img src="./assets/tech/kubernetes.svg" alt="" />Kubernetes</span>
+                            <span class="agent__res">OOM: no · DB conn refused</span>
+                          </div>
+                          <div class="agent" data-agent>
+                            <span class="agent__dot"></span><span class="agent__name"><img src="./assets/tech/postgres.svg" alt="" />Postgres</span>
+                            <span class="agent__res">pool 200/200 · idle in txn</span>
+                          </div>
+                          <div class="agent" data-agent>
+                            <span class="agent__dot"></span><span class="agent__name"><img src="./assets/tech/kafka.svg" alt="" />Kafka</span>
+                            <span class="agent__res">lag is a symptom</span>
+                          </div>
+                          <div class="agent" data-agent>
+                            <span class="agent__dot"></span><span class="agent__name"><img src="./assets/tech/prometheus.svg" alt="" />Observability</span>
+                            <span class="agent__res">conns rising since 18:02</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="log">
+                        <div class="log__line"><span>k8s</span>get pods -n orders <em>14 restarts</em></div>
+                        <div class="log__line"><span>pg</span>pg_stat_activity <em>187 idle in transaction</em></div>
+                        <div class="log__line"><span>prom</span>pg_connections[24h] <em>ramp from 18:02</em></div>
+                        <div class="log__line"><span>git</span>deploys orders-api <em>v2.14.0 · 18:02 yesterday</em></div>
+                        <div class="log__line"><span>docs</span>runbook: orders-db incidents <em>matched</em></div>
+                      </div>
+
+                      <div class="summary"><span class="summary__check"></span>4 agents · 23 tool calls · 3 sources cited</div>
+
+                      <div class="msg msg--agent answer">
+                        <span class="msg__who"><b>Root cause</b></span>
+                        <p class="answer__text">
+                          Yesterday's deploy of <code>orders-api v2.14.0</code> introduced a connection leak. It drained the
+                          Postgres pool, so new pods couldn't connect.<sup>1,2</sup>
+                        </p>
+                        <div class="spark">
+                          <svg viewBox="0 0 240 44" preserveAspectRatio="none" aria-hidden="true">
+                            <line class="spark__cap" x1="0" y1="6" x2="240" y2="6" />
+                            <path class="spark__line" d="M0 36 L40 35 L70 36 L92 34 L110 30 L130 26 L150 21 L170 16 L190 11 L210 7 L240 6" />
+                          </svg>
+                          <span class="spark__label">postgres connections · cap 200</span>
+                        </div>
+                        <p class="answer__fix"><b>Fix</b> Roll back to v2.13.4, then recycle the pool. Patch: close connections in <code>OrderRepository.save()</code>.<sup>3</sup></p>
+                        <div class="answer__foot">
+                          <span class="btn-mini btn-mini--go">Approve &amp; post to INC0012214</span>
+                          <span class="timer">4m 52s <s>~1–2 h</s></span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="sam__input"><span>Ask about your stack…</span><i></i></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ LOGO TICKER ============ -->
+      <section class="ticker" aria-label="Solace customers">
+        <p class="ticker__label">Solace customers include teams at</p>
+        <div class="ticker__track">
+          <ul class="ticker__list">
+            <li><img src="./assets/logos/united.svg" alt="United Airlines" /></li>
+            <li><img src="./assets/logos/airbus.png" alt="Airbus" /></li>
+            <li><img src="./assets/logos/barclays.png" alt="Barclays" /></li>
+            <li><img src="./assets/logos/sap.png" alt="SAP" /></li>
+            <li><img src="./assets/logos/heineken.png" alt="Heineken" /></li>
+            <li><img src="./assets/logos/lseg.png" alt="London Stock Exchange Group" /></li>
+            <li><img src="./assets/logos/renault.png" alt="Renault Group" /></li>
+            <li><img src="./assets/logos/standard-chartered.png" alt="Standard Chartered" /></li>
+            <li><img src="./assets/logos/unilever.png" alt="Unilever" /></li>
+            <li><img src="./assets/logos/credit-agricole.png" alt="Crédit Agricole" /></li>
+            <li><img src="./assets/logos/sk-hynix.png" alt="SK hynix" /></li>
+            <li><img src="./assets/logos/stellantis.png" alt="Stellantis" /></li>
+            <li><img src="./assets/logos/danone.png" alt="Danone" /></li>
+            <li><img src="./assets/logos/sonos.png" alt="Sonos" /></li>
+            <li><img src="./assets/logos/cma-cgm.png" alt="CMA CGM" /></li>
+            <li><img src="./assets/logos/tmx.png" alt="TMX Group" /></li>
+            <li><img src="./assets/logos/psa.png" alt="PSA" /></li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ============ VIDEO ============ -->
+      <section class="watch section" id="watch">
+        <div class="wrap watch__grid">
+          <div class="watch__copy reveal">
+            <p class="overline">See It in Action · 3 min</p>
+            <h2 class="h2">One Incident, From the 2:14 AM Page to the Fix</h2>
+            <p>
+              Follow a checkout outage across <span class="tk"><img src="./assets/tech/kubernetes.svg" alt="" />Kubernetes</span>, <span class="tk"><img src="./assets/tech/postgres.svg" alt="" />Postgres</span> and <span class="tk"><img src="./assets/tech/kafka.svg" alt="" />Kafka</span>. Watch it go from three unrelated alerts to
+              <mark class="kw">a cited root cause</mark>, approved by a human and posted back to the ticket.
+            </p>
+          </div>
+          <div class="player reveal" data-youtube="BTTCmoq-I5Y">
+            <button class="player__poster" type="button" aria-label="Play the Solace AIOps video">
+              <span class="player__grid" aria-hidden="true"></span>
+              <span class="player__clock" aria-hidden="true">02:14</span>
+              <span class="player__head" aria-hidden="true">AIOps across<br /><em>your whole stack.</em></span>
+              <span class="player__chips" aria-hidden="true">
+                <i>Connect</i><i>Trigger</i><i>Investigate</i><i>Resolve</i><i>Ground</i><i>Approve</i>
+              </span>
+              <span class="player__play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z" /></svg></span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ INTEGRATIONS: MEET USERS WHERE THEY ARE ============ -->
+      <section class="integrate section section--gray" id="integrate">
+        <div class="wrap">
+          <header class="section__head reveal">
+            <p class="overline">Built Into Your Existing Flows</p>
+            <h2 class="h2">Meet Your Users <em>Where They Are</em></h2>
+            <p class="section__sub">
+              Nobody has to learn another tool. AIOps answers in the
+              <span class="tk"><img src="./assets/tech/slack.svg" alt="" />Slack</span> channel where the question was
+              asked, and on the <span class="tk"><img src="./assets/tech/servicenow.svg" alt="" />ServiceNow</span> ticket
+              where the incident lives. The agents, the citations and the human approval step are
+              the same everywhere.
+            </p>
+          </header>
+
+          <div class="integrate__grid">
+            <!-- Slack -->
+            <figure class="app app--slack" aria-label="Slack: a developer asks in #platform-help whether Redis in prod is running out of memory, and the AIOps app replies in the thread with a cited answer.">
+              <div class="app__bar">
+                <img src="./assets/tech/slack.svg" alt="" />
+                <span class="app__title"># platform-help</span>
+                <span class="app__meta">Acme Bank</span>
+              </div>
+              <div class="app__body slack">
+                <div class="sm" data-int="0">
+                  <span class="sm__av sm__av--dk">DK</span>
+                  <div class="sm__main">
+                    <p class="sm__who"><b>Dana Kim</b><time>9:12 AM</time></p>
+                    <p>Is Redis in prod running out of memory? Seeing evictions on <code>checkout-cache</code>.</p>
+                  </div>
+                </div>
+                <div class="sm-stack">
+                <div class="sm sm--typing" data-int="1">
+                  <span class="sm__av sm__av--sam"><img src="./assets/tech/solace.svg" alt="" /></span>
+                  <div class="sm__main">
+                    <p class="sm__who"><b>AIOps</b> is checking Redis and the runbooks<span class="dots"><i></i><i></i><i></i></span></p>
+                    <div class="sk" aria-hidden="true"><i></i><i></i><i></i></div>
+                  </div>
+                </div>
+                <div class="sm" data-int="2">
+                  <span class="sm__av sm__av--sam"><img src="./assets/tech/solace.svg" alt="" /></span>
+                  <div class="sm__main">
+                    <p class="sm__who"><b>AIOps</b><span class="app-badge">APP</span><time>9:13 AM</time></p>
+                    <p>
+                      No. Memory is at <b>61%</b> (3.9 of 6.4 GB) and has been flat for 7 days. The evictions are expected:
+                      <code>checkout-cache</code> uses <code>allkeys-lru</code> with a 15-minute TTL. No action needed.
+                    </p>
+                    <div class="sm__cites">
+                      <span><img src="./assets/tech/redis.svg" alt="" />INFO memory · live</span>
+                      <span><img src="./assets/tech/prometheus.svg" alt="" />7-day trend</span>
+                      <span>Runbook · checkout-cache</span>
+                    </div>
+                    <div class="sm__react"><span>✓ <b>4</b></span><span>Saved me a ticket</span></div>
+                  </div>
+                </div>
+                </div>
+                <div class="slack__composer" aria-hidden="true"><span>Message #platform-help</span><i></i></div>
+              </div>
+              <figcaption class="app__cap"><b>Ask in chat.</b> Answers land in the thread, with sources.</figcaption>
+            </figure>
+
+            <!-- ServiceNow -->
+            <figure class="app app--snow" aria-label="ServiceNow incident INC0012214: AIOps adds a work note with the root cause, the fix and three citations, and it is posted after the on-call engineer approves it.">
+              <div class="app__bar app__bar--snow">
+                <img src="./assets/tech/servicenow.svg" alt="" />
+                <span class="app__title">Incident · INC0012214</span>
+                <span class="snow-state" data-int-state>In Progress</span>
+              </div>
+              <div class="app__body snow">
+                <dl class="snow__fields">
+                  <div><dt>Short description</dt><dd>Checkout service down, orders-api crash-looping</dd></div>
+                  <div><dt>Priority</dt><dd><span class="p1">1 · Critical</span></dd></div>
+                  <div><dt>Assignment group</dt><dd>Platform Ops</dd></div>
+                  <div><dt>Opened</dt><dd>02:14</dd></div>
+                </dl>
+                <p class="snow__h">Activity</p>
+                <div class="snow-stack">
+                <div class="snow__note snow__draft" aria-hidden="true">
+                  <p class="snow__who"><img src="./assets/tech/solace.svg" alt="" /><b>AIOps</b><span>Drafting a work note…</span></p>
+                  <div class="sk"><i></i><i></i><i></i></div>
+                </div>
+                <div class="snow__note" data-int="3">
+                  <p class="snow__who"><img src="./assets/tech/solace.svg" alt="" /><b>AIOps</b><span>Work note · 02:19</span></p>
+                  <p>
+                    <b>Root cause:</b> <code>orders-api v2.14.0</code> leaks DB connections; the Postgres pool is exhausted
+                    (200/200), so new pods can't connect.<sup>1,2</sup>
+                  </p>
+                  <p><b>Fix:</b> roll back to <code>v2.13.4</code> and recycle the pool.<sup>3</sup></p>
+                  <div class="snow__approve" data-int="4">
+                    <span class="snow__check"></span>Approved by on-call SRE · posted 02:21
+                  </div>
+                </div>
+                </div>
+                <div class="snow__note snow__note--old">
+                  <p class="snow__who"><span class="snow__sys">System</span><span>02:14</span></p>
+                  <p>Incident created from alert <code>orders-api CrashLoopBackOff</code></p>
+                </div>
+              </div>
+              <figcaption class="app__cap"><b>Open a ticket.</b> The incident goes straight to the agents; the answer comes back as a work note.</figcaption>
+            </figure>
+          </div>
+
+          <p class="integrate__more">
+            Also triggers from <span class="tk"><img src="./assets/tech/jira.svg" alt="" />Jira</span> issues and
+            <span class="tk"><img src="./assets/tech/email.svg" alt="" />email</span> to your support inbox, in real time
+            over Solace's event mesh.
+          </p>
+        </div>
+      </section>
+
+      <!-- ============ HOW IT WORKS: CHAPTERS ============ -->
+      <section class="how section" id="how">
+        <div class="wrap">
+          <header class="section__head reveal">
+            <p class="overline">How It Works</p>
+            <h2 class="h2">AI Agents That Already Know Your Stack</h2>
+            <p class="section__sub">
+              Solace AIOps is a set of agents and workflows on Solace Agent Mesh. Every system you run gets its own
+              agent, connected over Solace's event mesh.
+            </p>
+          </header>
+
+          <div class="chapters">
+            <div class="chapters__steps">
+              <article class="step" data-viz="0">
+                <span class="step__num">01</span>
+                <h3 class="step__title">Connect</h3>
+                <p>
+                  <span class="tk"><img src="./assets/tech/kubernetes.svg" alt="" />Kubernetes</span>, <span class="tk"><img src="./assets/tech/postgres.svg" alt="" />Postgres</span>, <span class="tk"><img src="./assets/tech/redis.svg" alt="" />Redis</span>, <span class="tk"><img src="./assets/tech/kafka.svg" alt="" />Kafka</span>, <span class="tk"><img src="./assets/tech/elasticsearch.svg" alt="" />Elasticsearch</span> and <span class="tk"><img src="./assets/tech/solace.svg" alt="" />Solace</span> each get an agent that knows how to read
+                  live state. A knowledge agent learns how your company works: your runbooks, your onboarding
+                  guides, who owns what.
+                </p>
+                <p>
+                  Agents reach each system through <span class="tk"><img src="./assets/tech/mcp.svg" alt="" />MCP</span>, the
+                  open Model Context Protocol, including Solace's own open-source broker MCP server.
+                </p>
+                <p class="step__note">Use any model and any cloud, and plug in whatever your infrastructure looks like.</p>
+              </article>
+              <article class="step" data-viz="1">
+                <span class="step__num">02</span>
+                <h3 class="step__title">Investigate and Resolve</h3>
+                <p>
+                  Agents check live state across the stack and pull the metrics and logs that matter. Minutes
+                  later you get the answer: <mark class="kw">yesterday's deploy leaked connections</mark> and drained the <span class="tk"><img src="./assets/tech/postgres.svg" alt="" />Postgres</span> pool, so
+                  new pods couldn't connect. Then the fix.
+                </p>
+              </article>
+              <article class="step" data-viz="2">
+                <span class="step__num">03</span>
+                <h3 class="step__title">Ground and Approve</h3>
+                <p>
+                  Every answer is grounded in official vendor documentation and your own company knowledge,
+                  with <mark class="kw">a citation for every claim</mark>. Every step is traceable. Once <mark class="kw">a human approves</mark>, the answer
+                  lands back on the ticket.
+                </p>
+              </article>
+              <article class="step" data-viz="3">
+                <span class="step__num">04</span>
+                <h3 class="step__title">Repeat</h3>
+                <p>
+                  For the issues you see every week, <mark class="kw">predetermined workflows</mark> run the same steps in the same
+                  order, every time. They're repeatable, auditable and cheaper than open-ended reasoning.
+                </p>
+              </article>
+              <article class="step" data-viz="4">
+                <span class="step__num">05</span>
+                <h3 class="step__title">Control and Improve</h3>
+                <p>
+                  The usage dashboard shows what every agent and workflow costs, and lets you set
+                  <mark class="kw">monthly caps</mark>. Users rate every answer as it arrives, so you see quality start to drift long
+                  before it becomes a problem.
+                </p>
+              </article>
+            </div>
+
+            <div class="chapters__stage" aria-hidden="true">
+              <div class="stage">
+                <!-- V0 CONNECT -->
+                <div class="viz viz--connect is-active" data-viz-panel="0">
+                  <div class="orbit-box">
+                  <svg class="orbit" viewBox="0 0 480 420">
+                    <circle class="orbit__ring" cx="240" cy="210" r="150" />
+                    <circle class="orbit__ring orbit__ring--in" cx="240" cy="210" r="92" />
+                    <g class="orbit__spokes">
+                      <line x1="240" y1="210" x2="240" y2="60" />
+                      <line x1="240" y1="210" x2="370" y2="135" />
+                      <line x1="240" y1="210" x2="370" y2="285" />
+                      <line x1="240" y1="210" x2="240" y2="360" />
+                      <line x1="240" y1="210" x2="110" y2="285" />
+                      <line x1="240" y1="210" x2="110" y2="135" />
+                    </g>
+                    <g class="orbit__k">
+                      <line x1="240" y1="210" x2="299" y2="108" />
+                      <line x1="240" y1="210" x2="299" y2="312" />
+                      <line x1="240" y1="210" x2="122" y2="210" />
+                    </g>
+                  </svg>
+                  <div class="hub"><span>Agent<br />Mesh</span></div>
+                  <span class="node" style="--x: 50%; --y: 14.3%; --d: 0" title="Kubernetes"><b><img src="./assets/tech/kubernetes.svg" alt="Kubernetes" /></b></span>
+                  <span class="node" style="--x: 77.1%; --y: 32.1%; --d: 1" title="Postgres"><b><img src="./assets/tech/postgres.svg" alt="Postgres" /></b></span>
+                  <span class="node" style="--x: 77.1%; --y: 67.9%; --d: 2" title="Redis"><b><img src="./assets/tech/redis.svg" alt="Redis" /></b></span>
+                  <span class="node" style="--x: 50%; --y: 85.7%; --d: 3" title="Kafka"><b><img src="./assets/tech/kafka.svg" alt="Kafka" /></b></span>
+                  <span class="node" style="--x: 22.9%; --y: 67.9%; --d: 4" title="Elasticsearch"><b><img src="./assets/tech/elasticsearch.svg" alt="Elasticsearch" /></b></span>
+                  <span class="node node--solace" style="--x: 22.9%; --y: 32.1%; --d: 5" title="Solace"><b><img src="./assets/tech/solace.svg" alt="Solace" /></b></span>
+                  <span class="mcp" style="--x: 50%; --y: 28.57%"><img src="./assets/tech/mcp.svg" alt="" /></span>
+                  <span class="mcp" style="--x: 66.23%; --y: 39.29%"><img src="./assets/tech/mcp.svg" alt="" /></span>
+                  <span class="mcp" style="--x: 66.23%; --y: 60.71%"><img src="./assets/tech/mcp.svg" alt="" /></span>
+                  <span class="mcp" style="--x: 50%; --y: 71.43%"><img src="./assets/tech/mcp.svg" alt="" /></span>
+                  <span class="mcp" style="--x: 33.77%; --y: 60.71%"><img src="./assets/tech/mcp.svg" alt="" /></span>
+                  <span class="mcp" style="--x: 33.77%; --y: 39.29%"><img src="./assets/tech/mcp.svg" alt="" /></span>
+                  <span class="doc" style="--x: 62.3%; --y: 25.7%; --d: 6">Runbooks</span>
+                  <span class="doc" style="--x: 62.3%; --y: 74.3%; --d: 7">Owners</span>
+                  <span class="doc" style="--x: 25.4%; --y: 50%; --d: 8">Onboarding</span>
+                  </div>
+                  <div class="viz__foot">
+                    <span class="viz__foot-mcp"><img src="./assets/tech/mcp.svg" alt="" />MCP · open standard</span><span>Any model</span><span>AWS</span><span>Azure</span><span>GCP</span><span>On-prem</span>
+                  </div>
+                </div>
+
+                <!-- V1 INVESTIGATE & RESOLVE -->
+                <div class="viz viz--resolve" data-viz-panel="1">
+                  <div class="chain">
+                    <div class="link" style="--d: 0">
+                      <span class="link__sys"><img src="./assets/tech/git.svg" alt="" />Deploy</span>
+                      <span class="link__what">orders-api <code>v2.14.0</code> rolled out</span>
+                      <span class="link__when">yesterday 18:02</span>
+                    </div>
+                    <span class="chain__arrow" style="--d: 1"></span>
+                    <div class="link" style="--d: 2">
+                      <span class="link__sys"><img src="./assets/tech/postgres.svg" alt="" />Postgres</span>
+                      <span class="link__what">Connections never released, pool at <b>200/200</b></span>
+                      <span class="link__when">02:11</span>
+                    </div>
+                    <span class="chain__arrow" style="--d: 3"></span>
+                    <div class="link link--hot" style="--d: 4">
+                      <span class="link__sys"><img src="./assets/tech/kubernetes.svg" alt="" />Kubernetes</span>
+                      <span class="link__what">New pods can't connect: <code>CrashLoopBackOff</code></span>
+                      <span class="link__when">02:14</span>
+                    </div>
+                    <div class="fix" style="--d: 6">
+                      <span class="fix__label">Recommended fix</span>
+                      Roll back orders-api to <code>v2.13.4</code> and recycle the pool. Patch connection handling in
+                      <code>OrderRepository.save()</code>.
+                      <span class="fix__time">About five minutes · was 1–2 hours</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- V2 GROUND & APPROVE -->
+                <div class="viz viz--ground" data-viz-panel="2">
+                  <div class="doc-card">
+                    <p class="doc-card__ans">
+                      The pool is exhausted because <code>v2.14.0</code> opens a connection per request without closing it<sup>1</sup>.
+                      Recycling the pool clears idle-in-transaction sessions<sup>2</sup>; your runbook prescribes a rollback first<sup>3</sup>.
+                    </p>
+                    <ol class="cites">
+                      <li style="--d: 0"><span class="cite__n">1</span>Deploy diff · orders-api v2.14.0<span class="cite__src">git</span></li>
+                      <li style="--d: 1"><span class="cite__n">2</span>PostgreSQL docs · Connections and pooling<span class="cite__src">vendor</span></li>
+                      <li style="--d: 2"><span class="cite__n">3</span>Runbook · orders-db incidents<span class="cite__src">internal</span></li>
+                    </ol>
+                  </div>
+                  <div class="approve">
+                    <div class="approve__step" style="--d: 0"><span class="dot"></span>Answer drafted with 3 citations</div>
+                    <div class="approve__step" style="--d: 1"><span class="dot"></span>Reviewed by on-call SRE</div>
+                    <div class="approve__step approve__step--go" style="--d: 2"><span class="dot"></span>Approved · posted to INC0012214</div>
+                  </div>
+                </div>
+
+                <!-- V3 REPEAT: predetermined workflow, drawn straight on the stage -->
+                <div class="viz viz--repeat" data-viz-panel="3">
+                  <div class="act">
+                    <div class="dag">
+                      <svg class="dag__wires" viewBox="0 0 600 420" aria-hidden="true">
+                        <path style="--w: 0" d="M300 59 V91" />
+                        <path style="--w: 1" d="M300 129 C300 158 110 150 110 181" />
+                        <path style="--w: 1" d="M300 129 V181" />
+                        <path style="--w: 1" d="M300 129 C300 158 490 150 490 181" />
+                        <path style="--w: 2" d="M110 219 C110 250 300 242 300 271" />
+                        <path style="--w: 2" d="M300 219 V271" />
+                        <path style="--w: 2" d="M490 219 C490 250 300 242 300 271" />
+                        <path style="--w: 3" d="M300 309 V341" />
+                      </svg>
+                      <span class="dag__n dag__n--root" style="--x: 50%; --y: 9.52%; --n: 0">INC0012214</span>
+                      <span class="dag__n" style="--x: 50%; --y: 26.19%; --n: 1">ticket_triage</span>
+                      <span class="dag__n" style="--x: 18.33%; --y: 47.62%; --n: 2"><img src="./assets/tech/kubernetes.svg" alt="" />k8s_agent</span>
+                      <span class="dag__n" style="--x: 50%; --y: 47.62%; --n: 2"><img src="./assets/tech/postgres.svg" alt="" />postgres_agent</span>
+                      <span class="dag__n" style="--x: 81.67%; --y: 47.62%; --n: 2"><img src="./assets/tech/kafka.svg" alt="" />kafka_agent</span>
+                      <span class="dag__n" style="--x: 50%; --y: 69.05%; --n: 3">correlate</span>
+                      <span class="dag__n dag__n--end" style="--x: 50%; --y: 85.71%; --n: 4">draft_answer</span>
+                    </div>
+                    <div class="act__foot"><span>Same steps</span><span>Same order</span><span>Every time</span></div>
+                  </div>
+                </div>
+
+                <!-- V4 CONTROL & IMPROVE -->
+                <div class="viz viz--control" data-viz-panel="4">
+                  <div class="dash">
+                    <div class="dash__card">
+                      <span class="dash__label">Spend this month</span>
+                      <span class="dash__big">$297 <small>of $500 cap</small></span>
+                      <span class="meter"><i style="--w: 59%"></i></span>
+                      <ul class="bars">
+                        <li><span>Incident triage</span><i style="--w: 82%"></i><b>$121</b></li>
+                        <li><span>Knowledge Q&amp;A</span><i style="--w: 58%"></i><b>$86</b></li>
+                        <li><span>Capacity reports</span><i style="--w: 40%"></i><b>$59</b></li>
+                        <li><span>Onboarding</span><i style="--w: 21%"></i><b>$31</b></li>
+                      </ul>
+                    </div>
+                    <div class="dash__card">
+                      <span class="dash__label">Answer ratings · last 7 days</span>
+                      <ul class="ratings">
+                        <li><span>"Steps were spot on"</span><b>96%</b></li>
+                        <li><span>"Saved me an hour"</span><b>94%</b></li>
+                        <li class="is-drift"><span>"Cited an outdated runbook"</span><b>41%</b></li>
+                        <li><span>"Capacity report matched"</span><b>92%</b></li>
+                      </ul>
+                    </div>
+                  </div>
+                  <p class="viz__caption">Example dashboard</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ BAU -> STRATEGIC ============ -->
+      <section class="bau section" id="bau">
+        <div class="wrap bau__grid">
+          <div class="bau__copy reveal">
+            <p class="overline">Back to Strategic Work</p>
+            <h2 class="h2">Less Routine Work. More Work That <em>Moves the Business</em></h2>
+            <p class="section__sub">
+              Onboarding steps, topic ownership, product how-tos and routine reports shouldn't need your most senior
+              engineers. <mark class="kw">AIOps answers them from your own docs, with sources</mark>, so your experts
+              can spend their time on work that adds business value.
+            </p>
+            <ul class="bau__points">
+              <li><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4.5 8.2l2.2 2.2 4.8-4.8"/></svg>Senior engineers stop being the help desk for onboarding, ownership and how-tos.</li>
+              <li><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4.5 8.2l2.2 2.2 4.8-4.8"/></svg>The time that frees up goes to modernisation, capacity planning and new event-driven apps.</li>
+            </ul>
+          </div>
+
+          <div class="week" role="img" aria-label="A senior engineer's week before and after AIOps: routine questions such as onboarding, topic ownership and runbook searches are absorbed by AIOps. The freed time goes to strategic work, such as modernisation, capacity planning and new event-driven apps, with some left open as focus time.">
+            <div class="week__head">
+              <p class="week__title">A senior engineer's week</p>
+              <p class="week__legend">
+                <span class="leg lg-r">Routine questions</span>
+                <span class="leg lg-b">Build</span>
+                <span class="leg lg-p">Plan</span>
+                <span class="leg lg-o">Optimise</span>
+                <span class="leg lg-f">Focus time</span>
+              </p>
+            </div>
+            <div class="week__grid" aria-hidden="true">
+              <span class="week__sweep"><b><img src="./assets/tech/solace.svg" alt="" />AIOps</b></span>
+                <div class="axis" aria-hidden="true">
+                  <p class="day__n">&nbsp;</p>
+                  <div class="axis__col"><span style="top:0%">9</span><span style="top:25%">11</span><span style="top:50%">1</span><span style="top:75%">3</span><span style="top:100%">5</span></div>
+                </div>
+                <div class="day">
+                  <p class="day__n">Mon<i class="day__tick"></i></p>
+                  <div class="day__col">
+                    <div class="blk blk--r" style="top:0.0%;height:17.5%"><span class="blk__in">Onboarding Q&amp;A</span></div>
+                    <div class="blk blk--s" data-theme="build" data-t="0.0" data-h="31.25" style="top:17.5%;height:15.0%"><span class="blk__in">Modernise stack</span></div>
+                    <div class="blk blk--r" style="top:32.5%;height:17.5%"><span class="blk__in">Topic ownership</span></div>
+                    <div class="blk blk--r" style="top:50.0%;height:17.5%"><span class="blk__in">Runbook hunting</span></div>
+                    <div class="blk blk--s" data-theme="plan" data-t="43.75" data-h="37.5" style="top:67.5%;height:15.0%"><span class="blk__in">Architecture review</span></div>
+                    <div class="blk blk--r" style="top:82.5%;height:17.5%"><span class="blk__in">Doc searches</span></div>
+                    <div class="blk blk--f" style="top:31.25%;height:12.5%"><span class="blk__in">Focus time</span></div>
+                    <div class="blk blk--f" style="top:81.25%;height:18.75%"><span class="blk__in">Focus time</span></div>
+                  </div>
+                </div>
+                <div class="day">
+                  <p class="day__n">Tue<i class="day__tick"></i></p>
+                  <div class="day__col">
+                    <div class="blk blk--r" style="top:0.0%;height:17.5%"><span class="blk__in">Product how-tos</span></div>
+                    <div class="blk blk--s" data-theme="plan" data-t="6.25" data-h="31.25" style="top:17.5%;height:15.0%"><span class="blk__in">Capacity planning</span></div>
+                    <div class="blk blk--r" style="top:32.5%;height:17.5%"><span class="blk__in">Doc searches</span></div>
+                    <div class="blk blk--r" style="top:50.0%;height:17.5%"><span class="blk__in">Topic ownership</span></div>
+                    <div class="blk blk--s" data-theme="opt" data-t="50.0" data-h="31.25" style="top:67.5%;height:15.0%"><span class="blk__in">Resilience testing</span></div>
+                    <div class="blk blk--r" style="top:82.5%;height:17.5%"><span class="blk__in">Capacity report</span></div>
+                    <div class="blk blk--f" style="top:37.5%;height:12.5%"><span class="blk__in">Focus time</span></div>
+                    <div class="blk blk--f" style="top:81.25%;height:18.75%"><span class="blk__in">Focus time</span></div>
+                  </div>
+                </div>
+                <div class="day">
+                  <p class="day__n">Wed<i class="day__tick"></i></p>
+                  <div class="day__col">
+                    <div class="blk blk--r" style="top:0.0%;height:17.5%"><span class="blk__in">Capacity report</span></div>
+                    <div class="blk blk--s" data-theme="opt" data-t="0.0" data-h="37.5" style="top:17.5%;height:15.0%"><span class="blk__in">Cost optimisation</span></div>
+                    <div class="blk blk--r" style="top:32.5%;height:17.5%"><span class="blk__in">Onboarding Q&amp;A</span></div>
+                    <div class="blk blk--r" style="top:50.0%;height:17.5%"><span class="blk__in">Runbook hunting</span></div>
+                    <div class="blk blk--s" data-theme="build" data-t="50.0" data-h="25.0" style="top:67.5%;height:15.0%"><span class="blk__in">New event-driven app</span></div>
+                    <div class="blk blk--r" style="top:82.5%;height:17.5%"><span class="blk__in">Product how-tos</span></div>
+                    <div class="blk blk--f" style="top:37.5%;height:12.5%"><span class="blk__in">Focus time</span></div>
+                    <div class="blk blk--f" style="top:75.0%;height:25.0%"><span class="blk__in">Focus time</span></div>
+                  </div>
+                </div>
+                <div class="day day--x">
+                  <p class="day__n">Thu<i class="day__tick"></i></p>
+                  <div class="day__col">
+                    <div class="blk blk--r" style="top:0.0%;height:17.5%"><span class="blk__in">Topic ownership</span></div>
+                    <div class="blk blk--s" data-theme="build" data-t="0.0" data-h="25.0" style="top:17.5%;height:15.0%"><span class="blk__in">Platform migration</span></div>
+                    <div class="blk blk--r" style="top:32.5%;height:17.5%"><span class="blk__in">Product how-tos</span></div>
+                    <div class="blk blk--r" style="top:50.0%;height:17.5%"><span class="blk__in">Capacity report</span></div>
+                    <div class="blk blk--s" data-theme="opt" data-t="37.5" data-h="37.5" style="top:67.5%;height:15.0%"><span class="blk__in">Performance tuning</span></div>
+                    <div class="blk blk--r" style="top:82.5%;height:17.5%"><span class="blk__in">Doc searches</span></div>
+                    <div class="blk blk--f" style="top:25.0%;height:12.5%"><span class="blk__in">Focus time</span></div>
+                    <div class="blk blk--f" style="top:75.0%;height:25.0%"><span class="blk__in">Focus time</span></div>
+                  </div>
+                </div>
+                <div class="day day--x">
+                  <p class="day__n">Fri<i class="day__tick"></i></p>
+                  <div class="day__col">
+                    <div class="blk blk--r" style="top:0.0%;height:17.5%"><span class="blk__in">Runbook hunting</span></div>
+                    <div class="blk blk--s" data-theme="build" data-t="0.0" data-h="31.25" style="top:17.5%;height:15.0%"><span class="blk__in">New event-driven app</span></div>
+                    <div class="blk blk--r" style="top:32.5%;height:17.5%"><span class="blk__in">Onboarding Q&amp;A</span></div>
+                    <div class="blk blk--r" style="top:50.0%;height:17.5%"><span class="blk__in">Doc searches</span></div>
+                    <div class="blk blk--s" data-theme="plan" data-t="43.75" data-h="25.0" style="top:67.5%;height:15.0%"><span class="blk__in">Roadmap review</span></div>
+                    <div class="blk blk--r" style="top:82.5%;height:17.5%"><span class="blk__in">Topic ownership</span></div>
+                    <div class="blk blk--f" style="top:31.25%;height:12.5%"><span class="blk__in">Focus time</span></div>
+                    <div class="blk blk--f" style="top:68.75%;height:31.25%"><span class="blk__in">Focus time</span></div>
+                  </div>
+                </div>
+            </div>
+            <div class="mix" aria-hidden="true">
+              <div class="mix__bar">
+                <span class="mix__r" style="width:70.0%"><span class="mix__t">Routine questions</span></span>
+                <span class="mix__s" style="width:30.0%"><span class="mix__t">Strategic work</span></span>
+                <span class="mix__f" style="width:0%"><span class="mix__t">Focus time</span></span>
+              </div>
+            </div>
+            <p class="week__state" aria-hidden="true">
+              <span class="ws ws--before">Mostly answering questions</span>
+              <span class="ws ws--after">Mostly building what's next</span>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ PLATFORM ============ -->
+      <section class="results platform" id="platform">
+        <div class="wrap platform__grid">
+          <div class="platform__intro reveal">
+            <p class="overline overline--on-dark">The Platform</p>
+            <h2 class="h2 h2--light">Built on <em>Solace Agent Mesh</em></h2>
+            <p class="platform__sub">
+              AIOps runs on Solace Agent Mesh, the agent development and runtime platform for enterprises, on top of
+              Solace's real-time event mesh. Every agent inherits the same guardrails and visibility from day one.
+            </p>
+            <p class="platform__more">
+              <a class="btn btn--primary" href="https://solace.com/products/agent-mesh/?utm_source=aiops-landing&utm_medium=web&utm_campaign=aiops-on-sam&utm_content=platform">Explore Solace Agent Mesh</a>
+            </p>
+          </div>
+
+          <div class="stack" role="group" aria-label="The AIOps platform stack: AIOps agents run on Solace Agent Mesh, which runs on Solace's event mesh.">
+            <div class="layer layer--a">
+              <p class="layer__tag">AIOps · agents and workflows</p>
+              <ul class="agents-row">
+                <li class="chip-logo" title="Kubernetes"><img src="./assets/tech/kubernetes.svg" alt="Kubernetes" /></li><li class="chip-logo" title="Postgres"><img src="./assets/tech/postgres.svg" alt="Postgres" /></li><li class="chip-logo" title="Kafka"><img src="./assets/tech/kafka.svg" alt="Kafka" /></li><li class="chip-logo" title="Redis"><img src="./assets/tech/redis.svg" alt="Redis" /></li><li class="chip-logo" title="Elasticsearch"><img src="./assets/tech/elasticsearch.svg" alt="Elasticsearch" /></li><li class="chip-logo" title="Solace"><img src="./assets/tech/solace.svg" alt="Solace" /></li>
+                <li class="chip-pill"><span class="cap__ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h10a4 4 0 0 1 4 4v12H9a4 4 0 0 1-4-4V4z"/><path d="M5 16a4 4 0 0 1 4-4h10"/></svg></span>Runbooks and docs</li>
+              </ul>
+            </div>
+            <span class="stack__link" aria-hidden="true"></span>
+            <div class="layer layer--b">
+              <p class="layer__tag layer__tag--hl">Solace Agent Mesh · the agent platform</p>
+              <ul class="caps">
+              <li class="cap"><span class="cap__ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg></span><b>Security</b><span>Read-only by default</span></li>
+              <li class="cap"><span class="cap__ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h14v16H5z"/><path d="M8.5 9l1.5 1.5L13 7.5M8.5 15l1.5 1.5L13 13.5M15 9.5h2M15 15.5h2"/></svg></span><b>Governance</b><span>Human approval, cited answers</span></li>
+              <li class="cap"><span class="cap__ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></span><b>Observability</b><span>Every step traceable</span></li>
+              <li class="cap"><span class="cap__ic"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v10M9.5 9.7c0-1 1-1.7 2.5-1.7s2.5.7 2.5 1.8c0 2.4-5 1.4-5 3.9 0 1.1 1.1 1.9 2.5 1.9s2.5-.8 2.5-1.8"/></svg></span><b>Cost control</b><span>Spend caps, cheaper workflows</span></li>
+              <li class="cap"><span class="cap__ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg></span><b>Open standards</b><span>MCP and A2A</span></li>
+              <li class="cap"><span class="cap__ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 18a4 4 0 0 1-.5-7.97A5.5 5.5 0 0 1 17.2 9 4.5 4.5 0 0 1 17 18H7z"/></svg></span><b>Any model, any cloud</b><span>No vendor lock-in</span></li>
+              </ul>
+            </div>
+            <span class="stack__link" aria-hidden="true"></span>
+            <div class="layer layer--c">
+              <p class="layer__tag">Solace event mesh · the real-time foundation</p>
+              <ul class="caps caps--3">
+              <li class="cap"><span class="cap__ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h4l2.5-6 4 12 2.5-6H21"/></svg></span><b>Real-time context</b><span>Live state, not stale exports</span></li>
+              <li class="cap"><span class="cap__ic"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="5" cy="12" r="2.2"/><circle cx="19" cy="6" r="2.2"/><circle cx="19" cy="18" r="2.2"/><path d="M7 11l10-4M7 13l10 4"/></svg></span><b>Event-driven</b><span>Alerts and tickets trigger agents</span></li>
+              <li class="cap"><span class="cap__ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3v5M15 3v5M7 8h10v3a5 5 0 0 1-10 0V8zM12 16v5"/></svg></span><b>Ready-made connectors</b><span>Agents and Micro-Integrations</span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ ACCELERATOR / FDE ============ -->
+      <section class="fde section" id="solution">
+        <div class="wrap">
+          <div class="fde__top">
+            <div class="fde__copy reveal">
+              <p class="overline">The AIOps Solution · Delivered by Solace</p>
+              <h2 class="h2">A Forward-Deployed Engineer Builds It <em>Around Your Platform</em></h2>
+              <p class="section__sub">
+                AIOps is delivered as a working solution, built with you rather than handed over. A dedicated
+                <mark class="kw">Solace engineer</mark>, assigned with your subscription, designs it around your
+                Solace estate, wires it into the flows your teams already use, and teaches it what your company knows.
+              </p>
+              <div class="fde__ctas">
+                <a class="btn btn--primary" href="https://solace.com/contact/?utm_source=aiops-landing&utm_medium=web&utm_campaign=aiops-on-sam&utm_content=solution">Get in Touch</a>
+                <a class="btn btn--ghost" href="https://solace.com/services/catalog/aiops-accelerator/?utm_source=aiops-landing&utm_medium=web&utm_campaign=aiops-on-sam&utm_content=solution">See the AIOps Accelerator</a>
+              </div>
+            </div>
+
+            <div class="flow" role="group" aria-label="The AIOps solution connects your messaging channels, ticketing systems, alerts and monitoring, and institutional knowledge into one AIOps solution built by a Solace forward-deployed engineer.">
+              <ul class="flow__in">
+              <li class="fin">
+                <span class="fin__ic"><span class="fin__lg"><img src="./assets/tech/slack.svg" alt="" /></span><span class="fin__lg"><img src="./assets/tech/email.svg" alt="" /></span></span>
+                <b class="fin__t">Messaging channels</b>
+                <span class="fin__d">Answers land where your people already ask.</span>
+              </li>
+              <li class="fin">
+                <span class="fin__ic"><span class="fin__lg"><img src="./assets/tech/servicenow.svg" alt="" /></span><span class="fin__lg"><img src="./assets/tech/jira.svg" alt="" /></span></span>
+                <b class="fin__t">Ticketing systems</b>
+                <span class="fin__d">Incidents trigger agents; findings come back as work notes.</span>
+              </li>
+              <li class="fin">
+                <span class="fin__ic"><span class="fin__lg fin__lg--ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15L6 16zM10 20a2 2 0 0 0 4 0"/></svg></span></span>
+                <b class="fin__t">Alerts and monitoring</b>
+                <span class="fin__d">Your alerting and monitoring stack feeds live context.</span>
+              </li>
+              <li class="fin">
+                <span class="fin__ic"><span class="fin__lg fin__lg--ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h10a4 4 0 0 1 4 4v12H9a4 4 0 0 1-4-4V4z"/><path d="M5 16a4 4 0 0 1 4-4h10"/></svg></span></span>
+                <b class="fin__t">Institutional knowledge</b>
+                <span class="fin__d">Runbooks, onboarding guides and ownership, cited.</span>
+              </li>
+              </ul>
+              <svg class="flow__wires" viewBox="0 0 56 340" preserveAspectRatio="none" aria-hidden="true">
+                <path d="M0 38 H28 V170 H56" /><path d="M0 126 H28 V170" /><path d="M0 214 H28 V170" /><path d="M0 302 H28 V170" />
+              </svg>
+              <div class="flow__hub">
+                <div class="fde-pill"><span class="fde-av">FDE</span>Your forward-deployed engineer</div>
+                <div class="hubcard">
+                  <p class="hubcard__t"><img src="./assets/solace/solace-icon-classic-green.svg" alt="" width="26" height="26" />AIOps, built around you</p>
+                  <ul>
+                    <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>An agent for each system you run</li>
+                    <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Your channels, tickets and alerts wired in</li>
+                    <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Your knowledge base, with citations</li>
+                    <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Reports and workflows tuned to you</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="eng reveal">
+            <p class="eng__h">How the engagement works</p>
+            <ol class="eng__steps">
+            <li class="eng__step">
+              <span class="eng__n">01</span>
+              <h3 class="eng__t">Design</h3>
+              <p>Map your Solace estate, monitoring stack, ticketing systems and goals into an AIOps architecture.</p>
+            </li>
+            <li class="eng__step">
+              <span class="eng__n">02</span>
+              <h3 class="eng__t">Build and connect</h3>
+              <p>Deploy Agent Mesh, connect agents to brokers, logs, metrics and ticketing, and ingest your documents into a cited knowledge base.</p>
+            </li>
+            <li class="eng__step">
+              <span class="eng__n">03</span>
+              <h3 class="eng__t">Enable</h3>
+              <p>Conversational access, automated root-cause analysis, ticket enrichment, health and capacity reports, and training for your team.</p>
+            </li>
+            <li class="eng__step eng__step--on">
+              <span class="eng__n">04</span>
+              <h3 class="eng__t">Improve<span class="eng__tag"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 0 1 14-5.3L20 9M20 4v5h-5M20 12a8 8 0 0 1-14 5.3L4 15M4 20v-5h5"/></svg>Ongoing</span></h3>
+              <p>Your engineer refines prompts, monitors answer quality, optimises token cost and validates accuracy across model changes.</p>
+            </li>
+            </ol>
+          </div>
+
+          <div class="recv reveal">
+            <p class="recv__h">What you receive</p>
+            <ul>
+              <li><span class="recv__ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 8l-4 4 4 4M16 8l4 4-4 4M13.5 5l-3 14"/></svg></span>Solution source code</li>
+              <li><span class="recv__ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4M9 12h6M9 16h6"/></svg></span>Design documentation, specification and architecture diagrams</li>
+              <li><span class="recv__ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c3.5 2 5.5 5.5 5.5 9.5L12 18l-5.5-5.5C6.5 8.5 8.5 5 12 3z"/><circle cx="12" cy="10" r="1.7"/><path d="M8 17l-3 3M16 17l3 3"/></svg></span>Deployment in your environment</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ DEMOS ============ -->
+      <section class="demos section" id="demos" aria-label="Demo videos">
+        <div class="wrap">
+          <header class="demos__head reveal">
+            <div>
+              <p class="overline">Demos · 3 videos</p>
+              <h2 class="h2">See It Run on Real Stacks</h2>
+            </div>
+            <p class="section__sub">Recorded walkthroughs of AIOps on Solace Agent Mesh across different messaging stacks.</p>
+          </header>
+          <ul class="demos__row reveal">
+            <li class="demo" data-youtube="JZW1km_awzo">
+              <button class="demo__poster" type="button" aria-label="Play: AIOps for Solace, IBM MQ, and Kafka with Solace Agent Mesh">
+                <img class="demo__thumb" src="./assets/demos/JZW1km_awzo.jpg" alt="" loading="lazy" width="1280" height="720" />
+                <span class="demo__play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z" /></svg></span>
+              </button>
+              <p class="demo__title">AIOps for Solace, IBM MQ, and Kafka with Solace Agent Mesh</p>
+            </li>
+            <li class="demo" data-youtube="lnaWnSmAqnU">
+              <button class="demo__poster" type="button" aria-label="Play: AIOps for Kafka">
+                <img class="demo__thumb" src="./assets/demos/lnaWnSmAqnU.jpg" alt="" loading="lazy" width="1280" height="720" />
+                <span class="demo__play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z" /></svg></span>
+              </button>
+              <p class="demo__title">AIOps for Kafka</p>
+            </li>
+            <li class="demo" data-youtube="rK_gzbQ8f5A">
+              <button class="demo__poster" type="button" aria-label="Play: AIOps with Solace Agent Mesh">
+                <img class="demo__thumb" src="./assets/demos/rK_gzbQ8f5A.jpg" alt="" loading="lazy" width="1280" height="720" />
+                <span class="demo__play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z" /></svg></span>
+              </button>
+              <p class="demo__title">AIOps with Solace Agent Mesh</p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ============ CTA ============ -->
+      <section class="cta" id="start">
+        <div class="wrap">
+          <div class="cta__panel reveal">
+            <p class="overline overline--on-dark">Where Will You Start?</p>
+            <h2 class="h2 h2--light">AIOps Across Your Whole Stack, Delivered as a <em>Working Solution</em></h2>
+            <p class="cta__lead">
+              From one to two hours of investigation to about five minutes. A Solace forward-deployed engineer builds it
+              around your platform, your tickets and your runbooks.
+              <a href="https://solace.com/agent-mesh-demo/?utm_source=aiops-landing&utm_medium=web&utm_campaign=aiops-on-sam&utm_content=cta">Book a demo</a>
+              to see it against a stack like yours, or
+              <a href="https://solace.com/contact/?utm_source=aiops-landing&utm_medium=web&utm_campaign=aiops-on-sam&utm_content=cta">talk to us about having it built for you</a>.
+            </p>
+            <div class="cta__cards">
+              <a class="ccard ccard--primary" href="https://solace.com/agent-mesh-demo/?utm_source=aiops-landing&utm_medium=web&utm_campaign=aiops-on-sam&utm_content=cta">
+                <span class="ccard__k">Guided</span>
+                <span class="ccard__t">Book an AIOps Demo</span>
+                <span class="ccard__d">See AIOps working against a stack like yours, and how a Solace forward-deployed engineer would build it around your channels, tickets and runbooks.</span>
+                <span class="ccard__go">Book a demo <i>→</i></span>
+              </a>
+              <a class="ccard" href="https://solace.com/products/agent-mesh/download/?utm_source=aiops-landing&utm_medium=web&utm_campaign=aiops-on-sam&utm_content=cta">
+                <span class="ccard__k">Free</span>
+                <span class="ccard__t">Download Agent Mesh</span>
+                <span class="ccard__d">Try the platform AIOps runs on, against your own stack. Free to evaluate, and always free for companies under $25M in revenue.</span>
+                <span class="ccard__go">Download for free <i>→</i></span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ============ FOOTER ============ -->
+    <footer class="footer">
+      <div class="wrap footer__bar">
+        <a href="https://solace.com/" aria-label="Solace home"><img src="./assets/solace/solace-logo-white.png" alt="Solace" height="22" /></a>
+        <span class="footer__tag"><span class="footer__txt">AIOps Solution</span></span>
+        <span class="footer__copy">© 2026 Solace. Scenarios, names and figures shown are illustrative. Customer and product logos are trademarks of their respective owners.</span>
+      </div>
+    </footer>
+
+    <!-- Phone: sticky call-to-action once the hero is behind you -->
+    <div class="sticky-cta" id="stickyCta">
+      <a class="btn btn--ghost" href="https://solace.com/products/agent-mesh/download/?utm_source=aiops-landing&utm_medium=web&utm_campaign=aiops-on-sam&utm_content=sticky">Download free</a>
+      <a class="btn btn--primary" href="https://solace.com/agent-mesh-demo/?utm_source=aiops-landing&utm_medium=web&utm_campaign=aiops-on-sam&utm_content=sticky">Book a demo</a>
+    </div>
+
+    <!-- Scroll progress rail (desktop) -->
+    <nav class="progress" aria-label="Page progress">
+      <span class="progress__track"><span class="progress__fill"></span></span>
+      <a class="progress__dot" href="#hero" data-sec="hero"><span>The Incident</span></a>
+      <a class="progress__dot" href="#watch" data-sec="watch"><span>Watch</span></a>
+      <a class="progress__dot" href="#integrate" data-sec="integrate"><span>Your Tools</span></a>
+      <a class="progress__dot" href="#how" data-sec="how"><span>How It Works</span></a>
+      <a class="progress__dot" href="#bau" data-sec="bau"><span>Your Team</span></a>
+      <a class="progress__dot" href="#platform" data-sec="platform"><span>Platform</span></a>
+      <a class="progress__dot" href="#solution" data-sec="solution"><span>Solution</span></a>
+      <a class="progress__dot" href="#demos" data-sec="demos"><span>Demos</span></a>
+      <a class="progress__dot" href="#start" data-sec="start"><span>Get Started</span></a>
+    </nav>
+
+  </body>
+</html>
